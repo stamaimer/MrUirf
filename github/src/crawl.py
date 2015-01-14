@@ -18,9 +18,9 @@ headers = {'Accept' : 'application/vnd.github.v3+json', 'User-Agent' : 'stamaime
 
 mongo_client = pymongo.MongoClient('127.0.0.1', 27017)
 
-misf = mongo_client.misf
+msif = mongo_client.msif
 
-github_users = misf.github_users
+github_users = msif.github_users
 
 
 
@@ -42,21 +42,21 @@ def set_ratelimit_info(headers):
 
     global ratelimit_reset
 
-    ratelimit_reset = headers['X-RateLimit-Reset']
+    ratelimit_reset = int(headers['X-RateLimit-Reset'])
 
 
 
 def retrieve(url):
 
-    print 'ratelimit_remaining : %s' % ratelimit_remaining
-
-    if '0' == ratelimit_remaining:
-
-        print 'sleeping...'
-
-        time.sleep(ratelimit_reset - time.time())
-
     while 1:
+
+        print 'ratelimit_remaining : %s' % ratelimit_remaining
+
+        if '0' == ratelimit_remaining:
+
+            print 'sleeping %f seconds...' % (ratelimit_reset - time.time())
+
+            time.sleep(ratelimit_reset - time.time())
 
         print 'request : %s' % url
 
@@ -69,6 +69,8 @@ def retrieve(url):
             return response
 
         else:
+
+            set_ratelimit_info(response.headers)
 
             print 'request : %s %d' % (url, response.status_code)
 
@@ -86,15 +88,13 @@ def get_single_user(url):
 
     github_users.insert(user)
 
-
+    print user['login']
 
 def stuff(response):
 
-    headers = response.headers
+    next_url = response.links['next']['url']
 
-    next_url = headers['link'].split(',')[0].split(';')[0][1:-1]
-
-    set_ratelimit_info(headers)
+    set_ratelimit_info(response.headers)
 
     users = response.json()
 
