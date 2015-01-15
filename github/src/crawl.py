@@ -76,19 +76,27 @@ def retrieve(url):
 
             print json.dumps(response.json(), indent = 4)
 
+            if 404 == response.status_code:
+
+                return None
+
 
 
 def get_single_user(url):
 
     response = retrieve(url)
 
-    set_ratelimit_info(response.headers)
+    if response:
 
-    user = response.json()
+        set_ratelimit_info(response.headers)
 
-    github_users.insert(user)
+        user = response.json()
 
-    print user['login']
+        github_users.insert(user)
+
+        print user['login']
+
+
 
 def stuff(response):
 
@@ -110,13 +118,17 @@ def get_all_users():
 
     response = retrieve(endpoint)
 
-    next_url = stuff(response)
+    if response:
+
+        next_url = stuff(response)
 
     while next_url:
 
         response = retrieve(next_url)
 
-        next_url = stuff(response)
+        if response:
+
+            next_url = stuff(response)
 
 
 
