@@ -16,7 +16,7 @@ headers = {'Accept' : 'application/vnd.github.v3+json', 'User-Agent' : 'stamaime
 
 
 
-mongo_client = pymongo.MongoClient('127.0.0.1', 27017)
+mongo_client = pymongo.MongoClient('mongodb://username:pwd@127.0.0.1:27017/msif')
 
 msif = mongo_client.msif
 
