@@ -1,7 +1,7 @@
 import base64
 import requests
 
-BEARER_TOKEN_URL        = "https://api.twitter.com/oauth2/token"
+BEARER_TOKEN_URL = "https://api.twitter.com/oauth2/token"
 
 def get_bearer_token(consumer_key, consumer_secret):
 

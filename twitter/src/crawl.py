@@ -12,13 +12,30 @@ def set_bearer_token():
 
     BEARER_TOKEN = get_bearer_token(CONSUMER_KEY, CONSUMER_SECRET)
 
-set_bearer_token()
+def get_profile(screen_name):
 
-url = "https://api.twitter.com/1.1/statuses/user_timeline.json\
-           ?user_id=Limkokwing_MY"
+    url = "https://api.twitter.com/1.1/users/show.json?screen_name=%s" % screen_name
 
-headers = {'Authorization' : "Bearer %s" % BEARER_TOKEN}
+    headers = {'Authorization' : "Bearer %s" % BEARER_TOKEN}
 
-response = requests.get(url, headers=headers)
+    return requests.get(url, headers=headers).json()
 
-print response.status_code
+def get_tweets(screen_name):
+
+    url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=%s&count=200" % screen_name
+
+    headers = {'Authorization' : "Bearer %s" % BEARER_TOKEN}
+
+    return requests.get(url, headers=headers).json()
+
+if '__main__' == __name__ :
+
+    set_bearer_token()
+
+    profile = get_profile('curmium'),
+
+    tweets = get_tweets('curmium')
+
+    print profile
+
+    print tweets
