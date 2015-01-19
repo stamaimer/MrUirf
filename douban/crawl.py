@@ -8,12 +8,39 @@ from lxml import html
 
 
 
+login_url = 'https://www.douban.com/accounts/login'
+
 homepage_url = 'http://www.douban.com/people/%s/'
 
 follower_url = homepage_url + 'rev_contacts'
 
 following_url = homepage_url + 'contacts'
 
+
+
+session = requests.Session()
+
+
+
+form_email = 'stamaimer@gmail.com'
+
+form_password = 'bl4u-awsd'
+
+
+
+def login():
+
+    payload = {'login' : '登录',
+               'source' : 'None',
+               'form_email' : form_email, 
+               'form_password' : form_password,
+               }
+
+    response = session.post(login_url, data = payload)
+
+    print response.status_code
+
+    print response.text.encode('utf-8')
 
 
 def retrieve(url):
@@ -24,7 +51,7 @@ def retrieve(url):
 
         print 'request : %s' % url
 
-        response = requests.get(url)
+        response = session.get(url, allow_redirects = False)
 
         if 200 == response.status_code:
 
@@ -36,11 +63,9 @@ def retrieve(url):
 
             print 'request : %s %d' % (url, response.status_code)
 
-            print json.dumps(response.json(), indent = 4)
 
 
-
-def parse(tree, xpath, regex):
+def parse(tree, xpath, regex = '.*'):
 
     nodes = tree.xpath(xpath)
 
@@ -69,7 +94,7 @@ def parse(tree, xpath, regex):
 
 
 
-def crawl_people(user_id):
+def crawl(user_id):
 
     response = retrieve(homepage_url % user_id)
 
@@ -85,7 +110,7 @@ def crawl_people(user_id):
 
     for i in range(int(following_count)):
 
-        following = parse(tree, "//*[@id='content']/div/div[1]/dl[%d]/dd/a/text()" % (i + 1), '.*')
+        following = parse(tree, "//*[@id='content']/div/div[1]/dl[%d]/dd/a/text()" % (i + 1))
 
         print following
 
@@ -101,4 +126,6 @@ if __name__ == '__main__':
 
     user_id = args.user_id
 
-    crawl_people(user_id)
+    login()
+
+    #crawl(user_id)
