@@ -28,8 +28,6 @@ def get_bearer_token(consumer_key, consumer_secret):
 
     response = requests.post(BEARER_TOKEN_URL, data=payload, headers=headers)
 
-    print response.request.data
-
     bearer_token = response.json()['access_token']
 
     return bearer_token
