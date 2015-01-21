@@ -146,4 +146,16 @@ def get_all_users(url):
 
 if __name__ == '__main__':
 
-    get_all_users(endpoint)
+    argument_parser = argparse.ArgumentParser(description='')
+
+    argument_parser.add_argument('-u', '--url', help='')
+
+    args = argument_parser.parse_args()
+
+    if args.url:
+
+        get_all_users(url)
+
+    else:
+
+        get_all_users(endpoint)
