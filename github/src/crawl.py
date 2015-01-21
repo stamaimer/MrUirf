@@ -50,35 +50,47 @@ def retrieve(url):
 
     while 1:
 
-        print 'ratelimit_remaining : %s' % ratelimit_remaining
+        try:
 
-        if '0' == ratelimit_remaining:
+            print 'ratelimit_remaining : %s' % ratelimit_remaining
 
-            print 'sleeping %f seconds...' % (ratelimit_reset - time.time())
+            if '0' == ratelimit_remaining:
 
-            time.sleep(ratelimit_reset - time.time())
+                print 'sleeping %f seconds...' % (ratelimit_reset - time.time())
 
-        print 'request : %s' % url
+                time.sleep(ratelimit_reset - time.time())
 
-        response = requests.get(url, params = {'client_id' : client_id, 'client_secret' : client_secret}, headers = headers)
+            print 'request : %s' % url
 
-        if 200 == response.status_code:
+            response = requests.get(url, params = {'client_id' : client_id, 'client_secret' : client_secret}, headers = headers)
 
-            print 'request : %s success' % url
+            if 200 == response.status_code:
 
-            return response
+                print 'request : %s success' % url
 
-        else:
+                return response
 
-            set_ratelimit_info(response.headers)
+            else:
 
-            print 'request : %s %d' % (url, response.status_code)
+                set_ratelimit_info(response.headers)
 
-            print json.dumps(response.json(), indent = 4)
+                print 'request : %s %d' % (url, response.status_code)
 
-            if 404 == response.status_code:
+                print json.dumps(response.json(), indent = 4)
 
-                return None
+                if 404 == response.status_code:
+
+                    return None
+
+        except requests.exceptions.ConnectionError:
+
+            print 'requests.exceptions.ConnectionError'
+
+            last_insert_id = github_users.find().limit(1).sort([('$natural', -1)])[0]['id']
+
+            url = endpoint + '?since=%d' % last_insert_id
+
+            get_all_users(url)
 
 
 
@@ -114,9 +126,9 @@ def stuff(response):
 
 
 
-def get_all_users():
+def get_all_users(url):
 
-    response = retrieve(endpoint)
+    response = retrieve(url)
 
     if response:
 
@@ -134,4 +146,4 @@ def get_all_users():
 
 if __name__ == '__main__':
 
-    get_all_users()
+    get_all_users(endpoint)
