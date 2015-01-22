@@ -82,25 +82,25 @@ def gain_friends_id(screen_name):
 
     params = "?screen_name=%s" % screen_name
 
-    return gain_data("get", "friends_id",	params, "application_only")
+    return gain_data("get", "friends_id",	params, "application_only")["ids"]
 
 def gain_friends_list(screen_name):
 
     params = "?screen_name=%s" % screen_name
 
-    return gain_data("get", "friends_list",	params, "application_only")
+    return gain_data("get", "friends_list",	params, "application_only")["users"]
 
 def gain_followers_id(screen_name):
 
     params = "?screen_name=%s" % screen_name
 
-    return gain_data("get", "followers_id",	params, "application_only")
+    return gain_data("get", "followers_id",	params, "application_only")["ids"]
 
 def gain_followers_list(screen_name):
 
     params = "?screen_name=%s" % screen_name
 
-    return gain_data("get", "followers_list",	params, "application_only")
+    return gain_data("get", "followers_list",	params, "application_only")["users"]
 
 def gain_retweeters(tweet_id):
 
@@ -114,6 +114,38 @@ def gain_retweets(tweet_id):
 
     return gain_data("get", "retweets", 	rest_url,"application_only")
 
+def compare_dict(dict_1, dict_2):
+
+    if dict_1.keys() != dict_2.keys() : return None
+
+    for key in dict_1.keys() :
+
+        if dict_1[key] != dict_2[key] :
+
+            print ", ".join((key, str(dict_1[key]), str(dict_2[key])))
+
+def dicts_filter(dicts, list):
+
+    result = []
+
+    for item in dicts :
+
+        tmp = {}
+
+        for key in list : tmp[key] = item[key]
+
+        result.append(tmp)
+
+    return result
+
+def user_parser(screen_name):
+
+    tweets 	= gain_tweets(screen_name)
+
+    followings 	= gain_friends_id(screen_name)
+
+    followers	= gain_followers_id(screen_name)
+
 if '__main__' == __name__ :
 
     set_bearer_token()
@@ -122,3 +154,19 @@ if '__main__' == __name__ :
     #	screen_name = 'curmium'
     #	user_id = '2820122167'
     #	tweet_id = '557216428772712448'
+
+    user_parser('curmium')
+
+    tweets = gain_tweets('curmium')
+
+    for tweet in tweets:
+
+       print tweet
+
+    compare_dict(tweets[0], tweets[4])
+
+#    keys =  tweets[0].keys()
+
+#    for item in keys:
+
+#	print item
