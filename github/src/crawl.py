@@ -24,7 +24,7 @@ github_users = msif.github_users
 
 
 
-endpoint = root_endpoint + '/users'
+endpoint = root_endpoint + '/users?since=%d'
 
 
 
@@ -148,14 +148,14 @@ if __name__ == '__main__':
 
     argument_parser = argparse.ArgumentParser(description='')
 
-    argument_parser.add_argument('-u', '--url', help='')
+    argument_parser.add_argument('-s', '--since', help='', type=int)
 
     args = argument_parser.parse_args()
 
-    if args.url:
+    if args.since:
 
-        get_all_users(args.url)
+        get_all_users(endpoint % args.since)
 
     else:
 
-        get_all_users(endpoint)
+        get_all_users(endpoint % 0)
