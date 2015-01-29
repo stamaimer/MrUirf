@@ -4,37 +4,22 @@ import argparse
 import json
 import time
 
-
-
-ids = []
-
-
+users = []
 
 nodes = []
 links = []
 
-
-
 client_id = '1c6409e7a4219e6dea66'
-
 client_secret = '44636a9d327c1e47aba28a9b50a22b39ac4caeb4'
 
 root_endpoint = 'https://api.github.com'
-
-headers = {'Accept' : 'application/vnd.github.v3+json', 'User-Agent' : 'stamaimer'}
-
-
-
 followers_endpoint = root_endpoint + '/users/%s/followers'
 following_endpoint = root_endpoint + '/users/%s/following'
 
-
+headers = {'Accept' : 'application/vnd.github.v3+json', 'User-Agent' : 'stamaimer'}
 
 ratelimit_remaining = '5000'
-
 ratelimit_reset = time.time()
-
-
 
 def set_ratelimit_info(headers):
 
@@ -45,8 +30,6 @@ def set_ratelimit_info(headers):
     global ratelimit_reset
 
     ratelimit_reset = int(headers['X-RateLimit-Reset'])
-
-
 
 def retrieve(url):
 
@@ -90,55 +73,63 @@ def retrieve(url):
 
 
 
-def get_followers(id):
+def get_followers(user):
 
-    response = retrieve(followers_endpoint % id['id'])
+    name = user['name']
 
-    set_ratelimit_info(response.headers)
+    depth = user['depth']
 
-    if response:
-
-        users = response.json()
-
-        for user in users:
-
-            if user['login'] not in [ id['id'] for id in ids ]:
-
-                ids.append({'id':user['login'], 'depth':id['depth'] + 1})
-
-                nodes.append({'name':user['login'], 'group':0})
-
-                links.append({'source':nodes.index({'name':id['id'], 'group':0}), 'target':nodes.index({'name':user['login'], 'group':0})})
-
-            else:
-
-                links.append({'source':nodes.index({'name':id['id'], 'group':0}), 'target':nodes.index({'name':user['login'], 'group':0})})
-
-
-
-def get_following(id):
-
-    response = retrieve(following_endpoint % id['id'])
+    response = retrieve(followers_endpoint % name)
 
     set_ratelimit_info(response.headers)
 
     if response:
 
-        users = response.json()
+        followers = response.json()
 
-        for user in users:
+        for user in followers:
 
-            if user['login'] not in [ id['id'] for id in ids ]:
+            if user['login'] not in [user['name'] for user in users]:
 
-                ids.append({'id':user['login'], 'depth':id['depth'] + 1})
+                users.append({'name':user['login'], 'depth':depth + 1})
 
-                nodes.append({'name':user['login'], 'group':0})
+                nodes.append({'name':user['login'], 'group':depth + 1})
 
-                links.append({'source':nodes.index({'name':user['login'], 'group':0}), 'target':nodes.index({'name':id['id'], 'group':0})})
+                links.append({'source':nodes.index({'name':name, 'group':depth}), 'target':nodes.index({'name':user['login'], 'group':depth + 1})})
 
             else:
 
-                links.append({'source':nodes.index({'name':user['login'], 'group':0}), 'target':nodes.index({'name':id['id'], 'group':0})})
+                links.append({'source':nodes.index({'name':name, 'group':depth}), 'target':nodes.index({'name':user['login'], 'group':depth + 1})})
+
+
+
+def get_following(user):
+
+    name = user['name']
+
+    depth = user['depth']
+
+    response = retrieve(following_endpoint % name)
+
+    set_ratelimit_info(response.headers)
+
+    if response:
+
+        following = response.json()
+
+        for user in following:
+
+            if user['login'] not in [user['name'] for user in users]:
+
+                users.append({'name':user['login'], 'depth':depth + 1})
+
+                nodes.append({'name':user['login'], 'group':depth + 1})
+
+                links.append({'source':nodes.index({'name':user['login'], 'group':depth + 1}), 'target':nodes.index({'name':name, 'group':depth})})
+
+            else:
+
+                links.append({'source':nodes.index({'name':user['login'], 'group':depth + 1}), 'target':nodes.index({'name':name, 'group':depth})})
 
 
 
@@ -146,32 +137,38 @@ if __name__ == '__main__':
 
     argument_parser = argparse.ArgumentParser(description='')
 
-    argument_parser.add_argument('id', help='')
+    argument_parser.add_argument('login', help='')
 
-    argument_parser.add_argument('depth', help='')
+    argument_parser.add_argument('depth', help='', type=int)
 
     args = argument_parser.parse_args()
 
-    id = args.id
+    sed_login = args.login
 
     max_depth = args.depth
 
-    ids.append({'id':id, 'depth':0})
+    users.append({'name':sed_login, 'depth':0})
 
-    nodes.append({'name':id, 'group':0})
+    nodes.append({'name':sed_login, 'group':0})
 
-    for id in ids:
+    for user in users:
 
-        if id['depth'] > max_depth:
+        if user['depth'] > max_depth:
+
+            print 'generate graph ...'
 
             graph = {}
 
             graph['nodes'] = nodes
             graph['links'] = links
 
-            print json.dumps(graph, indent=4)
+            with open('graph.json', 'w') as outfile:
+
+                json.dump(graph, outfile)
+
+            break
 
         else:
 
-            get_followers(id)
-            get_following(id)
+            get_followers(user)
+            get_following(user)
