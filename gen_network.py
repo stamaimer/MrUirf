@@ -71,7 +71,13 @@ def retrieve(url):
 
             print 'requests.exceptions.ConnectionError'
 
+def find_by_name(name):
 
+    for node in nodes:
+
+        if name == node['name']:
+
+            return nodes.index(node)
 
 def get_followers(task):
 
@@ -99,9 +105,7 @@ def get_followers(task):
 
             else:
 
-                links.append({'source':nodes.index({'name':name, 'group':depth}), 'target':nodes.index({'name':user['login'], 'group':depth + 1})})
-
-
+                links.append({'source':nodes.index({'name':name, 'group':depth}), 'target':find_by_name(user['login'])})
 
 def get_following(task):
 
@@ -129,9 +133,7 @@ def get_following(task):
 
             else:
 
-                links.append({'source':nodes.index({'name':user['login'], 'group':depth + 1}), 'target':nodes.index({'name':name, 'group':depth})})
-
-
+                links.append({'source':find_by_name(user['login']), 'target':nodes.index({'name':name, 'group':depth})})
 
 if __name__ == '__main__':
 
