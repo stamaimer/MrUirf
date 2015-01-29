@@ -4,6 +4,8 @@ import argparse
 import json
 import time
 
+from networkx.readwrite import json_graph
+
 tasks = []
 
 nodes = []
@@ -159,14 +161,24 @@ if __name__ == '__main__':
 
             print 'generate graph ...'
 
-            graph = {}
+            data = {}
 
-            graph['nodes'] = nodes
-            graph['links'] = links
+            data['nodes'] = nodes
+            data['links'] = links
 
             with open('graph.json', 'w') as outfile:
 
-                json.dump(graph, outfile)
+                json.dump(data, outfile)
+
+            graph = json_graph.node_link_graph(data, directed=True)
+
+            directed_graph = networkx.DiGraph(graph)
+
+            in_degress = directed_graph.in_degree()
+
+            for item in in_degress.items():
+
+                print item
 
             break
 
