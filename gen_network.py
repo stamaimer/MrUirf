@@ -4,7 +4,7 @@ import argparse
 import json
 import time
 
-users = []
+tasks = []
 
 nodes = []
 links = []
@@ -73,11 +73,11 @@ def retrieve(url):
 
 
 
-def get_followers(user):
+def get_followers(task):
 
-    name = user['name']
+    name = task['name']
 
-    depth = user['depth']
+    depth = task['depth']
 
     response = retrieve(followers_endpoint % name)
 
@@ -89,9 +89,9 @@ def get_followers(user):
 
         for user in followers:
 
-            if user['login'] not in [user['name'] for user in users]:
+            if user['login'] not in [task['name'] for task in tasks]:
 
-                users.append({'name':user['login'], 'depth':depth + 1})
+                tasks.append({'name':user['login'], 'depth':depth + 1})
 
                 nodes.append({'name':user['login'], 'group':depth + 1})
 
@@ -103,11 +103,11 @@ def get_followers(user):
 
 
 
-def get_following(user):
+def get_following(task):
 
-    name = user['name']
+    name = task['name']
 
-    depth = user['depth']
+    depth = task['depth']
 
     response = retrieve(following_endpoint % name)
 
@@ -119,9 +119,9 @@ def get_following(user):
 
         for user in following:
 
-            if user['login'] not in [user['name'] for user in users]:
+            if user['login'] not in [task['name'] for task in tasks]:
 
-                users.append({'name':user['login'], 'depth':depth + 1})
+                tasks.append({'name':user['login'], 'depth':depth + 1})
 
                 nodes.append({'name':user['login'], 'group':depth + 1})
 
@@ -147,13 +147,13 @@ if __name__ == '__main__':
 
     max_depth = args.depth
 
-    users.append({'name':sed_login, 'depth':0})
+    tasks.append({'name':sed_login, 'depth':0})
 
     nodes.append({'name':sed_login, 'group':0})
 
-    for user in users:
+    for task in tasks:
 
-        if user['depth'] > max_depth:
+        if task['depth'] > max_depth:
 
             print 'generate graph ...'
 
@@ -170,5 +170,5 @@ if __name__ == '__main__':
 
         else:
 
-            get_followers(user)
-            get_following(user)
+            get_followers(task)
+            get_following(task)
