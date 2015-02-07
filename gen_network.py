@@ -170,11 +170,9 @@ if __name__ == '__main__':
 
                 json.dump(data, outfile)
 
-            graph = json_graph.node_link_graph(data, directed=True)
+            graph = json_graph.node_link_graph(data, directed=True, multigraph=False)
 
-            directed_graph = networkx.DiGraph(graph)
-
-            in_degress = directed_graph.in_degree()
+            in_degress = graph.in_degree()
 
             for item in in_degress.items():
 
