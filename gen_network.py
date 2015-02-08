@@ -176,9 +176,9 @@ if __name__ == '__main__':
 
             out_degrees = graph.out_degree()
 
-            for in_degree, out_degree in zip(in_degress.items(), out_degrees.items()):
+            for in_degree, out_degree in zip(in_degrees.items(), out_degrees.items()):
 
-                if (in_degree[1] == 1 and out_degree[1] == 0) or (in_degree[1] == 0 and out_degree[1] == 1):
+                if (in_degree[1] == 1 and out_degree[1] == 0) or (in_degree[1] == 0):
 
                     pass
 
