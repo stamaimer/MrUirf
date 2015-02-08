@@ -172,11 +172,19 @@ if __name__ == '__main__':
 
             graph = json_graph.node_link_graph(data, directed=True, multigraph=False)
 
-            in_degress = graph.in_degree()
+            in_degrees = graph.in_degree()
 
-            for item in in_degress.items():
+            out_degrees = graph.out_degree()
 
-                print item
+            for in_degree, out_degree in zip(in_degress.items(), out_degrees.items()):
+
+                if (in_degree[1] == 1 and out_degree[1] == 0) or (in_degree[1] == 0 and out_degree[1] == 1):
+
+                    pass
+
+                else:
+
+                    print in_degree, out_degree
 
             break
 
