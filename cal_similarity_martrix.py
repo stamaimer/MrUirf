@@ -24,3 +24,5 @@ if __name__ == '__main__':
         g = numpy.reshape(numpy.random.random_integers(0, 1, size=100), (10, 10))
 
         t = numpy.reshape(numpy.random.random_integers(0, 1, size=100), (10, 10))
+
+        s = numpy.ones((10, 10))
