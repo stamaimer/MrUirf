@@ -1,6 +1,7 @@
 import requests
 import networkx
 import argparse
+import numpy
 import json
 import time
 
@@ -161,6 +162,16 @@ if __name__ == '__main__':
 
             print 'generate graph ...'
 
+            for i in range(len(nodes)):
+
+                if nodes[i]['group'] == 3:
+
+                    for link in links:
+
+                        if link['target'] == i or link['source'] == i:
+
+                            links.remove(link)
+
             data = {}
 
             data['nodes'] = nodes
@@ -170,21 +181,11 @@ if __name__ == '__main__':
 
                 json.dump(data, outfile)
 
-            graph = json_graph.node_link_graph(data, directed=True, multigraph=False)
+#            graph = json_graph.node_link_graph(data, directed=True, multigraph=False)
 
-            in_degrees = graph.in_degree()
+#            numpy.set_printoptions(threshold='nan')
 
-            out_degrees = graph.out_degree()
-
-            for in_degree, out_degree in zip(in_degrees.items(), out_degrees.items()):
-
-                if (in_degree[1] == 1 and out_degree[1] == 0) or (in_degree[1] == 0):
-
-                    pass
-
-                else:
-
-                    print in_degree, out_degree
+#            print networkx.to_numpy_matrix(graph)
 
             break
 
