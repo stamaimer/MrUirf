@@ -103,11 +103,11 @@ def get_followers(task):
 
                 nodes.append({'name':user['login'], 'group':depth + 1})
 
-                links.append({'source':nodes.index({'name':name, 'group':depth}), 'target':nodes.index({'name':user['login'], 'group':depth + 1})})
+                links.append({'source':nodes.index({'name':user['login'], 'group':depth + 1}), 'target':nodes.index({'name':name, 'group':depth})})
 
             else:
 
-                links.append({'source':nodes.index({'name':name, 'group':depth}), 'target':find_by_name(user['login'])})
+                links.append({'source':find_by_name(user['login']), 'target':nodes.index({'name':name, 'group':depth})})
 
 def get_following(task):
 
@@ -131,11 +131,11 @@ def get_following(task):
 
                 nodes.append({'name':user['login'], 'group':depth + 1})
 
-                links.append({'source':nodes.index({'name':user['login'], 'group':depth + 1}), 'target':nodes.index({'name':name, 'group':depth})})
+                links.append({'source':nodes.index({'name':name, 'group':depth}), 'target':nodes.index({'name':user['login'], 'group':depth + 1})})
 
             else:
 
-                links.append({'source':find_by_name(user['login']), 'target':nodes.index({'name':name, 'group':depth})})
+                links.append({'source':nodes.index({'name':name, 'group':depth}), 'target':find_by_name(user['login'])})
 
 if __name__ == '__main__':
 
