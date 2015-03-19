@@ -162,15 +162,23 @@ if __name__ == '__main__':
 
             print 'generate graph ...'
 
+            index = []
+
             for i in range(len(nodes)):
 
-                if nodes[i]['group'] == 3:
+                if nodes[i]['group'] == 2:
+
+                    index.append(i)
 
                     for link in links:
 
                         if link['target'] == i or link['source'] == i:
 
                             links.remove(link)
+
+            for i in index:
+
+                nodes.remove(nodes[i])
 
             data = {}
 
