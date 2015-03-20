@@ -5,7 +5,7 @@ import requests
 CONSUMER_KEY = "6s35FXsv4jD2ar0ZlDYjnt7jZ"
 CONSUMER_SECRET = "oFAlNZr6JGHwCdYGrYNfS3plUSdxg8UlEP2RtiKg59uSYahWRk"
 
-ENDPOINT = "https://api.twitter.com/oauth2/token"
+BEARER_TOKEN_ENDPOINT = "https://api.twitter.com/oauth2/token"
 
 def urlencode(str):
 
@@ -23,17 +23,23 @@ def get_bearer_token(consumer_key=CONSUMER_KEY, consumer_secret=CONSUMER_SECRET)
 
     headers, payload = {}, {}
 
-    headers["Authorization"] = ' '.join(["Basic", b64encoded_bearer_token_credentials])
+    headers["Authorization"] = "Basic " + b64encoded_bearer_token_credentials
 
     headers["Content-Type"] = "application/x-www-form-urlencoded;charset=UTF-8"
 
     payload["grant_type"] = "client_credentials"
 
-    response = requests.post(ENDPOINT, headers=headers, data=payload)
+    response = requests.post(BEARER_TOKEN_ENDPOINT, headers=headers, data=payload)
 
-    bearer_access_token = response.json()["access_token"]
+    if 200 == response.status_code:
 
-    return bearer_access_token
+        return response.json()["access_token"]
+
+    else:
+
+        print response.status_code, response.json()
+
+        return None
 
 if __name__ == "__main__":
 
