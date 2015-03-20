@@ -162,13 +162,13 @@ if __name__ == '__main__':
 
             print 'generate graph ...'
 
-            index = []
+            tmp = []
 
             for i in range(len(nodes)):
 
-                if nodes[i]['group'] == 2:
+                if nodes[i]['group'] == max_depth + 1:
 
-                    index.append(i)
+                    tmp.append(nodes[i])
 
                     for link in links:
 
@@ -176,9 +176,9 @@ if __name__ == '__main__':
 
                             links.remove(link)
 
-            for i in index:
+            for item in tmp:
 
-                nodes.remove(nodes[i])
+                nodes.remove(item)
 
             data = {}
 
