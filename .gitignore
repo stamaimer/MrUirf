@@ -1,2 +1,3 @@
 *.pyc
 *.json
+.DS_Store
