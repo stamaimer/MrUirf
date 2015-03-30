@@ -182,6 +182,12 @@ if __name__ == '__main__':
 
             data = {}
 
+            for link in links:
+
+                if {"source":link["target"], "target":link["source"]} not in links:
+                    
+                    links.remove(link)
+
             data['nodes'] = nodes
             data['links'] = links
 
