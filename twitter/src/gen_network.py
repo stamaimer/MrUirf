@@ -156,7 +156,7 @@ def get_following(task):
             nodes.append({"name":user["screen_name"], "group":depth + 1})
 
             links.append({"source":nodes.index({"name":name, "group":depth}),
-                          "target":nodes.index({"name":user["screen_name"], "group":depth} + 1)})
+                          "target":nodes.index({"name":user["screen_name"], "group":depth + 1})})
 
         else:
 
