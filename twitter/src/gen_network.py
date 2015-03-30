@@ -29,11 +29,11 @@ def set_ratelimit_info(headers):
 
     global ratelimit_remaining
 
-    ratelimit_remaining = headers['X-RateLimit-Remaining']
+    ratelimit_remaining = headers['X-Rate-Limit-Remaining']
 
     global ratelimit_reset
 
-    ratelimit_reset = int(headers['X-RateLimit-Reset'])
+    ratelimit_reset = int(headers['X-Rate-Limit-Reset'])
 
 def retrieve(url, params):
 
