@@ -19,7 +19,8 @@ CONSUMER_SECRET = "oFAlNZr6JGHwCdYGrYNfS3plUSdxg8UlEP2RtiKg59uSYahWRk"
 FOLLOWING_URL = "https://api.twitter.com/1.1/friends/list.json"
 FOLLOWERS_URL = "https://api.twitter.com/1.1/followers/list.json"
 
-headers = {"Authorization" : 'Bearer ' + oauth.get_bearer_token()}
+headers = {"Authorization" : 'Bearer ' + oauth.get_bearer_token(CONSUMER_KEY,
+                                                                CONSUMER_SECRET)}
 
 ratelimit_remaining = '30'
 ratelimit_reset = time.time()
@@ -73,14 +74,6 @@ def retrieve(url, params):
         except requests.exceptions.ConnectionError:
 
             print 'requests.exceptions.ConnectionError'
-
-def urlencode(str):
-
-    return urllib.quote(str, "")
-
-def b64encode(str):
-
-    return base64.b64encode(str)
 
 def find_by_name(name):
 

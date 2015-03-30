@@ -4,6 +4,14 @@ import requests
 
 BEARER_TOKEN_URL = "https://api.twitter.com/oauth2/token"
 
+def urlencode(str):
+
+    return urllib.quote(str, "")
+
+def b64encode(str):
+
+    return base64.b64encode(str)
+
 def get_bearer_token(consumer_key, consumer_secret):
 
     bearer_token_credentials = ':'.join([urlencode(consumer_key), urlencode(consumer_secret)])
