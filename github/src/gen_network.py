@@ -4,7 +4,7 @@ import argparse
 import numpy
 import json
 import time
-
+import matplotlib.pyplot as plt
 from networkx.readwrite import json_graph
 
 tasks = []
@@ -178,21 +178,17 @@ if __name__ == '__main__':
 
                 if 0 in graph.nodes():
 
-                    nodes = [node for node in nodes if nodes.index(node) in graph.nodes()]
+                    nodes = [node["name"] for node in nodes if nodes.index(node) in graph.nodes()]
 
-                    links = [{"source":link[0], "target":link[1]} for link in networkx.to_edgelist(graph)]
+                    matrix =  networkx.to_numpy_matrix(graph)
 
-                    print networkx.to_numpy_matrix(graph)
+                    pos = networkx.spring_layout(graph)
 
-            data = {}
+                    colors = range(20)
 
-            data['nodes'] = nodes
-            data['links'] = links
+                    networkx.draw(graph, pos, node_color='#A0CBE2', edge_color=colors, width=4, edge_cmap=plt.cm.Blues, with_labels=False)
 
-            with open('graph.json', 'w') as outfile:
-
-                json.dump(data, outfile)
-
+                    plt.savefig("edge_colormap.png")
             break
 
         else:
