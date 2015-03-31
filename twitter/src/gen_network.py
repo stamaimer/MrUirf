@@ -187,23 +187,11 @@ if __name__ == "__main__":
 
             print 'generate graph ...'
 
-            tmp = []
+            for link in links[:]:
 
-            for i in range(len(nodes)):
+                if {"source":link["target"], "target":link["source"]} not in links:
 
-                if nodes[i]['group'] == max_depth + 1:
-
-                    tmp.append(nodes[i])
-
-                    for link in links:
-
-                        if link['target'] == i or link['source'] == i:
-
-                            links.remove(link)
-
-            for item in tmp:
-
-                nodes.remove(item)
+                    links.remove(link)
 
             data = {}
 
