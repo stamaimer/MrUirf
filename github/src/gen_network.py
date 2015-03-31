@@ -162,37 +162,13 @@ if __name__ == '__main__':
 
             print 'generate graph ...'
 
-#            tmp = []
-
-#            for i in range(len(nodes)):
-
-#                if nodes[i]['group'] == max_depth + 1:
-
-#                    tmp.append(nodes[i])
-
-#                    for link in links:
-
-#                        if link['target'] == i or link['source'] == i:
-
-#                            links.remove(link)
-
-#            for item in tmp:
-
-#                nodes.remove(item)
-
-            data = {}
-
-            tmp_links = []
-
-            for link in links:
+            for link in links[:]:
 
                 if {"source":link["target"], "target":link["source"]} not in links:
 
-                    tmp_links.append(link)
+                    links.remove(link)
 
-            for link in tmp_links:
-
-                links.remove(link)
+            data = {}
 
             data['nodes'] = nodes
             data['links'] = links
