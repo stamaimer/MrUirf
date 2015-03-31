@@ -168,6 +168,22 @@ if __name__ == '__main__':
 
                     links.remove(link)
 
+            graph = json_graph.node_link_graph({"nodes":nodes, "links":links}, directed=False, multigraph=False)
+
+            graphs = list(networkx.connected_component_subgraphs(graph))
+
+            numpy.set_printoptions(threshold='nan')
+
+            for graph in graphs:
+
+                if 0 in graph.nodes():
+
+                    nodes = [node for node in nodes if nodes.index(node) in graph.nodes()]
+
+                    links = [{"source":link[0], "target":link[1]} for link in networkx.to_edgelist(graph)]
+
+                    print networkx.to_numpy_matrix(graph)
+
             data = {}
 
             data['nodes'] = nodes
@@ -176,12 +192,6 @@ if __name__ == '__main__':
             with open('graph.json', 'w') as outfile:
 
                 json.dump(data, outfile)
-
-#            graph = json_graph.node_link_graph(data, directed=True, multigraph=False)
-
-#            numpy.set_printoptions(threshold='nan')
-
-#            print networkx.to_numpy_matrix(graph)
 
             break
 
