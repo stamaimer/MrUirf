@@ -193,20 +193,25 @@ if __name__ == "__main__":
 
                     links.remove(link)
 
-            data = {}
+            graph = json_graph.node_link_graph({"nodes":nodes, "links":links}, directed=False, multigraph=False)
 
-            data['nodes'] = nodes
-            data['links'] = links
-
-            with open('graph.json', 'w') as outfile:
-
-                json.dump(data, outfile)
-
-            graph = json_graph.node_link_graph(data, directed=True, multigraph=False)
+            graphs = list(networkx.connected_component_subgraphs(graph))
 
             numpy.set_printoptions(threshold='nan')
 
-            print networkx.to_numpy_matrix(graph)
+            for graph in graphs:
+
+                if 0 in graph.nodes():
+
+                    nodes = [node["name"] for node in nodes if nodes.index(node) in graph.nodes()]
+
+                    matrix =  networkx.to_numpy_matrix(graph)
+
+                    pos = networkx.spring_layout(graph)
+
+                    networkx.draw(graph, pos, node_color='#A0CBE2', width=4, edge_cmap=plt.cm.Blues, with_labels=True)
+
+                    plt.savefig("twitter.png")
 
             break;
 
