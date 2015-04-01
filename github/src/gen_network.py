@@ -186,7 +186,7 @@ if __name__ == '__main__':
 
                     colors = range(20)
 
-                    networkx.draw(graph, pos, node_color='#A0CBE2', edge_color=colors, width=4, edge_cmap=plt.cm.Blues, with_labels=False)
+                    networkx.draw(graph, pos, node_color='#A0CBE2', width=4, edge_cmap=plt.cm.Blues, with_labels=True)
 
                     plt.savefig("edge_colormap.png")
             break
