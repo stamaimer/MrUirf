@@ -1,3 +1,4 @@
+import json
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -111,6 +112,12 @@ def gen_network(depth = 2, start_peel = default_start()):
         for p in [persons[k] for k in persons.keys() if persons[k]['group'] == str(group)]:
             exec_peel(driver, p)
 
+    driver.close()
+    return graph
+
 if __name__ == "__main__":
-    gen_network()
-    print graph
+    f_network = gen_network()
+
+    f = file('graph.json', 'w+')
+    json.dump(f_network, f)
+    f.close()
