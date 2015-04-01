@@ -184,11 +184,9 @@ if __name__ == '__main__':
 
                     pos = networkx.spring_layout(graph)
 
-                    colors = range(20)
-
                     networkx.draw(graph, pos, node_color='#A0CBE2', width=4, edge_cmap=plt.cm.Blues, with_labels=True)
 
-                    plt.savefig("edge_colormap.png")
+                    plt.savefig("github.png")
             break
 
         else:
