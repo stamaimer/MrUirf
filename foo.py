@@ -7,7 +7,11 @@ import json
 import matplotlib.pyplot as plt
 from networkx.readwrite import json_graph
 
-def foo(data, name):
+def foo(path, name):
+
+    with open(path) as source:
+
+        data = json.load(source)
 
     nodes = data["nodes"]
     links = data["links"]
@@ -22,7 +26,7 @@ def foo(data, name):
 
     graphs = list(networkx.connected_component_subgraphs(graph))
 
-    numpy.set_printoptions(threshold='nan')
+    numpy.set_printoptions(threshold="nan")
 
     for graph in graphs:
 
@@ -30,25 +34,23 @@ def foo(data, name):
 
             nodes = [node["name"] for node in nodes if nodes.index(node) in graph.nodes()]
 
-            for node in nodes:
-
-                print node
-
             matrix =  networkx.to_numpy_matrix(graph)
 
             pos = networkx.spring_layout(graph, iterations=200)
 
-            networkx.draw(graph, pos, node_color='#A0CBE2', edge_cmap=plt.cm.Blues, with_labels=True)
+            networkx.draw(graph, pos, node_color="#A0CBE2", edge_cmap=plt.cm.Blues, with_labels=True)
 
             plt.savefig(name)
 
-if __name__ == '__main__':
+            break
 
-    argument_parser = argparse.ArgumentParser(description='')
+if __name__ == "__main__":
 
-    argument_parser.add_argument('path', help='')
+    argument_parser = argparse.ArgumentParser(description="")
 
-    argument_parser.add_argument('name', help='')
+    argument_parser.add_argument("path", help="")
+
+    argument_parser.add_argument("name", help="")
 
     args = argument_parser.parse_args()
 
@@ -56,9 +58,5 @@ if __name__ == '__main__':
 
     name = args.name
 
-    with open(path) as source:
-
-        data = json.load(source)
-
-    foo(data, name)
+    foo(path, name)
 

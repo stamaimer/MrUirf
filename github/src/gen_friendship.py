@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import requests
 import argparse
 import json
@@ -6,16 +8,16 @@ import time
 nodes = []
 links = []
 
-CLIENT_ID = '1c6409e7a4219e6dea66'
-CLIENT_SECRET = '44636a9d327c1e47aba28a9b50a22b39ac4caeb4'
+CLIENT_ID = "1c6409e7a4219e6dea66"
+CLIENT_SECRET = "44636a9d327c1e47aba28a9b50a22b39ac4caeb4"
 
-ROOT_ENDPOINT = 'https://api.github.com'
-FOLLOWERS_ENDPOINT = ROOT_ENDPOINT + '/users/%s/followers'
-FOLLOWING_ENDPOINT = ROOT_ENDPOINT + '/users/%s/following'
+ROOT_ENDPOINT = "https://api.github.com"
+FOLLOWERS_ENDPOINT = ROOT_ENDPOINT + "/users/%s/followers"
+FOLLOWING_ENDPOINT = ROOT_ENDPOINT + "/users/%s/following"
 
-headers = {'Accept' : 'application/vnd.github.v3+json', 'User-Agent' : 'stamaimer'}
+headers = {"Accept" : "application/vnd.github.v3+json", "User-Agent" : "stamaimer"}
 
-ratelimit_remaining = '5000'
+ratelimit_remaining = "5000"
 ratelimit_reset = time.time()
 
 def set_ratelimit_info(headers):
@@ -144,7 +146,7 @@ def start(login, depth):
 
             data = {"nodes":nodes, "links":links}
 
-            with open("twitter.json", 'w') as outfile:
+            with open("github.json", 'w') as outfile:
 
                 json.dump(data, outfile)
 
@@ -155,7 +157,7 @@ def start(login, depth):
             get_followers(node)
             get_following(node)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     argument_parser = argparse.ArgumentParser(description="")
 
