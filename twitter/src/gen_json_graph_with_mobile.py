@@ -1,23 +1,19 @@
 import re
 import json
-import numpy
 import requests
-import networkx
 import argparse
 
 from lxml import html
 
-from networkx.readwrite import json_graph
-
-tasks = []
-
 nodes = []
 links = []
 
-host = "https://mobile.twitter.com"
+HOST = "https://mobile.twitter.com"
 
 FOLLOWING_URL = "https://mobile.twitter.com/%s/following"
 FOLLOWERS_URL = "https://mobile.twitter.com/%s/followers"
+
+MXPATH = "//span[@class='username']/text()"
 
 def retrieve(url):
 
@@ -39,7 +35,7 @@ def retrieve(url):
 
                 print 'request : %s %d' % (url, response.status_code)
 
-                if 404 == response.status_code:
+                if 404 == response.status_code:#anything else?
 
                     return None
 
@@ -55,37 +51,27 @@ def find_by_name(name):
 
             return nodes.index(node)
 
-def parse(tree, xpath, regex = '.*'):
+def parse(tree, xpath):
 
     nodes = tree.xpath(xpath)
 
-    if 1 == len(nodes):
+    if 1 == len(nodes):#for count and cursor
 
-        node = nodes[0].encode('utf-8')
+        return nodes[0]
 
-        matches = re.search(regex, node)
-
-        if matches:
-
-            match = matches.group(0)
-
-            return match
-
-        else:
-
-            print 'There is something wrong in regex match'
-
-    elif len(nodes) > 1:
+    elif len(nodes) > 1:#for username
 
         return nodes[1:]
 
-    else:
+    else:#something wrong
 
-        print 'There is something wrong in xpath match'
+        print "something wrong in parse"
 
-def extract_info(response):
+        return None
 
-    tree = html.fromstring(response)
+def extract_info(content):
+
+    tree = html.fromstring(content)
 
     count = parse(tree, "//span[@class='count']/text()")
 
@@ -97,25 +83,25 @@ def extract_info(response):
 
     for i in range(count / 20):
 
-        members.extend(parse(tree, "//span[@class='username']/text()"))
+        members.extend(parse(tree, MXPATH))
 
         next = parse(tree, '//*[@id="main_content"]/div/div[2]/div/a/@href')
 
-        response = retrieve(host + next)
+        response = retrieve(HOST + next)
 
         tree = html.fromstring(response.content)
 
     if count % 20 :
 
-        members.extend(parse(tree, "//span[@class='username']/text()"))
+        members.extend(parse(tree, MXPATH))
 
     return members
 
-def get_followers(task):
+def get_followers(node):
 
     name = task['name']
 
-    depth = task['depth']
+    group = task['group']
 
     response = retrieve(FOLLOWERS_URL % name)
 
@@ -123,25 +109,25 @@ def get_followers(task):
 
     for user in followers:
 
-        if user not in [task["name"] for task in tasks]:
+        if user not in [node["name"] for node in nodes]:
 
-            tasks.append({"name":user, "depth":depth + 1})
+            tmpu = {"name":user, "group":group + 1}
 
-            nodes.append({"name":user, "group":depth + 1})
+            nodes.append(tmpu)
 
-            links.append({"source":nodes.index({"name":user, "group":depth + 1}),
-                          "target":nodes.index({"name":name, "group":depth})})
+            links.append({"source":nodes.index(tmpu),
+                          "target":nodes.index(node)})
 
         else:
 
             links.append({"source":find_by_name(user),
-                          "target":nodes.index({"name":name, "group":depth})})
+                          "target":nodes.index(node)})
 
-def get_following(task):
+def get_following(node):
 
-    name = task['name']
+    name = node['name']
 
-    depth = task['depth']
+    group = node['group']
 
     response = retrieve(FOLLOWING_URL % name)
 
@@ -149,19 +135,43 @@ def get_following(task):
 
     for user in following:
 
-        if user not in [task["name"] for task in tasks]:
+        if user not in [node["name"] for node in nodes]:
 
-            tasks.append({"name":user, "depth":depth + 1})
+            tmpu = {"name":user, "group":group + 1}
 
-            nodes.append({"name":user, "group":depth + 1})
+            nodes.append(tmpu)
 
-            links.append({"source":nodes.index({"name":name, "group":depth}),
-                          "target":nodes.index({"name":user, "group":depth + 1})})
+            links.append({"source":nodes.index(node),
+                          "target":nodes.index(tmpu)})
 
         else:
 
-            links.append({"source":nodes.index({"name":name, "group":depth}),
+            links.append({"source":nodes.index(node),
                           "target":find_by_name(user)})
+
+def start(login, depth):
+
+    nodes.append({'name':sed_login, 'group':0})
+
+    for node in nodes:
+
+        if node['group'] > max_depth:
+
+            print 'generate graph ...'
+
+            data = {"nodes":nodes, "links":links}
+
+            with open('twitter.json', 'w') as outfile:
+
+                json.dump(data, outfile)
+
+            break
+
+        else:
+
+            get_followers(node)
+            get_following(node)
+
 
 if __name__ == "__main__":
 
@@ -177,25 +187,4 @@ if __name__ == "__main__":
 
     max_depth = args.depth
 
-    tasks.append({'name':sed_login, 'depth':0})
-
-    nodes.append({'name':sed_login, 'group':0})
-
-    for task in tasks:
-
-        if task['depth'] > max_depth:
-
-            print 'generate graph ...'
-
-            data = {"nodes":nodes, "links":links}
-
-            with open('twitter.json', 'w') as outfile:
-
-                json.dump(data, outfile)
-
-            break;
-
-        else:
-
-            get_followers(task)
-            get_following(task)
+    start(sed_login, max_depth)
