@@ -1,3 +1,5 @@
+import re
+import json
 import numpy
 import requests
 import networkx
@@ -61,21 +63,22 @@ def parse(tree, xpath, regex = '.*'):
 
         node = nodes[0].encode('utf-8')
 
-        print node
-
         matches = re.search(regex, node)
 
         if matches:
 
             match = matches.group(0)
 
-            print match
-
             return match
 
         else:
 
             print 'There is something wrong in regex match'
+
+    elif len(nodes) > 1:
+
+        return nodes[1:]
+
     else:
 
         print 'There is something wrong in xpath match'
@@ -84,9 +87,9 @@ def extract_info(response):
 
     tree = html.fromstring(response)
 
-    count = parse(tree, '//*[@id="main_content"]/div/div[1]/table/tbody/tr[2]/td/span/text()')
+    count = parse(tree, "//span[@class='count']/text()")
 
-    count = int(count)
+    count = int(count.replace(',', ''))
 
     members = []
 
@@ -94,9 +97,7 @@ def extract_info(response):
 
     for i in range(count / 20):
 
-        for j in range(20):
-
-            members.append(parse(tree, '//*[@id="main_content"]/div/div[2]/table[%d]/tbody/tr[2]/td/a/span/text()' % j))
+        members.extend(parse(tree, "//span[@class='username']/text()"))
 
         next = parse(tree, '//*[@id="main_content"]/div/div[2]/div/a/@href')
 
@@ -104,17 +105,11 @@ def extract_info(response):
 
         tree = html.fromstring(response.content)
 
-    if next:
+    if count % 20 :
 
-        for i in range(count % 20):
+        members.extend(parse(tree, "//span[@class='username']/text()"))
 
-            members.append(parse(tree, '//*[@id="main_content"]/div/div[2]/table[%d]/tbody/tr[2]/td/a/span/text()' % i))
-
-        return members
-
-    else:
-
-        return members
+    return members
 
 def get_followers(task):
 
@@ -124,22 +119,22 @@ def get_followers(task):
 
     response = retrieve(FOLLOWERS_URL % name)
 
-    followers= extract_info(response.content)
+    followers = extract_info(response.content)
 
     for user in followers:
 
-        if user["screen_name"] not in [task["name"] for task in tasks]:
+        if user not in [task["name"] for task in tasks]:
 
-            tasks.append({"name":user["screen_name"], "depth":depth + 1})
+            tasks.append({"name":user, "depth":depth + 1})
 
-            nodes.append({"name":user["screen_name"], "group":depth + 1})
+            nodes.append({"name":user, "group":depth + 1})
 
-            links.append({"source":nodes.index({"name":user["screen_name"], "group":depth + 1}),
+            links.append({"source":nodes.index({"name":user, "group":depth + 1}),
                           "target":nodes.index({"name":name, "group":depth})})
 
         else:
 
-            links.append({"source":find_by_name(user["screen_name"]),
+            links.append({"source":find_by_name(user),
                           "target":nodes.index({"name":name, "group":depth})})
 
 def get_following(task):
@@ -154,19 +149,19 @@ def get_following(task):
 
     for user in following:
 
-        if user["screen_name"] not in [task["name"] for task in tasks]:
+        if user not in [task["name"] for task in tasks]:
 
-            tasks.append({"name":user["screen_name"], "depth":depth + 1})
+            tasks.append({"name":user, "depth":depth + 1})
 
-            nodes.append({"name":user["screen_name"], "group":depth + 1})
+            nodes.append({"name":user, "group":depth + 1})
 
             links.append({"source":nodes.index({"name":name, "group":depth}),
-                          "target":nodes.index({"name":user["screen_name"], "group":depth + 1})})
+                          "target":nodes.index({"name":user, "group":depth + 1})})
 
         else:
 
             links.append({"source":nodes.index({"name":name, "group":depth}),
-                          "target":find_by_name(user["screen_name"])})
+                          "target":find_by_name(user)})
 
 if __name__ == "__main__":
 
