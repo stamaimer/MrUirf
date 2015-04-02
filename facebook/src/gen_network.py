@@ -110,14 +110,24 @@ def gen_network(depth = 2, start_peel = default_start()):
 
     for group in range(depth):
         for p in [persons[k] for k in persons.keys() if persons[k]['group'] == str(group)]:
-            exec_peel(driver, p)
+            try:
+                exec_peel(driver, p)
+            except:
+                pass
 
     driver.close()
     return graph
 
 if __name__ == "__main__":
-    f_network = gen_network()
+    name = u'\u738b\u5e05'
+    link = "https://m.facebook.com/stamaimer?refid=46&sld=eyJzZWFyY2hfc2lkIjoiNTNlYmZiMDQ4YTExNTM2N2E1OWJmMzE3N2U0NmJiOTciLCJxdWVyeSI6InN0YW1haW1lciIsInNlYXJjaF90eXBlIjoiU2VhcmNoIiwic2VxdWVuY2VfaWQiOjg4NDMyNTE3NSwicGFnZV9udW1iZXIiOjEsImZpbHRlcl90eXBlIjoiU2VhcmNoIiwiZW50X2lkIjoxMDAwMDUwODAxNzM2NDYsInBvc2l0aW9uIjowLCJyZXN1bHRfdHlwZSI6MjA0OH0%3D&fref=search"
 
-    f = file('graph.json', 'w+')
+#    f_network = gen_network(2, {'name':name, 'link':link})
+#    f = file('graph2.json', 'w+')
+#    json.dump(f_network, f)
+#    f.close()
+
+    f_network = gen_network(3, {'name':name, 'link':link})
+    f = file('graph3.json', 'w+')
     json.dump(f_network, f)
     f.close()
