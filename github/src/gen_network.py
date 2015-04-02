@@ -10,8 +10,8 @@ CLIENT_ID = '1c6409e7a4219e6dea66'
 CLIENT_SECRET = '44636a9d327c1e47aba28a9b50a22b39ac4caeb4'
 
 ROOT_ENDPOINT = 'https://api.github.com'
-followers_endpoint = ROOT_ENDPOINT + '/users/%s/followers'
-following_endpoint = ROOT_ENDPOINT + '/users/%s/following'
+FOLLOWERS_ENDPOINT = ROOT_ENDPOINT + '/users/%s/followers'
+FOLLOWING_ENDPOINT = ROOT_ENDPOINT + '/users/%s/following'
 
 headers = {'Accept' : 'application/vnd.github.v3+json', 'User-Agent' : 'stamaimer'}
 
@@ -34,21 +34,21 @@ def retrieve(url):
 
         try:
 
-            print 'ratelimit_remaining : %s' % ratelimit_remaining
+            print "ratelimit_remaining : %s" % ratelimit_remaining
 
             if '0' == ratelimit_remaining:
 
-                print 'sleeping %f seconds...' % (ratelimit_reset - time.time())
+                print "sleeping %f seconds..." % (ratelimit_reset - time.time())
 
                 time.sleep(ratelimit_reset - time.time())
 
-            print 'request : %s' % url
+            print "request : %s" % url
 
-            response = requests.get(url, params = {'client_id' : CLIENT_ID, 'client_secret' : CLIENT_SECRET}, headers = headers)
+            response = requests.get(url, params = {"client_id" : CLIENT_ID, "client_secret" : CLIENT_SECRET}, headers = headers)
 
             if 200 == response.status_code:
 
-                print 'request : %s success' % url
+                print "request : %s success" % url
 
                 return response
 
@@ -56,7 +56,7 @@ def retrieve(url):
 
                 set_ratelimit_info(response.headers)
 
-                print 'request : %s %d' % (url, response.status_code)
+                print "request : %s %d" % (url, response.status_code)
 
                 print json.dumps(response.json(), indent = 4)
 
@@ -64,9 +64,9 @@ def retrieve(url):
 
                     return None
 
-        except requests.exceptions.ConnectionError:
+        except :
 
-            print 'requests.exceptions.ConnectionError'
+            raise
 
 def find_by_name(name):
 
@@ -76,13 +76,13 @@ def find_by_name(name):
 
             return nodes.index(node)
 
-def get_followers(task):
+def get_followers(node):
 
-    name = task['name']
+    name = node["name"]
 
-    depth = task['depth']
+    group = node["group"]
 
-    response = retrieve(followers_endpoint % name)
+    response = retrieve(FOLLOWERS_ENDPOINT % name)
 
     set_ratelimit_info(response.headers)
 
@@ -92,25 +92,25 @@ def get_followers(task):
 
         for user in followers:
 
-            if user['login'] not in [task['name'] for task in tasks]:
+            if user["login"] not in [node["name"] for node in nodes]:
 
-                tasks.append({'name':user['login'], 'depth':depth + 1})
+                tmpu = {"name":user["login"], "group":group + 1}
 
-                nodes.append({'name':user['login'], 'group':depth + 1})
+                nodes.append(tmpu)
 
-                links.append({'source':nodes.index({'name':user['login'], 'group':depth + 1}), 'target':nodes.index({'name':name, 'group':depth})})
+                links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
 
             else:
 
-                links.append({'source':find_by_name(user['login']), 'target':nodes.index({'name':name, 'group':depth})})
+                links.append({"source":find_by_name(user["login"]), "target":nodes.index(node)})
 
-def get_following(task):
+def get_following(node):
 
-    name = task['name']
+    name = node["name"]
 
-    depth = task['depth']
+    group = node["group"]
 
-    response = retrieve(following_endpoint % name)
+    response = retrieve(FOLLOWING_ENDPOINT % name)
 
     set_ratelimit_info(response.headers)
 
@@ -120,27 +120,27 @@ def get_following(task):
 
         for user in following:
 
-            if user['login'] not in [task['name'] for task in tasks]:
+            if user["login"] not in [node["name"] for node in nodes]:
 
-                tasks.append({'name':user['login'], 'depth':depth + 1})
+                tmpu = {"name":user["login"], "group":group + 1}
 
-                nodes.append({'name':user['login'], 'group':depth + 1})
+                nodes.append(tmpu)
 
-                links.append({'source':nodes.index({'name':name, 'group':depth}), 'target':nodes.index({'name':user['login'], 'group':depth + 1})})
+                links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
             else:
 
-                links.append({'source':nodes.index({'name':name, 'group':depth}), 'target':find_by_name(user['login'])})
+                links.append({"source":nodes.index(node), "target":find_by_name(user["login"])})
 
 def start(login, depth):
 
-    nodes.append({'name':login, 'group':0})
+    nodes.append({"name":login, "group":0})
 
     for node in nodes:
 
-        if node['group'] > depth:
+        if node["group"] > depth:
 
-            print 'generate graph ...'
+            print "generate graph ..."
 
             data = {"nodes":nodes, "links":links}
 
