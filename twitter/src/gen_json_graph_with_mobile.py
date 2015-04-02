@@ -102,7 +102,7 @@ def extract_info(response):
 
         response = retrieve(host + next)
 
-        tree = html.fromstring((response))
+        tree = html.fromstring(response.content)
 
     if next:
 
@@ -124,15 +124,7 @@ def get_followers(task):
 
     response = retrieve(FOLLOWERS_URL % name)
 
-    followers, next = extract_info(response)
-
-    while next :
-
-        response = retrieve(host + next)
-
-        tmp, next = extract_info(response)
-
-        followers.extend(tmp)
+    followers= extract_info(response.content)
 
     for user in followers:
 
@@ -158,15 +150,7 @@ def get_following(task):
 
     response = retrieve(FOLLOWING_URL % name)
 
-    following, next = extract_info(response)
-
-    while next :
-
-        response = retrieve(host + next)
-
-        tmp, next = extract_info(response)
-
-        following.extend(tmp)
+    following = extract_info(response.content)
 
     for user in following:
 
