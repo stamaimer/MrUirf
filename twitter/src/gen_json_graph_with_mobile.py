@@ -99,9 +99,9 @@ def extract_info(content):
 
 def get_followers(node):
 
-    name = task['name']
+    name = node['name']
 
-    group = task['group']
+    group = node['group']
 
     response = retrieve(FOLLOWERS_URL % name)
 
