@@ -1,23 +1,17 @@
 import requests
-import networkx
 import argparse
-import numpy
 import json
 import time
-import matplotlib.pyplot as plt
-from networkx.readwrite import json_graph
-
-tasks = []
 
 nodes = []
 links = []
 
-client_id = '1c6409e7a4219e6dea66'
-client_secret = '44636a9d327c1e47aba28a9b50a22b39ac4caeb4'
+CLIENT_ID = '1c6409e7a4219e6dea66'
+CLIENT_SECRET = '44636a9d327c1e47aba28a9b50a22b39ac4caeb4'
 
-root_endpoint = 'https://api.github.com'
-followers_endpoint = root_endpoint + '/users/%s/followers'
-following_endpoint = root_endpoint + '/users/%s/following'
+ROOT_ENDPOINT = 'https://api.github.com'
+followers_endpoint = ROOT_ENDPOINT + '/users/%s/followers'
+following_endpoint = ROOT_ENDPOINT + '/users/%s/following'
 
 headers = {'Accept' : 'application/vnd.github.v3+json', 'User-Agent' : 'stamaimer'}
 
@@ -50,7 +44,7 @@ def retrieve(url):
 
             print 'request : %s' % url
 
-            response = requests.get(url, params = {'client_id' : client_id, 'client_secret' : client_secret}, headers = headers)
+            response = requests.get(url, params = {'client_id' : CLIENT_ID, 'client_secret' : CLIENT_SECRET}, headers = headers)
 
             if 200 == response.status_code:
 
@@ -138,13 +132,36 @@ def get_following(task):
 
                 links.append({'source':nodes.index({'name':name, 'group':depth}), 'target':find_by_name(user['login'])})
 
+def start(login, depth):
+
+    nodes.append({'name':login, 'group':0})
+
+    for node in nodes:
+
+        if node['group'] > depth:
+
+            print 'generate graph ...'
+
+            data = {"nodes":nodes, "links":links}
+
+            with open("twitter.json", 'w') as outfile:
+
+                json.dump(data, outfile)
+
+            break
+
+        else:
+
+            get_followers(node)
+            get_following(node)
+
 if __name__ == '__main__':
 
-    argument_parser = argparse.ArgumentParser(description='')
+    argument_parser = argparse.ArgumentParser(description="")
 
-    argument_parser.add_argument('login', help='')
+    argument_parser.add_argument("login", help="")
 
-    argument_parser.add_argument('depth', help='', type=int)
+    argument_parser.add_argument("depth", help="", type=int)
 
     args = argument_parser.parse_args()
 
@@ -152,44 +169,4 @@ if __name__ == '__main__':
 
     max_depth = args.depth
 
-    tasks.append({'name':sed_login, 'depth':0})
-
-    nodes.append({'name':sed_login, 'group':0})
-
-    for task in tasks:
-
-        if task['depth'] > max_depth:
-
-            print 'generate graph ...'
-
-            for link in links[:]:
-
-                if {"source":link["target"], "target":link["source"]} not in links:
-
-                    links.remove(link)
-
-            graph = json_graph.node_link_graph({"nodes":nodes, "links":links}, directed=False, multigraph=False)
-
-            graphs = list(networkx.connected_component_subgraphs(graph))
-
-            numpy.set_printoptions(threshold='nan')
-
-            for graph in graphs:
-
-                if 0 in graph.nodes():
-
-                    nodes = [node["name"] for node in nodes if nodes.index(node) in graph.nodes()]
-
-                    matrix =  networkx.to_numpy_matrix(graph)
-
-                    pos = networkx.spring_layout(graph)
-
-                    networkx.draw(graph, pos, node_color='#A0CBE2', width=4, edge_cmap=plt.cm.Blues, with_labels=True)
-
-                    plt.savefig("github.png")
-            break
-
-        else:
-
-            get_followers(task)
-            get_following(task)
+    start(sed_login, max_depth)

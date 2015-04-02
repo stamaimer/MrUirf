@@ -151,11 +151,11 @@ def get_following(node):
 
 def start(login, depth):
 
-    nodes.append({"name":sed_login, "group":0})
+    nodes.append({"name":login, "group":0})
 
     for node in nodes:
 
-        if node["group"] > max_depth:
+        if node["group"] > depth:
 
             print "generate graph ..."
 
@@ -171,7 +171,6 @@ def start(login, depth):
 
             get_followers(node)
             get_following(node)
-
 
 if __name__ == "__main__":
 
