@@ -15,18 +15,18 @@ FOLLOWERS_URL = "https://api.twitter.com/1.1/followers/list.json"
 
 headers = {"Authorization" : "Bearer " + oauth.get_bearer_token(CONSUMER_KEY, CONSUMER_SECRET)}
 
-ratelimit_remaining = '30'
+ratelimit_remaining = "30"
 ratelimit_reset = time.time()
 
 def set_ratelimit_info(headers):
 
     global ratelimit_remaining
 
-    ratelimit_remaining = headers['X-Rate-Limit-Remaining']
+    ratelimit_remaining = headers["X-Rate-Limit-Remaining"]
 
     global ratelimit_reset
 
-    ratelimit_reset = int(headers['X-Rate-Limit-Reset'])
+    ratelimit_reset = int(headers["X-Rate-Limit-Reset"])
 
 def retrieve(url, params):
 
@@ -34,21 +34,21 @@ def retrieve(url, params):
 
         try:
 
-            print 'ratelimit_remaining : %s' % ratelimit_remaining
+            print "ratelimit_remaining : %s" % ratelimit_remaining
 
             if '0' == ratelimit_remaining:
 
-                print 'sleeping %f seconds...' % (ratelimit_reset - time.time())
+                print "sleeping %f seconds..." % (ratelimit_reset - time.time())
 
                 time.sleep(ratelimit_reset - time.time())
 
-            print 'request : %s' % url
+            print "request : %s" % url
 
             response = requests.get(url, params = params, headers = headers)
 
             if 200 == response.status_code:
 
-                print 'request : %s success' % url
+                print "request : %s success" % url
 
                 return response
 
@@ -56,7 +56,7 @@ def retrieve(url, params):
 
                 set_ratelimit_info(response.headers)
 
-                print 'request : %s %d' % (url, response.status_code)
+                print "request : %s %d" % (url, response.status_code)
 
                 print json.dumps(response.json(), indent = 4)
 
@@ -64,9 +64,9 @@ def retrieve(url, params):
 
                     return None
 
-        except requests.exceptions.ConnectionError:
+        except :
 
-            print 'requests.exceptions.ConnectionError'
+            raise
 
 def find_by_name(name):
 
@@ -76,13 +76,13 @@ def find_by_name(name):
 
             return nodes.index(node)
 
-def get_followers(task):
+def get_followers(node):
 
-    name = task['name']
+    name = node["name"]
 
-    depth = task['depth']
+    group = node["group"]
 
-    params = {'screen_name':name, 'cursor':-1, 'count':200, 'skip_status':"true", 'include_user_entities':'false'} 
+    params = {"screen_name":name, "cursor":-1, "count":200, "skip_status":"true", "include_user_entities":"false"} 
 
     response = retrieve(FOLLOWERS_URL, params)
 
@@ -102,27 +102,27 @@ def get_followers(task):
 
     for user in followers:
 
-        if user["screen_name"] not in [task["name"] for task in tasks]:
+        if user["screen_name"] not in [node["name"] for node in nodes]:
 
-            tasks.append({"name":user["screen_name"], "depth":depth + 1})
+            tmpu = {"name":user["screen_name"], "group":group + 1}
 
-            nodes.append({"name":user["screen_name"], "group":depth + 1})
+            nodes.append(tmpu)
 
-            links.append({"source":nodes.index({"name":user["screen_name"], "group":depth + 1}),
-                          "target":nodes.index({"name":name, "group":depth})})
+            links.append({"source":nodes.index(tmpu),
+                          "target":nodes.index(node)})
 
         else:
 
             links.append({"source":find_by_name(user["screen_name"]),
-                          "target":nodes.index({"name":name, "group":depth})})
+                          "target":nodes.index(tmpu)})
 
-def get_following(task):
+def get_following(node):
 
-    name = task['name']
+    name = node["name"]
 
-    depth = task['depth']
+    group = node["group"]
 
-    params = {'screen_name':name, 'cursor':-1, 'count':200, 'skip_status':"true", 'include_user_entities':'false'} 
+    params = {"screen_name":name, "cursor":-1, "count":200, "skip_status":"true", "include_user_entities":"false"} 
 
     response = retrieve(FOLLOWING_URL, params)
 
@@ -142,27 +142,50 @@ def get_following(task):
 
     for user in following:
 
-        if user["screen_name"] not in [task["name"] for task in tasks]:
+        if user["screen_name"] not in [node["name"] for node in nodes]:
 
-            tasks.append({"name":user["screen_name"], "depth":depth + 1})
+            tmpu = {"name":user["screen_name"], "group":group + 1}
 
-            nodes.append({"name":user["screen_name"], "group":depth + 1})
+            nodes.append(tmpu)
 
-            links.append({"source":nodes.index({"name":name, "group":depth}),
-                          "target":nodes.index({"name":user["screen_name"], "group":depth + 1})})
+            links.append({"source":nodes.index(node),
+                          "target":nodes.index(tmpu)})
 
         else:
 
-            links.append({"source":nodes.index({"name":name, "group":depth}),
+            links.append({"source":nodes.index(node),
                           "target":find_by_name(user["screen_name"])})
+
+def start(login, depth):
+
+    nodes.append({"name":sed_login, "group":0})
+
+    for node in nodes:
+
+        if node["group"] > max_depth:
+
+            print "generate graph ..."
+
+            data = {"nodes":nodes, "links":links}
+
+            with open("twitter.json", 'w') as outfile:
+
+                json.dump(data, outfile)
+
+            break
+
+        else:
+
+            get_followers(node)
+            get_following(node)
 
 if __name__ == "__main__":
 
     argument_parser = argparse.ArgumentParser(description="")
 
-    argument_parser.add_argument('login', help='')
+    argument_parser.add_argument("login", help="")
 
-    argument_parser.add_argument('depth', help='', type=int)
+    argument_parser.add_argument("depth", help="", type=int)
 
     args = argument_parser.parse_args()
 
@@ -170,45 +193,4 @@ if __name__ == "__main__":
 
     max_depth = args.depth
 
-    tasks.append({'name':sed_login, 'depth':0})
-
-    nodes.append({'name':sed_login, 'group':0})
-
-    for task in tasks:
-
-        if task['depth'] > max_depth:
-
-            print 'generate graph ...'
-
-            for link in links[:]:
-
-                if {"source":link["target"], "target":link["source"]} not in links:
-
-                    links.remove(link)
-
-            graph = json_graph.node_link_graph({"nodes":nodes, "links":links}, directed=False, multigraph=False)
-
-            graphs = list(networkx.connected_component_subgraphs(graph))
-
-            numpy.set_printoptions(threshold='nan')
-
-            for graph in graphs:
-
-                if 0 in graph.nodes():
-
-                    nodes = [node["name"] for node in nodes if nodes.index(node) in graph.nodes()]
-
-                    matrix =  networkx.to_numpy_matrix(graph)
-
-                    pos = networkx.spring_layout(graph)
-
-                    networkx.draw(graph, pos, node_color='#A0CBE2', width=4, edge_cmap=plt.cm.Blues, with_labels=True)
-
-                    plt.savefig("twitter.png")
-
-            break;
-
-        else:
-
-            get_followers(task)
-            get_following(task)
+    start(sed_login, max_depth)
