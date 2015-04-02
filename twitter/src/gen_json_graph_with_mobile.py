@@ -21,19 +21,19 @@ def retrieve(url):
 
         try:
 
-            print 'request : %s' % url
+            print "request : %s" % url
 
             response = requests.get(url)
 
             if 200 == response.status_code:
 
-                print 'request : %s success' % url
+                print "request : %s success" % url
 
                 return response
 
             else:
 
-                print 'request : %s %d' % (url, response.status_code)
+                print "request : %s %d" % (url, response.status_code)
 
                 if 404 == response.status_code:#anything else?
 
@@ -85,7 +85,7 @@ def extract_info(content):
 
         members.extend(parse(tree, MXPATH))
 
-        next = parse(tree, '//*[@id="main_content"]/div/div[2]/div/a/@href')
+        next = parse(tree, "//*[@id='main_content']/div/div[2]/div/a/@href")
 
         response = retrieve(HOST + next)
 
@@ -99,9 +99,9 @@ def extract_info(content):
 
 def get_followers(node):
 
-    name = node['name']
+    name = node["name"]
 
-    group = node['group']
+    group = node["group"]
 
     response = retrieve(FOLLOWERS_URL % name)
 
@@ -125,9 +125,9 @@ def get_followers(node):
 
 def get_following(node):
 
-    name = node['name']
+    name = node["name"]
 
-    group = node['group']
+    group = node["group"]
 
     response = retrieve(FOLLOWING_URL % name)
 
@@ -151,17 +151,17 @@ def get_following(node):
 
 def start(login, depth):
 
-    nodes.append({'name':sed_login, 'group':0})
+    nodes.append({"name":sed_login, "group":0})
 
     for node in nodes:
 
-        if node['group'] > max_depth:
+        if node["group"] > max_depth:
 
-            print 'generate graph ...'
+            print "generate graph ..."
 
             data = {"nodes":nodes, "links":links}
 
-            with open('twitter.json', 'w') as outfile:
+            with open("twitter.json", 'w') as outfile:
 
                 json.dump(data, outfile)
 
@@ -177,9 +177,9 @@ if __name__ == "__main__":
 
     argument_parser = argparse.ArgumentParser(description="")
 
-    argument_parser.add_argument('login', help='')
+    argument_parser.add_argument("login", help="")
 
-    argument_parser.add_argument('depth', help='', type=int)
+    argument_parser.add_argument("depth", help="", type=int)
 
     args = argument_parser.parse_args()
 
