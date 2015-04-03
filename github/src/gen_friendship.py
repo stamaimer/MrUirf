@@ -94,7 +94,7 @@ def get_followers(node):
 
         for user in followers:
 
-            if user["login"] not in [node["name"] for node in nodes]:
+            if user["login"] not in [ele["name"] for ele in nodes]:
 
                 tmpu = {"name":user["login"], "group":group + 1}
 
@@ -122,7 +122,7 @@ def get_following(node):
 
         for user in following:
 
-            if user["login"] not in [node["name"] for node in nodes]:
+            if user["login"] not in [ele["name"] for ele in nodes]:
 
                 tmpu = {"name":user["login"], "group":group + 1}
 
