@@ -69,7 +69,7 @@ def parse(tree, xpath):
 
         print "something wrong in parse"
 
-        return None
+        return ''
 
 def extract_info(content):
 
