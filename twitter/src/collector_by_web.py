@@ -47,7 +47,6 @@ if __name__ == '__main__':
     tweets = []
 
     for peer in peers:
-
         tweets.append(get_tweets(peer))
 
     f = file('tweets.json', 'w+')
