@@ -10,10 +10,10 @@ from lxml import html
 nodes = []
 links = []
 
-HOST = "https://mobile.twitter.com"
+HOST = "http://mobile.twitter.com"
 
-FOLLOWING_URL = "https://mobile.twitter.com/%s/following"
-FOLLOWERS_URL = "https://mobile.twitter.com/%s/followers"
+FOLLOWING_URL = "http://mobile.twitter.com/%s/following"
+FOLLOWERS_URL = "http://mobile.twitter.com/%s/followers"
 
 MXPATH = "//span[@class='username']/text()"
 
