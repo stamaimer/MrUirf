@@ -23,19 +23,19 @@ def retrieve(url):
 
         try:
 
-            print "request : %s" % url
+            print("request : %s" % url)
 
             response = requests.get(url)
 
             if 200 == response.status_code:
 
-                print "request : %s success" % url
+                print("request : %s success" % url)
 
                 return response
 
             else:
 
-                print "request : %s %d" % (url, response.status_code)
+                print("request : %s %d" % (url, response.status_code))
 
                 if 404 == response.status_code:#anything else?
 
@@ -67,7 +67,7 @@ def parse(tree, xpath):
 
     else:#something wrong
 
-        print "something wrong in parse"
+        print("something wrong in parse")
 
         return ''
 
@@ -83,7 +83,7 @@ def extract_info(content):
 
     next = ""
 
-    for i in range(count / 20):
+    for i in range(int(count / 20)):
 
         members.extend(parse(tree, MXPATH))
 
@@ -159,7 +159,7 @@ def start(login, depth):
 
         if node["group"] > depth:
 
-            print "generate graph ..."
+            print("generate graph ...")
 
             data = {"nodes":nodes, "links":links}
 
