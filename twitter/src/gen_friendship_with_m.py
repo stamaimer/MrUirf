@@ -12,8 +12,8 @@ links = []
 
 HOST = "http://mobile.twitter.com"
 
-FOLLOWING_URL = "http://mobile.twitter.com/%s/following"
-FOLLOWERS_URL = "http://mobile.twitter.com/%s/followers"
+FOLLOWING_URL = HOST + "/%s/following"
+FOLLOWERS_URL = HOST + "/%s/followers"
 
 MXPATH = "//span[@class='username']/text()"
 
