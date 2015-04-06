@@ -40,9 +40,13 @@ def retrieve(url):
 
             if '0' == ratelimit_remaining:
 
-                print "sleeping %f seconds..." % (ratelimit_reset - time.time())
+                interval = ratelimit_reset - time.time()
 
-                time.sleep(ratelimit_reset - time.time())
+                if interval > 0:
+
+                    print "sleeping %f seconds..." % (interval)
+                
+                    time.sleep(interval)
 
             print "request : %s" % url
 
