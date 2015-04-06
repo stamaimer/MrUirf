@@ -47,7 +47,7 @@ def retrieve(url):
                 if 404 == response.status_code:#anything else?
 
                     return None
-
+                
         except :
 
             raise
