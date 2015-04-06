@@ -8,7 +8,7 @@ from lxml import html
 
 import sys
 
-sys.path.append("../../")
+sys.path.append("../")
 
 import session
 
