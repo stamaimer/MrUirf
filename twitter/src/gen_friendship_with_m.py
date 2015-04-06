@@ -4,8 +4,15 @@ import re
 import json
 import requests
 import argparse
-
 from lxml import html
+
+import sys
+
+sys.path.append("../../")
+
+import session
+
+requester = session.get_session()
 
 nodes = []
 links = []
@@ -25,7 +32,7 @@ def retrieve(url):
 
             print("request : %s" % url)
 
-            response = requests.get(url)
+            response = requester.get(url)
 
             if 200 == response.status_code:
 
