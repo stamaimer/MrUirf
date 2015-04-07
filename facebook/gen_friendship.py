@@ -78,13 +78,11 @@ def get_friends(handle, node):
             
             i = i + 1
         
-    count = lambda x : sum([1 for node in nodes if node["group"] == group])
+    count = lambda : sum([1 for node in nodes if node["group"] == group])
 
-    get_friends.count = count(0)
+    get_friends.count = count()
 
-    print get_friends.count
-
-    print name, link, group
+    print "name : %s, link : %s, group : %d, percent : %f" % (name, link, group, nodes.index(node) / get_friends.count)
 
     for fname, flink in zip(name_list, link_list):
 
@@ -100,7 +98,9 @@ def get_friends(handle, node):
 
             links.append({"source":nodes.index(node), "target":find_by_link(flink)})
 
-def start(handle, name, link, depth):
+def start(name, link, depth):
+
+    handle = login("stamaimer@gmail.com", "bl4u-awsf")
 
     nodes.append({"name":name, "link":link, "group":0})
 
@@ -126,10 +126,6 @@ if __name__ == "__main__":
 
     argument_parser = argparse.ArgumentParser(description="")
 
-    argument_parser.add_argument("email", help="")
-
-    argument_parser.add_argument("password", help="")
-
     argument_parser.add_argument("name", help="")
 
     argument_parser.add_argument("link", help="")
@@ -138,16 +134,10 @@ if __name__ == "__main__":
 
     args = argument_parser.parse_args()
 
-    email = args.email
-
-    password = args.password
-
     name = args.name
 
     link = args.link
 
     depth = args.depth
 
-    handle = login(email, password)
-
-    start(handle, name, link, depth)
+    start(name, link, depth)
