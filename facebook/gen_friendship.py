@@ -73,16 +73,36 @@ def get_friends(handle, node):
 
         except selenium.common.exceptions.NoSuchElementException:
 
-            name_list.extend( [ ele.text for ele in handle.find_elements_by_xpath(FRIENDS_XPATH) ] )
-            link_list.extend( [ ele.get_attribute("href") for ele in handle.find_elements_by_xpath(FRIENDS_XPATH) ] )
+            friends = handle.find_elements_by_xpath(FRIENDS_XPATH)
+
+            name_list.extend( [ ele.text for ele in friends ] )
+            link_list.extend( [ ele.get_attribute("href") for ele in friends ] )
             
             i = i + 1
+
+    percent, group1, group2 = 0.0, 0, 0
         
-    count = lambda : sum([1 for node in nodes if node["group"] == group])
+    if 0 == group:
+        
+        percent = 1
 
-    get_friends.count = count()
+    elif 1 == group:
 
-    print "name : %s, link : %s, group : %d, percent : %f" % (name, link, group, nodes.index(node) / get_friends.count)
+        if not group1:
+
+            group1 = sum([ 1 for ele in nodes if ele["group"] == 1 ])
+
+        percent = nodes.index(node) / float(group1)
+
+    elif 2 == group:
+
+        if not group2:
+
+            group2 = sum([ 1 for ele in nodes if ele["group"] == 2 ])
+
+        percent = (nodes.index(node) - group1) / float(group2)
+
+    print "name : %s, link : %s, group : %d, percent : %f, friends : %d" % (name, link, group, percent, len(link_list))
 
     for fname, flink in zip(name_list, link_list):
 
@@ -100,7 +120,7 @@ def get_friends(handle, node):
 
 def start(name, link, depth):
 
-    handle = login("stamaimer@gmail.com", "bl4u-awsf")
+    handle = login("stamaimer@gmail.com", "")
 
     nodes.append({"name":name, "link":link, "group":0})
 
