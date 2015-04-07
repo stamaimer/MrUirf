@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import urllib
 import base64
 import requests
@@ -6,7 +8,7 @@ BEARER_TOKEN_URL = "https://api.twitter.com/oauth2/token"
 
 def urlencode(str):
 
-    return urllib.quote(str, "")
+    return urllib.quote(str, '')
 
 def b64encode(str):
 

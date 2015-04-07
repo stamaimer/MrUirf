@@ -18,13 +18,13 @@ def cal_similarity_matrix(g, t, iterations=100):
 
     print tmp
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
-    argument_parser = argparse.ArgumentParser(description='')
+    argument_parser = argparse.ArgumentParser(description="")
 
-    argument_parser.add_argument('-p2g', '--path2adjmatg', help='')
-    argument_parser.add_argument('-p2t', '--path2adjmatt', help='')
-    argument_parser.add_argument('-i', '--iterations', type=int, help='')
+    argument_parser.add_argument("-p2g", "--path2adjmatg", help="")
+    argument_parser.add_argument("-p2t", "--path2adjmatt", help="")
+    argument_parser.add_argument("-i", "--iterations", type=int, help="")
 
     args = argument_parser.parse_args()
 
