@@ -32,13 +32,6 @@ def set_start_peer(driver, start_peer):
 
 def exec_peer(driver, person):
 
-    print "-" * 50
-    print "name   : %s" % person['name']
-    print "link   : %s" % person['link']
-    print "group  : %s" % person['group']
-    print "index  : %s" % perosn['index']
-    print "father : %s" % person['father_index']
-
     driver.get(person['link'])
     first_cover_xpath = '/html/body/div/div/div[2]/div/div/div[2]'
     first_friends_xpath_template ='/html/body/div/div/div[2]/div/div/div[2]/div[%s]/table/tbody/tr/td[2]/a'
@@ -59,8 +52,6 @@ def exec_peer(driver, person):
             scan_friends(driver,more_cover_xpath,more_friends_xpath_template,person)
         except:
             break
-
-    print "finished."
 
 def scan_friends(driver, cover_xpath, friend_xpath_template, father):
     global names
@@ -120,11 +111,24 @@ def gen_network(depth = 2, start_peer = default_start()):
     set_start_peer(driver, start_peer)  # set the seed user
 
     for group in range(depth):
-        for p in [persons[k] for k in persons.keys() if persons[k]['group'] == str(group)]:
+        group_list = [persons[k] for k in persons.keys() if persons[k]['group'] == str(group)]
+        group_len  = len(group_list)
+        for i in range(group_len):
+
+            print "-" * 50
+            print "pro    : %d / %d" % (i+1, group_len)
+            print "name   : %s" % group_list[i]['name']
+            print "link   : %s" % group_list[i]['link']
+            print "group  : %s" % group_list[i]['group']
+            print "index  : %s" % group_list[i]['index']
+            print "father : %s" % persons[group_list[i]['father_index']]['name']
+
             try:
-                exec_peer(driver, p)
+                exec_peer(driver, group_list[i])
             except:
                 pass
+
+            print "finished."
 
     driver.close()
     return graph
@@ -133,12 +137,12 @@ if __name__ == "__main__":
     name = u'\u738b\u5e05'
     link = "https://m.facebook.com/stamaimer?refid=46&sld=eyJzZWFyY2hfc2lkIjoiNTNlYmZiMDQ4YTExNTM2N2E1OWJmMzE3N2U0NmJiOTciLCJxdWVyeSI6InN0YW1haW1lciIsInNlYXJjaF90eXBlIjoiU2VhcmNoIiwic2VxdWVuY2VfaWQiOjg4NDMyNTE3NSwicGFnZV9udW1iZXIiOjEsImZpbHRlcl90eXBlIjoiU2VhcmNoIiwiZW50X2lkIjoxMDAwMDUwODAxNzM2NDYsInBvc2l0aW9uIjowLCJyZXN1bHRfdHlwZSI6MjA0OH0%3D&fref=search"
 
-#    f_network = gen_network(2, {'name':name, 'link':link})
-#    f = file('graph2.json', 'w+')
-#    json.dump(f_network, f)
-#    f.close()
-
-    f_network = gen_network(3, {'name':name, 'link':link})
-    f = file('graph3.json', 'w+')
+    f_network = gen_network(2, {'name':name, 'link':link})
+    f = file('graph2.json', 'w+')
     json.dump(f_network, f)
     f.close()
+
+#    f_network = gen_network(3, {'name':name, 'link':link})
+#    f = file('graph3.json', 'w+')
+#    json.dump(f_network, f)
+#    f.close()
