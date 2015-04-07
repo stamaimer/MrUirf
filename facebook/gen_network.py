@@ -31,13 +31,14 @@ def set_start_peer(driver, start_peer):
                     'link': link}
 
 def exec_peer(driver, person):
+    global persons
 
     print "-" * 50
     print "name   : %s" % person['name']
     print "link   : %s" % person['link']
     print "group  : %s" % person['group']
-    print "index  : %s" % perosn['index']
-    print "father : %s" % person['father_index']
+    print "index  : %s" % person['index']
+    print "father : %s" % persons[person['father_index']]['name']
 
     driver.get(person['link'])
     first_cover_xpath = '/html/body/div/div/div[2]/div/div/div[2]'
@@ -133,12 +134,12 @@ if __name__ == "__main__":
     name = u'\u738b\u5e05'
     link = "https://m.facebook.com/stamaimer?refid=46&sld=eyJzZWFyY2hfc2lkIjoiNTNlYmZiMDQ4YTExNTM2N2E1OWJmMzE3N2U0NmJiOTciLCJxdWVyeSI6InN0YW1haW1lciIsInNlYXJjaF90eXBlIjoiU2VhcmNoIiwic2VxdWVuY2VfaWQiOjg4NDMyNTE3NSwicGFnZV9udW1iZXIiOjEsImZpbHRlcl90eXBlIjoiU2VhcmNoIiwiZW50X2lkIjoxMDAwMDUwODAxNzM2NDYsInBvc2l0aW9uIjowLCJyZXN1bHRfdHlwZSI6MjA0OH0%3D&fref=search"
 
-#    f_network = gen_network(2, {'name':name, 'link':link})
-#    f = file('graph2.json', 'w+')
-#    json.dump(f_network, f)
-#    f.close()
-
-    f_network = gen_network(3, {'name':name, 'link':link})
-    f = file('graph3.json', 'w+')
+    f_network = gen_network(2, {'name':name, 'link':link})
+    f = file('graph2.json', 'w+')
     json.dump(f_network, f)
     f.close()
+
+#    f_network = gen_network(3, {'name':name, 'link':link})
+#    f = file('graph3.json', 'w+')
+#    json.dump(f_network, f)
+#    f.close()
