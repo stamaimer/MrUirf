@@ -6,6 +6,14 @@ import oauth
 import requests
 import argparse
 
+import sys
+
+sys.path.append("../")
+
+import session
+
+requester = session.get_session()
+
 nodes = []
 links = []
 
@@ -46,7 +54,7 @@ def retrieve(url, params):
 
             print "request : %s" % url
 
-            response = requests.get(url, params = params, headers = headers)
+            response = requester.get(url, params = params, headers = headers)
 
             if 200 == response.status_code:
 

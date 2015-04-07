@@ -38,6 +38,8 @@ def find_by_link(link):
 
 def get_friends(handle, node):
 
+    name = node["name"]
+
     link = node["link"]
 
     group = node["group"]
@@ -76,7 +78,13 @@ def get_friends(handle, node):
             
             i = i + 1
         
-    print node["name"], len(name_list), len(link_list)
+    count = lambda x : sum([1 for node in nodes if node["group"] == group])
+
+    get_friends.count = count(0)
+
+    print get_friends.count
+
+    print name, link, group
 
     for fname, flink in zip(name_list, link_list):
 
