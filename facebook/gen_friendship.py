@@ -73,18 +73,36 @@ def get_friends(handle, node):
 
         except selenium.common.exceptions.NoSuchElementException:
 
-            name_list.extend( [ ele.text for ele in handle.find_elements_by_xpath(FRIENDS_XPATH) ] )
-            link_list.extend( [ ele.get_attribute("href") for ele in handle.find_elements_by_xpath(FRIENDS_XPATH) ] )
+            friends = handle.find_elements_by_xpath(FRIENDS_XPATH)
+
+            name_list.extend( [ ele.text for ele in friends ] )
+            link_list.extend( [ ele.get_attribute("href") for ele in friends ] )
             
             i = i + 1
+
+    percent, group1, group2 = 0.0, 0, 0
         
-    count = lambda x : sum([1 for node in nodes if node["group"] == group])
+    if 0 == group:
+        
+        percent = 1
 
-    get_friends.count = count(0)
+    elif 1 == group:
 
-    print get_friends.count
+        if not group1:
 
-    print name, link, group
+            group1 = sum([ 1 for ele in nodes if ele["group"] == 1 ])
+
+        percent = nodes.index(node) / float(group1)
+
+    elif 2 == group:
+
+        if not group2:
+
+            group2 = sum([ 1 for ele in nodes if ele["group"] == 2 ])
+
+        percent = (nodes.index(node) - group1) / float(group2)
+
+    print "name : %s, link : %s, group : %d, percent : %f, friends : %d" % (name, link, group, percent, len(link_list))
 
     for fname, flink in zip(name_list, link_list):
 
@@ -100,7 +118,9 @@ def get_friends(handle, node):
 
             links.append({"source":nodes.index(node), "target":find_by_link(flink)})
 
-def start(handle, name, link, depth):
+def start(name, link, depth):
+
+    handle = login("stamaimer@gmail.com", "")
 
     nodes.append({"name":name, "link":link, "group":0})
 
@@ -126,10 +146,6 @@ if __name__ == "__main__":
 
     argument_parser = argparse.ArgumentParser(description="")
 
-    argument_parser.add_argument("email", help="")
-
-    argument_parser.add_argument("password", help="")
-
     argument_parser.add_argument("name", help="")
 
     argument_parser.add_argument("link", help="")
@@ -138,16 +154,10 @@ if __name__ == "__main__":
 
     args = argument_parser.parse_args()
 
-    email = args.email
-
-    password = args.password
-
     name = args.name
 
     link = args.link
 
     depth = args.depth
 
-    handle = login(email, password)
-
-    start(handle, name, link, depth)
+    start(name, link, depth)
