@@ -31,14 +31,6 @@ def set_start_peer(driver, start_peer):
                     'link': link}
 
 def exec_peer(driver, person):
-    global persons
-
-    print "-" * 50
-    print "name   : %s" % person['name']
-    print "link   : %s" % person['link']
-    print "group  : %s" % person['group']
-    print "index  : %s" % person['index']
-    print "father : %s" % persons[person['father_index']]['name']
 
     driver.get(person['link'])
     first_cover_xpath = '/html/body/div/div/div[2]/div/div/div[2]'
@@ -60,8 +52,6 @@ def exec_peer(driver, person):
             scan_friends(driver,more_cover_xpath,more_friends_xpath_template,person)
         except:
             break
-
-    print "finished."
 
 def scan_friends(driver, cover_xpath, friend_xpath_template, father):
     global names
@@ -121,11 +111,24 @@ def gen_network(depth = 2, start_peer = default_start()):
     set_start_peer(driver, start_peer)  # set the seed user
 
     for group in range(depth):
-        for p in [persons[k] for k in persons.keys() if persons[k]['group'] == str(group)]:
+        group_list = [persons[k] for k in persons.keys() if persons[k]['group'] == str(group)]
+        group_len  = len(group_list)
+        for i in range(group_len):
+
+            print "-" * 50
+            print "pro    : %d / %d" % (i+1, group_len)
+            print "name   : %s" % group_list[i]['name']
+            print "link   : %s" % group_list[i]['link']
+            print "group  : %s" % group_list[i]['group']
+            print "index  : %s" % group_list[i]['index']
+            print "father : %s" % persons[group_list[i]['father_index']]['name']
+
             try:
-                exec_peer(driver, p)
+                exec_peer(driver, group_list[i])
             except:
                 pass
+
+            print "finished."
 
     driver.close()
     return graph
