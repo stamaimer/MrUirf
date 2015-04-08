@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 import re
 import json
 import requests
@@ -166,7 +167,7 @@ def start(login, depth):
 
         if node["group"] > depth:
 
-            print("generate graph ...")
+            print "generate graph ..."
 
             data = {"nodes":nodes, "links":links}
 
@@ -174,7 +175,7 @@ def start(login, depth):
 
                 json.dump(data, outfile)
 
-            break
+            return os.path.abspath("twitter.json")
 
         else:
 

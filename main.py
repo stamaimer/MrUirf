@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import facebook.gen_friendship as facebook
 import twitter.gen_friendship as twitter
 import github.gen_friendship as github
-import douban.gen_friendship as douban
-#import renren.gen_friendship
-#import sweibo.gen_friendship
+import gen_matpic
+import cal_matrix
 
 import argparse
 

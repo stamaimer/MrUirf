@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 import json
 import time
 import oauth
@@ -186,7 +187,7 @@ def start(login, depth):
 
                 json.dump(data, outfile)
 
-            break
+            return os.path.abspath("twitter.json")
 
         else:
 

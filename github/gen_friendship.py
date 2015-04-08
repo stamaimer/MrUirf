@@ -4,6 +4,7 @@ import requests
 import argparse
 import json
 import time
+import os
 
 nodes = []
 links = []
@@ -154,7 +155,7 @@ def start(login, depth):
 
                 json.dump(data, outfile)
 
-            break
+            return os.path.abspath("github.json")
 
         else:
 

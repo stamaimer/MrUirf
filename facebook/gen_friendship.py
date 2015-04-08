@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 import json
 import time
 import argparse
@@ -120,7 +121,7 @@ def get_friends(handle, node):
 
 def start(name, link, depth):
 
-    handle = login("stamaimer@gmail.com", "")
+    handle = login("stamaimer@gmail.com", "bl4u-awsf")
 
     nodes.append({"name":name, "link":link, "group":0})
 
@@ -136,7 +137,7 @@ def start(name, link, depth):
 
                 json.dump(data, outfile)
 
-            break
+            return os.path.abspath("facebook.json")
 
         else:
 
