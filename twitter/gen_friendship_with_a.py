@@ -18,6 +18,8 @@ requester = session.get_session()
 nodes = []
 links = []
 
+sleep_count = 0
+
 CONSUMER_KEY = "6s35FXsv4jD2ar0ZlDYjnt7jZ"
 CONSUMER_SECRET = "oFAlNZr6JGHwCdYGrYNfS3plUSdxg8UlEP2RtiKg59uSYahWRk"
 
@@ -53,7 +55,9 @@ def retrieve(url, params):
 
                 if interval > 0:
 
-                    print "sleeping %f seconds..." % (interval)
+                    sleep_count += 1
+
+                    print "the %d times sleep, sleeping %f seconds..." % (sleep_count, interval)
 
                     time.sleep(interval)
 

@@ -21,9 +21,13 @@ if __name__ == "__main__":
 
 	max_depth = args.depth
 
-	twitter.start(sed_login, max_depth)
+	tjpath = twitter.start(sed_login, max_depth)
 
-	github.start(sed_login, max_depth)
+	gjpath = github.start(sed_login, max_depth)
+
+	tmpath = gen_matpic.foo(tjpath, "twitter")
+
+	gmpath = gen_matpic.foo(gjpath, "github")
 
 
 

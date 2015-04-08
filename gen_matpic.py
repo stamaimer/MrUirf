@@ -36,11 +36,13 @@ def foo(path, name):
 
             matrix =  networkx.to_numpy_matrix(graph)
 
+            numpy.savetxt(name + ".matrix", matrix, delimiter=',')
+
             pos = networkx.spring_layout(graph, iterations=200)
 
             networkx.draw(graph, pos, node_color="#A0CBE2", edge_cmap=plt.cm.Blues, with_labels=True)
 
-            plt.savefig(name)
+            plt.savefig(name + ".png")
 
             break
 

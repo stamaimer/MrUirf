@@ -9,6 +9,8 @@ import os
 nodes = []
 links = []
 
+sleep_count = 0
+
 CLIENT_ID = "1c6409e7a4219e6dea66"
 CLIENT_SECRET = "44636a9d327c1e47aba28a9b50a22b39ac4caeb4"
 
@@ -45,8 +47,10 @@ def retrieve(url):
 
                 if interval > 0:
 
-                    print "sleeping %f seconds..." % (interval)
-                
+                    sleep_count += 1
+
+                    print "the %d times sleep, sleeping %f seconds..." % (sleep_count, interval)
+
                     time.sleep(interval)
 
             print "request : %s" % url
