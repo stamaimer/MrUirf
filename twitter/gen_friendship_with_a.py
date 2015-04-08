@@ -55,6 +55,8 @@ def retrieve(url, params):
 
                 if interval > 0:
 
+                    global sleep_count
+
                     sleep_count += 1
 
                     print "the %d times sleep, sleeping %f seconds..." % (sleep_count, interval)
