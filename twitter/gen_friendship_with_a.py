@@ -124,7 +124,7 @@ def get_followers(node):
         else:
 
             links.append({"source":find_by_name(user["screen_name"]),
-                          "target":nodes.index(tmpu)})
+                          "target":nodes.index(node)})
 
 def get_following(node):
 
