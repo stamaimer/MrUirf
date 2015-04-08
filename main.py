@@ -29,6 +29,6 @@ if __name__ == "__main__":
 
 	gmpath = gen_matpic.foo(gjpath, "github")
 
-
+	cal_matrix(tmpath, gmpath)
 
 	

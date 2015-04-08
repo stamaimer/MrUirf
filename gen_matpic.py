@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 import networkx
 import argparse
 import numpy
@@ -44,7 +45,7 @@ def foo(path, name):
 
             plt.savefig(name + ".png")
 
-            break
+            return os.path.abspath(name + ".matrix")
 
 if __name__ == "__main__":
 
