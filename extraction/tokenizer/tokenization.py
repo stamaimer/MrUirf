@@ -12,13 +12,20 @@ and hashtags.
         CANs    : basically tokenizinge text, just like splitting by white spaces
         CANNOTs : picking out special phrases(eg. urls).
     2.cmu
-        CANs    : tokenizing short texts, and picking out hashtags, urls and
-                  user mentions.
+        CANs    : tokenizing short texts
+                  picking out hashtags
+                  picking out urls
+                  picking out user mentions
+                  picking out emoticon ( :) )
         CANNOTs : picking out file names
     3.stanford
-        CANs    : tokenizing short texts, and picking out hashtags, user
-                  mentions and file names.
-        CANNOTs : picking out urls
+        CANs    : tokenizing short texts
+                  picking out hashtags
+                  picking out user mentions
+                  picking out file names.
+        CANNOTs : it even cannot split the full stop from the last word, for the
+                  reason this tokenizer cannot execute '.' that it could pick
+                  out file names. IT CANNOT EXECUTE FULL STOP :)
     So, we will suspend nltk tokenizer in this case, choosing ark tokenizer (for
 little influence caused by file names) or stanford tokenizer to tokenize the
 texts after filtered urls.
@@ -52,6 +59,7 @@ def print_token(tokens):
 if __name__ == "__main__":
 
     sample = [
+        'DENNIS: Listen, strange women lying in ponds distributing swords is no basis for a system of government.  Supreme executive power derives from a mandate from the masses, not from some farcical aquatic ceremony.',
         'Some programmers, when confronted with a problem, think "I know, I\'ll use floating point arithmetic." Now they have 1.999999999997 problems.', 
         'Photoshop?! #Wow pic.twitter.com/Z0mseCRi',
         'Python\'s sys.float_info is analogous to C\'s float.h header.',
@@ -61,7 +69,7 @@ if __name__ == "__main__":
 
     for text in sample:
         print "-" * 50
-        print "texr     :", text
+        print "text     :", text
         print "nltk     :", print_token(tokenize_nltk(text))
         print "ark      :", print_token(tokenize_ark(text))
         print "stanford :", print_token(tokenize_stf(text))
