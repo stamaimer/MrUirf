@@ -15,6 +15,8 @@ ROOT_ENDPOINT = "https://m.facebook.com"
 
 FRIENDS_XPATH = "//h3[@class='_52jh _5pxc']/a"
 
+percent, group1, group2 = 0.0, 0, 0
+
 def login(email, password):
 
     broswer = webdriver.Chrome()
@@ -81,10 +83,10 @@ def get_friends(handle, node):
             
             i = i + 1
 
-    percent, group1, group2 = 0.0, 0, 0
+    global percent, group1, group2
         
     if 0 == group:
-        
+
         percent = 1
 
     elif 1 == group:

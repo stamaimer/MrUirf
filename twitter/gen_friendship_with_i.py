@@ -77,7 +77,7 @@ def retrieve(url, params):
 
                 set_ratelimit_info(response.headers)
 
-                print "request : %s %d" % (url, response.status_code)
+                print "request : %s %d" % (response.url, response.status_code)
 
                 print json.dumps(response.json(), indent = 4)
 

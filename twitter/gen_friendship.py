@@ -43,7 +43,7 @@ def retrieve(url):
 
             else:
 
-                print("request : %s %d" % (url, response.status_code))
+                print("request : %s %d" % (response.url, response.status_code))
 
                 if 404 == response.status_code:#anything else?
 
