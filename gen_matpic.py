@@ -4,7 +4,6 @@ import networkx
 import argparse
 import numpy
 import json
-import os
 
 import matplotlib.pyplot as plt
 
@@ -25,13 +24,9 @@ def foo(path, name):
 
             links.remove(link)
 
-    data = {"nodes":nodes, "links":links }
-
-    graph = json_graph.node_link_graph(data, directed=False, multigraph=False)
+    graph = json_graph.node_link_graph({"nodes":nodes, "links":links}, directed=False, multigraph=False)
 
     graphs = list(networkx.connected_component_subgraphs(graph))
-
-#    numpy.set_printoptions(threshold="nan")
 
     for graph in graphs:
 
@@ -45,7 +40,7 @@ def foo(path, name):
 
                 labels[index] = node
 
-            graph = networkx.relabel_nodes(graph, labels, copy=False)
+            graph = networkx.relabel_nodes(graph, labels)
 
             data = json_graph.node_link_data(graph)
 
@@ -55,9 +50,7 @@ def foo(path, name):
 
             matrix =  networkx.to_numpy_matrix(graph)
 
-            numpy.savetxt(name + ".matrix", matrix, delimiter=',')
-
-            return os.path.abspath(name + ".matrix"), nodes
+            return matrix, nodes
 
 if __name__ == "__main__":
 

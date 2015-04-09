@@ -25,11 +25,11 @@ if __name__ == "__main__":
 
 	path2json_graph_t = twiter.start(sed_login, max_depth)
 
-	path2matrix_g, """path2image_g,""" path2nodes_g = gen_matpic.foo(path2json_graph_g, "github")
+	matrix_g, nodes_g = gen_matpic.foo(path2json_graph_g, "github")
 
-	path2matrix_t, """path2image_t,""" path2nodes_t = gen_matpic.foo(path2json_graph_t, "twiter")
+	matrix_t, nodes_t = gen_matpic.foo(path2json_graph_t, "twiter")
 
-	cal_matrix.cal_similarity_matrix(path2matrix_g, path2matrix_t)
+	cal_matrix.cal_similarity_matrix(matrix_g, matrix_t)
 
 
 	
