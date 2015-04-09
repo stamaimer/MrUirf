@@ -8,7 +8,8 @@ defination block we have a corpus 'kwlist' and a normalization function
 'get_close_matches'. We use normalization function to corrent fuzzy word 'fuzzyw'
 by mapping it from a authentic corpus. These tools are integrated funcs with a 
 corpus and normalization funtion inside.
-    Finally we determined to use nltk wordnet lemmatizer.
+    Finally we determined to use nltk wordnet lemmatizer, and lemmatizing is
+enough comparing to stemming.
 '''
 
 import json
