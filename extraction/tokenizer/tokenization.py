@@ -64,7 +64,8 @@ if __name__ == "__main__":
         'Photoshop?! #Wow pic.twitter.com/Z0mseCRi',
         'Python\'s sys.float_info is analogous to C\'s float.h header.',
         'RT @SciPyTip:Research Tools ow.ly/8WMpb Videos and notes on Python, Emacs, bash, etc.',
-        'About unicode (and Python) nedbatchelder.com/text/unipain.h'
+        'About unicode (and Python) nedbatchelder.com/text/unipain.h',
+        '^_^ Learning from @b_entwistle &@pr_chambers about #Snippets in #Sublime - cool stuff! computationalmodelling.bitbucket.org/tools/sublime. #NGCM #CDT pic.twitter.com/DS135EKI9H :)'
     ]
 
     for text in sample:
