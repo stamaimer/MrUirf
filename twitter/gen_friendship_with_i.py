@@ -99,7 +99,7 @@ def get_name(ids):
 
     ids = response.json()
 
-    name_list = [ ele["name"] for ele in ids ]
+    name_list = [ ele["screen_name"] for ele in ids ]
 
     return name_list
 
