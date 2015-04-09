@@ -91,6 +91,18 @@ def retrieve(url, params):
 
             raise
 
+def get_name(ids):
+
+    params = {"user_id":ids, "include_entities":"false"}
+
+    response = retrieve(LOOKUP_URL, params)
+
+    ids = response.json()
+
+    name_list = [ ele["name"] for ele in ids ]
+
+    return name_list
+
 def find_by_name(name):
 
     for node in nodes:
@@ -184,8 +196,6 @@ def get_user_id(name):
     params = {"screen_name":name, "include_entities":"false"}
     
     response = retrieve(LOOKUP_URL, params)
-
-    print response.json()[0]["id_str"]
 
     return response.json()[0]["id_str"]
 
