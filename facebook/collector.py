@@ -7,8 +7,8 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 start_url = "http://m.facebook.com"
-user_email= "curmium@gmail.com"
-user_pass = "zhanhui"
+user_email= "wendyfrank@gmail.com"
+user_pass = "wendyfrank"
 
 def login(driver):
 
