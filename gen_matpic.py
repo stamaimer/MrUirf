@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 
-import os
 import networkx
 import argparse
 import numpy
 import json
+import os
+
 import matplotlib.pyplot as plt
+
 from networkx.readwrite import json_graph
 
 def foo(path, name):
@@ -37,9 +39,14 @@ def foo(path, name):
 
             matrix =  networkx.to_numpy_matrix(graph)
 
+            with open(name + ".nodes", 'w') as target:
+
+                json.dump(nodes, target)
+
             numpy.savetxt(name + ".matrix", matrix, delimiter=',')
 
-            return os.path.abspath(name + ".matrix")
+            return os.path.abspath(name + ".matrix"),
+                   os.path.abspath(name + ".nodes")
 
 if __name__ == "__main__":
 
