@@ -16,7 +16,7 @@ def cal_similarity_matrix(g, t, iterations=100):
 
         s = tmp
 
-    print tmp
+    return tmp
 
 if __name__ == "__main__":
 

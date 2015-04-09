@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
 	matrix_t, nodes_t = gen_matpic.foo(path2json_graph_t, "twiter")
 
-	cal_matrix.cal_similarity_matrix(matrix_g, matrix_t)
+	similarity_matrix = cal_matrix.cal_similarity_matrix(matrix_g, matrix_t)
 
 
 	
