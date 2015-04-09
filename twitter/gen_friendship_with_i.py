@@ -178,8 +178,20 @@ def get_following(node):
 
             links.append({"source":nodes.index(node),
                           "target":find_by_name(user)})
+ 
+def get_user_id(name):
+
+    params = {"screen_name":name, "include_entities":"false"}
+    
+    response = retrieve(LOOKUP_URL, params)
+
+    print response.json()[0]["id_str"]
+
+    return response.json()[0]["id_str"]
 
 def start(login, depth):
+
+    login = get_user_id(login)
 
     nodes.append({"name":login, "group":0})
 
@@ -201,16 +213,6 @@ def start(login, depth):
 
             get_followers(node)
             get_following(node)
-
-def get_user_id(name):
-
-    params = {"screen_name":name, "include_entities":"false"}
-    
-    response = retrieve(LOOKUP_URL, params)
-
-    print response.json()[0]["id_str"]
-
-    return response.json()[0]["id_str"]
 
 if __name__ == "__main__":
 
