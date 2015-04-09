@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import twitter.gen_friendship as twitter
+import twiter.gen_friendship as twiter
 import github.gen_friendship as github
 import gen_matpic
 import cal_matrix
@@ -13,7 +13,7 @@ if __name__ == "__main__":
 	
 	argument_parser.add_argument("login", help="")
 	
-	argument_parser.add_argument("depth", help="")
+	argument_parser.add_argument("depth", help="", type=int)
 
 	args = argument_parser.parse_args()
 
@@ -21,13 +21,13 @@ if __name__ == "__main__":
 
 	max_depth = args.depth
 
-	tjpath = twitter.start(sed_login, max_depth)
+	path2json_graph_t = twiter.start(sed_login, max_depth)
 
-	gjpath = github.start(sed_login, max_depth)
+	path2json_graph_g = github.start(sed_login, max_depth)
 
-	tmpath = gen_matpic.foo(tjpath, "twitter")
+	path2matrix_t, path2nodes_t = gen_matpic.foo(tjpath, "twitter")
 
-	gmpath = gen_matpic.foo(gjpath, "github")
+	path2matrix_g, path2nodes_g = gen_matpic.foo(gjpath, "github")
 
 	cal_matrix(tmpath, gmpath)
 

@@ -153,7 +153,7 @@ if __name__ == "__main__":
 
     argument_parser.add_argument("link", help="")
 
-    argument_parser.add_argument("depth", help="")
+    argument_parser.add_argument("depth", help="", type=int)
 
     args = argument_parser.parse_args()
 
