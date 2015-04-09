@@ -67,7 +67,7 @@ def retrieve(url, params):
 
             print "request : %s" % url
             
-            time.sleep(0.01)
+            time.sleep(10)
 
             response = requester.get(url, params = params, headers = headers)
 
