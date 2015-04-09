@@ -27,7 +27,7 @@ def foo(path, name):
 
     graphs = list(networkx.connected_component_subgraphs(graph))
 
-    numpy.set_printoptions(threshold="nan")
+#    numpy.set_printoptions(threshold="nan")
 
     for graph in graphs:
 
@@ -38,12 +38,6 @@ def foo(path, name):
             matrix =  networkx.to_numpy_matrix(graph)
 
             numpy.savetxt(name + ".matrix", matrix, delimiter=',')
-
-            pos = networkx.spring_layout(graph, iterations=200)
-
-            networkx.draw(graph, pos, node_color="#A0CBE2", edge_cmap=plt.cm.Blues, with_labels=True)
-
-            plt.savefig(name + ".png")
 
             return os.path.abspath(name + ".matrix")
 

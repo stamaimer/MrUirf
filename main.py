@@ -21,14 +21,15 @@ if __name__ == "__main__":
 
 	max_depth = args.depth
 
-	path2json_graph_t = twiter.start(sed_login, max_depth)
-
 	path2json_graph_g = github.start(sed_login, max_depth)
 
-	path2matrix_t, path2nodes_t = gen_matpic.foo(tjpath, "twitter")
+	path2json_graph_t = twiter.start(sed_login, max_depth)
 
-	path2matrix_g, path2nodes_g = gen_matpic.foo(gjpath, "github")
+	path2matrix_g, path2image_g, path2nodes_g = gen_matpic.foo(path2json_graph_g, "github")
 
-	cal_matrix(tmpath, gmpath)
+	path2matrix_t, path2image_t, path2nodes_t = gen_matpic.foo(path2json_graph_t, "twiter")
+
+	cal_matrix.cal_similarity_matrix(path2matrix_g, path2matrix_t)
+
 
 	
