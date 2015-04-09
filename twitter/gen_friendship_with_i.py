@@ -30,7 +30,7 @@ FOLLOWERS_URL = "https://api.twitter.com/1.1/followers/ids.json"
 
 headers = {"Authorization" : "Bearer " + oauth.get_bearer_token(CONSUMER_KEY, CONSUMER_SECRET)}
 
-ratelimit_remaining = "30"
+ratelimit_remaining = "15"
 ratelimit_reset = time.time()
 
 def set_ratelimit_info(headers):
