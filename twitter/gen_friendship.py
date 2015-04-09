@@ -31,19 +31,19 @@ def retrieve(url):
 
         try:
 
-            print("request : %s" % url)
+            print "request : %s" % url
 
             response = requester.get(url)
 
             if 200 == response.status_code:
 
-                print("request : %s success" % url)
+                print "request : %s success" % response.url
 
                 return response
 
             else:
 
-                print("request : %s %d" % (url, response.status_code))
+                print "request : %s %d" % (response.url, response.status_code)
 
                 if 404 == response.status_code:#anything else?
 
@@ -75,7 +75,7 @@ def parse(tree, xpath):
 
     else:#something wrong
 
-        print("something wrong in parse")
+        print "something wrong in parse"
 
         return ''
 
