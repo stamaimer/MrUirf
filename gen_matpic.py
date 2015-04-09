@@ -25,11 +25,9 @@ def foo(path, name):
 
             links.remove(link)
 
-    with open(name + ".json", 'w') as target:
+    data = {"nodes":nodes, "links":links }
 
-        json.dump({"nodes":nodes, "links":links }, target)
-
-    graph = json_graph.node_link_graph({"nodes":nodes, "links":links}, directed=False, multigraph=False)
+    graph = json_graph.node_link_graph(data, directed=False, multigraph=False)
 
     graphs = list(networkx.connected_component_subgraphs(graph))
 
@@ -41,15 +39,25 @@ def foo(path, name):
 
             nodes = [node["name"] for node in nodes if nodes.index(node) in graph.nodes()]
 
+            labels = {}
+
+            for index, node in zip(graph.nodes(), nodes):
+
+                labels[index] = node
+
+            graph = networkx.relabel_nodes(graph, labels, copy=False)
+
+            data = json_graph.node_link_data(graph)
+
+            with open(name + ".json", 'w') as target:
+
+                json.dump(data, target)
+
             matrix =  networkx.to_numpy_matrix(graph)
-
-            with open(name + ".nodes", 'w') as target:
-
-                json.dump(nodes, target)
 
             numpy.savetxt(name + ".matrix", matrix, delimiter=',')
 
-            return os.path.abspath(name + ".matrix"), os.path.abspath(name + ".nodes")
+            return os.path.abspath(name + ".matrix"), nodes
 
 if __name__ == "__main__":
 
