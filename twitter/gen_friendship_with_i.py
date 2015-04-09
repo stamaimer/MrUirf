@@ -23,6 +23,8 @@ sleep_count = 0
 CONSUMER_KEY = "6s35FXsv4jD2ar0ZlDYjnt7jZ"
 CONSUMER_SECRET = "oFAlNZr6JGHwCdYGrYNfS3plUSdxg8UlEP2RtiKg59uSYahWRk"
 
+LOOKUP_URL = "https://api.twitter.com/1.1/users/lookup.json"
+
 FOLLOWING_URL = "https://api.twitter.com/1.1/friends/ids.json"
 FOLLOWERS_URL = "https://api.twitter.com/1.1/followers/ids.json"
 
@@ -103,7 +105,7 @@ def get_followers(node):
 
     group = node["group"]
 
-    params = {"screen_name":name, "cursor":-1, "count":200, "stringify_ids":"true"} 
+    params = {"user_id":name, "cursor":-1, "count":5000, "stringify_ids":"true"} 
 
     response = retrieve(FOLLOWERS_URL, params)
 
@@ -143,7 +145,7 @@ def get_following(node):
 
     group = node["group"]
 
-    params = {"screen_name":name, "cursor":-1, "count":200, "stringify_ids":"true"} 
+    params = {"user_id":name, "cursor":-1, "count":5000, "stringify_ids":"true"} 
 
     response = retrieve(FOLLOWING_URL, params)
 
@@ -199,6 +201,16 @@ def start(login, depth):
 
             get_followers(node)
             get_following(node)
+
+def get_user_id(name):
+
+    params = {"screen_name":name, "include_entities":"false"}
+    
+    response = retrieve(LOOKUP_URL, params)
+
+    print response.json()[0]["id_str"]
+
+    return response.json()[0]["id_str"]
 
 if __name__ == "__main__":
 
