@@ -56,7 +56,7 @@ if __name__ == "__main__":
 
     for text in sample:
         tokens = word_tokenize(text)
-        matrix = ['raw token', 'lancaster', 'porter', 'snowball', 'lemmatizer']
+        matrix = [['raw', 'lancaster', 'porter', 'snowball', 'lemmatizer']]
         for token in tokens:
             row = [token]
             row.append(normalize_nltk_lancaster(token))
