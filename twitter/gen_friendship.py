@@ -19,8 +19,6 @@ requester = session.get_session()
 nodes = []
 links = []
 
-members = []
-
 HOST = "https://mobile.twitter.com"
 
 FOLLOWING_URL = HOST + "/%s/following"
@@ -92,15 +90,15 @@ def extract_info(content):
 
     count = int(count.replace(',', ''))
 
-    global members
-
     members = []
+
+    if count >= 10000:
+
+        return members
 
     next = ""
 
     for i in range(int(count / 20)):
-
-        global members
 
         members.extend(parse(tree, MXPATH))
 
@@ -114,13 +112,11 @@ def extract_info(content):
 
     if count % 20 :
 
-        global members
-
         members.extend(parse(tree, MXPATH))
 
     print "members count : %d" % len(members)
 
-    #return members
+    return members
 
 def get_followers(node):
 
@@ -130,9 +126,9 @@ def get_followers(node):
 
     response = retrieve(FOLLOWERS_URL % name)
 
-    extract_info(response.content)
+    followers = extract_info(response.content)
 
-    for user in members:
+    for user in followers:
 
         if user not in [ele["name"] for ele in nodes]:
 
@@ -156,9 +152,9 @@ def get_following(node):
 
     response = retrieve(FOLLOWING_URL % name)
 
-    extract_info(response.content)
+    following = extract_info(response.content)
 
-    for user in members:
+    for user in following:
 
         if user not in [ele["name"] for ele in nodes]:
 
