@@ -30,6 +30,8 @@ FOLLOWERS_URL = "https://api.twitter.com/1.1/followers/ids.json"
 
 bearer_token = oauth.get_bearer_token(CONSUMER_KEY, CONSUMER_SECRET)
 
+access_token = "1112070588-5bNvcWYSIowvzRbRnSp4jetaCbpLk0xNVFg8egv"
+
 headers = {"Authorization" : "Bearer " + bearer_token}
 
 ratelimit_remaining = "16"
@@ -69,7 +71,7 @@ def retrieve(url, params):
 
                         global bearer_token
 
-                        bearer_token = oauth.get_bearer_token(CONSUMER_KEY, CONSUMER_SECRET, bearer_token)
+                        bearer_token = oauth.get_bearer_token(CONSUMER_KEY, CONSUMER_SECRET, access_token)
 
                         global headers
 
