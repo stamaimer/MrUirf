@@ -4,37 +4,29 @@ import os
 import json
 import time
 import oauth
-import requests
-import argparse
-
-import sys
-
-sys.path.append("../")
-
 import session
-
-requester = session.get_session()
+import argparse
 
 nodes = []
 links = []
 
 sleep_count = 0
 
+requester = session.get_session()
+
 CONSUMER_KEY = "6s35FXsv4jD2ar0ZlDYjnt7jZ"
 CONSUMER_SECRET = "oFAlNZr6JGHwCdYGrYNfS3plUSdxg8UlEP2RtiKg59uSYahWRk"
 
 LOOKUP_URL = "https://api.twitter.com/1.1/users/lookup.json"
-
+USER_SHOW_URL = "https://api.twitter.com/1.1/users/show.json"
 FOLLOWING_URL = "https://api.twitter.com/1.1/friends/ids.json"
 FOLLOWERS_URL = "https://api.twitter.com/1.1/followers/ids.json"
 
 bearer_token = oauth.get_bearer_token(CONSUMER_KEY, CONSUMER_SECRET)
 
-access_token = "1112070588-5bNvcWYSIowvzRbRnSp4jetaCbpLk0xNVFg8egv"
-
 headers = {"Authorization" : "Bearer " + bearer_token}
 
-ratelimit_remaining = "16"
+ratelimit_remaining = "15"
 ratelimit_reset = time.time()
 
 def set_ratelimit_info(headers):
@@ -65,17 +57,11 @@ def retrieve(url, params):
 
                     sleep_count += 1
 
-                    print "the %d times sleep, sleeping %f seconds..." % (sleep_count, interval)
+                    print "the %d times sleep, sleep %f seconds..." % (sleep_count, interval)
 
                     if sleep_count % 4 == 0:
 
-                        global bearer_token
-
-                        bearer_token = oauth.get_bearer_token(CONSUMER_KEY, CONSUMER_SECRET, access_token)
-
-                        global headers
-
-                        headers = headers = {"Authorization" : "Bearer " + bearer_token}
+                        pass
 
                     time.sleep(interval)
 
@@ -107,17 +93,29 @@ def retrieve(url, params):
 
             raise
 
-def get_name(ids):
+def get_name_list(ids):
 
     params = {"user_id":ids, "include_entities":"false"}
 
     response = retrieve(LOOKUP_URL, params)
 
-    ids = response.json()
+    if response:
 
-    name_list = [ ele["screen_name"] for ele in ids ]
+        set_ratelimit_info(response.headers)
 
-    return name_list
+        ids = response.json()
+
+        name_list = [ {"id":ele["id"],
+                       "name":ele["name"],
+                       "location":ele["location"],
+                       "screen_name":ele["screen_name"],
+                       "description":ele["description"]} for ele in ids ]
+
+        return name_list
+
+    else:
+
+        return None
 
 def find_by_name(name):
 
@@ -137,35 +135,43 @@ def get_followers(node):
 
     response = retrieve(FOLLOWERS_URL, params)
 
-    set_ratelimit_info(response.headers)
-
-    followers = response.json()["ids"]
-
-    while 0 != response.json()["next_cursor"]:
-
-        params["cursor"] = response.json()["next_cursor"]
-
-        response = retrieve(FOLLOWERS_URL, params)
+    if response:
 
         set_ratelimit_info(response.headers)
 
-        followers.extend(response.json()["ids"])
+        followers = response.json()["ids"]
 
-    for user in followers:
+        while 0 != response.json()["next_cursor"]:
 
-        if user not in [ele["name"] for ele in nodes]:
+            params["cursor"] = response.json()["next_cursor"]
 
-            tmpu = {"name":user, "group":group + 1}
+            response = retrieve(FOLLOWERS_URL, params)
 
-            nodes.append(tmpu)
+            if response:
 
-            links.append({"source":nodes.index(tmpu),
-                          "target":nodes.index(node)})
+                set_ratelimit_info(response.headers)
 
-        else:
+                followers.extend(response.json()["ids"])
 
-            links.append({"source":find_by_name(user),
-                          "target":nodes.index(node)})
+            else:
+
+                break
+
+        for user in followers:
+
+            if user not in [ele["name"] for ele in nodes]:
+
+                tmpu = {"name":user, "group":group + 1}
+
+                nodes.append(tmpu)
+
+                links.append({"source":nodes.index(tmpu),
+                              "target":nodes.index(node)})
+
+            else:
+
+                links.append({"source":find_by_name(user),
+                              "target":nodes.index(node)})
 
 def get_following(node):
 
@@ -177,49 +183,69 @@ def get_following(node):
 
     response = retrieve(FOLLOWING_URL, params)
 
-    set_ratelimit_info(response.headers)
-
-    following = response.json()["ids"]
-
-    while 0 != response.json()["next_cursor"]:
-
-        params["cursor"] = response.json()["next_cursor"]
-
-        response = retrieve(FOLLOWING_URL, params)
+    if response:
 
         set_ratelimit_info(response.headers)
 
-        following.extend(response.json()["ids"])
+        following = response.json()["ids"]
 
-    for user in following:
+        while 0 != response.json()["next_cursor"]:
 
-        if user not in [ele["name"] for ele in nodes]:
+            params["cursor"] = response.json()["next_cursor"]
 
-            tmpu = {"name":user, "group":group + 1}
+            response = retrieve(FOLLOWING_URL, params)
 
-            nodes.append(tmpu)
+            if response:
 
-            links.append({"source":nodes.index(node),
-                          "target":nodes.index(tmpu)})
+                set_ratelimit_info(response.headers)
 
-        else:
+                following.extend(response.json()["ids"])
 
-            links.append({"source":nodes.index(node),
-                          "target":find_by_name(user)})
+            else:
+
+                break
+
+        for user in following:
+
+            if user not in [ele["name"] for ele in nodes]:
+
+                tmpu = {"name":user, "group":group + 1}
+
+                nodes.append(tmpu)
+
+                links.append({"source":nodes.index(node),
+                              "target":nodes.index(tmpu)})
+
+            else:
+
+                links.append({"source":nodes.index(node),
+                              "target":find_by_name(user)})
  
 def get_user_id(name):
 
     params = {"screen_name":name, "include_entities":"false"}
     
-    response = retrieve(LOOKUP_URL, params)
+    response = retrieve(USER_SHOW_URL, params)
 
-    return response.json()[0]["id_str"]
+    set_ratelimit_info(response.headers)
+
+    if response:
+
+        id = response.json()["id_str"]
+
+        print "the id of %s is %s" % (name, id)
+
+        return id
+
+    else:
+
+        print "can't retrieve %s" % name
 
 def start(login, depth):
 
-    login = get_user_id(login)
+    id = get_user_id(login)
 
-    nodes.append({"name":login, "group":0})
+    nodes.append({"name":id, "group":0})
 
     for node in nodes:
 
@@ -229,11 +255,11 @@ def start(login, depth):
 
             data = {"nodes":nodes, "links":links}
 
-            with open("twitter.json", 'w') as outfile:
+            with open(login + ".json", 'w') as target:
 
-                json.dump(data, outfile)
+                json.dump(data, target)
 
-            return os.path.abspath("twitter.json")
+            return os.path.abspath(login + ".json")
 
         else:
 
