@@ -18,7 +18,7 @@ requester = session.get_session()
 nodes = []
 links = []
 
-HOST = "http://mobile.twitter.com"
+HOST = "https://mobile.twitter.com"
 
 FOLLOWING_URL = HOST + "/%s/following"
 FOLLOWERS_URL = HOST + "/%s/followers"
