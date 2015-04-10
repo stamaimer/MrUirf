@@ -32,7 +32,7 @@ bearer_token = oauth.get_bearer_token(CONSUMER_KEY, CONSUMER_SECRET)
 
 headers = {"Authorization" : "Bearer " + bearer_token}
 
-ratelimit_remaining = "15"
+ratelimit_remaining = "16"
 ratelimit_reset = time.time()
 
 def set_ratelimit_info(headers):

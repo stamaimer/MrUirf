@@ -31,11 +31,13 @@ def get_bearer_token(consumer_key, consumer_secret, access_token=None):
 
         payload["access_token"] = access_token
 
+        response = requests.post(INVALIDATE_TOKEN, headers=headers, data=payload)
+        
     else:
 
         payload["grant_type"] = "client_credentials"
 
-    response = requests.post(BEARER_TOKEN_URL, headers=headers, data=payload)
+        response = requests.post(BEARER_TOKEN_URL, headers=headers, data=payload)
 
     if 200 == response.status_code:
 
