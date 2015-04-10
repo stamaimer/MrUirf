@@ -88,9 +88,15 @@ def extract_info(content):
 
     count = parse(tree, "//span[@class='count']/text()")
 
-    count = int(count.replace(',', ''))
-
     members = []
+    
+    try:
+
+        count = int(count.replace(',', ''))
+
+    except:
+
+        return members
 
     if count >= 10000:
 
