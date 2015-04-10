@@ -92,6 +92,10 @@ def extract_info(content):
 
     members = []
 
+    if count >= 10000:
+
+        return members
+
     next = ""
 
     for i in range(int(count / 20)):
