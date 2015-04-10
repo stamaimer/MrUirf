@@ -98,6 +98,8 @@ def extract_info(content):
 
         members.extend(parse(tree, MXPATH))
 
+        print "members count : %d" % len(members)
+
         next = parse(tree, "//*[@id='main_content']/div/div[2]/div/a/@href")
 
         response = retrieve(HOST + next)
@@ -107,6 +109,8 @@ def extract_info(content):
     if count % 20 :
 
         members.extend(parse(tree, MXPATH))
+
+    print "members count : %d" % len(members)
 
     return members
 
