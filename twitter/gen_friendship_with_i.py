@@ -67,7 +67,7 @@ def retrieve(url, params):
 
             print "request : %s" % url
             
-            time.sleep(10)
+            time.sleep(30)
 
             response = requester.get(url, params = params, headers = headers)
 
@@ -100,8 +100,6 @@ def get_name_list(ids):
     response = retrieve(LOOKUP_URL, params)
 
     if response:
-
-        set_ratelimit_info(response.headers)
 
         ids = response.json()
 
@@ -226,8 +224,6 @@ def get_user_id(name):
     params = {"screen_name":name, "include_entities":"false"}
     
     response = retrieve(USER_SHOW_URL, params)
-
-    set_ratelimit_info(response.headers)
 
     if response:
 
