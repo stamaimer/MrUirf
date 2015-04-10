@@ -2,8 +2,8 @@
 
 import os
 import re
-import time
 import json
+import pymongo
 import requests
 import argparse
 from lxml import html
@@ -26,6 +26,14 @@ FOLLOWERS_URL = HOST + "/%s/followers"
 
 MXPATH = "//span[@class='username']/text()"
 
+mongo_client = pymongo.MongoClient('mongodb://username:pwd@127.0.0.1:27017/msif')
+
+msif = mongo_client.msif
+
+twitter_nodes = msif.twitter_nodes
+
+twitter_links = msif.twitter_links
+
 def retrieve(url):
 
     while 1:
@@ -33,8 +41,6 @@ def retrieve(url):
         try:
 
             print "request : %s" % url
-
-            time.sleep(0.1)
 
             response = requester.get(url)
 
@@ -122,14 +128,19 @@ def get_followers(node):
 
     for user in followers:
 
-        if user not in [ele["name"] for ele in nodes]:
+        #if user not in [ele["name"] for ele in nodes]:
+
+        if user not in twitter_nodes.find({}, {"name":1, "_id":0})
 
             tmpu = {"name":user, "group":group + 1}
 
-            nodes.append(tmpu)
+            #nodes.append(tmpu)
 
-            links.append({"source":nodes.index(tmpu),
-                          "target":nodes.index(node)})
+            twitter_nodes.insert(tmpu)
+
+            #links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
+
+            
 
         else:
 
@@ -164,15 +175,22 @@ def get_following(node):
 
 def start(login, depth):
 
-    nodes.append({"name":login, "group":0})
+    #nodes.append({"name":login, "group":0})
 
-    for node in nodes:
+    twitter_nodes.insert({"name":login, "group":0})
+
+    #for node in nodes:
+
+    for node in twitter_nodes.find({}, {"name":1, "group":1, "_id":0})
 
         if node["group"] > depth:
 
             print "generate graph ..."
 
-            data = {"nodes":nodes, "links":links}
+            #data = {"nodes":nodes, "links":links}
+
+            data = {"nodes":twitter_nodes.find({}, {"name":1, "group":1, "_id":0}),\
+                    "links":twitter_links.find({}, {"source":1, "target":1, "_id":0})}
 
             with open("twitter.json", 'w') as outfile:
 
