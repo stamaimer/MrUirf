@@ -5,6 +5,7 @@ import base64
 import requests
 
 BEARER_TOKEN_URL = "https://api.twitter.com/oauth2/token"
+INVALIDATE_TOKEN = "https://api.twitter.com/oauth2/invalidate_token"
 
 def urlencode(str):
 
@@ -14,7 +15,7 @@ def b64encode(str):
 
     return base64.b64encode(str)
 
-def get_bearer_token(consumer_key, consumer_secret):
+def get_bearer_token(consumer_key, consumer_secret, access_token=None):
 
     bearer_token_credentials = ':'.join([urlencode(consumer_key), urlencode(consumer_secret)])
 
@@ -26,7 +27,13 @@ def get_bearer_token(consumer_key, consumer_secret):
 
     headers["Content-Type"] = "application/x-www-form-urlencoded;charset=UTF-8"
 
-    payload["grant_type"] = "client_credentials"
+    if access_token:
+
+        payload["access_token"] = access_token
+
+    else:
+
+        payload["grant_type"] = "client_credentials"
 
     response = requests.post(BEARER_TOKEN_URL, headers=headers, data=payload)
 

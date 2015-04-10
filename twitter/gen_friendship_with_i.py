@@ -28,7 +28,9 @@ LOOKUP_URL = "https://api.twitter.com/1.1/users/lookup.json"
 FOLLOWING_URL = "https://api.twitter.com/1.1/friends/ids.json"
 FOLLOWERS_URL = "https://api.twitter.com/1.1/followers/ids.json"
 
-headers = {"Authorization" : "Bearer " + oauth.get_bearer_token(CONSUMER_KEY, CONSUMER_SECRET)}
+bearer_token = oauth.get_bearer_token(CONSUMER_KEY, CONSUMER_SECRET)
+
+headers = {"Authorization" : "Bearer " + bearer_token}
 
 ratelimit_remaining = "15"
 ratelimit_reset = time.time()
@@ -62,6 +64,16 @@ def retrieve(url, params):
                     sleep_count += 1
 
                     print "the %d times sleep, sleeping %f seconds..." % (sleep_count, interval)
+
+                    if sleep_count % 4 == 0:
+
+                        global bearer_token
+
+                        bearer_token = oauth.get_bearer_token(CONSUMER_KEY, CONSUMER_SECRET, bearer_token)
+
+                        global headers
+
+                        headers = headers = {"Authorization" : "Bearer " + bearer_token}
 
                     time.sleep(interval)
 
