@@ -150,6 +150,9 @@ def get_followers(node):
 
                 links.append({"source":find_by_name(user),
                               "target":nodes.index(node)})
+
+        del followers
+        
 @profile
 def get_following(node):
 
@@ -180,6 +183,9 @@ def get_following(node):
 
                 links.append({"source":nodes.index(node),
                               "target":find_by_name(user)})
+
+        del following
+
 @profile
 def start(login, depth):
 
