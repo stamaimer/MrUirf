@@ -142,11 +142,11 @@ def get_followers(node):
 
             return
 
-        if count >= 10000:
+        if count >= 5000:
 
             return
 
-        members = [ {"name":ele} for ele in parse(tree, MXPATH) ]
+        members = ( {"name":ele} for ele in parse(tree, MXPATH) )
 
         next = parse(tree, NXPATH)[0]
 
@@ -156,7 +156,7 @@ def get_followers(node):
 
             tree = html.fromstring(response.content)
 
-            members.extend([ {"name":ele} for ele in parse(tree, MXPATH) ])
+            members = itertools.chain(members, ( {"name":ele} for ele in parse(tree, MXPATH) ))
 
             next = parse(tree, NXPATH)[0]
 
@@ -176,7 +176,7 @@ def get_followers(node):
                 links.append({"source":find_by_name(user),
                               "target":nodes.index(node)})
 
-        del members[:]; gc.collect()
+        del members; gc.collect()
 
 def get_following(node):
 
@@ -200,11 +200,11 @@ def get_following(node):
 
             return
 
-        if count >= 10000 or count == 2001:#check fake user
+        if count >= 5000 or count == 2001:#check fake user
 
             return
 
-        members = [ {"name":ele} for ele in parse(tree, MXPATH) ]
+        members = ( {"name":ele} for ele in parse(tree, MXPATH) )
 
         next = parse(tree, NXPATH)[0]
 
@@ -214,7 +214,7 @@ def get_following(node):
 
             tree = html.fromstring(response.content)
 
-            members.extend([ {"name":ele} for ele in parse(tree, MXPATH) ])
+            members = itertools.chain(members, ( {"name":ele} for ele in parse(tree, MXPATH) ))
 
             next = parse(tree, NXPATH)[0]
 
@@ -234,7 +234,7 @@ def get_following(node):
                 links.append({"source":nodes.index(node),
                               "target":find_by_name(user)})
 
-        del members[:]; gc.collect()
+        del members; gc.collect()
 
 def start(login, depth):
 
