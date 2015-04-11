@@ -9,7 +9,8 @@ import argparse
 import itertools
 from lxml import html
 
-import memory_profiler
+import objgraph
+import pdb; pdb.set_trace()
 
 requester = session.get_session()
 
@@ -22,7 +23,7 @@ FOLLOWING_URL = HOST + "/%s/following"
 FOLLOWERS_URL = HOST + "/%s/followers"
 
 MXPATH = "//span[@class='username']/text()"
-@profile
+
 def retrieve(url):
 
     while 1:
@@ -52,7 +53,7 @@ def retrieve(url):
         except :
 
             raise
-@profile
+
 def find_by_name(name):
 
     for node in nodes:
@@ -60,7 +61,7 @@ def find_by_name(name):
         if node["name"] == name:
 
             return nodes.index(node)
-@profile
+
 def parse(tree, xpath):
 
     nodes = tree.xpath(xpath)
@@ -76,7 +77,7 @@ def parse(tree, xpath):
     else:#something wrong
 
         return [None]
-@profile
+
 def extract_info(response):
 
     tree = html.fromstring(response.content)
@@ -105,6 +106,9 @@ def extract_info(response):
 
     while next:
 
+        objgraph.show_most_common_types()
+        objgraph.show_growth()
+
         del tree
 
         response = retrieve(HOST + next)
@@ -120,7 +124,7 @@ def extract_info(response):
     del tree
 
     return members
-@profile
+
 def get_followers(node):
 
     name = node["name"]
@@ -134,6 +138,9 @@ def get_followers(node):
         followers = extract_info(response)
 
         for user in followers:
+
+            objgraph.show_most_common_types()
+            objgraph.show_growth()
 
             if user not in (ele["name"] for ele in nodes):
 
@@ -151,7 +158,7 @@ def get_followers(node):
 
         del followers
 
-@profile
+
 def get_following(node):
 
     name = node["name"]
@@ -165,6 +172,9 @@ def get_following(node):
         following = extract_info(response)
 
         for user in following:
+
+            objgraph.show_most_common_types()
+            objgraph.show_growth()
 
             if user not in (ele["name"] for ele in nodes):
 
@@ -182,7 +192,7 @@ def get_following(node):
 
         del following
 
-@profile
+
 def start(login, depth):
 
     nodes.append({"name":login, "group":0})
