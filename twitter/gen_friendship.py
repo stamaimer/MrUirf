@@ -147,7 +147,7 @@ def get_followers(node):
 
             return
 
-        members = itertools.chain(parse(tree, MXPATH))
+        members = parse(tree, MXPATH)
 
         next = parse(tree, NXPATH)[0]
 
@@ -157,9 +157,11 @@ def get_followers(node):
 
             tree = html.fromstring(response.content)
 
-            members = itertools.chain(members, parse(tree, MXPATH))
+            members.extend(parse(tree, MXPATH))
 
             next = parse(tree, NXPATH)[0]
+
+        print members
 
         for user in members:
 
@@ -204,7 +206,7 @@ def get_following(node):
 
             return
 
-        members = itertools.chain(parse(tree, MXPATH))
+        members = parse(tree, xpath)
 
         next = parse(tree, NXPATH)[0]
 
@@ -214,9 +216,11 @@ def get_following(node):
 
             tree = html.fromstring(response.content)
 
-            members = itertools.chain(members, parse(tree, MXPATH))
+            members.extend(parse(tree, MXPATH))
 
             next = parse(tree, NXPATH)[0]
+
+        print members
 
         for user in members:
 
@@ -253,9 +257,9 @@ def start(login, depth):
             return os.path.abspath( login + ".json")
 
         else:
-
-            get_followers(node)
+            
             get_following(node)
+            get_followers(node)
 
 if __name__ == "__main__":
 
