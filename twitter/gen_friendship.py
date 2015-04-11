@@ -7,14 +7,13 @@ import time
 import json
 import session
 import argparse
+import itertools
 from lxml import html
 
 requester = session.get_session()
 
 nodes = []
 links = []
-
-members = []
 
 HOST = "https://mobile.twitter.com"
 
@@ -89,6 +88,8 @@ def extract_info(content):
 
     count = parse(tree, "//span[@class='count']/text()")
 
+    members = itertools.chain()
+
     try:
 
         count = int(count.replace(',', ''))
@@ -105,7 +106,7 @@ def extract_info(content):
 
     for i in xrange(int(count / 20)):
 
-        members.extend(parse(tree, MXPATH))
+        members = itertools.chain(members, parse(tree, MXPATH))
 
         next = parse(tree, "//*[@id='main_content']/div/div[2]/div/a/@href")
 
@@ -115,9 +116,11 @@ def extract_info(content):
 
     if count % 20 :
 
-        members.extend(parse(tree, MXPATH))
+        members = itertools.chain(members, parse(tree, MXPATH))
 
     print "members count : %d" % len(members)
+
+    return members
 
 def get_followers(node):
 
@@ -129,9 +132,9 @@ def get_followers(node):
 
     if response:
 
-        extract_info(response.content)
+        followers = extract_info(response.content)
 
-        for user in members:
+        for user in followers:
 
             if user not in (ele["name"] for ele in nodes):
 
@@ -147,9 +150,6 @@ def get_followers(node):
                 links.append({"source":find_by_name(user),
                               "target":nodes.index(node)})
 
-        del members[:]
-        gc.collect()
-
 def get_following(node):
 
     name = node["name"]
@@ -160,9 +160,9 @@ def get_following(node):
 
     if response:
 
-        extract_info(response.content)
+        following = extract_info(response.content)
 
-        for user in members:
+        for user in following:
 
             if user not in (ele["name"] for ele in nodes):
 
@@ -177,9 +177,6 @@ def get_following(node):
 
                 links.append({"source":nodes.index(node),
                               "target":find_by_name(user)})
-
-        del members[:]
-        gc.collect()
 
 def start(login, depth):
 
