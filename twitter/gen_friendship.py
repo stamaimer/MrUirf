@@ -2,13 +2,14 @@
 
 import os
 import re
-import gc
 import time
 import json
 import session
 import argparse
 import itertools
 from lxml import html
+
+import memory_profiler
 
 requester = session.get_session()
 
@@ -21,7 +22,7 @@ FOLLOWING_URL = HOST + "/%s/following"
 FOLLOWERS_URL = HOST + "/%s/followers"
 
 MXPATH = "//span[@class='username']/text()"
-
+@profile
 def retrieve(url):
 
     while 1:
@@ -51,7 +52,7 @@ def retrieve(url):
         except :
 
             raise
-
+@profile
 def find_by_name(name):
 
     for node in nodes:
@@ -59,7 +60,7 @@ def find_by_name(name):
         if node["name"] == name:
 
             return nodes.index(node)
-
+@profile
 def parse(tree, xpath):
 
     nodes = tree.xpath(xpath)
@@ -77,7 +78,7 @@ def parse(tree, xpath):
         print "something wrong in parse"
 
         return ''
-
+@profile
 def extract_info(content):
 
     tree = html.fromstring(content)
@@ -119,7 +120,7 @@ def extract_info(content):
         del tree
 
     return members
-
+@profile
 def get_followers(node):
 
     name = node["name"]
@@ -149,7 +150,7 @@ def get_followers(node):
 
                 links.append({"source":find_by_name(user),
                               "target":nodes.index(node)})
-
+@profile
 def get_following(node):
 
     name = node["name"]
@@ -179,7 +180,7 @@ def get_following(node):
 
                 links.append({"source":nodes.index(node),
                               "target":find_by_name(user)})
-
+@profile
 def start(login, depth):
 
     nodes.append({"name":login, "group":0})
