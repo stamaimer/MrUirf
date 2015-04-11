@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import twiter.gen_friendship as twitte
+import twiter.gen_friendship as twitter
 import github.gen_friendship as github
 import gen_matpic
 import cal_matrix
