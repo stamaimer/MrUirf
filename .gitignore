@@ -4,7 +4,7 @@
 *.nodes
 *.matrix
 .DS_Store
-.jar
-.tagger
-.dat
-.so
+*.jar
+*.tagger
+*.dat
+*.so
