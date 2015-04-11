@@ -146,7 +146,7 @@ def get_followers(node):
 
             return
 
-        members = parse(tree, MXPATH)
+        members = [ {"name":ele} for ele in parse(tree, MXPATH) ]
 
         next = parse(tree, NXPATH)[0]
 
@@ -156,15 +156,15 @@ def get_followers(node):
 
             tree = html.fromstring(response.content)
 
-            members.extend(parse(tree, MXPATH))
+            members.extend([ {"name":ele} for ele in parse(tree, MXPATH) ])
 
             next = parse(tree, NXPATH)[0]
 
         for user in members:
 
-            if user not in (ele["name"] for ele in nodes):
+            if user["name"] not in (ele["name"] for ele in nodes):
 
-                tmpu = {"name":user, "group":group + 1}
+                tmpu = {"name":user["name"], "group":group + 1}
 
                 nodes.append(tmpu)
 
@@ -204,7 +204,7 @@ def get_following(node):
 
             return
 
-        members = parse(tree, MXPATH)
+        members = [ {"name":ele} for ele in parse(tree, MXPATH) ]
 
         next = parse(tree, NXPATH)[0]
 
@@ -214,15 +214,15 @@ def get_following(node):
 
             tree = html.fromstring(response.content)
 
-            members.extend(parse(tree, MXPATH))
+            members.extend([ {"name":ele} for ele in parse(tree, MXPATH) ])
 
             next = parse(tree, NXPATH)[0]
 
         for user in members:
 
-            if user not in (ele["name"] for ele in nodes):
+            if user["name"] not in (ele["name"] for ele in nodes):
 
-                tmpu = {"name":user, "group":group + 1}
+                tmpu = {"name":user["name"], "group":group + 1}
 
                 nodes.append(tmpu)
 
