@@ -77,9 +77,11 @@ def parse(tree, xpath):
 
         return [None]
 @profile
-def extract_info(content):
+def extract_info(response):
 
-    tree = html.fromstring(content)
+    tree = html.fromstring(response.content)
+
+    del response
 
     count = parse(tree, "//span[@class='count']/text()")[0]
 
@@ -103,13 +105,19 @@ def extract_info(content):
 
     while next:
 
+        del tree
+
         response = retrieve(HOST + next)
 
         tree = html.fromstring(response.content)
 
+        del response
+
         members = itertools.chain(members, parse(tree, MXPATH))
 
         next = parse(tree, "//*[@id='main_content']/div/div[2]/div/a/@href")[0]
+
+    del tree
 
     return members
 @profile
@@ -123,9 +131,7 @@ def get_followers(node):
 
     if response:
 
-        followers = extract_info(response.content)
-
-        del response
+        followers = extract_info(response)
 
         for user in followers:
 
@@ -156,9 +162,7 @@ def get_following(node):
 
     if response:
 
-        following = extract_info(response.content)
-
-        del response
+        following = extract_info(response)
 
         for user in following:
 
