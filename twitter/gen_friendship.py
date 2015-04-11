@@ -206,7 +206,7 @@ def get_following(node):
 
             return
 
-        members = parse(tree, xpath)
+        members = parse(tree, MXPATH)
 
         next = parse(tree, NXPATH)[0]
 
@@ -257,7 +257,7 @@ def start(login, depth):
             return os.path.abspath( login + ".json")
 
         else:
-            
+
             get_following(node)
             get_followers(node)
 
