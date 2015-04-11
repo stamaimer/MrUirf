@@ -67,23 +67,21 @@ def parse(tree, xpath):
 
     if 1 == len(nodes):#for count and cursor
 
-        return nodes[0]
+        return nodes
 
-    elif len(nodes) > 1:#for username
+    elif len(nodes) > 1:#for name_list
 
         return nodes[1:]
 
     else:#something wrong
 
-        print "something wrong in parse"
-
-        return ''
+        return [None]
 @profile
 def extract_info(content):
 
     tree = html.fromstring(content)
 
-    count = parse(tree, "//span[@class='count']/text()")
+    count = parse(tree, "//span[@class='count']/text()")[0]
 
     members = itertools.chain()
 
@@ -99,25 +97,19 @@ def extract_info(content):
 
         return members
 
-    next = ""
+    members = itertools.chain(members, parse(tree, MXPATH))
 
-    for i in xrange(int(count / 20)):
+    next = parse(tree, "//*[@id='main_content']/div/div[2]/div/a/@href")[0]
 
-        members = itertools.chain(members, parse(tree, MXPATH))
-
-        next = parse(tree, "//*[@id='main_content']/div/div[2]/div/a/@href")
+    while next:
 
         response = retrieve(HOST + next)
 
         tree = html.fromstring(response.content)
 
-        del response
-
-    if count % 20 :
-
         members = itertools.chain(members, parse(tree, MXPATH))
 
-        del tree
+        next = parse(tree, "//*[@id='main_content']/div/div[2]/div/a/@href")[0]
 
     return members
 @profile
@@ -152,7 +144,7 @@ def get_followers(node):
                               "target":nodes.index(node)})
 
         del followers
-        
+
 @profile
 def get_following(node):
 
