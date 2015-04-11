@@ -9,7 +9,6 @@ import argparse
 import itertools
 from lxml import html
 
-import objgraph
 import pdb; pdb.set_trace()
 
 requester = session.get_session()
@@ -106,9 +105,6 @@ def extract_info(response):
 
     while next:
 
-        objgraph.show_most_common_types()
-        objgraph.show_growth()
-
         del tree
 
         response = retrieve(HOST + next)
@@ -138,9 +134,6 @@ def get_followers(node):
         followers = extract_info(response)
 
         for user in followers:
-
-            objgraph.show_most_common_types()
-            objgraph.show_growth()
 
             if user not in (ele["name"] for ele in nodes):
 
@@ -172,9 +165,6 @@ def get_following(node):
         following = extract_info(response)
 
         for user in following:
-
-            objgraph.show_most_common_types()
-            objgraph.show_growth()
 
             if user not in (ele["name"] for ele in nodes):
 
