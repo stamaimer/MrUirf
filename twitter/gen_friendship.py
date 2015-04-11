@@ -32,9 +32,9 @@ def retrieve(url):
 
             response = requester.get(url)
 
-            print "request headers : %s" % response.request.headers
+            # print "request headers : %s" % response.request.headers
 
-            print "response headers : %s" % response.headers
+            # print "response headers : %s" % response.headers
 
             if 200 == response.status_code:
 
@@ -150,6 +150,8 @@ def get_followers(node):
                 links.append({"source":find_by_name(user),
                               "target":nodes.index(node)})
 
+        del followers
+
 def get_following(node):
 
     name = node["name"]
@@ -177,6 +179,8 @@ def get_following(node):
 
                 links.append({"source":nodes.index(node),
                               "target":find_by_name(user)})
+
+        del following
 
 def start(login, depth):
 
