@@ -6,7 +6,6 @@ import time
 import json
 import session
 import argparse
-import memory_profiler
 from lxml import html
 
 requester = session.get_session()
@@ -83,7 +82,6 @@ def parse(tree, xpath):
 
         return ''
 
-@profile
 def extract_info(content):
 
     tree = html.fromstring(content)
@@ -104,7 +102,7 @@ def extract_info(content):
 
     next = ""
 
-    for i in range(int(count / 20)):
+    for i in xrange(int(count / 20)):
 
         members.extend(parse(tree, MXPATH))
 
@@ -122,7 +120,6 @@ def extract_info(content):
 
     print "members count : %d" % len(members)
 
-@profile
 def get_followers(node):
 
     name = node["name"]
@@ -151,9 +148,8 @@ def get_followers(node):
                 links.append({"source":find_by_name(user),
                               "target":nodes.index(node)})
 
-        members[:] = []
+        del members[:]
 
-@profile
 def get_following(node):
 
     name = node["name"]
@@ -182,7 +178,7 @@ def get_following(node):
                 links.append({"source":nodes.index(node),
                               "target":find_by_name(user)})
 
-        members[:] = []
+        del members[:]
 
 def start(login, depth):
 
