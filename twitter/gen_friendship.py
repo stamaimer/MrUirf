@@ -161,8 +161,6 @@ def get_followers(node):
 
             next = parse(tree, NXPATH)[0]
 
-        print members
-
         for user in members:
 
             if user not in (ele["name"] for ele in nodes):
@@ -219,8 +217,6 @@ def get_following(node):
             members.extend(parse(tree, MXPATH))
 
             next = parse(tree, NXPATH)[0]
-
-        print members
 
         for user in members:
 
