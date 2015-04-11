@@ -152,6 +152,8 @@ def get_followers(node):
 
         while next:
 
+            del tree; gc.collect()
+
             response = retrieve(HOST + next)
 
             tree = html.fromstring(response.content)
@@ -159,6 +161,8 @@ def get_followers(node):
             members = itertools.chain(members, ( {"name":ele} for ele in parse(tree, MXPATH) ))
 
             next = parse(tree, NXPATH)[0]
+
+        del tree; gc.collect()
 
         for user in members:
 
@@ -210,6 +214,8 @@ def get_following(node):
 
         while next:
 
+            del tree; gc.collect()
+
             response = retrieve(HOST + next)
 
             tree = html.fromstring(response.content)
@@ -217,6 +223,8 @@ def get_following(node):
             members = itertools.chain(members, ( {"name":ele} for ele in parse(tree, MXPATH) ))
 
             next = parse(tree, NXPATH)[0]
+
+        del tree; gc.collect()
 
         for user in members:
 
