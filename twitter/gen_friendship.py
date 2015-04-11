@@ -62,7 +62,7 @@ def find_by_name(name):
 
 def parse(tree, xpath):
 
-    nodes = tree.xpath(xpath)
+    nodes = tree.xpath(xpath, smart_strings=False)
 
     if 1 == len(nodes):#for count and cursor
 
