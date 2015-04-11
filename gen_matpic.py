@@ -44,7 +44,7 @@ def foo(path, name):
 
             data = json_graph.node_link_data(graph)
 
-            with open(name + ".json", 'w') as target:
+            with open("./visualization／" ＋ name + ".json", 'w') as target:
 
                 json.dump(data, target)
 
