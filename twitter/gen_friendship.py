@@ -9,7 +9,7 @@ import argparse
 import itertools
 from lxml import html
 
-import pdb; pdb.set_trace()
+import pdb
 
 requester = session.get_session()
 
@@ -105,6 +105,8 @@ def extract_info(response):
 
     while next:
 
+        pdb.set_trace()
+
         del tree
 
         response = retrieve(HOST + next)
@@ -134,6 +136,8 @@ def get_followers(node):
         followers = extract_info(response)
 
         for user in followers:
+
+            pdb.set_trace()
 
             if user not in (ele["name"] for ele in nodes):
 
@@ -165,6 +169,8 @@ def get_following(node):
         following = extract_info(response)
 
         for user in following:
+
+            pdb.set_trace()
 
             if user not in (ele["name"] for ele in nodes):
 
