@@ -2,6 +2,7 @@
 
 import os
 import re
+import gc
 import time
 import json
 import session
@@ -30,8 +31,6 @@ def retrieve(url):
         try:
 
             print "request : %s" % url
-
-            time.sleep(0.1)
 
             response = requester.get(url)
 
@@ -177,6 +176,7 @@ def get_followers(node):
                 links.append({"source":find_by_name(user),
                               "target":nodes.index(node)})
 
+        del members[:]; gc.collect()
 
 def get_following(node):
 
@@ -233,6 +233,8 @@ def get_following(node):
 
                 links.append({"source":nodes.index(node),
                               "target":find_by_name(user)})
+
+        del members[:]; gc.collect()
 
 def start(login, depth):
 
