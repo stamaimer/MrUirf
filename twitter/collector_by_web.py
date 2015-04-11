@@ -11,15 +11,15 @@ host    = "https://mobile.twitter.com"
 tweets  = {}
 peers   = [
     {'name':'Hans Fangoh',  'link':'/ProfCompMod?p=s',  'role':'professor'},
-#    {'name':'Tiffany Horan','link':'/TiffanyHoran?p=i', 'role':'artist'},
-#    {'name':'Darius H',     'link':'/ComethTheNerd?p=s','role':'ms engineer'},
-#    {'name':'Danny mc',     'link':'/Danny_Mc12?p=s',   'role':'c# coder'},
-#    {'name':'Jiri Mocicka', 'link':'/givision?p=s',     'role':'DesignDirector'},
-#    {'name':'R. Fouchaux',  'link':'/thefooshshow?p=s', 'role':'web teacher'},
-#    {'name':'Ev Williams',  'link':'/ev?p=s',           'role':'ios app owner'},
-#    {'name':'Ryan Seacrest','link':'/RyanSeacrest?p=s', 'role':'famous host'},
-#    {'name':'Jenna Lucas',  'link':'/JennaLucas81?p=s', 'role':'primary tcher'},
-#    {'name':'Adam Lofting', 'link':'/adamlofting?p=s',  'role':'a mozilla lead'}
+    {'name':'Tiffany Horan','link':'/TiffanyHoran?p=i', 'role':'artist'},
+    {'name':'Darius H',     'link':'/ComethTheNerd?p=s','role':'ms engineer'},
+    {'name':'Danny mc',     'link':'/Danny_Mc12?p=s',   'role':'c# coder'},
+    {'name':'Jiri Mocicka', 'link':'/givision?p=s',     'role':'DesignDirector'},
+    {'name':'R. Fouchaux',  'link':'/thefooshshow?p=s', 'role':'web teacher'},
+    {'name':'Ev Williams',  'link':'/ev?p=s',           'role':'ios app owner'},
+    {'name':'Ryan Seacrest','link':'/RyanSeacrest?p=s', 'role':'famous host'},
+    {'name':'Jenna Lucas',  'link':'/JennaLucas81?p=s', 'role':'primary tcher'},
+    {'name':'Adam Lofting', 'link':'/adamlofting?p=s',  'role':'a mozilla lead'}
 ]
 
 def get_tweets(peer):
