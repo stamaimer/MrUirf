@@ -1,19 +1,16 @@
 # -*- coding: utf-8 -*-
 
 import os
-import re
-import gc
-import time
 import json
 import session
 import argparse
 import itertools
 from lxml import html
 
-requester = session.get_session()
-
 nodes = []
 links = []
+
+requester = session.get_session()
 
 HOST = "https://mobile.twitter.com"
 
@@ -68,7 +65,7 @@ def parse(tree, xpath):
 
         return nodes
 
-    elif len(nodes) > 1:#for name_list
+    elif len(nodes) > 1:#for name list
 
         return nodes[1:]
 
@@ -76,49 +73,41 @@ def parse(tree, xpath):
 
         return [None]
 
-# def extract_info(response):
+def extract_info(response):
 
-#     tree = html.fromstring(response.content)
+    tree = html.fromstring(response.content)
 
-#     del response
+    members = itertools.chain()
 
-#     count = parse(tree, "//span[@class='count']/text()")[0]
+    count = parse(tree, CXPATH)[0]
 
-#     members = itertools.chain()
+    try:
 
-#     try:
+        count = int(count.replace(',', ''))
 
-#         count = int(count.replace(',', ''))
+    except:
 
-#     except:
+        return members
 
-#         return members
+    # if count >= 10000:
 
-#     if count >= 10000:
+    #     return members
 
-#         return members
+    members = itertools.chain(members, parse(tree, MXPATH))
 
-#     members = itertools.chain(members, parse(tree, MXPATH))
+    next = parse(tree, NXPATH)[0]
 
-#     next = parse(tree, "//*[@id='main_content']/div/div[2]/div/a/@href")[0]
+    while next:
 
-#     while next:
+        response = retrieve(HOST + next)
 
-#         del tree
+        tree = html.fromstring(response.content)
 
-#         response = retrieve(HOST + next)
+        members = itertools.chain(members, parse(tree, MXPATH))
 
-#         tree = html.fromstring(response.content)
+        next = parse(tree, NXPATH)[0]
 
-#         del response
-
-#         members = itertools.chain(members, parse(tree, MXPATH))
-
-#         next = parse(tree, "//*[@id='main_content']/div/div[2]/div/a/@href")[0]
-
-#     del tree
-
-#     return members
+    return members
 
 def get_followers(node):
 
@@ -130,45 +119,13 @@ def get_followers(node):
 
     if response:
 
-        tree = html.fromstring(response.content)
+        followers = extract_info(response)
 
-        count = parse(tree, CXPATH)[0]
+        for user in followers:
 
-        try:
+            if user not in (ele["name"] for ele in nodes):
 
-            count = int(count.replace(',', ''))
-
-        except:
-
-            return
-
-        if count >= 5000:
-
-            return
-
-        members = ( {"name":ele} for ele in parse(tree, MXPATH) )
-
-        next = parse(tree, NXPATH)[0]
-
-        while next:
-
-            del tree; gc.collect()
-
-            response = retrieve(HOST + next)
-
-            tree = html.fromstring(response.content)
-
-            members = itertools.chain(members, ( {"name":ele} for ele in parse(tree, MXPATH) ))
-
-            next = parse(tree, NXPATH)[0]
-
-        del tree; gc.collect()
-
-        for user in members:
-
-            if user["name"] not in (ele["name"] for ele in nodes):
-
-                tmpu = {"name":user["name"], "group":group + 1}
+                tmpu = {"name":user, "group":group + 1}
 
                 nodes.append(tmpu)
 
@@ -180,8 +137,6 @@ def get_followers(node):
                 links.append({"source":find_by_name(user),
                               "target":nodes.index(node)})
 
-        del members; gc.collect()
-
 def get_following(node):
 
     name = node["name"]
@@ -192,45 +147,13 @@ def get_following(node):
 
     if response:
 
-        tree = html.fromstring(response.content)
+        following = extract_info(response)
 
-        count = parse(tree, CXPATH)[0]
+        for user in following:
 
-        try:
+            if user not in (ele["name"] for ele in nodes):
 
-            count = int(count.replace(',', ''))
-
-        except:
-
-            return
-
-        if count >= 5000 or count == 2001:#check fake user
-
-            return
-
-        members = ( {"name":ele} for ele in parse(tree, MXPATH) )
-
-        next = parse(tree, NXPATH)[0]
-
-        while next:
-
-            del tree; gc.collect()
-
-            response = retrieve(HOST + next)
-
-            tree = html.fromstring(response.content)
-
-            members = itertools.chain(members, ( {"name":ele} for ele in parse(tree, MXPATH) ))
-
-            next = parse(tree, NXPATH)[0]
-
-        del tree; gc.collect()
-
-        for user in members:
-
-            if user["name"] not in (ele["name"] for ele in nodes):
-
-                tmpu = {"name":user["name"], "group":group + 1}
+                tmpu = {"name":user, "group":group + 1}
 
                 nodes.append(tmpu)
 
@@ -241,8 +164,6 @@ def get_following(node):
 
                 links.append({"source":nodes.index(node),
                               "target":find_by_name(user)})
-
-        del members; gc.collect()
 
 def start(login, depth):
 
