@@ -177,11 +177,11 @@ def start(login, depth):
 
             data = {"nodes":nodes, "links":links}
 
-            with open(login + ".json", 'w') as outfile:
+            with open(login + "_twitter.json", 'w') as outfile:
 
                 json.dump(data, outfile)
 
-            return os.path.abspath( login + ".json")
+            return os.path.abspath( login + "_twitter.json")
 
         else:
 

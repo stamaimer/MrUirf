@@ -20,7 +20,7 @@
   <div id="header" style="width:100%; height:20%; position:absolute; display:relative"></div>
   <div id="container" style="display:flex; justify-content:space-around; position:absolute; width:100%; height:60%">
     <div id="github" style="width:40%; height:100%"></div>
-    <div id="twiter" style="width:40%; height:100%"></div>
+    <div id="twitter" style="width:40%; height:100%"></div>
   </div>
   <div id="footer" style="width:100%; height:20%; position:absolute; display:relative"></div>
 
@@ -33,10 +33,10 @@
     console.log(height)
 
     var github_ico = "https://github.com/favicon.ico"
-    var twiter_ico = "https://twitter.com/favicon.ico"
+    var twitter_ico = "https://twitter.com/favicon.ico"
 
     var github = d3.select("#github").append("svg").attr("width", width).attr("height", height);
-    var twiter = d3.select("#twiter").append("svg").attr("width", width).attr("height", height);
+    var twitter = d3.select("#twitter").append("svg").attr("width", width).attr("height", height);
 
     function draw (error, graph, svg, ico) 
     {
@@ -82,6 +82,6 @@
     }
 
     d3.json("github.json", function(error, graph){draw(error, graph, github, github_ico)});
-    d3.json("twiter.json", function(error, graph){draw(error, graph, twiter, twiter_ico)});
+    d3.json("twitter.json", function(error, graph){draw(error, graph, twitter, twitter_ico)});
 
   </script>
