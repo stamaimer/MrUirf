@@ -2,6 +2,7 @@
 
 import os
 import re
+import gc
 import time
 import json
 import session
@@ -106,8 +107,6 @@ def extract_info(content):
 
         members.extend(parse(tree, MXPATH))
 
-        print "members count : %d" % len(members)
-
         next = parse(tree, "//*[@id='main_content']/div/div[2]/div/a/@href")
 
         response = retrieve(HOST + next)
@@ -149,6 +148,7 @@ def get_followers(node):
                               "target":nodes.index(node)})
 
         del members[:]
+        gc.collect()
 
 def get_following(node):
 
@@ -179,6 +179,7 @@ def get_following(node):
                               "target":find_by_name(user)})
 
         del members[:]
+        gc.collect()
 
 def start(login, depth):
 
