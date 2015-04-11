@@ -4,15 +4,9 @@ import os
 import re
 import time
 import json
-import requests
+import session
 import argparse
 from lxml import html
-
-import sys
-
-sys.path.append("../")
-
-import session
 
 requester = session.get_session()
 
@@ -37,6 +31,10 @@ def retrieve(url):
             time.sleep(0.1)
 
             response = requester.get(url)
+
+            print "request headers : %s" % response.request.headers
+
+            print "response headers : %s" % response.headers
 
             if 200 == response.status_code:
 
@@ -132,23 +130,25 @@ def get_followers(node):
 
     response = retrieve(FOLLOWERS_URL % name)
 
-    followers = extract_info(response.content)
+    if response:
 
-    for user in followers:
+        followers = extract_info(response.content)
 
-        if user not in [ele["name"] for ele in nodes]:
+        for user in followers:
 
-            tmpu = {"name":user, "group":group + 1}
+            if user not in [ele["name"] for ele in nodes]:
 
-            nodes.append(tmpu)
+                tmpu = {"name":user, "group":group + 1}
 
-            links.append({"source":nodes.index(tmpu),
-                          "target":nodes.index(node)})
+                nodes.append(tmpu)
 
-        else:
+                links.append({"source":nodes.index(tmpu),
+                              "target":nodes.index(node)})
 
-            links.append({"source":find_by_name(user),
-                          "target":nodes.index(node)})
+            else:
+
+                links.append({"source":find_by_name(user),
+                              "target":nodes.index(node)})
 
 def get_following(node):
 
@@ -158,23 +158,25 @@ def get_following(node):
 
     response = retrieve(FOLLOWING_URL % name)
 
-    following = extract_info(response.content)
+    if response:
 
-    for user in following:
+        following = extract_info(response.content)
 
-        if user not in [ele["name"] for ele in nodes]:
+        for user in following:
 
-            tmpu = {"name":user, "group":group + 1}
+            if user not in [ele["name"] for ele in nodes]:
 
-            nodes.append(tmpu)
+                tmpu = {"name":user, "group":group + 1}
 
-            links.append({"source":nodes.index(node),
-                          "target":nodes.index(tmpu)})
+                nodes.append(tmpu)
 
-        else:
+                links.append({"source":nodes.index(node),
+                              "target":nodes.index(tmpu)})
 
-            links.append({"source":nodes.index(node),
-                          "target":find_by_name(user)})
+            else:
+
+                links.append({"source":nodes.index(node),
+                              "target":find_by_name(user)})
 
 def start(login, depth):
 
@@ -188,11 +190,11 @@ def start(login, depth):
 
             data = {"nodes":nodes, "links":links}
 
-            with open("twitter.json", 'w') as outfile:
+            with open(login + ".json", 'w') as outfile:
 
                 json.dump(data, outfile)
 
-            return os.path.abspath("twitter.json")
+            return os.path.abspath( login + ".json")
 
         else:
 

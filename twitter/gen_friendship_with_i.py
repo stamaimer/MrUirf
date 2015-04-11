@@ -83,6 +83,10 @@ def retrieve(url, params):
 
                 print "request : %s %d" % (response.url, response.status_code)
 
+                print "request headers : %s" % response.request.headers
+
+                print "response headers : %s" % response.headers
+
                 print json.dumps(response.json(), indent = 4)
 
                 if 404 == response.status_code:

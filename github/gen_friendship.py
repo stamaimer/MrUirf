@@ -157,11 +157,11 @@ def start(login, depth):
 
             data = {"nodes":nodes, "links":links}
 
-            with open("github.json", 'w') as outfile:
+            with open(login + ".json", 'w') as outfile:
 
                 json.dump(data, outfile)
             
-            return os.path.abspath("github.json")
+            return os.path.abspath(login + ".json")
 
         else:
 
