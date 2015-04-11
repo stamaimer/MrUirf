@@ -34,10 +34,6 @@ def retrieve(url):
 
             response = requester.get(url)
 
-            # print "request headers : %s" % response.request.headers
-
-            # print "response headers : %s" % response.headers
-
             if 200 == response.status_code:
 
                 print "request : %s success" % response.url
@@ -132,6 +128,8 @@ def get_followers(node):
 
         followers = extract_info(response.content)
 
+        del response
+
         for user in followers:
 
             if user not in (ele["name"] for ele in nodes):
@@ -159,6 +157,8 @@ def get_following(node):
     if response:
 
         following = extract_info(response.content)
+
+        del response
 
         for user in following:
 
