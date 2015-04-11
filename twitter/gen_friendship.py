@@ -13,6 +13,8 @@ requester = session.get_session()
 nodes = []
 links = []
 
+members = []
+
 HOST = "https://mobile.twitter.com"
 
 FOLLOWING_URL = HOST + "/%s/following"
@@ -86,8 +88,6 @@ def extract_info(content):
 
     count = parse(tree, "//span[@class='count']/text()")
 
-    members = []
-    
     try:
 
         count = int(count.replace(',', ''))
@@ -120,8 +120,6 @@ def extract_info(content):
 
     print "members count : %d" % len(members)
 
-    return members
-
 def get_followers(node):
 
     name = node["name"]
@@ -132,9 +130,9 @@ def get_followers(node):
 
     if response:
 
-        followers = extract_info(response.content)
+        extract_info(response.content)
 
-        for user in followers:
+        for user in members:
 
             if user not in [ele["name"] for ele in nodes]:
 
@@ -150,7 +148,7 @@ def get_followers(node):
                 links.append({"source":find_by_name(user),
                               "target":nodes.index(node)})
 
-        del followers
+        members[:] = []
 
 def get_following(node):
 
@@ -162,9 +160,9 @@ def get_following(node):
 
     if response:
 
-        following = extract_info(response.content)
+        extract_info(response.content)
 
-        for user in following:
+        for user in members:
 
             if user not in [ele["name"] for ele in nodes]:
 
@@ -180,7 +178,7 @@ def get_following(node):
                 links.append({"source":nodes.index(node),
                               "target":find_by_name(user)})
 
-        del following
+        members[:] = []
 
 def start(login, depth):
 
