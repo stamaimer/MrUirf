@@ -1,5 +1,6 @@
 import json
 import requests
+from datetime import datetime
 from lxml import html
 from lxml import cssselect
 
@@ -52,7 +53,10 @@ def get_tweets(peer):
     print "finished."
     return tweets
 
+def timer(raw_time):
 
+    pass
+    
 if __name__ == '__main__':
 
     tweets = []
