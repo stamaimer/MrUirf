@@ -19,7 +19,9 @@ HOST = "https://mobile.twitter.com"
 FOLLOWING_URL = HOST + "/%s/following"
 FOLLOWERS_URL = HOST + "/%s/followers"
 
+CXPATH = "//span[@class='count']/text()"
 MXPATH = "//span[@class='username']/text()"
+NXPATH = "//*[@id='main_content']/div/div[2]/div/a/@href"
 
 def retrieve(url):
 
@@ -75,49 +77,49 @@ def parse(tree, xpath):
 
         return [None]
 
-def extract_info(response):
+# def extract_info(response):
 
-    tree = html.fromstring(response.content)
+#     tree = html.fromstring(response.content)
 
-    del response
+#     del response
 
-    count = parse(tree, "//span[@class='count']/text()")[0]
+#     count = parse(tree, "//span[@class='count']/text()")[0]
 
-    members = itertools.chain()
+#     members = itertools.chain()
 
-    try:
+#     try:
 
-        count = int(count.replace(',', ''))
+#         count = int(count.replace(',', ''))
 
-    except:
+#     except:
 
-        return members
+#         return members
 
-    if count >= 10000:
+#     if count >= 10000:
 
-        return members
+#         return members
 
-    members = itertools.chain(members, parse(tree, MXPATH))
+#     members = itertools.chain(members, parse(tree, MXPATH))
 
-    next = parse(tree, "//*[@id='main_content']/div/div[2]/div/a/@href")[0]
+#     next = parse(tree, "//*[@id='main_content']/div/div[2]/div/a/@href")[0]
 
-    while next:
+#     while next:
 
-        del tree
+#         del tree
 
-        response = retrieve(HOST + next)
+#         response = retrieve(HOST + next)
 
-        tree = html.fromstring(response.content)
+#         tree = html.fromstring(response.content)
 
-        del response
+#         del response
 
-        members = itertools.chain(members, parse(tree, MXPATH))
+#         members = itertools.chain(members, parse(tree, MXPATH))
 
-        next = parse(tree, "//*[@id='main_content']/div/div[2]/div/a/@href")[0]
+#         next = parse(tree, "//*[@id='main_content']/div/div[2]/div/a/@href")[0]
 
-    del tree
+#     del tree
 
-    return members
+#     return members
 
 def get_followers(node):
 
@@ -129,9 +131,37 @@ def get_followers(node):
 
     if response:
 
-        followers = extract_info(response)
+        tree = html.fromstring(response.content)
 
-        for user in followers:
+        count = parse(tree, CXPATH)[0]
+
+        try:
+
+            count = int(count.replace(',', ''))
+
+        except:
+
+            return
+
+        if count >= 10000:
+
+            return
+
+        members = itertools.chain(parse(tree, MXPATH))
+
+        next = parse(tree, NXPATH)[0]
+
+        while next:
+
+            response = retrieve(HOST + next)
+
+            tree = html.fromstring(response.content)
+
+            members = itertools.chain(members, parse(tree, MXPATH))
+
+            next = parse(tree, NXPATH)[0]
+
+        for user in members:
 
             if user not in (ele["name"] for ele in nodes):
 
@@ -147,8 +177,6 @@ def get_followers(node):
                 links.append({"source":find_by_name(user),
                               "target":nodes.index(node)})
 
-        del followers
-
 
 def get_following(node):
 
@@ -160,9 +188,37 @@ def get_following(node):
 
     if response:
 
-        following = extract_info(response)
+        tree = html.fromstring(response.content)
 
-        for user in following:
+        count = parse(tree, CXPATH)[0]
+
+        try:
+
+            count = int(count.replace(',', ''))
+
+        except:
+
+            return
+
+        if count >= 10000 or count == 2001:#check fake user
+
+            return
+
+        members = itertools.chain(parse(tree, MXPATH))
+
+        next = parse(tree, NXPATH)[0]
+
+        while next:
+
+            response = retrieve(HOST + next)
+
+            tree = html.fromstring(response.content)
+
+            members = itertools.chain(members, parse(tree, MXPATH))
+
+            next = parse(tree, NXPATH)[0]
+
+        for user in members:
 
             if user not in (ele["name"] for ele in nodes):
 
@@ -177,9 +233,6 @@ def get_following(node):
 
                 links.append({"source":nodes.index(node),
                               "target":find_by_name(user)})
-
-        del following
-
 
 def start(login, depth):
 
