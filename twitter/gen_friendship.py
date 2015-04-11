@@ -110,6 +110,8 @@ def extract_info(content):
 
         tree = html.fromstring(response.content)
 
+        del response
+
     if count % 20 :
 
         members = itertools.chain(members, parse(tree, MXPATH))
