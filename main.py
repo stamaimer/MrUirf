@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import twiter.gen_friendship as twitte
+import twitter.gen_friendship as twitter
 import github.gen_friendship as github
 import gen_matpic
 import cal_matrix
@@ -24,11 +24,11 @@ if __name__ == "__main__":
 
 	path2json_graph_g = github.start(sed_login, max_depth)
 
-	path2json_graph_t = twiter.start(sed_login, max_depth)
+	path2json_graph_t = twitter.start(sed_login, max_depth)
 
 	matrix_g, nodes_g = gen_matpic.foo(path2json_graph_g, "github")
 
-	matrix_t, nodes_t = gen_matpic.foo(path2json_graph_t, "twiter")
+	matrix_t, nodes_t = gen_matpic.foo(path2json_graph_t, "twitter")
 
 	similarity_matrix = cal_matrix.cal_similarity_matrix(matrix_g, matrix_t)
 
