@@ -118,8 +118,6 @@ def extract_info(content):
 
         members = itertools.chain(members, parse(tree, MXPATH))
 
-    print "members count : %d" % len(members)
-
     return members
 
 def get_followers(node):
