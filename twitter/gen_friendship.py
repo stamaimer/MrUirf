@@ -113,19 +113,19 @@ def get_followers(node):
 
         for user in followers:
 
-            if user not in (ele["name"] for ele in nodes):
+            for i in xrange(group + 1):
 
-                tmpu = {"name":user, "group":group + 1}
+                if {"name":user, "group":i} in nodes:
 
-                nodes.append(tmpu)
+                    links.append({"source":find_by_name(user), "target":nodes.index(node)})
 
-                links.append({"source":nodes.index(tmpu),
-                              "target":nodes.index(node)})
+                    return
 
-            else:
+            tmpu = {"name":user, "group":group + 1}
 
-                links.append({"source":find_by_name(user),
-                              "target":nodes.index(node)})
+            nodes.append(tmpu)
+
+            links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
 
 def get_following(node):
 
@@ -141,19 +141,19 @@ def get_following(node):
 
         for user in following:
 
-            if user not in (ele["name"] for ele in nodes):
+            for i in xrange(group + 1):
 
-                tmpu = {"name":user, "group":group + 1}
+                if {"name":user, "group":i} in nodes:
 
-                nodes.append(tmpu)
+                    links.append({"source":nodes.index(node), "target":find_by_name(user)})
 
-                links.append({"source":nodes.index(node),
-                              "target":nodes.index(tmpu)})
+                    return
 
-            else:
+            tmpu = {"name":user, "group":group + 1}
 
-                links.append({"source":nodes.index(node),
-                              "target":find_by_name(user)})
+            nodes.append(tmpu)
+
+            links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
 def is_valid(name):
 
