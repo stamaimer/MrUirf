@@ -255,12 +255,14 @@ def start(login, depth):
 
                             break
 
-                    tmpu = {"name":user, "group":group + 1}
+                    else:
 
-                    nodes.append(tmpu)
+                        tmpu = {"name":user, "group":group + 1}
 
-                    links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
-                    links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
+                        nodes.append(tmpu)
+
+                        links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
+                        links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
 
             else:
 
