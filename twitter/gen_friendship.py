@@ -247,7 +247,7 @@ def start(login, depth):
 
                 intersection = set(following).intersection(followers)
 
-                for user in following:
+                for user in intersection:
 
                     for i in xrange(group + 1):
 
