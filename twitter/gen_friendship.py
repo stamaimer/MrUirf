@@ -12,11 +12,15 @@ links = []
 
 requester = session.get_session()
 
+percent, group1, group2 = 0.0, 0, 0
+
 HOST = "https://mobile.twitter.com"
 
+HOMEPAGES_URL = HOST + "/%s"
 FOLLOWING_URL = HOST + "/%s/following"
 FOLLOWERS_URL = HOST + "/%s/followers"
 
+VXPATH = "//img[@alt='认证账号']"
 CXPATH = "//span[@class='count']/text()"
 MXPATH = "//span[@class='username']/text()"
 NXPATH = "//*[@id='main_content']/div/div[2]/div/a/@href"
@@ -171,7 +175,11 @@ def start(login, depth):
 
     for node in nodes:
 
-        if node["group"] > depth:
+        name = node["name"]
+
+        group = node["group"]
+
+        if group > depth:
 
             print "generate graph ..."
 
@@ -184,6 +192,40 @@ def start(login, depth):
             return os.path.abspath( login + "_twitter.json")
 
         else:
+
+            if 0 == group:
+
+                percent = 1
+
+            elif 1 == group:
+
+                if not group1:
+
+                    group1 = sum(( 1 for ele in nodes if ele["group"] == 1 ))
+
+                percent = nodes.index(node) / float(group1)
+
+            elif 2 == group:
+
+                if not group2:
+
+                    group2 = sum(( 1 for ele in nodes if ele["group"] == 2 ))
+
+                percent = (nodes.index(node) - group1) / float(group2)
+
+            print "name : %s, group : %d, percent : %f" % (name, group, percent)
+
+            response = retrieve(HOMEPAGES_URL % name)
+
+            if response:
+
+                tree = html.fromstring(response.content)
+
+                verify = parse(tree, VXPATH)[0]
+
+                if verify:
+
+                    continue
 
             get_following(node)
             get_followers(node)
