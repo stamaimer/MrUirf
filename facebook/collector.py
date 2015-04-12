@@ -97,9 +97,21 @@ def timer(raw_time):
     # 5. year, month, day and time  yyyy年mm月dd日上午 xx:xx
 
     sample = [
-        '15 小时', '2013年4月', '2014年9月22日', '1月10日上午 4:12',
-        '2013年4月19日上午 9:28'
+        u'15 小时', u'2013年4月', u'2014年9月22日', u'1月10日上午 4:12',
+        u'2013年4月19日上午 9:28'
     ]
+    print sample
+
+    now              = datetime.now()
+    year, month, day = now.year, now.month, now.day
+    time_list        = [d for d in re.split('\D+', raw_time) if d != '']
+
+    if 5 == len(time_list):
+        year      = int(time_list[0])
+        month     = int(time_list[1])
+        day       = int(time_list[2])
+        push_time = date(year, month, day)
+        return str(push_time)
 
 def default_peel():
     return {'name':'Mark Hatlestad', 'link':
