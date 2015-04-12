@@ -111,21 +111,23 @@ def get_followers(node):
 
         followers = extract_info(response)
 
-        for user in followers:
+        return followers
 
-            for i in xrange(group + 1):
+        # for user in followers:
 
-                if {"name":user, "group":i} in nodes:
+        #     for i in xrange(group + 1):
 
-                    links.append({"source":find_by_name(user), "target":nodes.index(node)})
+        #         if {"name":user, "group":i} in nodes:
 
-                    return
+        #             links.append({"source":find_by_name(user), "target":nodes.index(node)})
 
-            tmpu = {"name":user, "group":group + 1}
+        #             break
 
-            nodes.append(tmpu)
+        #     tmpu = {"name":user, "group":group + 1}
 
-            links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
+        #     nodes.append(tmpu)
+
+        #     links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
 
 def get_following(node):
 
@@ -139,21 +141,23 @@ def get_following(node):
 
         following = extract_info(response)
 
-        for user in following:
+        return following
 
-            for i in xrange(group + 1):
+        # for user in following:
 
-                if {"name":user, "group":i} in nodes:
+        #     for i in xrange(group + 1):
 
-                    links.append({"source":nodes.index(node), "target":find_by_name(user)})
+        #         if {"name":user, "group":i} in nodes:
 
-                    return
+        #             links.append({"source":nodes.index(node), "target":find_by_name(user)})
 
-            tmpu = {"name":user, "group":group + 1}
+        #             break
 
-            nodes.append(tmpu)
+        #     tmpu = {"name":user, "group":group + 1}
 
-            links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
+        #     nodes.append(tmpu)
+
+        #     links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
 def is_valid(name):
 
@@ -238,8 +242,25 @@ def start(login, depth):
 
             if is_valid(name):
 
-                get_following(node)
-                get_followers(node)
+                following = get_following(node)
+                followers = get_followers(node)
+
+                intersection = set(following).intersection(followers)
+
+                for user in following:
+
+                    for i in xrange(group + 1):
+
+                        if {"name":user, "group":i} in nodes:
+
+                            break
+
+                    tmpu = {"name":user, "group":group + 1}
+
+                    nodes.append(tmpu)
+
+                    links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
+                    links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
 
             else:
 
