@@ -193,6 +193,8 @@ def start(login, depth):
 
         else:
 
+            global percent, group1, group2
+
             if 0 == group:
 
                 percent = 1
