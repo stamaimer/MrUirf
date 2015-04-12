@@ -61,15 +61,15 @@ if __name__ == '__main__':
 	
 	argument_parser = argparse.ArgumentParser(description="")
 
-    argument_parser.add_argument("usr", help="")
+	argument_parser.add_argument("usr", help="")
 
-    argument_parser.add_argument("psd", help="")
+	argument_parser.add_argument("psd", help="")
 
-    args = argument_parser.parse_args()
+	args = argument_parser.parse_args()
 
-    usr = args.usr
-    psd = args.psd
+	usr = args.usr
+	psd = args.psd
 
-    tolist = get_tolist()
+	tolist = get_tolist()
 
-    sendmail(usr, psd, morf, tolist, subject, content)
+	sendmail(usr, psd, morf, tolist, subject, content)
