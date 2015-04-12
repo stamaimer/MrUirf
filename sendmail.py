@@ -53,10 +53,16 @@ def get_tolist():
 
 	items = github_users.find({}, {"login":1, "email":1, "_id":0})
 
+	items = ( {"login":item["login"], "email":item["email"]} \
+			  for item in items \
+			  if item.has_key("email") \
+			  and item["email"] != None \
+			  and item["email"] != '')
+
 	for item in items:
 
 		print item
-		
+
 	return list(items)
 
 if __name__ == '__main__':
