@@ -176,7 +176,7 @@ def is_valid(name):
             following_count = int(count[0].replace(',', ''))
             followers_count = int(count[1].replace(',', ''))
 
-            if following_count == 2001 or following_count * 10 < followers_count:
+            if followers_count >= 10000 or following_count >= 10000 or following_count == 2001 or following_count * 10 < followers_count:
 
                 return False
 
