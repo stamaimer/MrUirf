@@ -44,7 +44,8 @@ def exec_year(driver, year_page_link):
         for contain in content:
             try:
                 status  = contain.find_element_by_xpath('./div[1]').find_element_by_tag_name('span').get_attribute('innerHTML')
-                time    = contain.find_element_by_xpath('./div[2]/div[1]/abbr').get_attribute('innerHTML')
+                raw_time= contain.find_element_by_xpath('./div[2]/div[1]/abbr').get_attribute('innerHTML')
+                time    = timer(raw_time)
                 t_filter= re.compile('<[^>]+>')
                 status  = t_filter.sub("", status)
                 status_list.append({'status':status, 'time':time})
@@ -97,9 +98,50 @@ def timer(raw_time):
     # 5. year, month, day and time  yyyy年mm月dd日上午 xx:xx
 
     sample = [
-        '15 小时', '2013年4月', '2014年9月22日', '1月10日上午 4:12',
-        '2013年4月19日上午 9:28'
+        u'15 小时', u'2013年4月', u'2014年9月22日', u'1月10日上午 4:12',
+        u'2013年4月19日上午 9:28'
     ]
+    print sample
+
+    now              = datetime.now()
+    year, month, day = now.year, now.month, now.day
+    time_list        = [d for d in re.split('\D+', raw_time) if d != '']
+
+    if 5 == len(time_list):
+        # year, month, day and time  yyyy年mm月dd日上午 xx:xx
+        year      = int(time_list[0])
+        month     = int(time_list[1])
+        day       = int(time_list[2])
+        push_time = date(year, month, day)
+        return str(push_time)
+    elif 4 == len(time_list):
+        # month, day and time        mm月dd日上午 xx:xx
+        month     = int(time_list[0])
+        day       = int(time_list[1])
+        push_time = date(year, month, day)
+        return str(push_time)
+    elif 3 == len(time_list):
+        # year, month and day        yyyy年mm月dd日
+        year      = int(time_list[0])
+        month     = int(time_list[1])
+        day       = int(time_list[2])
+        push_time = date(year, month, day)
+        return str(push_time)
+    elif 2 == len(time_list):
+        # year and month             yyyy年mm月
+        year      = int(time_list[0])
+        month     = int(time_list[1])
+        push_time = date(year, month, 1)
+        return str(push_time)
+    elif 1 == len(time_list):
+        # only hour                  hh 小时
+        hour      = int(time_list[0])
+        delta     = timedelta(hours = hour)
+        push_d    = now - delta
+        push_time = date(push_d.year, push_d.month, push_d.day)
+        return str(push_time)
+    else:
+        return raw_time
 
 def default_peel():
     return {'name':'Mark Hatlestad', 'link':

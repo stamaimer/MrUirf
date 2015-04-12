@@ -39,9 +39,9 @@ def get_tweets(peer):
         timeline = tree.cssselect('div.timeline')
         t_cons   = timeline[0].cssselect('table.tweet')
         for con in t_cons:
-            tweet = con.cssselect('div.tweet-text')[0].text_content()
-            time  = con.cssselect('td.timestamp a')[0].text_content()
-            time  = timer(time)
+            tweet   = con.cssselect('div.tweet-text')[0].text_content()
+            raw_time= con.cssselect('td.timestamp a')[0].text_content()
+            time    = timer(raw_time)
             tweets[name].append({'tweet':tweet, 'time':time})
         try:
             # refresh link
@@ -89,6 +89,7 @@ def timer(raw_time):
             push_d= now - delta
             push_time = date(push_d.year, push_d.month, push_d.day)
             print str(push_time)
+        # only hours : xxh
         elif re.match(r'\d+h', time_list[0]):
             delta = timedelta(hours = int(filter(str.isdigit, time_list[0])))
             push_d= now - delta
