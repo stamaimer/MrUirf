@@ -21,7 +21,7 @@ FOLLOWING_URL = HOST + "/%s/following"
 FOLLOWERS_URL = HOST + "/%s/followers"
 
 VXPATH = "//a[@class='badge']/img"
-CXPATH = "//span[@class='count']/text()"
+CXPATH = "//div[@class='statnum']"
 MXPATH = "//span[@class='username']/text()"
 NXPATH = "//*[@id='main_content']/div/div[2]/div/a/@href"
 
@@ -82,20 +82,6 @@ def extract_info(response):
     tree = html.fromstring(response.content)
 
     members = itertools.chain()
-
-    count = parse(tree, CXPATH)[0]
-
-    try:
-
-        count = int(count.replace(',', ''))
-
-    except:
-
-        return members
-
-    # if count >= 10000:
-
-    #     return members
 
     members = itertools.chain(members, parse(tree, MXPATH))
 
@@ -169,6 +155,39 @@ def get_following(node):
                 links.append({"source":nodes.index(node),
                               "target":find_by_name(user)})
 
+def is_valid(name):
+
+    response = retrieve(HOMEPAGES_URL % name)
+
+    if response:
+
+        tree = html.fromstring(response.content)
+
+        verify = parse(tree, VXPATH)[0]
+
+        if verify:
+
+            return False
+
+        else:
+
+            count = parse(tree, CXPATH)
+
+            following_count = int(count[1].replace(',', ''))
+            followers_count = int(count[2].replace(',', ''))
+
+            if following == 2001 or following_count * 10 < followers_count:
+
+                return False
+
+            else:
+
+                return True
+
+    else:
+
+        return False
+
 def start(login, depth):
 
     nodes.append({"name":login, "group":0})
@@ -217,20 +236,14 @@ def start(login, depth):
 
             print "name : %s, group : %d, percent : %f" % (name, group, percent)
 
-            response = retrieve(HOMEPAGES_URL % name)
+            if is_valid(name):
 
-            if response:
+                get_following(node)
+                get_followers(node)
 
-                tree = html.fromstring(response.content)
+            else:
 
-                verify = parse(tree, VXPATH)[0]
-
-                if verify:
-
-                    continue
-
-            get_following(node)
-            get_followers(node)
+                print "%s is invalid" % name
 
 if __name__ == "__main__":
 
