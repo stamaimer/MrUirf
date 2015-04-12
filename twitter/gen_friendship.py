@@ -21,7 +21,7 @@ FOLLOWING_URL = HOST + "/%s/following"
 FOLLOWERS_URL = HOST + "/%s/followers"
 
 VXPATH = "//a[@class='badge']/img"
-CXPATH = "//div[@class='statnum']"
+CXPATH = "//div[@class='statnum']/text()"
 MXPATH = "//span[@class='username']/text()"
 NXPATH = "//*[@id='main_content']/div/div[2]/div/a/@href"
 
@@ -173,10 +173,10 @@ def is_valid(name):
 
             count = parse(tree, CXPATH)
 
-            following_count = int(count[1].replace(',', ''))
-            followers_count = int(count[2].replace(',', ''))
+            following_count = int(count[0].replace(',', ''))
+            followers_count = int(count[1].replace(',', ''))
 
-            if following == 2001 or following_count * 10 < followers_count:
+            if following_count == 2001 or following_count * 10 < followers_count:
 
                 return False
 
