@@ -107,11 +107,40 @@ def timer(raw_time):
     time_list        = [d for d in re.split('\D+', raw_time) if d != '']
 
     if 5 == len(time_list):
+        # year, month, day and time  yyyy年mm月dd日上午 xx:xx
         year      = int(time_list[0])
         month     = int(time_list[1])
         day       = int(time_list[2])
         push_time = date(year, month, day)
         return str(push_time)
+    elif 4 == len(time_list):
+        # month, day and time        mm月dd日上午 xx:xx
+        month     = int(time_list[0])
+        day       = int(time_list[1])
+        push_time = date(year, month, day)
+        return str(push_time)
+    elif 3 == len(time_list):
+        # year, month and day        yyyy年mm月dd日
+        year      = int(time_list[0])
+        month     = int(time_list[1])
+        day       = int(time_list[2])
+        push_time = date(year, month, day)
+        return str(push_time)
+    elif 2 == len(time_list):
+        # year and month             yyyy年mm月
+        year      = int(time_list[0])
+        month     = int(time_list[1])
+        push_time = date(year, month, 1)
+        return str(push_time)
+    elif 1 == len(time_list):
+        # only hour                  hh 小时
+        hour      = int(time_list[0])
+        delta     = timedelta(hours = hour)
+        push_d    = now - delta
+        push_time = date(push_d.year, push_d.month, push_d.day)
+        return str(push_time)
+    else:
+        return raw_time
 
 def default_peel():
     return {'name':'Mark Hatlestad', 'link':
