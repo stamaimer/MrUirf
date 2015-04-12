@@ -44,7 +44,8 @@ def exec_year(driver, year_page_link):
         for contain in content:
             try:
                 status  = contain.find_element_by_xpath('./div[1]').find_element_by_tag_name('span').get_attribute('innerHTML')
-                time    = contain.find_element_by_xpath('./div[2]/div[1]/abbr').get_attribute('innerHTML')
+                raw_time= contain.find_element_by_xpath('./div[2]/div[1]/abbr').get_attribute('innerHTML')
+                time    = timer(raw_time)
                 t_filter= re.compile('<[^>]+>')
                 status  = t_filter.sub("", status)
                 status_list.append({'status':status, 'time':time})

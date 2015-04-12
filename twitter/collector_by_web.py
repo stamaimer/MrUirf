@@ -39,9 +39,9 @@ def get_tweets(peer):
         timeline = tree.cssselect('div.timeline')
         t_cons   = timeline[0].cssselect('table.tweet')
         for con in t_cons:
-            tweet = con.cssselect('div.tweet-text')[0].text_content()
-            time  = con.cssselect('td.timestamp a')[0].text_content()
-            time  = timer(time)
+            tweet   = con.cssselect('div.tweet-text')[0].text_content()
+            raw_time= con.cssselect('td.timestamp a')[0].text_content()
+            time    = timer(raw_time)
             tweets[name].append({'tweet':tweet, 'time':time})
         try:
             # refresh link
