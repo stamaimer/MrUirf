@@ -89,7 +89,7 @@ def scan_status(peel):
 
 def timer(raw_time):
 
-    # every status has a push time, and in twitter the push time has several
+    # every status has a push time, and in facbook the push time has several
     # formats :
     # 1. only hour                  hh 小时
     # 2. year and month             yyyy年mm月
