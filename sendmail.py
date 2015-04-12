@@ -5,7 +5,7 @@ import argpaarse
 addr = "smtp.gmail.com"
 port = 587
 
-from = "mr.uir.uif@gmail.com"
+morf = "mr.uir.uif@gmail.com"
 
 tolist = []
 
@@ -13,13 +13,13 @@ subject = ""
 
 content = ""
 
-def sendmail(usr, psd, from, tolist, subject, content):
+def sendmail(usr, psd, morf, tolist, subject, content):
 
 	msg = "From: %s\n \
 		   To: %s\n \
 		   Subject: %s\n \
 		   \n \
-		   %s" % (from, ", ".join(tolist), subject, content)
+		   %s" % (morf, ", ".join(tolist), subject, content)
 
 	try:
 
@@ -31,7 +31,7 @@ def sendmail(usr, psd, from, tolist, subject, content):
 
 		server.login(usr, psd)
 
-		server.sendmail(from, tolist, msg)
+		server.sendmail(morf, tolist, msg)
 
 		server.close()
 
@@ -72,4 +72,4 @@ if __name__ == '__main__':
 
     tolist = get_tolist()
 
-    sendmail(usr, psd, from, tolist, subject, content)
+    sendmail(usr, psd, morf, tolist, subject, content)
