@@ -72,7 +72,7 @@ if __name__ == '__main__':
 	usr = args.usr
 	psd = args.psd
 
-	user_list = get_list()
+	user_list = get_user_list()
 
 	user_list = [{"login":"stamaimer", "email":"stamaimer@gmail.com"}]
 
