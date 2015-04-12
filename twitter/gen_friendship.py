@@ -31,7 +31,7 @@ def retrieve(url):
 
         try:
 
-            print "request : %s" % url
+            # print "request : %s" % url
 
             response = requester.get(url)
 

@@ -7,11 +7,9 @@ port = 587
 
 morf = "mr.uir.uif@gmail.com"
 
-tolist = []
+subject = "Hello, World!"
 
-subject = ""
-
-content = ""
+content = "Hello, %s."
 
 def sendmail(usr, psd, morf, tolist, subject, content):
 
@@ -43,7 +41,7 @@ def sendmail(usr, psd, morf, tolist, subject, content):
 
 		raise
 
-def get_tolist():
+def get_user_list():
 
 	mongo_client = pymongo.MongoClient('127.0.0.1', 27017)
 
@@ -59,11 +57,7 @@ def get_tolist():
 			  and item["email"] != None \
 			  and item["email"] != '')
 
-	for item in items:
-
-		print item
-
-	return list(items)
+	return items
 
 if __name__ == '__main__':
 	
@@ -78,6 +72,10 @@ if __name__ == '__main__':
 	usr = args.usr
 	psd = args.psd
 
-	tolist = get_tolist()
+	user_list = get_list()
 
-	sendmail(usr, psd, morf, tolist, subject, content)
+	user_list = [{"login":"stamaimer", "email":"stamaimer@gmail.com"}]
+
+	for login, email in user_list:
+
+		sendmail(usr, psd, usr, email, subject, content % login)
