@@ -34,8 +34,8 @@ texts after filtered urls.
 import json
 from nltk.tokenize      import word_tokenize
 from nltk.tokenize      import wordpunct_tokenize
-from ark_tokenizer      import tokenizeRawTweetText
-from stanford_tokenizer import Tokenizer as STokenizer
+from tokenizer_ark      import tokenizeRawTweetText
+from tokenizer_stanford import Tokenizer as STokenizer
 
 def tokenize_ark(text):
 
