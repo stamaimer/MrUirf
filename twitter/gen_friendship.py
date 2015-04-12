@@ -20,7 +20,7 @@ HOMEPAGES_URL = HOST + "/%s"
 FOLLOWING_URL = HOST + "/%s/following"
 FOLLOWERS_URL = HOST + "/%s/followers"
 
-VXPATH = "//img[@alt='认证账号']"
+VXPATH = "//a[@class='badge']/img"
 CXPATH = "//span[@class='count']/text()"
 MXPATH = "//span[@class='username']/text()"
 NXPATH = "//*[@id='main_content']/div/div[2]/div/a/@href"
