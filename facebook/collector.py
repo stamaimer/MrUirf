@@ -2,7 +2,7 @@
 
 import re
 import json
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -85,6 +85,21 @@ def scan_status(peel):
     driver.close()
     print "finished."
     return status
+
+def timer(raw_time):
+
+    # every status has a push time, and in twitter the push time has several
+    # formats :
+    # 1. only hour                  hh 小时
+    # 2. year and month             yyyy年mm月
+    # 3. year, month and day        yyyy年mm月dd日
+    # 4. month, day and time        mm月dd日上午 xx:xx
+    # 5. year, month, day and time  yyyy年mm月dd日上午 xx:xx
+
+    sample = [
+        '15 小时', '2013年4月', '2014年9月22日', '1月10日上午 4:12',
+        '2013年4月19日上午 9:28'
+    ]
 
 def default_peel():
     return {'name':'Mark Hatlestad', 'link':
