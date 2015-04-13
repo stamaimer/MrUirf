@@ -41,8 +41,6 @@ def retrieve(url):
 
             if 200 == response.status_code:
 
-                print "request : %s success" % response.url
-
                 return response
 
             else:
