@@ -225,116 +225,120 @@ def is_valid(name):
 
 def worker(depth):
 
-    lock.acquire()
-
     while 1:
-        
-        if len(tasks) != 0:
-
-            node = tasks.pop(0)
-
-            break
-
-    lock.release()
-
-    name = node["name"]
-
-    group = node["group"]
-
-    if name == "SUICIDE":
-
-        AMOUNT_OF_THREADS -= 1
-
-        return
-
-    if group > depth:
-
-        for i in xrange(AMOUNT_OF_THREADS - 1):
-
-            tasks.insert(0, {"name":"SUICIDE", "group":-1})
-
-        while 1:
-            
-            if 1 == AMOUNT_OF_THREADS:
-
-                break
-
-        print "generate graph ..."
-
-        #
-
-        data = {"nodes":nodes, "links":links}
-
-        #
-
-        with open(login + "_twitter.json", 'w') as outfile:
-
-            json.dump(data, outfile)
-
-        return os.path.abspath( login + "_twitter.json")
-
-    else:
 
         lock.acquire()
 
-        global percent, group1, group2
+        while 1:
+            
+            if len(tasks) != 0:
 
-        if 0 == group:
+                node = tasks.pop(0)
 
-            percent = 1
+                break
 
-        elif 1 == group:
-
-            if not group1:
-
-                group1 = sum(( 1 for ele in nodes if ele["group"] == 1 ))
-
-            percent = nodes.index(node) / float(group1)
-
-        elif 2 == group:
-
-            if not group2:
-
-                group2 = sum(( 1 for ele in nodes if ele["group"] == 2 ))
-
-            percent = (nodes.index(node) - group1) / float(group2)
-
-        print "name : %s,\t\t group : %d,\t\t percent : %f" % (name, group, percent)
+            print "sleeping..."
 
         lock.release()
 
-        if is_valid(name):
+        name = node["name"]
 
-            following = extract_info(FOLLOWING_URL % name)
-            followers = extract_info(FOLLOWERS_URL % name)
+        group = node["group"]
 
-            intersection = set(following).intersection(followers)
+        if name == "SUICIDE":
 
-            lock.acquire()
+            AMOUNT_OF_THREADS -= 1
 
-            for user in intersection:
+            return
 
-                for i in xrange(group + 1):
+        if group > depth:
 
-                    if {"name":user, "group":i} in nodes:
+            for i in xrange(AMOUNT_OF_THREADS - 1):
 
-                        break
+                tasks.insert(0, {"name":"SUICIDE", "group":-1})
 
-                else:
+            while 1:
+                
+                if 1 == AMOUNT_OF_THREADS:
 
-                    tmpu = {"name":user, "group":group + 1}
+                    break
 
-                    nodes.append(tmpu)
-                    tasks.append(tmpu)
+            print "generate graph ..."
 
-                    links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
-                    links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
+            #
 
-            lock.release()
+            data = {"nodes":nodes, "links":links}
+
+            #
+
+            with open(login + "_twitter.json", 'w') as outfile:
+
+                json.dump(data, outfile)
+
+            return os.path.abspath( login + "_twitter.json")
 
         else:
 
-            print "%s is invalid" % name
+            lock.acquire()
+
+            global percent, group1, group2
+
+            if 0 == group:
+
+                percent = 1
+
+            elif 1 == group:
+
+                if not group1:
+
+                    group1 = sum(( 1 for ele in nodes if ele["group"] == 1 ))
+
+                percent = nodes.index(node) / float(group1)
+
+            elif 2 == group:
+
+                if not group2:
+
+                    group2 = sum(( 1 for ele in nodes if ele["group"] == 2 ))
+
+                percent = (nodes.index(node) - group1) / float(group2)
+
+            print "name : %s,\t\t group : %d,\t\t percent : %f" % (name, group, percent)
+
+            lock.release()
+
+            if is_valid(name):
+
+                following = extract_info(FOLLOWING_URL % name)
+                followers = extract_info(FOLLOWERS_URL % name)
+
+                intersection = set(following).intersection(followers)
+
+                lock.acquire()
+
+                for user in intersection:
+
+                    for i in xrange(group + 1):
+
+                        if {"name":user, "group":i} in nodes:
+
+                            break
+
+                    else:
+
+                        tmpu = {"name":user, "group":group + 1}
+
+                        nodes.append(tmpu)
+                        tasks.append(tmpu)
+
+                        links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
+                        links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
+
+                lock.release()
+
+            else:
+
+                print "%s is invalid" % name
 
 
 def start(login, depth):
