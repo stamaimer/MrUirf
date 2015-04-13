@@ -240,6 +240,8 @@ def worker(login, depth):
 
             AMOUNT_OF_THREADS -= 1
 
+            print "%s have a bad fortune, be starved to death" % threading.current_thread().name
+
             lock.release()
 
             return
@@ -258,6 +260,8 @@ def worker(login, depth):
 
             AMOUNT_OF_THREADS -= 1
 
+            print "%s have a bad fortune, got a suicide command" % threading.current_thread().name
+
             lock.release()
 
             return
@@ -266,7 +270,7 @@ def worker(login, depth):
 
             lock.acquire()
 
-            print "got you..."
+            print "%s have a good fortune, laughint util last" % threading.current_thread().name
 
             for i in xrange(AMOUNT_OF_THREADS - 1):
 
