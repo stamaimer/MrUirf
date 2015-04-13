@@ -266,6 +266,8 @@ def worker(login, depth):
 
             lock.acquire()
 
+            print "got you..."
+
             for i in xrange(AMOUNT_OF_THREADS - 1):
 
                 tasks.insert(0, {"name":"SUICIDE", "group":-1})
@@ -386,7 +388,7 @@ def start(login, depth):
 
     else:
 
-        print "%s is invalid" % name
+        print "%s is invalid" % login
 
         sys.exit(0)
 
