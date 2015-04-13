@@ -416,15 +416,15 @@ def start(login, depth):
 
     #     if 1 == AMOUNT_OF_THREADS:
 
-            print "generate graph ..."
+            # print "generate graph ..."
 
-            data = {"nodes":nodes, "links":links}
+            # data = {"nodes":nodes, "links":links}
 
-            with open(login + "_twitter.json", 'w') as outfile:
+            # with open(login + "_twitter.json", 'w') as outfile:
 
-                json.dump(data, outfile)
+            #     json.dump(data, outfile)
 
-            return os.path.abspath( login + "_twitter.json")
+            # return os.path.abspath( login + "_twitter.json")
 
     #     else:
 
