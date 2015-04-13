@@ -360,7 +360,6 @@ def start(login, depth):
     node = {"name":login, "group":0}
 
     nodes.append(node)
-    tasks.append(node)
 
     if is_valid(login):
 
