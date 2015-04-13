@@ -75,6 +75,10 @@ def retrieve(url, params):
 
                 print "request : %s success" % response.url
 
+                print "request_url : ", response.url, "\n", \
+                  "request_headers : ", response.request.headers, "\n", \
+                  "response_headers : ", response.headers
+
                 return response
 
             else:
