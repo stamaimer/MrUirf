@@ -42,6 +42,8 @@ def retrieve(url):
 
             if 200 == response.status_code:
 
+                print '.'
+
                 return response
 
             else:
