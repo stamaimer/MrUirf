@@ -5,14 +5,20 @@ import json
 import session
 import argparse
 import itertools
+import threading
 from lxml import html
 
-nodes = []
-links = []
+nodes = []#
+links = []#
+tasks = []#
 
 requester = session.get_session()
 
-percent, group1, group2 = 0.0, 0, 0
+percent, group1, group2 = 0.0, 0, 0#
+
+lock = threading.Lock()
+
+AMOUNT_OF_THREADS = 10
 
 HOST = "https://mobile.twitter.com"
 
@@ -30,8 +36,6 @@ def retrieve(url):
     while 1:
 
         try:
-
-            # print "request : %s" % url
 
             response = requester.get(url)
 
@@ -51,111 +55,135 @@ def retrieve(url):
 
             raise
 
-def find_by_name(name):
+# def find_by_name(name):#
 
-    for node in nodes:
+#     lock.acquire()
 
-        if node["name"] == name:
+#     for node in nodes:
 
-            return nodes.index(node)
+#         if node["name"] == name:
+
+#             index = nodes.index(node)
+
+#             lock.release()
+
+#             return index
+
+#     else:
+
+#         lock.release()
+
+#         return -1
 
 def parse(tree, xpath):
 
-    nodes = tree.xpath(xpath, smart_strings=False)
+    eles = tree.xpath(xpath, smart_strings=False)
 
-    if 1 == len(nodes):#for count and cursor
+    if 1 == len(eles):#for count and cursor
 
-        return nodes
+        return eles
 
-    elif len(nodes) > 1:#for name list
+    elif len(eles) > 1:#for name list and statnum
 
-        return nodes[1:]
+        return eles[1:]
 
     else:#something wrong
 
         return [None]
 
-def extract_info(response):
+def extract_info(url):
 
-    tree = html.fromstring(response.content)
+    response = retrieve(url)
 
-    members = itertools.chain()
-
-    members = itertools.chain(members, parse(tree, MXPATH))
-
-    next = parse(tree, NXPATH)[0]
-
-    while next:
-
-        response = retrieve(HOST + next)
+    if response:
 
         tree = html.fromstring(response.content)
 
-        members = itertools.chain(members, parse(tree, MXPATH))
+        members = itertools.chain(parse(tree, MXPATH))
 
         next = parse(tree, NXPATH)[0]
 
-    return members
+        while next:
 
-def get_followers(node):
+            response = retrieve(HOST + next)
 
-    name = node["name"]
+            if response:
 
-    group = node["group"]
+                tree = html.fromstring(response.content)
 
-    response = retrieve(FOLLOWERS_URL % name)
+                members = itertools.chain(members, parse(tree, MXPATH))
 
-    if response:
+                next = parse(tree, NXPATH)[0]
 
-        followers = extract_info(response)
+            else:
 
-        return followers
+                break
 
-        # for user in followers:
+        return members
 
-        #     for i in xrange(group + 1):
+    else:
 
-        #         if {"name":user, "group":i} in nodes:
+        return ()
 
-        #             links.append({"source":find_by_name(user), "target":nodes.index(node)})
+# def get_followers(node):
 
-        #             break
+#     name = node["name"]
 
-        #     tmpu = {"name":user, "group":group + 1}
+#     group = node["group"]
 
-        #     nodes.append(tmpu)
+#     response = retrieve(FOLLOWERS_URL % name)
 
-        #     links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
+#     if response:
 
-def get_following(node):
+#         followers = extract_info(response)
 
-    name = node["name"]
+#         return followers
 
-    group = node["group"]
+#         for user in followers:
 
-    response = retrieve(FOLLOWING_URL % name)
+#             for i in xrange(group + 1):
 
-    if response:
+#                 if {"name":user, "group":i} in nodes:
 
-        following = extract_info(response)
+#                     links.append({"source":find_by_name(user), "target":nodes.index(node)})
 
-        return following
+#                     break
 
-        # for user in following:
+#             tmpu = {"name":user, "group":group + 1}
 
-        #     for i in xrange(group + 1):
+#             nodes.append(tmpu)
 
-        #         if {"name":user, "group":i} in nodes:
+#             links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
 
-        #             links.append({"source":nodes.index(node), "target":find_by_name(user)})
+# def get_following(node):
 
-        #             break
+#     name = node["name"]
 
-        #     tmpu = {"name":user, "group":group + 1}
+#     group = node["group"]
 
-        #     nodes.append(tmpu)
+#     response = retrieve(FOLLOWING_URL % name)
 
-        #     links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
+#     if response:
+
+#         following = extract_info(response)
+
+#         return following
+
+#         for user in following:
+
+#             for i in xrange(group + 1):
+
+#                 if {"name":user, "group":i} in nodes:
+
+#                     links.append({"source":nodes.index(node), "target":find_by_name(user)})
+
+#                     break
+
+#             tmpu = {"name":user, "group":group + 1}
+
+#             nodes.append(tmpu)
+
+#             links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
 def is_valid(name):
 
@@ -178,7 +206,10 @@ def is_valid(name):
             following_count = int(count[0].replace(',', ''))
             followers_count = int(count[1].replace(',', ''))
 
-            if followers_count >= 6000 or following_count >= 6000 or following_count == 2001 or following_count * 10 < followers_count:
+            if followers_count >= 6000 \
+            or following_count >= 6000 \
+            or following_count == 2001 \
+            or following_count * 10 < followers_count:
 
                 return False
 
@@ -190,81 +221,200 @@ def is_valid(name):
 
         return False
 
-def start(login, depth):
+def worker():
 
-    nodes.append({"name":login, "group":0})
+    lock.acquire()
 
-    for node in nodes:
+    node = tasks.pop(0)
 
-        name = node["name"]
+    lock.release()
 
-        group = node["group"]
+    name = node["name"]
 
-        if group > depth:
+    group = node["group"]
 
-            print "generate graph ..."
+    if name == "SUICIDE":
 
-            data = {"nodes":nodes, "links":links}
+        AMOUNT_OF_THREADS -= 1
 
-            with open(login + "_twitter.json", 'w') as outfile:
+        return
 
-                json.dump(data, outfile)
+    if group > depth:
 
-            return os.path.abspath( login + "_twitter.json")
+        for i in xrange(AMOUNT_OF_THREADS - 1):
+
+            tasks.insert(0, {"name":"SUICIDE", "group":-1})
+
+        while 1:
+            
+            if 1 == AMOUNT_OF_THREADS:
+
+                break
+
+        print "generate graph ..."
+
+        #
+
+        data = {"nodes":nodes, "links":links}
+
+        #
+
+        with open(login + "_twitter.json", 'w') as outfile:
+
+            json.dump(data, outfile)
+
+        return os.path.abspath( login + "_twitter.json")
+
+    else:
+
+        lock.acquire()
+
+        global percent, group1, group2
+
+        if 0 == group:
+
+            percent = 1
+
+        elif 1 == group:
+
+            if not group1:
+
+                group1 = sum(( 1 for ele in nodes if ele["group"] == 1 ))
+
+            percent = nodes.index(node) / float(group1)
+
+        elif 2 == group:
+
+            if not group2:
+
+                group2 = sum(( 1 for ele in nodes if ele["group"] == 2 ))
+
+            percent = (nodes.index(node) - group1) / float(group2)
+
+        print "name : %s,\t\t group : %d,\t\t percent : %f" % (name, group, percent)
+
+        lock.release()
+
+        if is_valid(name):
+
+            following = extract_info(FOLLOWING_URL % name)
+            followers = extract_info(FOLLOWERS_URL % name)
+
+            intersection = set(following).intersection(followers)
+
+            lock.acquire()
+
+            for user in intersection:
+
+                for i in xrange(group + 1):
+
+                    if {"name":user, "group":i} in nodes:
+
+                        break
+
+                else:
+
+                    tmpu = {"name":user, "group":group + 1}
+
+                    nodes.append(tmpu)
+                    tasks.append(tmpu)
+
+                    links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
+                    links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
+
+            lock.release()
 
         else:
 
-            global percent, group1, group2
+            print "%s is invalid" % name
 
-            if 0 == group:
 
-                percent = 1
+def start(login, depth):
 
-            elif 1 == group:
+    nodes.append({"name":login, "group":0})
+    tasks.append({"name":login, "group":0})
 
-                if not group1:
+    #create thread pool here...
 
-                    group1 = sum(( 1 for ele in nodes if ele["group"] == 1 ))
+    threads = []
 
-                percent = nodes.index(node) / float(group1)
+    for i in xrange(AMOUNT_OF_THREADS):
 
-            elif 2 == group:
+        threads[i] = threading.Thread(target = worker)
 
-                if not group2:
+        threads[i].start()
 
-                    group2 = sum(( 1 for ele in nodes if ele["group"] == 2 ))
+    # for node in nodes:
 
-                percent = (nodes.index(node) - group1) / float(group2)
+    #     name = node["name"]
 
-            print "name : %s, group : %d, percent : %f" % (name, group, percent)
+    #     group = node["group"]
 
-            if is_valid(name):
+    #     if group > depth:
 
-                following = get_following(node)
-                followers = get_followers(node)
+    #         print "generate graph ..."
 
-                intersection = set(following).intersection(followers)
+    #         data = {"nodes":nodes, "links":links}
 
-                for user in intersection:
+    #         with open(login + "_twitter.json", 'w') as outfile:
 
-                    for i in xrange(group + 1):
+    #             json.dump(data, outfile)
 
-                        if {"name":user, "group":i} in nodes:
+    #         return os.path.abspath( login + "_twitter.json")
 
-                            break
+    #     else:
 
-                    else:
+    #         global percent, group1, group2
 
-                        tmpu = {"name":user, "group":group + 1}
+    #         if 0 == group:
 
-                        nodes.append(tmpu)
+    #             percent = 1
 
-                        links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
-                        links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
+    #         elif 1 == group:
 
-            else:
+    #             if not group1:
 
-                print "%s is invalid" % name
+    #                 group1 = sum(( 1 for ele in nodes if ele["group"] == 1 ))
+
+    #             percent = nodes.index(node) / float(group1)
+
+    #         elif 2 == group:
+
+    #             if not group2:
+
+    #                 group2 = sum(( 1 for ele in nodes if ele["group"] == 2 ))
+
+    #             percent = (nodes.index(node) - group1) / float(group2)
+
+    #         print "name : %s,\t\t group : %d,\t\t percent : %f" % (name, group, percent)
+
+    #         if is_valid(name):
+
+    #             following = extract_info(FOLLOWING_URL % name)
+    #             followers = extract_info(FOLLOWERS_URL % name)
+
+    #             intersection = set(following).intersection(followers)
+
+    #             for user in intersection:
+
+    #                 for i in xrange(group + 1):
+
+    #                     if {"name":user, "group":i} in nodes:
+
+    #                         break
+
+    #                 else:
+
+    #                     tmpu = {"name":user, "group":group + 1}
+
+    #                     nodes.append(tmpu)
+
+    #                     links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
+    #                     links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
+
+    #         else:
+
+    #             print "%s is invalid" % name
 
 if __name__ == "__main__":
 
