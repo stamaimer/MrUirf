@@ -237,8 +237,6 @@ def worker(depth):
 
                 break
 
-            print "sleeping..."
-
         lock.release()
 
         name = node["name"]
