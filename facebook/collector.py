@@ -144,13 +144,15 @@ def timer(raw_time):
         return raw_time
 
 def default_peel():
-    return {'name':'Mark Hatlestad', 'link':
-            'https://m.facebook.com/mark.hatlestad?fref=fr_tab'}
+    return [{'name':'Mark Hatlestad', 'link':
+             'https://m.facebook.com/mark.hatlestad?fref=fr_tab'}]
 
 if __name__ == '__main__':
 
     peel = default_peel()
-    f_status = {peel['name'] :scan_status(peel = default_peel())}
+    f_status = []
+    for p in peel:
+        f_status.append({p['name'] :scan_status(p)})
 
     f = file('status.json', 'w+')
     json.dump(f_status, f)
