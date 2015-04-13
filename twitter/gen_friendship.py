@@ -394,8 +394,6 @@ def start(login, depth):
 
         threads[i].start()
 
-        threads[i].join()
-
     # for node in nodes:
 
     #     name = node["name"]
@@ -404,15 +402,19 @@ def start(login, depth):
 
     #     if group > depth:
 
-    print "generate graph ..."
+    while 1:
 
-    data = {"nodes":nodes, "links":links}
+        if 1 == AMOUNT_OF_THREADS:
 
-    with open(login + "_twitter.json", 'w') as outfile:
+            print "generate graph ..."
 
-        json.dump(data, outfile)
+            data = {"nodes":nodes, "links":links}
 
-    return os.path.abspath( login + "_twitter.json")
+            with open(login + "_twitter.json", 'w') as outfile:
+
+                json.dump(data, outfile)
+
+            return os.path.abspath( login + "_twitter.json")
 
     #     else:
 
