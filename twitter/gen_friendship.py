@@ -234,6 +234,8 @@ def worker(depth):
 
         except:
 
+            global AMOUNT_OF_THREADS
+
             AMOUNT_OF_THREADS -= 1
 
             lock.release()
@@ -249,6 +251,8 @@ def worker(depth):
         if name == "SUICIDE":
 
             lock.acquire()
+
+            global AMOUNT_OF_THREADS
 
             AMOUNT_OF_THREADS -= 1
 
