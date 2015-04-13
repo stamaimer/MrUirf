@@ -346,7 +346,7 @@ def start(login, depth):
 
     for i in xrange(AMOUNT_OF_THREADS):
 
-        threads[i] = threading.Thread(target=worker, args=(depth))
+        threads[i] = threading.Thread(target=worker, args=(depth,))
 
         threads[i].start()
 
