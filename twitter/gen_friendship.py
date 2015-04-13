@@ -221,11 +221,17 @@ def is_valid(name):
 
         return False
 
-def worker():
+def worker(depth):
 
     lock.acquire()
 
-    node = tasks.pop(0)
+    while 1:
+        
+        if len(tasks) != 0:
+
+            node = tasks.pop(0)
+
+            break
 
     lock.release()
 
@@ -336,11 +342,11 @@ def start(login, depth):
 
     #create thread pool here...
 
-    threads = [ None for i in xrange(AMOUNT_OF_THREADS)]
+    threads = [ None for i in xrange(AMOUNT_OF_THREADS) ]
 
     for i in xrange(AMOUNT_OF_THREADS):
 
-        threads[i] = threading.Thread(target = worker)
+        threads[i] = threading.Thread(target=worker, args=(depth))
 
         threads[i].start()
 
