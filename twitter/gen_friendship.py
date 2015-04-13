@@ -343,8 +343,10 @@ def worker(depth):
 
 def start(login, depth):
 
-    nodes.append({"name":login, "group":0})
-    tasks.append({"name":login, "group":0})
+    node = {"name":login, "group":0}
+
+    nodes.append(node)
+    tasks.append(node)
 
     if is_valid(login):
 
