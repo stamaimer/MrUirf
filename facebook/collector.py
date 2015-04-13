@@ -48,7 +48,7 @@ def exec_year(driver, year_page_link):
                 time    = timer(raw_time)
                 t_filter= re.compile('<[^>]+>')
                 status  = t_filter.sub("", status)
-                status_list.append({'status':status, 'time':time})
+                status_list.append({'content':status, 'time':time})
             except:
                 pass
 
@@ -96,13 +96,10 @@ def timer(raw_time):
     # 3. year, month and day        yyyy年mm月dd日
     # 4. month, day and time        mm月dd日上午 xx:xx
     # 5. year, month, day and time  yyyy年mm月dd日上午 xx:xx
-
-    sample = [
-        u'15 小时', u'2013年4月', u'2014年9月22日', u'1月10日上午 4:12',
-        u'2013年4月19日上午 9:28'
-    ]
-    print sample
-
+    # sample = [
+    #     u'15 小时', u'2013年4月', u'2014年9月22日', u'1月10日上午 4:12',
+    #     u'2013年4月19日上午 9:28'
+    # ]
     now              = datetime.now()
     year, month, day = now.year, now.month, now.day
     time_list        = [d for d in re.split('\D+', raw_time) if d != '']
@@ -144,14 +141,17 @@ def timer(raw_time):
         return raw_time
 
 def default_peel():
-    return {'name':'Mark Hatlestad', 'link':
-            'https://m.facebook.com/mark.hatlestad?fref=fr_tab'}
+    return [{'name':'Mark Hatlestad', 'link':
+             'https://m.facebook.com/mark.hatlestad?fref=fr_tab'}]
 
 if __name__ == '__main__':
 
     peel = default_peel()
-    f_status = {peel['name'] :scan_status(peel = default_peel())}
+    f_status = []
+    for p in peel:
+        f_status.append({p['name'] :scan_status(p)})
 
     f = file('status.json', 'w+')
     json.dump(f_status, f)
     f.close()
+
