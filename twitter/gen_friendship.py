@@ -394,6 +394,8 @@ def start(login, depth):
 
         threads[i].start()
 
+        threads[i].join()
+
     # for node in nodes:
 
     #     name = node["name"]
