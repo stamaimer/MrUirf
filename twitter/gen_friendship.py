@@ -227,17 +227,17 @@ def worker(depth):
 
     while 1:
 
-        lock.acquire()
-
         while 1:
             
             if len(tasks) != 0:
 
+                lock.acquire()
+
                 node = tasks.pop(0)
 
-                break
+                lock.release()
 
-        lock.release()
+                break
 
         name = node["name"]
 
