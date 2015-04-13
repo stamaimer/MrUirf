@@ -228,7 +228,17 @@ def worker(depth):
 
         lock.acquire()
 
-        node = tasks.pop(0)
+        try:
+
+            node = tasks.pop(0)
+
+        except:
+
+            AMOUNT_OF_THREADS -= 1
+
+            lock.release()
+
+            return
 
         lock.release()
 
