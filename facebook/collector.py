@@ -96,13 +96,10 @@ def timer(raw_time):
     # 3. year, month and day        yyyy年mm月dd日
     # 4. month, day and time        mm月dd日上午 xx:xx
     # 5. year, month, day and time  yyyy年mm月dd日上午 xx:xx
-
-    sample = [
-        u'15 小时', u'2013年4月', u'2014年9月22日', u'1月10日上午 4:12',
-        u'2013年4月19日上午 9:28'
-    ]
-    print sample
-
+    # sample = [
+    #     u'15 小时', u'2013年4月', u'2014年9月22日', u'1月10日上午 4:12',
+    #     u'2013年4月19日上午 9:28'
+    # ]
     now              = datetime.now()
     year, month, day = now.year, now.month, now.day
     time_list        = [d for d in re.split('\D+', raw_time) if d != '']
@@ -157,3 +154,4 @@ if __name__ == '__main__':
     f = file('status.json', 'w+')
     json.dump(f_status, f)
     f.close()
+
