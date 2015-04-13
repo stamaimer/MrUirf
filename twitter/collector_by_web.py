@@ -42,7 +42,7 @@ def get_tweets(peer):
             tweet   = con.cssselect('div.tweet-text')[0].text_content()
             raw_time= con.cssselect('td.timestamp a')[0].text_content()
             time    = timer(raw_time)
-            tweets[name].append({'tweet':tweet, 'time':time})
+            tweets[name].append({'content':tweet, 'time':time})
         try:
             # refresh link
             link     = timeline[0].cssselect('div.w-button-more a')[0].get("href")

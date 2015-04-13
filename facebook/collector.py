@@ -48,7 +48,7 @@ def exec_year(driver, year_page_link):
                 time    = timer(raw_time)
                 t_filter= re.compile('<[^>]+>')
                 status  = t_filter.sub("", status)
-                status_list.append({'status':status, 'time':time})
+                status_list.append({'content':status, 'time':time})
             except:
                 pass
 
