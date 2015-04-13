@@ -270,7 +270,7 @@ def worker(login, depth):
 
             lock.acquire()
 
-            print "%s have a good fortune, laughint util last" % threading.current_thread().name
+            print "%s have a good fortune, laughing util last" % threading.current_thread().name
 
             for i in xrange(AMOUNT_OF_THREADS - 1):
 
@@ -324,7 +324,7 @@ def worker(login, depth):
 
                 percent = (nodes.index(node) - group1) / float(group2)
 
-            print "name : %s,\t\t group : %d,\t\t percent : %f" % (name, group, percent)
+            print "%s is serving %s,\t\t group : %d,\t\t percent : %f" % (threading.current_thread().name, name, group, percent)
 
             lock.release()
 
