@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import sys
 import json
 import session
 import argparse
@@ -225,17 +226,11 @@ def worker(depth):
 
     while 1:
 
-        while 1:
-            
-            if len(tasks) != 0:
+        lock.acquire()
 
-                lock.acquire()
+        node = tasks.pop(0)
 
-                node = tasks.pop(0)
-
-                lock.release()
-
-                break
+        lock.release()
 
         name = node["name"]
 
@@ -243,15 +238,23 @@ def worker(depth):
 
         if name == "SUICIDE":
 
+            lock.acquire()
+
             AMOUNT_OF_THREADS -= 1
+
+            lock.release()
 
             return
 
         if group > depth:
 
+            lock.acquire()
+
             for i in xrange(AMOUNT_OF_THREADS - 1):
 
                 tasks.insert(0, {"name":"SUICIDE", "group":-1})
+
+            lock.release()
 
             while 1:
                 
@@ -279,11 +282,7 @@ def worker(depth):
 
             global percent, group1, group2
 
-            if 0 == group:
-
-                percent = 1
-
-            elif 1 == group:
+            if 1 == group:
 
                 if not group1:
 
@@ -316,7 +315,12 @@ def worker(depth):
 
                     for i in xrange(group + 1):
 
-                        if {"name":user, "group":i} in nodes:
+                        tmpu = {"name":user, "group":i}
+
+                        if tmpu in nodes:
+
+                            links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
+                            links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
 
                             break
 
@@ -341,6 +345,29 @@ def start(login, depth):
 
     nodes.append({"name":login, "group":0})
     tasks.append({"name":login, "group":0})
+
+    if is_valid(login):
+
+        following = extract_info(FOLLOWING_URL % login)
+        followers = extract_info(FOLLOWERS_URL % login)
+
+        intersection = set(following).intersection(followers)
+
+        for user in intersection:
+
+            tmpu = {"name":user, "group":1}
+
+            nodes.append(tmpu)
+            tasks.append(tmpu)
+
+            links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
+            links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
+
+    else:
+
+        print "%s is invalid" % name
+
+        sys.exit(0)
 
     #create thread pool here...
 
