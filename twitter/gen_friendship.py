@@ -298,33 +298,34 @@ def worker(login, depth):
 
         else:
 
-            lock.acquire()
+            # lock.acquire()
 
-            global percent, group1, group2
+            # global percent, group1, group2
 
-            if 1 == group:
+            # if 1 == group:
 
-                if not group1:
+            #     if not group1:
 
-                    group1 = sum(( 1 for ele in nodes if ele["group"] == 1 ))
+            #         group1 = sum(( 1 for ele in nodes if ele["group"] == 1 ))
 
-                    print "amounts of group1 : %d" % group1
+            #         print "amounts of group1 : %d" % group1
 
-                percent = nodes.index(node) / float(group1)
+            #     percent = nodes.index(node) / float(group1)
 
-            elif 2 == group:
+            # elif 2 == group:
 
-                if not group2:
+            #     if not group2:
 
-                    group2 = sum(( 1 for ele in nodes if ele["group"] == 2 ))
+            #         group2 = sum(( 1 for ele in nodes if ele["group"] == 2 ))
 
-                    print "amounts of group2 : %d" % group2
+            #         print "amounts of group2 : %d" % group2
 
-                percent = (nodes.index(node) - group1) / float(group2)
+            #     percent = (nodes.index(node) - group1) / float(group2)
 
-            print "%s is serving %s,\t\t group : %d,\t\t percent : %f" % (threading.current_thread().name, name, group, percent)
+            # print "%s is serving %s,\t\t group : %d,\t\t percent : %f" % (threading.current_thread().name, name, group, percent)
+            print "%s is serving %s,\t\t group : %d" % (threading.current_thread().name, name, group)
 
-            lock.release()
+            # lock.release()
 
             if is_valid(name):
 
@@ -333,7 +334,7 @@ def worker(login, depth):
 
                 intersection = set(following).intersection(followers)
 
-                lock.acquire()
+                # lock.acquire()
 
                 for user in intersection:
 
@@ -341,16 +342,24 @@ def worker(login, depth):
 
                         tmpu = {"name":user, "group":i}
 
+                        lock.acquire()
+
                         if tmpu in nodes:
 
                             links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
                             links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
 
+                            lock.release()
+
                             break
+
+                        lock.release()
 
                     else:
 
                         tmpu = {"name":user, "group":group + 1}
+
+                        lock.acquire()
 
                         nodes.append(tmpu)
                         tasks.append(tmpu)
@@ -358,7 +367,7 @@ def worker(login, depth):
                         links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
                         links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
 
-                lock.release()
+                        lock.release()
 
             else:
 
