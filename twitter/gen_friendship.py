@@ -228,6 +228,18 @@ def worker(login, depth):
 
     while 1:
 
+        if 1 == AMOUNT_OF_THREADS:
+
+            print "generate graph ..."
+
+            data = {"nodes":nodes, "links":links}
+
+            with open(login + "_twitter.json", 'w') as outfile:
+
+                json.dump(data, outfile)
+
+            return os.path.abspath( login + "_twitter.json")
+
         lock.acquire()
 
         try:
@@ -283,8 +295,6 @@ def worker(login, depth):
                 if 1 == AMOUNT_OF_THREADS:
 
                     break
-
-            return
 
         else:
 
@@ -402,9 +412,9 @@ def start(login, depth):
 
     #     if group > depth:
 
-    while 1:
+    # while 1:
 
-        if 1 == AMOUNT_OF_THREADS:
+    #     if 1 == AMOUNT_OF_THREADS:
 
             print "generate graph ..."
 
