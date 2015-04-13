@@ -314,7 +314,7 @@ def worker(login, depth):
 
                     group2 = sum(( 1 for ele in nodes if ele["group"] == 2 ))
 
-                    print print "amounts of group2 : %d" % group2
+                    print "amounts of group2 : %d" % group2
 
                 percent = (nodes.index(node) - group1) / float(group2)
 
