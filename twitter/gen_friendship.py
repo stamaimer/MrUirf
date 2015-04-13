@@ -336,7 +336,7 @@ def start(login, depth):
 
     #create thread pool here...
 
-    threads = []
+    threads = [ None for i in xrange(AMOUNT_OF_THREADS)]
 
     for i in xrange(AMOUNT_OF_THREADS):
 
