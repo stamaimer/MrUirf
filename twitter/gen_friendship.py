@@ -224,7 +224,7 @@ def is_valid(name):
 
         return False
 
-def worker(depth):
+def worker(login, depth):
 
     while 1:
 
@@ -392,7 +392,7 @@ def start(login, depth):
 
     for i in xrange(AMOUNT_OF_THREADS):
 
-        threads[i] = threading.Thread(target=worker, args=(depth,))
+        threads[i] = threading.Thread(target=worker, args=(login, depth))
 
         threads[i].start()
 
