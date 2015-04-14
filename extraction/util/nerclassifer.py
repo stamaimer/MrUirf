@@ -24,17 +24,19 @@ def ner_mit(texts):
     del ner
 
 def ner_nltk(texts):
+    entities   = []
 
     for text in texts:
         tokens = word_tokenize(text)
         pos_tg = pos_tag(tokens)
         ne     = ne_chunk(pos_tg, binary = True)
-        print type(ne)
-        print ne
-        print str(ne)
-        print type(str(ne))
-        ne  = re.findall(r'(NE \S+/\S+)', str(ne))
-        print '**', ne
+        ne_tag = re.findall(r'(NE \S+/\S+)', str(ne))
+
+        for i in range(len(ne_tag)):
+            tag_list = re.split(r'\W', ne_tag[i])
+            entities.append(tag_list[1])
+
+    return entities
 
 if __name__ == '__main__':
 
@@ -46,7 +48,7 @@ if __name__ == '__main__':
     ]
 
 ner_mit(sample)
-ner_nltk(sample)
+print ner_nltk(sample)
 
 # snerer = NERTagger('english.all.3class.distsim.crf.ser.gz',
 #                    'stanford-ner.jar')
