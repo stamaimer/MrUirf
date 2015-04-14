@@ -9,7 +9,31 @@ morf = "mr.uir.uif@gmail.com"
 
 subject = "Hello, World!"
 
-content = "Hello, %s."
+content = 
+"""
+   Dear %s,
+
+     This is a letter from MrUirf team.
+     We started a project, to infuse netizens’ Twitter tweets, Facebook statuses and GitHub repo. And here is our repository link: https://github.com/stamaimer/MrUirf.
+     ----------------------------------------------
+     <b>And we need your help,  supplying us your Twitter , Facebook and GitHub id ( or username ).</b>
+     Your tweets, statuses and repo info will be used to:
+     1. entity recognition & relation words extraction.
+     2. tweets & statuses similarity calculation.
+     * and we will never leak your info to others people or organisations.
+     ----------------------------------------------
+     <b>Please reply your info in json format:</b>
+     ex. {"github":"curme", "facebook":"https://www.facebook.com/hui.zhan.796", "twitter":"curmium"}
+     1.github: your "login" 
+     2.facebook: your homepage url
+     3.twitter: screen name ( ps. screen name is the name that your friends use to @ you. ex. ‘@curmium')
+     ----------------------------------------------
+     Your supports are really meaningful for us!
+     Thank you gratefully!
+
+   Sincerely,
+   MrUirf.
+"""
 
 def sendmail(usr, psd, morf, tolist, subject, content):
 
