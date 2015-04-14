@@ -38,8 +38,6 @@ def extractor(peer_text):
     # entities recognition
     print "nering 1."
     for item in peer_text:
-        content = item['content']
-        time    = item['time']
         tokens_p= item['pos']
 
         entity  = {}
@@ -55,11 +53,21 @@ def extractor(peer_text):
     print "nering 2."
     ner = named_entity_extractor('util/ner_model.dat')
     for item in peer_text:
+        tokens  = item['tokens']
 
-        entity = ner.extract_entities(tokens)
+        entity  = {}
+        ent_mid = ner.extract_entities(tokens)
+
+        for e in entity:
+            entity_text = " ".join(tokens[i] for i in e[0])
+            entity[entity_text] = []
+
+        item['entity1'] = entity
 
     for t in peer_text:
+        print '-'*50
         print t['entity']
+        print t['entity1']
 
 if __name__ == "__main__":
 
