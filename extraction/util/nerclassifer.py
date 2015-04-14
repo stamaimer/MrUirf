@@ -49,7 +49,8 @@ if __name__ == '__main__':
         u'Blog entry: summary of Weiwei Wang’s new PRL on magnon driven domain wall motion with DMI',
         u'@IanBDunne Our kids are still excited about Barbie being pushed of the Van-der-Graaf generator from the pressure wave. Good job!',
         u'#piday2015 works best in American date notation. Still nice, though.',
-        u'these women taught English, they are now lying here!'
+        u'these women taught English, they are now lying here!',
+        u'', u' '
     ]
 
 print ner_mit(sample)
