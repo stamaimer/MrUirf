@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import re
 from nltk.tokenize      import word_tokenize
 from nltk               import pos_tag
 from nltk.tag.stanford  import NERTagger
@@ -14,20 +15,26 @@ def ner_mit(texts):
         entities = ner.extract_entities(tokens)
         for e in entities:
             range = e[0]
-            tag = e[1]
+            tag   = e[1]
             score = e[2]
             score_text = "{:0.3f}".format(score)
             entity_text = " ".join(tokens[i] for i in range)
-            print "   Score: " + score_text + ": " + tag + ": " + entity_text
+            print entity_text
+            # print "   Score: " + score_text + ": " + tag + ": " + entity_text
     del ner
 
 def ner_nltk(texts):
-    
+
     for text in texts:
         tokens = word_tokenize(text)
         pos_tg = pos_tag(tokens)
         ne     = ne_chunk(pos_tg, binary = True)
+        print type(ne)
         print ne
+        print str(ne)
+        print type(str(ne))
+        ne  = re.findall(r'(NE \S+/\S+)', str(ne))
+        print '**', ne
 
 if __name__ == '__main__':
 
