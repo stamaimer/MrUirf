@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import re
 import json
 from nltk               import pos_tag
 from nltk               import ne_chunk
@@ -15,6 +16,7 @@ def extractor(peer_text):
     # redundant entities infusion will implement latter
 
     # tokenization
+    print "tokenizing."
     for item in peer_text:
         content = item['content']
 
@@ -26,13 +28,38 @@ def extractor(peer_text):
         item['tokens'] = tokens
 
     # pos tagging
+    print "pos tagging."
     for item in peer_text:
         tokens  = item['tokens']
         tokens_p= pos_tag(tokens)
 
         item['pos'] = tokens_p
 
-    print peer_text
+    # entities recognition
+    print "nering 1."
+    for item in peer_text:
+        content = item['content']
+        time    = item['time']
+        tokens_p= item['pos']
+
+        entity  = {}
+        ne_mid  = ne_chunk(tokens_p, binary = True)
+        ne_tag  = re.findall(r'(NE \S+/\S+)', str(ne_mid))
+
+        for i in range(len(ne_tag)):
+            tag_list = re.split(r'\W', ne_tag[i])
+            entity[tag_list[1]] = []
+
+        item['entity'] = entity
+
+    print "nering 2."
+    ner = named_entity_extractor('util/ner_model.dat')
+    for item in peer_text:
+
+        entity = ner.extract_entities(tokens)
+
+    for t in peer_text:
+        print t['entity']
 
 if __name__ == "__main__":
 
