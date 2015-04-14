@@ -8,20 +8,25 @@ from nltk               import ne_chunk
 from mitie              import *
 
 def ner_mit(texts):
+    entities = []
 
     ner = named_entity_extractor('ner_model.dat')
     for text in texts:
-        tokens   = tokenize(text.encode('utf8'))
-        entities = ner.extract_entities(tokens)
-        for e in entities:
+        tokens = tokenize(text.encode('utf8'))
+        entity = ner.extract_entities(tokens)
+
+        for e in entity:
             range = e[0]
             tag   = e[1]
             score = e[2]
             score_text = "{:0.3f}".format(score)
             entity_text = " ".join(tokens[i] for i in range)
-            print entity_text
             # print "   Score: " + score_text + ": " + tag + ": " + entity_text
+
+            entities.append(entity_text)
+
     del ner
+    return entities
 
 def ner_nltk(texts):
     entities   = []
@@ -47,7 +52,7 @@ if __name__ == '__main__':
         u'these women taught English, they are now lying here!'
     ]
 
-ner_mit(sample)
+print ner_mit(sample)
 print ner_nltk(sample)
 
 # snerer = NERTagger('english.all.3class.distsim.crf.ser.gz',
