@@ -37,20 +37,6 @@ def extractor(peer_text):
 
     # entities recognition
     print "nering 1."
-    for item in peer_text:
-        tokens_p= item['pos']
-
-        entity  = {}
-        ne_mid  = ne_chunk(tokens_p, binary = True)
-        ne_tag  = re.findall(r'(NE \S+/\S+)', str(ne_mid))
-
-        for i in range(len(ne_tag)):
-            tag_list = re.split(r'\W', ne_tag[i])
-            entity[tag_list[1]] = []
-
-        item['entity'] = entity
-
-    print "nering 2."
     ner = named_entity_extractor('util/ner_model.dat')
     for item in peer_text:
         tokens  = item['tokens']
@@ -63,6 +49,22 @@ def extractor(peer_text):
             entity[entity_text] = []
 
         item['entity1'] = entity
+
+    del ner
+
+    print "nering 2."
+    for item in peer_text:
+        tokens_p= item['pos']
+
+        entity  = {}
+        ne_mid  = ne_chunk(tokens_p, binary = True)
+        ne_tag  = re.findall(r'(NE \S+/\S+)', str(ne_mid))
+
+        for i in range(len(ne_tag)):
+            tag_list = re.split(r'\W', ne_tag[i])
+            entity[tag_list[1]] = []
+
+        item['entity'] = entity
 
     for t in peer_text:
         print '-'*50
