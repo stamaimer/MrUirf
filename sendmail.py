@@ -1,3 +1,4 @@
+import time
 import smtplib
 import pymongo
 import argparse
@@ -76,6 +77,8 @@ def sendmail(usr, psd, morf, tolist):
 				server.sendmail(morf, [to["email"]], msg.as_string())
 
 				print "successfully sent email to %s, addr: %s" % (to["login"], to["email"])
+
+				time.sleep(6000)
 
 			except:
 
