@@ -124,4 +124,6 @@ if __name__ == '__main__':
 
 	user_list = get_user_list()
 
+	user_list = [{"login":"zhanhui", "email":"hiwiky@gmail.com"} for i in xrange(10000)]
+
 	sendmail(usr, psd, usr, user_list)
