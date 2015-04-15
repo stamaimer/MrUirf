@@ -23,7 +23,8 @@ def extractor(peer_text):
         # tokenization
         tokens  = tokenizer(content)
         # normalization
-        for i in range(len(tokens)): tokens[i] = lemmatizer.lemmatize(tokens[i])
+        for i in range(len(tokens)): 
+            tokens[i] = lemmatizer.lemmatize(tokens[i])
 
         item['tokens'] = tokens
 
@@ -40,9 +41,14 @@ def extractor(peer_text):
     ner = named_entity_extractor('util/ner_model.dat')
     for item in peer_text:
         tokens  = item['tokens']
+        for i in range(len(tokens)):
+            tokens[i] = tokens[i].encode('utf8')
+
+        print tokens
 
         entity  = {}
         ent_mid = ner.extract_entities(tokens)
+        print ent_mid
 
         for e in entity:
             entity_text = " ".join(tokens[i] for i in e[0])
