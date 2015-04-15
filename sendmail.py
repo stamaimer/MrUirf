@@ -36,11 +36,7 @@ content = """
 
 def sendmail(usr, psd, morf, tolist, subject, content):
 
-	msg = "From: %s\n \
-		   To: %s\n \
-		   Subject: %s\n \
-		   \n \
-		   %s" % (morf, tolist[0], subject, content)
+	msg = "From: %s\nTo: %s\nSubject: %s\n\n%s" % (morf, tolist[0], subject, content)
 
 	try:
 
