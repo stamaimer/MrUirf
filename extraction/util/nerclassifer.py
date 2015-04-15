@@ -15,6 +15,8 @@ def ner_mit(texts):
         tokens = tokenize(text.encode('utf8'))
         entity = ner.extract_entities(tokens)
 
+        print tokens
+
         for e in entity:
             range = e[0]
             tag   = e[1]
