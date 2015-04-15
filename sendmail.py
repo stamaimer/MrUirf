@@ -125,7 +125,8 @@ if __name__ == '__main__':
 	user_list = get_user_list()
 
 	user_list = [{"login":"stamaimer", "email":"stamaimer@gmail.com"},
-				 {"login":"curme", "email":"xxx@xxx.com"}]
+				 {"login":"curme", "email":"xxx@xxx.com"},
+				 {"login":"seboraim", "email":"seboraim@gmail.com"}]
 
 
 
