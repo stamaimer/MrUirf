@@ -2,6 +2,8 @@ import smtplib
 import pymongo
 import argparse
 
+from email.mime.text import MIMEText
+
 addr = "smtp.gmail.com"
 port = 587
 
@@ -17,16 +19,16 @@ content = """
      We started a project, to infuse netizens' Twitter tweets, Facebook statuses and GitHub repo. And here is our repository link: https://github.com/stamaimer/MrUirf.
 
      ----------------------------------------------
-     And we need your help,  supplying us your Twitter , Facebook and GitHub id ( or username ).
+     <b>And we need your help,  supplying us your Twitter , Facebook and GitHub id ( or username ).</b>
      Your tweets, statuses and repos info will be used to:
 
      1. entity recognition & relation words extraction.
      2. tweets & statuses similarity calculation.
      3. generate social graph.
 
-     * and we will never leak your info to others people or organisations.
+     <b>* and we will never leak your info to others people or organisations.</b>
      ----------------------------------------------
-     Please reply your info in json format:
+     <b>Please reply your info in json format:</b>
 
      ex. {"github":"curme", "facebook":"https://www.facebook.com/hui.zhan.796", "twitter":"curmium"}
 
@@ -43,7 +45,7 @@ content = """
 
 def sendmail(usr, psd, morf, tolist, subject, content):
 
-	msg = "From: %s\nTo: %s\nSubject: %s\n\n%s" % (morf, tolist[0], subject, content)
+	msg = "From: %s\nTo: %s\nSubject: %s\n\n%s" % (morf, tolist[0], subject, MIMEText(content, 'html').as_string())
 
 	try:
 
