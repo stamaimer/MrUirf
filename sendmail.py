@@ -9,7 +9,7 @@ port = 587
 
 morf = "mr.uir.uif@gmail.com"
 
-subject = "Hello, World!"
+subject = "A Request for Twitter Screen Name and Facebook Homepage URL"
 
 content = """
    Dear %s,
@@ -28,7 +28,7 @@ content = """
      <li>generate social graph.</li>
 	 </ol>
 
-     <p><b>* and we will never leak your info to others people or organisations.</b></p>
+     <p><b>* and we will never leak your info to other people or organisations.</b></p>
      
      <p><b>Please reply your info in json format:</b></p>
 
@@ -40,20 +40,16 @@ content = """
      <li>twitter: screen name ( ps. screen name is the name that your friends use to @ you. ex. '@curmium')</li>
      </ol>
 
-     <p>Your supports are really meaningful for us!</p>
+     <p>If you have no Twitter or Facebook accounts, please ignore this letter.</p>
+
+     <p>Thank you for reading this letter. Your support are really meaningful to us!</p>
      <p>Thank you gratefully!</p>
 
    Sincerely,
    MrUirf.
 """
 
-def sendmail(usr, psd, morf, tolist, subject, content):
-
-	msg = MIMEText(content, 'html')
-
-	msg["From"] = morf
-	msg["To"] = tolist[0]
-	msg["Subject"] = subject
+def sendmail(usr, psd, morf, tolist):
 
 	try:
 
@@ -67,7 +63,25 @@ def sendmail(usr, psd, morf, tolist, subject, content):
 
 		server.login(usr, psd)
 
-		server.sendmail(morf, tolist, msg.as_string())
+		for to in tolist:
+
+			msg = MIMEText(content % to["login"], 'html')
+
+			msg["From"] = morf
+			msg["To"] = to["email"]
+			msg["Subject"] = subject
+
+			try:
+
+				server.sendmail(morf, [to["email"]], msg.as_string())
+
+				print "successfully sent email to %s, addr: %s" % (to["login"], to["email"])
+
+			except:
+
+				print "failed to send email to %s, addr: %s" % (to["login"], to["email"])
+
+				continue
 
 		server.close()
 
@@ -76,8 +90,6 @@ def sendmail(usr, psd, morf, tolist, subject, content):
 	except:
 
 		print "failed to send mail..."
-
-		raise
 
 def get_user_list():
 
@@ -113,8 +125,8 @@ if __name__ == '__main__':
 	user_list = get_user_list()
 
 	user_list = [{"login":"stamaimer", "email":"stamaimer@gmail.com"},
-				 {"login":"curme", "email":"curmium@gmail.com"}]
+				 {"login":"curme", "email":"xxx@xxx.com"}]
 
-	for user in user_list:
 
-		sendmail(usr, psd, usr, [user["email"]], subject, content % user["login"])
+
+	sendmail(usr, psd, usr, user_list)
