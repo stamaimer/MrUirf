@@ -45,7 +45,13 @@ content = """
 
 def sendmail(usr, psd, morf, tolist, subject, content):
 
-	msg = "From: %s\nTo: %s\nSubject: %s\n\n%s" % (morf, tolist[0], subject, MIMEText(content, 'html').as_string())
+	# msg = "From: %s\nTo: %s\nSubject: %s\n\n%s" % (morf, tolist[0], subject, MIMEText(content, 'html').as_string())
+
+	msg = MIMEText(content, 'html')
+
+	msg["From"] = morf
+	msg["To"] = tolist[0]
+	msg["Subject"] = subject
 
 	try:
 
@@ -59,7 +65,7 @@ def sendmail(usr, psd, morf, tolist, subject, content):
 
 		server.login(usr, psd)
 
-		server.sendmail(morf, tolist, msg)
+		server.sendmail(morf, tolist, msg.as_string())
 
 		server.close()
 
