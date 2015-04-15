@@ -19,7 +19,7 @@ percent, group1, group2 = 0.0, 0, 0#
 
 lock = threading.Lock()
 
-AMOUNT_OF_THREADS = 10
+AMOUNT_OF_THREADS = 5
 
 HOST = "https://mobile.twitter.com"
 

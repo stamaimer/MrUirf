@@ -9,12 +9,11 @@ morf = "mr.uir.uif@gmail.com"
 
 subject = "Hello, World!"
 
-content = 
-"""
+content = """
    Dear %s,
 
      This is a letter from MrUirf team.
-     We started a project, to infuse netizens’ Twitter tweets, Facebook statuses and GitHub repo. And here is our repository link: https://github.com/stamaimer/MrUirf.
+     We started a project, to infuse netizens' Twitter tweets, Facebook statuses and GitHub repo. And here is our repository link: https://github.com/stamaimer/MrUirf.
      ----------------------------------------------
      <b>And we need your help,  supplying us your Twitter , Facebook and GitHub id ( or username ).</b>
      Your tweets, statuses and repo info will be used to:
@@ -26,7 +25,7 @@ content =
      ex. {"github":"curme", "facebook":"https://www.facebook.com/hui.zhan.796", "twitter":"curmium"}
      1.github: your "login" 
      2.facebook: your homepage url
-     3.twitter: screen name ( ps. screen name is the name that your friends use to @ you. ex. ‘@curmium')
+     3.twitter: screen name ( ps. screen name is the name that your friends use to @ you. ex. '@curmium')
      ----------------------------------------------
      Your supports are really meaningful for us!
      Thank you gratefully!
@@ -50,6 +49,8 @@ def sendmail(usr, psd, morf, tolist, subject, content):
 		server.ehlo()
 
 		server.starttls()
+
+		server.ehlo()
 
 		server.login(usr, psd)
 
@@ -100,6 +101,6 @@ if __name__ == '__main__':
 
 	user_list = [{"login":"stamaimer", "email":"stamaimer@gmail.com"}]
 
-	for login, email in user_list:
+	for user in user_list:
 
-		sendmail(usr, psd, usr, email, subject, content % login)
+		sendmail(usr, psd, usr, [user["email"]], subject, content % user["login"])
