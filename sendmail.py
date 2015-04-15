@@ -40,7 +40,7 @@ def sendmail(usr, psd, morf, tolist, subject, content):
 		   To: %s\n \
 		   Subject: %s\n \
 		   \n \
-		   %s" % (morf, ", ".join(tolist), subject, content)
+		   %s" % (morf, tolist[0], subject, content)
 
 	try:
 
