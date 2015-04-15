@@ -13,17 +13,24 @@ content = """
    Dear %s,
 
      This is a letter from MrUirf team.
+
      We started a project, to infuse netizens' Twitter tweets, Facebook statuses and GitHub repo. And here is our repository link: https://github.com/stamaimer/MrUirf.
+
      ----------------------------------------------
-     <b>And we need your help,  supplying us your Twitter , Facebook and GitHub id ( or username ).</b>
-     Your tweets, statuses and repo info will be used to:
+     And we need your help,  supplying us your Twitter , Facebook and GitHub id ( or username ).
+     Your tweets, statuses and repos info will be used to:
+
      1. entity recognition & relation words extraction.
      2. tweets & statuses similarity calculation.
+     3. generate social graph.
+
      * and we will never leak your info to others people or organisations.
      ----------------------------------------------
-     <b>Please reply your info in json format:</b>
+     Please reply your info in json format:
+
      ex. {"github":"curme", "facebook":"https://www.facebook.com/hui.zhan.796", "twitter":"curmium"}
-     1.github: your "login" 
+
+     1.github: your "login"(the second line below your avatar) 
      2.facebook: your homepage url
      3.twitter: screen name ( ps. screen name is the name that your friends use to @ you. ex. '@curmium')
      ----------------------------------------------
