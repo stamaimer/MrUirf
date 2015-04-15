@@ -14,38 +14,40 @@ subject = "Hello, World!"
 content = """
    Dear %s,
 
-     This is a letter from MrUirf team.
+     <p>This is a letter from MrUirf team.</p>
 
-     We started a project, to infuse netizens' Twitter tweets, Facebook statuses and GitHub repo. And here is our repository link: https://github.com/stamaimer/MrUirf.
+     <p>We started a project, to infuse netizens' Twitter tweets, Facebook statuses and GitHub repo. And here is our repository link: https://github.com/stamaimer/MrUirf.</p>
 
-     ----------------------------------------------
-     <b>And we need your help,  supplying us your Twitter , Facebook and GitHub id ( or username ).</b>
-     Your tweets, statuses and repos info will be used to:
+     <p><b>And we need your help,  supplying us your Twitter , Facebook and GitHub id ( or username ).</b></p>
 
-     1. entity recognition & relation words extraction.
-     2. tweets & statuses similarity calculation.
-     3. generate social graph.
+     <p>Your tweets, statuses and repos info will be used to:</p>
 
-     <b>* and we will never leak your info to others people or organisations.</b>
-     ----------------------------------------------
-     <b>Please reply your info in json format:</b>
+	 <ol>
+     <li>entity recognition & relation words extraction.</li>
+     <li>tweets & statuses similarity calculation.</li>
+     <li>generate social graph.</li>
+	 </ol>
 
-     ex. {"github":"curme", "facebook":"https://www.facebook.com/hui.zhan.796", "twitter":"curmium"}
+     <p><b>* and we will never leak your info to others people or organisations.</b></p>
+     
+     <p><b>Please reply your info in json format:</b></p>
 
-     1.github: your "login"(the second line below your avatar) 
-     2.facebook: your homepage url
-     3.twitter: screen name ( ps. screen name is the name that your friends use to @ you. ex. '@curmium')
-     ----------------------------------------------
-     Your supports are really meaningful for us!
-     Thank you gratefully!
+     <p>ex. {"github":"curme", "facebook":"https://www.facebook.com/hui.zhan.796", "twitter":"curmium"}</p>
+	
+	 <ol>
+     <li>github: your "login"(the second line below your avatar)</li> 
+     <li>facebook: your homepage url</li>
+     <li>twitter: screen name ( ps. screen name is the name that your friends use to @ you. ex. '@curmium')</li>
+     </ol>
+
+     <p>Your supports are really meaningful for us!</p>
+     <p>Thank you gratefully!</p>
 
    Sincerely,
    MrUirf.
 """
 
 def sendmail(usr, psd, morf, tolist, subject, content):
-
-	# msg = "From: %s\nTo: %s\nSubject: %s\n\n%s" % (morf, tolist[0], subject, MIMEText(content, 'html').as_string())
 
 	msg = MIMEText(content, 'html')
 
