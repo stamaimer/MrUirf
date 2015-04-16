@@ -78,7 +78,7 @@ def sendmail(usr, psd, morf, tolist):
 
 				print "successfully sent email to %s, addr: %s" % (to["login"], to["email"])
 
-				time.sleep(600)
+				time.sleep(300)
 
 			except:
 
