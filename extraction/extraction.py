@@ -93,6 +93,10 @@ def extractor(peer_text):
         for i in [i for i in entity if i.lower() not in ent_low]:
             item['entity'][i] = []
 
+    for item in peer_text:
+        print item['content'].encode('utf8')
+        print item['entity']
+
     # relation words extractor
     # --------------------------------------------------
     print "relation words extracting."
