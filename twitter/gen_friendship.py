@@ -6,8 +6,8 @@ import json
 import session
 import argparse
 import itertools
-import threading
 from lxml import html
+from multiprocessing import Process, Lock
 
 nodes = []#
 links = []#
@@ -17,9 +17,9 @@ requester = session.get_session()
 
 percent, group1, group2 = 0.0, 0, 0#
 
-lock = threading.Lock()
+lock = Lock()
 
-AMOUNT_OF_THREADS = 8
+AMOUNT_OF_PROCESS = 8
 
 HOST = "https://mobile.twitter.com"
 
@@ -148,7 +148,7 @@ def worker(login, depth):
 
     while 1:
 
-        if 1 == AMOUNT_OF_THREADS:
+        if 1 == AMOUNT_OF_PROCESS:
 
             print "generate graph ..."
 
@@ -168,9 +168,9 @@ def worker(login, depth):
 
         except:
 
-            global AMOUNT_OF_THREADS
+            global AMOUNT_OF_PROCESS
 
-            AMOUNT_OF_THREADS -= 1
+            AMOUNT_OF_PROCESS -= 1
 
             lock.release()
 
@@ -186,9 +186,9 @@ def worker(login, depth):
 
             lock.acquire()
 
-            global AMOUNT_OF_THREADS
+            global AMOUNT_OF_PROCESS
 
-            AMOUNT_OF_THREADS -= 1
+            AMOUNT_OF_PROCESS -= 1
 
             lock.release()
 
@@ -198,7 +198,7 @@ def worker(login, depth):
 
             lock.acquire()
 
-            for i in xrange(AMOUNT_OF_THREADS - 2):
+            for i in xrange(AMOUNT_OF_PROCESS - 2):
 
                 tasks.insert(0, {"name":"", "group":-1})
 
@@ -236,7 +236,7 @@ def worker(login, depth):
 
             # lock.release()
 
-            print "%s is serving %s,\t\t group : %d" % (threading.current_thread().name, name, group)
+            print "%s is serving %s,\t\t group : %d" % (multiprocessing.current_process().name, name, group)
 
             if is_valid(name):
 
@@ -309,13 +309,13 @@ def start(login, depth):
 
         sys.exit(0)
 
-    threads = [ None for i in xrange(AMOUNT_OF_THREADS) ]
+    process = [ None for i in xrange(AMOUNT_OF_PROCESS) ]
 
-    for i in xrange(AMOUNT_OF_THREADS):
+    for i in xrange(AMOUNT_OF_PROCESS):
 
-        threads[i] = threading.Thread(target=worker, args=(login, depth))
+        process[i] = Process(target=worker, args=(login, depth))
 
-        threads[i].start()
+        process[i].start()
 
 if __name__ == "__main__":
 
