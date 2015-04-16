@@ -6,18 +6,19 @@ import json
 import session
 import argparse
 import itertools
-from lxml import html
-from multiprocessing import Process, Lock
+import multiprocessing
 
-nodes = []#
-links = []#
-tasks = []#
+from lxml import html
+
+nodes = multiprocessing.Manager().list()
+links = multiprocessing.Manager().list()
+tasks = multiprocessing.Manager().list()
 
 requester = session.get_session()
 
 percent, group1, group2 = 0.0, 0, 0#
 
-lock = Lock()
+lock = multiprocessing.Lock()
 
 AMOUNT_OF_PROCESS = 8
 
@@ -313,7 +314,7 @@ def start(login, depth):
 
     for i in xrange(AMOUNT_OF_PROCESS):
 
-        process[i] = Process(target=worker, args=(login, depth))
+        process[i] = multiprocessing.Process(target=worker, args=(login, depth))
 
         process[i].start()
 
