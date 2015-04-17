@@ -112,8 +112,9 @@ def get_followers(peer, filter = False):
     if filter:
         print "WARN: Filter flag opened."
         print "STAT: Filter start. Kick out users whose tweets less than 500."
+        follower_count = len(fers)
 
-        for follower in fers:
+        for i, follower in enumerate(fers):
             f_name = follower['name']
             f_link = follower['link']
             f_page = requests.get( host + f_link )
@@ -124,7 +125,10 @@ def get_followers(peer, filter = False):
 
             if f_tnum < 500:
                 fers.remove(follower)
-                print "WARN: %s kicked out." % f_name.encode('utf8')
+
+            if i % 50 == 0:
+                print "STAT: %s %% filtered." \
+                        % str( 100 * float(i) / follower_count )[:5]
 
         print "SUCC: Filter done."
 
@@ -201,14 +205,15 @@ if __name__ == '__main__':
     for peer in peers:
         print peer['name'], "-"*50
 
-        # get tweets
         if False == check_redundant(client, peer):
+
+            # get tweets
             store(client, get_tweets(peer))
 
-        # get followers
-        followers = get_followers(peer, True)
-        for follower in followers:
-            peers.append(follower)
+            # get followers
+            followers = get_followers(peer, True)
+            for follower in followers:
+                peers.append(follower)
 
         # get an 100 p corpus
         if client.mruirf.twitter_tweets.count() > 100 : break
