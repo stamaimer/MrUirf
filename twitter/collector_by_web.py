@@ -173,7 +173,7 @@ def timer(raw_time):
             delta = timedelta(minutes = int(filter(str.isdigit, time_list[0])))
             push_d= now - delta
             push_time = date(push_d.year, push_d.month, push_d.day)
-            print str(push_time)
+            return str(push_time)
         # only hours : xxh
         elif re.match(r'\d+h', time_list[0]):
             delta = timedelta(hours = int(filter(str.isdigit, time_list[0])))
