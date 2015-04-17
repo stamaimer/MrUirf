@@ -254,7 +254,12 @@ def worker(login, depth, requester):
 
                         if tmpu in nodes:
 
-                            links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
+                            # links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
+
+                            links.append({})
+
+                            links["source"] = nodes.index(node)
+                            links["target"] = nodes.index(tmpu)
 
                             lock.release()
 
@@ -268,10 +273,20 @@ def worker(login, depth, requester):
 
                         lock.acquire()
 
-                        nodes.append(tmpu)
-                        tasks.append(tmpu)
+                        nodes.append({})
 
-                        links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
+                        nodes[-1]["name"] = user
+                        nodes[-1]["group"] = group + 1
+
+                        tasks.append({})
+
+                        tasks[-1]["name"] = user
+                        tasks[-1]["group"] = group + 1
+
+                        links.append({})
+
+                        links["source"] = nodes.index(node)
+                        links["target"] = nodes.index(tmpu)
 
                         lock.release()
 
@@ -284,7 +299,10 @@ def start(login, depth):
 
     node = {"name":login, "group":0}
 
-    nodes.append(node)
+    nodes.append({})
+
+    nodes[-1]["name"] = login
+    nodes[-1]["group"] = 0
 
     requester = session.get_session()
 
@@ -299,10 +317,20 @@ def start(login, depth):
 
             tmpu = {"name":user, "group":1}
 
-            nodes.append(tmpu)
-            tasks.append(tmpu)
+            nodes.append({})
 
-            links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
+            nodes[-1]["name"] = user
+            nodes[-1]["group"] = 1
+
+            tasks.append({})
+
+            tasks[-1]["name"] = user
+            tasks[-1]["group"] = 1
+
+            links.append({})
+
+            links["source"] = nodes.index(node)
+            links["target"] = nodes.index(tmpu)
 
     else:
 
