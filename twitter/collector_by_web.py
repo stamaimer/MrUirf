@@ -206,23 +206,31 @@ def store(client, tweets_json):
 if __name__ == '__main__':
 
     client = MongoClient('mongodb://localhost:27017/')
+    e_peer = []
 
     for peer in peers:
-        print "STAT: %s users have already recorded in database." \
-                % client.mruirf.twitter_tweets.count()
-        print peer['name'], "-"*50
 
-        # get tweets
-        if False == check_redundant(client, peer):
-            store(client, get_tweets(peer))
+        try:
 
-        # get followers
-        if len(peers) < 1000:
-            followers = get_followers(peer, True)
-            for follower in followers:
-                peers.append(follower)
+            print "STAT: %s users have already recorded in database." \
+                    % client.mruirf.twitter_tweets.count()
+            print peer['name'].encode('utf8'), "-"*50
 
-        # get an 1000p corpus
-        if client.mruirf.twitter_tweets.count() > 1000 : break
+            # get tweets
+            if False == check_redundant(client, peer):
+                store(client, get_tweets(peer))
 
-        print
+            # get followers
+            if len(peers) < 1000:
+                followers = get_followers(peer, True)
+                for follower in followers:
+                    peers.append(follower)
+
+            # get an 1000p corpus
+            if client.mruirf.twitter_tweets.count() > 1000 : break
+
+            print
+
+        except:
+
+            e_peer.append(peer)
