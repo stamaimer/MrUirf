@@ -1,40 +1,47 @@
 import re
 import json
 import requests
+from pymongo    import MongoClient
 from datetime   import date, datetime, timedelta
 from lxml       import html
 from lxml       import cssselect
 
 host    = "https://mobile.twitter.com"
-# tweets json format
-# {name : [{'tweet': tw1, 'time': ti1}, {'tweet': tw2, 'time': ti2}]}
-tweets  = {}
 peers   = [
     {'name':'Hans Fangoh',  'link':'/ProfCompMod?p=s',  'role':'professor'},
     {'name':'Tiffany Horan','link':'/TiffanyHoran?p=i', 'role':'artist'},
     {'name':'Darius H',     'link':'/ComethTheNerd?p=s','role':'ms engineer'},
     {'name':'Danny mc',     'link':'/Danny_Mc12?p=s',   'role':'c# coder'},
     {'name':'Jiri Mocicka', 'link':'/givision?p=s',     'role':'DesignDirector'},
-    {'name':'R. Fouchaux',  'link':'/thefooshshow?p=s', 'role':'web teacher'},
+    {'name':'R Fouchaux',   'link':'/thefooshshow?p=s', 'role':'web teacher'},
     {'name':'Ev Williams',  'link':'/ev?p=s',           'role':'ios app owner'},
     {'name':'Ryan Seacrest','link':'/RyanSeacrest?p=s', 'role':'famous host'},
     {'name':'Jenna Lucas',  'link':'/JennaLucas81?p=s', 'role':'primary tcher'},
     {'name':'Adam Lofting', 'link':'/adamlofting?p=s',  'role':'a mozilla lead'}
 ]
 
+
+# tweets json format:
+# {
+#   "name"      :   name,
+#   "time"      :   time,
+#   "tweets"    :   [{'tweet': tw1, 'time': ti1}, 
+#                    {'tweet': tw2, 'time': ti2}]
+# }
 def get_tweets(peer):
     name = peer['name']
     link = peer['link']
     role = peer['role']
+    time = str(date.today())
     t_cons_xpath = '//*[@id="main_content"]/div[2]/table'
-    tweets = {name: []}
+    tweets = {"name":name, "time":time, "tweets": []}
     page_count = 1
 
     web_page = requests.get( host + link )
-    print name, '|', role, "-"*15
+    print "STAT: Crawl start."
 
     while True:
-        print "start page %d tweets crawl. link : %s" % (page_count, link)
+        print "STAT: Start page %d tweets crawl. link : %s" % (page_count, link)
         tree     = html.fromstring(web_page.text.encode('utf8'))
         timeline = tree.cssselect('div.timeline')
         t_cons   = timeline[0].cssselect('table.tweet')
@@ -42,7 +49,7 @@ def get_tweets(peer):
             tweet   = con.cssselect('div.tweet-text')[0].text_content()
             raw_time= con.cssselect('td.timestamp a')[0].text_content()
             time    = timer(raw_time)
-            tweets[name].append({'content':tweet, 'time':time})
+            tweets["tweets"].append({'content':tweet, 'time':time})
         try:
             # refresh link
             link     = timeline[0].cssselect('div.w-button-more a')[0].get("href")
@@ -52,7 +59,7 @@ def get_tweets(peer):
         except:
             break
 
-    print "finished."
+    print "SUCC: Crawl done."
     return tweets
 
 def timer(raw_time):
@@ -100,13 +107,33 @@ def timer(raw_time):
     else:
         return raw_time
 
+def check_redundant(client, peer):
+    name = peer['name']
+    tweets = client.mruirf.twitter_tweets
+
+    if tweets.find_one({"name":name}):
+        print "WARN: Already in database."
+        return True
+    else:
+        print "STAT: Not in database."
+        return False
+
+def store(client, tweets_json):
+    tweets = client.mruirf.twitter_tweets
+
+    tweets.insert(tweets_json)
+    print "SUCC: Stored."
+
 if __name__ == '__main__':
 
-    tweets = []
+    client = MongoClient('mongodb://localhost:27017/')
+
+    tweets = client.mruirf.twitter_tweets
 
     for peer in peers:
-        tweets.append(get_tweets(peer))
+        print peer['name'], "-"*50
 
-    f = file('tweets.json', 'w+')
-    json.dump(tweets, f)
-    f.close()
+        if False == check_redundant(client, peer):
+            store(client, get_tweets(peer))
+
+        print
