@@ -322,6 +322,8 @@ def start(login, depth):
 
         process[i].start()
 
+    for i in xrange(AMOUNT_OF_PROCESS):
+
         process[i].join()
 
 if __name__ == "__main__":
