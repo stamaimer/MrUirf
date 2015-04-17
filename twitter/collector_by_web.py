@@ -105,9 +105,12 @@ def get_followers(peer, filter = False):
 
         # first of all, if page_count over 30000, 
         # server may face the risk of segmentation fault. (server RAM : 1GB)
-        # secondly, crawling users' former 10000 pages of followers do not break
+        # secondly, crawling users' former 10 pages of followers do not break
         # the randomness of sample corpus
-        if page_count > 10000 : break
+        # and honestly, it's no use to crawl too many users in vain
+        if page_count > 10 : 
+            print "WARN: Satisfied and break."
+            break
 
     if filter:
         print "WARN: Filter flag opened."
@@ -205,15 +208,14 @@ if __name__ == '__main__':
     for peer in peers:
         print peer['name'], "-"*50
 
+        # get tweets
         if False == check_redundant(client, peer):
-
-            # get tweets
             store(client, get_tweets(peer))
 
-            # get followers
-            followers = get_followers(peer, True)
-            for follower in followers:
-                peers.append(follower)
+        # get followers
+        followers = get_followers(peer, True)
+        for follower in followers:
+            peers.append(follower)
 
         # get an 100 p corpus
         if client.mruirf.twitter_tweets.count() > 100 : break
