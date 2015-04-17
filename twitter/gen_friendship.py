@@ -14,8 +14,6 @@ nodes = multiprocessing.Manager().list()
 links = multiprocessing.Manager().list()
 tasks = multiprocessing.Manager().list()
 
-requester = session.get_session()
-
 percent, group1, group2 = 0.0, 0, 0#
 
 lock = multiprocessing.Lock()
@@ -33,7 +31,7 @@ CXPATH = "//div[@class='statnum']/text()"
 MXPATH = "//span[@class='username']/text()"
 NXPATH = "//*[@id='main_content']/div/div[2]/div/a/@href"
 
-def retrieve(url):
+def retrieve(url, requester):
 
     while 1:
 
@@ -75,9 +73,9 @@ def parse(tree, xpath):
 
         return [None]
 
-def extract_info(url):
+def extract_info(url, requester):
 
-    response = retrieve(url)
+    response = retrieve(url, requester)
 
     if response:
 
@@ -89,7 +87,7 @@ def extract_info(url):
 
         while next:
 
-            response = retrieve(HOST + next)
+            response = retrieve(HOST + next, requester)
 
             if response:
 
@@ -109,9 +107,9 @@ def extract_info(url):
 
         return itertools.chain()
 
-def is_valid(name):
+def is_valid(name, requester):
 
-    response = retrieve(HOMEPAGES_URL % name)
+    response = retrieve(HOMEPAGES_URL % name, requester)
 
     if response:
 
@@ -145,7 +143,7 @@ def is_valid(name):
 
         return False
 
-def worker(login, depth):
+def worker(login, depth, requester):
 
     while 1:
 
@@ -239,10 +237,10 @@ def worker(login, depth):
 
             print "%s is serving %s,\t\t group : %d" % (multiprocessing.current_process().name, name, group)
 
-            if is_valid(name):
+            if is_valid(name, requester):
 
-                following = extract_info(FOLLOWING_URL % name)
-                followers = extract_info(FOLLOWERS_URL % name)
+                following = extract_info(FOLLOWING_URL % name, requester)
+                followers = extract_info(FOLLOWERS_URL % name, requester)
 
                 intersection = set(following).intersection(followers)
 
@@ -310,11 +308,13 @@ def start(login, depth):
 
         sys.exit(0)
 
+    requests = [ session.get_session() for i in xrange(AMOUNT_OF_PROCESS) ]
+
     process = [ None for i in xrange(AMOUNT_OF_PROCESS) ]
 
     for i in xrange(AMOUNT_OF_PROCESS):
 
-        process[i] = multiprocessing.Process(target=worker, args=(login, depth))
+        process[i] = multiprocessing.Process(target=worker, args=(login, depth, requests[i]))
 
         process[i].start()
 
