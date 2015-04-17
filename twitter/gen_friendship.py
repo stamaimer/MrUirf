@@ -269,6 +269,7 @@ def worker(login, depth, requester):
                         lock.acquire()
 
                         nodes.append(tmpu)
+
                         tasks.append(tmpu)
 
                         links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
@@ -300,6 +301,7 @@ def start(login, depth):
             tmpu = {"name":user, "group":1}
 
             nodes.append(tmpu)
+
             tasks.append(tmpu)
 
             links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
