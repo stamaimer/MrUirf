@@ -10,6 +10,10 @@ import multiprocessing
 
 from lxml import html
 
+nodes = multiprocessing.Manager().list()
+links = multiprocessing.Manager().list()
+tasks = multiprocessing.Manager().list()
+
 percent, group1, group2 = 0.0, 0, 0#
 
 lock = multiprocessing.Lock()
@@ -139,7 +143,7 @@ def is_valid(name, requester):
 
         return False
 
-def worker(login, depth, requester, nodes, links, tasks):
+def worker(login, depth, requester):
 
     while 1:
 
@@ -278,10 +282,6 @@ def worker(login, depth, requester, nodes, links, tasks):
 
 def start(login, depth):
 
-    nodes = []
-    links = []
-    tasks = []
-
     node = {"name":login, "group":0}
 
     nodes.append(node)
@@ -310,17 +310,13 @@ def start(login, depth):
 
         sys.exit(0)
 
-    nodes = multiprocessing.Manager().list(nodes)
-    links = multiprocessing.Manager().list(links)
-    tasks = multiprocessing.Manager().list(tasks)
-
     requests = [ session.get_session() for i in xrange(AMOUNT_OF_PROCESS) ]
 
     process = [ None for i in xrange(AMOUNT_OF_PROCESS) ]
 
     for i in xrange(AMOUNT_OF_PROCESS):
 
-        process[i] = multiprocessing.Process(target=worker, args=(login, depth, requests[i], nodes, links, tasks))
+        process[i] = multiprocessing.Process(target=worker, args=(login, depth, requests[i]))
 
         process[i].start()
 
