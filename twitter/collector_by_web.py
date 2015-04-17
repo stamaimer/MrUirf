@@ -208,6 +208,7 @@ if __name__ == '__main__':
     client = MongoClient('mongodb://localhost:27017/')
 
     for peer in peers:
+        print "STAT: %s users have already recorded in database."
         print peer['name'], "-"*50
 
         # get tweets
