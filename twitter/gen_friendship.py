@@ -18,7 +18,7 @@ percent, group1, group2 = 0.0, 0, 0#
 
 lock = multiprocessing.Lock()
 
-AMOUNT_OF_PROCESS = 12
+AMOUNT_OF_PROCESS = 20
 
 HOST = "https://mobile.twitter.com"
 
@@ -207,35 +207,33 @@ def worker(login, depth, requester):
 
         else:
 
-            # lock.acquire()
+            lock.acquire()
 
-            # global percent, group1, group2
+            global percent, group1, group2
 
-            # if 1 == group:
+            if 1 == group:
 
-            #     if not group1:
+                if not group1:
 
-            #         group1 = sum(( 1 for ele in nodes if ele["group"] == 1 ))
+                    group1 = sum(( 1 for ele in nodes if ele["group"] == 1 ))
 
-            #         print "amounts of group1 : %d" % group1
+                    print "amounts of group1 : %d" % group1
 
-            #     percent = nodes.index(node) / float(group1)
+                percent = nodes.index(node) / float(group1)
 
-            # elif 2 == group:
+            elif 2 == group:
 
-            #     if not group2:
+                if not group2:
 
-            #         group2 = sum(( 1 for ele in nodes if ele["group"] == 2 ))
+                    group2 = sum(( 1 for ele in nodes if ele["group"] == 2 ))
 
-            #         print "amounts of group2 : %d" % group2
+                    print "amounts of group2 : %d" % group2
 
-            #     percent = (nodes.index(node) - group1) / float(group2)
+                percent = (nodes.index(node) - group1) / float(group2)
 
-            # print "%s is serving %s,\t\t group : %d,\t\t percent : %f" % (threading.current_thread().name, name, group, percent)
+            print "%s is serving %s,\t\t group : %d,\t\t percent : %f" % (multiprocessing.current_process().name, name, group, percent)
 
-            # lock.release()
-
-            print "%s is serving %s,\t\t group : %d" % (multiprocessing.current_process().name, name, group)
+            lock.release()
 
             if is_valid(name, requester):
 
