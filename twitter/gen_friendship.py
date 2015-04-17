@@ -18,7 +18,7 @@ percent, group1, group2 = 0.0, 0, 0#
 
 lock = multiprocessing.Lock()
 
-AMOUNT_OF_PROCESS = 8
+AMOUNT_OF_PROCESS = 12
 
 HOST = "https://mobile.twitter.com"
 
