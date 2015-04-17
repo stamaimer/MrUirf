@@ -322,6 +322,8 @@ def start(login, depth):
 
         process[i].start()
 
+        process[i].join()
+
 if __name__ == "__main__":
 
     argument_parser = argparse.ArgumentParser(description="")
