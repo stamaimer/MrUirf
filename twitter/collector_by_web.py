@@ -114,7 +114,7 @@ def get_followers(peer, filter = False):
 
     if filter:
         print "WARN: Filter flag opened."
-        print "STAT: Filter start. Kick out users whose tweets less than 6000."
+        print "STAT: Filter start. Kick out users whose tweets less than 10000."
 
         follower_count = len(fers)
         print "STAT: %s selected followers in all." % follower_count
@@ -128,7 +128,7 @@ def get_followers(peer, filter = False):
             f_tnum = f_twee.cssselect('div.statnum')[0].text_content()
             f_tnum = int("".join(f_tnum.split(',')))
 
-            if f_tnum < 15000:
+            if f_tnum < 10000:
                 fers.remove(follower)
 
             if 0 == i % 20:
