@@ -26,8 +26,8 @@ peers   = [
 #   "username"  :   username,
 #   "time"      :   time,
 #   "link"      :   link,
-#   "tweets"    :   [{'tweet': tw1, 'time': ti1}, 
-#                    {'tweet': tw2, 'time': ti2}]
+#   "tweets"    :   [{'tweet': tw1, 'time': ti1, 'flag': fg1},
+#                    {'tweet': tw2, 'time': ti2, 'flag': fg2}]
 # }
 def get_tweets(peer):
     name = peer['name']
@@ -51,7 +51,12 @@ def get_tweets(peer):
             tweet   = con.cssselect('div.tweet-text')[0].text_content()
             raw_time= con.cssselect('td.timestamp a')[0].text_content()
             time    = timer(raw_time)
-            tweets["tweets"].append({'content':tweet, 'time':time})
+
+            # the flag tag has three flag bit
+            # 1. tokenization flag: '0' means no, '1' means already done
+            # 2. pos tagging flag
+            # 3. ner flag
+            tweets["tweets"].append({'content':tweet, 'time':time, 'flag':'000'})
         try:
             # refresh link
             link     = timeline[0].cssselect('div.w-button-more a')[0].get("href")
@@ -97,6 +102,12 @@ def get_followers(peer, filter = False):
             page_count += 1
         except:
             break
+
+        # first of all, if page_count over 30000, 
+        # server may face the risk of segmentation fault. (server RAM : 1GB)
+        # secondly, crawling users' former 10000 pages of followers do not break
+        # the randomness of sample corpus
+        if page_count > 10000 : break
 
     if filter:
         print "WARN: Filter flag opened."
