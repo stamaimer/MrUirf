@@ -286,10 +286,12 @@ def start(login, depth):
 
     nodes.append(node)
 
-    if is_valid(login):
+    requester = session.get_session()
 
-        following = extract_info(FOLLOWING_URL % login)
-        followers = extract_info(FOLLOWERS_URL % login)
+    if is_valid(login, requester):
+
+        following = extract_info(FOLLOWING_URL % login, requester)
+        followers = extract_info(FOLLOWERS_URL % login, requester)
 
         intersection = set(following).intersection(followers)
 
