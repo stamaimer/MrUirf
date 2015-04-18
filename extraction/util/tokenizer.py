@@ -50,8 +50,11 @@ def tokenize_stf(text):
     tok = STokenizer(preserve_case=False)
     return tok.tokenize(text)
 
-def tokenizer_bat(text_set):
-    pass
+def tokenizer_bat(coll, peer_id):
+
+    peer = coll.find_one({'_id': peer_id})
+
+    
 
 def print_token(tokens):
 

@@ -49,7 +49,7 @@ def get_tweets(peer):
     time = str(date.today())
     t_cons_xpath = '//*[@id="main_content"]/div[2]/table'
     tweets = {"name":name, "username":unam, "time":time, 
-              "link":link, "tweets": []}
+              "link":link, "texts": []}
     page_count = 1
 
     web_page = requests.get( host + link )
@@ -69,7 +69,7 @@ def get_tweets(peer):
             # 1. tokenization flag: '0' means no, '1' means already done
             # 2. pos tagging flag
             # 3. ner flag
-            tweets["tweets"].append({'content':tweet, 'time':time, 'flag':'000'})
+            tweets["texts"].append({'content':tweet, 'time':time, 'flag':'000'})
         try:
             # refresh link
             link     = timeline[0].cssselect('div.w-button-more a')[0].get("href")

@@ -16,14 +16,24 @@ from util.tokenizer_ark import tokenizeRawTweetText as tokenizer
 from util.tokenizer     import tokenizer_bat
 
 # extractor for short text, such as twitter and facebook
-def extractor(client, peer):
+def extractor(coll, peer):
     peer_text = peer['tweets']
+    peer_id   = peer['_id']
     lemmatizer= Lemmatizer()
     entities  = []
 
     # tokenization
     # --------------------------------------------------
     print "tokenizing."
+
+    # 'tokenzier_bat' function is a func to execute a set of text
+    # in this process, the func does:
+    #   1. update tokens in mongodb
+    #   2. update tokenization flag bit. 
+    #   if flag is '1', then skip the tokenization.
+    #   if flag is '0', then set the flag to '1' after processing.
+    tokenizer_bat(coll, peer_id)
+
     for item in peer_text:
         content = item['content']
 
@@ -117,17 +127,10 @@ if __name__ == "__main__":
     with file('status.json', 'r') as f:
         status = json.load(f)
 
-    with file('tweet.json', 'w') as f:
-        peer = {}
-        peer['name'] = peers[0]['name']
-        peer['username'] = peers[0]['username']
-        peer['tweets'] = peers[0]['tweets']
-        peer['time'] = peers[0]['time']
-        peer['link'] = peers[0]['link']
-        json.dump(peer, f)
+    #tweets.update_one({'_id': peers[0]['_id']}, {'$set': {'time':'2014-7-10' }})
 
     for peer in peers:
         name     = peer["name"]
         print name, '-'*50
-        entities = extractor(client, peer)
+        entities = extractor(tweets, peer)
 
