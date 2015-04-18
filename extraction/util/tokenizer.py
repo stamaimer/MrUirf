@@ -36,6 +36,7 @@ from nltk.tokenize      import word_tokenize
 from nltk.tokenize      import wordpunct_tokenize
 from tokenizer_ark      import tokenizeRawTweetText
 from tokenizer_stanford import Tokenizer as STokenizer
+from nltk.stem.wordnet  import WordNetLemmatizer as Lemmatizer
 
 def tokenize_ark(text):
 
@@ -50,11 +51,59 @@ def tokenize_stf(text):
     tok = STokenizer(preserve_case=False)
     return tok.tokenize(text)
 
+# [tokenizer_bat]
+# @input: peer_id
+# @memo : tokenize all tweets of a peer
+#         1. store in the mongodb directly
+#         2. modify the tokenization flag bit
 def tokenizer_bat(coll, peer_id):
 
-    peer = coll.find_one({'_id': peer_id})
+    peer    = coll.find_one({'_id': peer_id})
+    texts   = peer['texts']
+    count_s = 0
+    count_w = 0
 
-    
+    lemmatizer = Lemmatizer()
+
+    for text in texts:
+
+        flag   = text['flag']
+        content= text['content']
+
+        # memo: the first flag bit refer to tokenization flag bit.
+        if flag[0:1] == '0':
+
+            # tokenization
+            tokens = tokenize_ark(content)
+
+            # normalization
+            for i in range(len(tokens)):
+                tokens[i]  = lemmatizer.lemmatize(tokens[i])
+
+            # lower
+            lowers = []
+            for i in range(len(tokens)):
+                lowers.append(tokens[i].lower())
+
+            text['tokens']      = tokens
+            text['token_lower'] = lowers
+
+            text['flag'] = '1' + flag[1:]
+            count_s     +=  1
+
+        elif flag[0:1] == '1':
+
+            count_w     +=  1
+
+        else:
+
+            pass
+
+    coll.update_one({'_id':peer_id}, {'$set':{'texts':texts}})
+    print "SUCC: Tokenization done." 
+    print "STAT: %s texts executed and %s texts have been executed before." \
+            % (count_s, count_w)
+
 
 def print_token(tokens):
 

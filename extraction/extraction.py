@@ -17,7 +17,7 @@ from util.tokenizer     import tokenizer_bat
 
 # extractor for short text, such as twitter and facebook
 def extractor(coll, peer):
-    peer_text = peer['tweets']
+    peer_text = peer['texts']
     peer_id   = peer['_id']
     lemmatizer= Lemmatizer()
     entities  = []
