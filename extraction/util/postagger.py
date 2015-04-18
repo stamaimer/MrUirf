@@ -23,8 +23,9 @@ def pos_bat(coll, peer_id):
 
     peer    = coll.find_one({'_id': peer_id})
     texts   = peer['texts']
-    count_s = 0
-    count_w = 0
+    count_s = 0     # count for success
+    count_w = 0     # count for done before
+    count_e = 0     # count for error
 
     for text in texts:
 
@@ -46,14 +47,22 @@ def pos_bat(coll, peer_id):
             text['flag']= flag[0:1] + '1' + flag[2:]
             count_s += 1
 
-        else:
+        elif flag[0:1] == '0':
+
+            count_e += 1
+
+        elif flag[1:2] == '1':
 
             count_w += 1
 
+        else:
+
+            count_e += 1
+
     coll.update_one({'_id':peer_id}, {"$set": {'texts': texts}})
     print "SUCC: POS tagging done."
-    print "STAT: %s texts executed and %s texts have been executed before." \
-            % (count_s, count_w)
+    print "STAT: %s texts executed, %s have done before and %s errors." \
+            % (count_s, count_w, count_e)
 
 if __name__ == "__main__":
 
