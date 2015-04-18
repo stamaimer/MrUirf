@@ -1,3 +1,14 @@
+# -*- coding: utf-8 -*-
+
+'''
+    In this file, the function 'get_tweets' will crawl users' tweets.
+    And function 'get_followers' will crawl users' followers to enlarge peers.
+    Function 'store' will store users' tweets in mongodb.
+    And this file only crawl the tweets and followers of selected seed users and 
+never recognizing the language, though in this period we only need tweets in
+English.
+'''
+
 import re
 import json
 import requests
