@@ -8,16 +8,18 @@ from lxml       import cssselect
 
 host    = "https://mobile.twitter.com"
 peers   = [
-    {'name':'Hans Fangoh',  'link':'/ProfCompMod',  'username':'@ProfCompMod'},
-    {'name':'Tiffany Horan','link':'/TiffanyHoran', 'username':'@TiffanyHoran'},
-    {'name':'Darius H',     'link':'/ComethTheNerd','username':'@ComethTheNerd'},
-    {'name':'Danny mc',     'link':'/Danny_Mc12',   'username':'@Danny_Mc12'},
-    {'name':'Jiri Mocicka', 'link':'/givision',     'username':'@givision'},
-    {'name':'R Fouchaux',   'link':'/thefooshshow', 'username':'@thefooshshow'},
-    {'name':'Ev Williams',  'link':'/ev',           'username':'@ev'},
-    {'name':'Ryan Seacrest','link':'/RyanSeacrest', 'username':'@RyanSeacrest'},
-    {'name':'Jenna Lucas',  'link':'/JennaLucas81', 'username':'@JennaLucas81'},
-    {'name':'Adam Lofting', 'link':'/adamlofting',  'username':'@adamlofting'}
+#    {'name':'Hans Fangoh',  'link':'/ProfCompMod',  'username':'@ProfCompMod'},
+#    {'name':'Tiffany Horan','link':'/TiffanyHoran', 'username':'@TiffanyHoran'},
+#    {'name':'Darius H',     'link':'/ComethTheNerd','username':'@ComethTheNerd'},
+#    {'name':'Danny mc',     'link':'/Danny_Mc12',   'username':'@Danny_Mc12'},
+#    {'name':'Jiri Mocicka', 'link':'/givision',     'username':'@givision'},
+#    {'name':'R Fouchaux',   'link':'/thefooshshow', 'username':'@thefooshshow'},
+#    {'name':'Ev Williams',  'link':'/ev',           'username':'@ev'},
+#    {'name':'Ryan Seacrest','link':'/RyanSeacrest', 'username':'@RyanSeacrest'},
+#    {'name':'Jenna Lucas',  'link':'/JennaLucas81', 'username':'@JennaLucas81'},
+#    {'name':'Adam Lofting', 'link':'/adamlofting',  'username':'@adamlofting'},
+    {'name':'Ginger Kadlec', 'link':'/GingerKadlec?p=s',
+     'username':'@GingerKadlec'},
 ]
 
 # tweets json format:
@@ -226,10 +228,11 @@ if __name__ == '__main__':
                 for follower in followers:
                     peers.append(follower)
 
+            print
+            print
+
             # get an 1000p corpus
             if client.mruirf.twitter_tweets.count() > 1000 : break
-
-            print
 
         except:
 
