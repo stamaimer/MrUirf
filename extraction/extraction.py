@@ -16,7 +16,9 @@ from util.tokenizer_ark import tokenizeRawTweetText as tokenizer
 from util.tokenizer     import tokenizer_bat
 
 # extractor for short text, such as twitter and facebook
-def extractor(coll, peer):
+def extractor(coll, peer_id):
+
+    peer      = coll.find_one({'_id': peer_id})
     peer_text = peer['texts']
     peer_id   = peer['_id']
     lemmatizer= Lemmatizer()
@@ -24,37 +26,30 @@ def extractor(coll, peer):
 
     # tokenization
     # --------------------------------------------------
-    print "tokenizing."
+    print "STAT: Start tokenizing."
 
     # 'tokenzier_bat' function is a func to execute a set of text
     # in this process, the func does:
-    #   1. update tokens in mongodb
-    #   2. update tokenization flag bit. 
-    #   if flag is '1', then skip the tokenization.
-    #   if flag is '0', then set the flag to '1' after processing.
+    #   1. tokenization.
+    #   2. normalization.
+    #   3. lowering.
+    #   4. update tokens, tokens_lower in mongodb
+    #   5. update tokenization flag bit. 
+    #       if flag is '1', then skip the tokenization.
+    #       if flag is '0', then set the flag to '1' after processing.
     tokenizer_bat(coll, peer_id)
-
-    for item in peer_text:
-        content = item['content']
-
-        # tokenization
-        tokens  = tokenizer(content)
-
-        # normalization
-        for i in range(len(tokens)): 
-            tokens[i] = lemmatizer.lemmatize(tokens[i])
-
-        # lower
-        lowers = []
-        for i in range(len(tokens)):
-            lowers.append(tokens[i].lower())
-
-        item['tokens']      = tokens
-        item['token_lower'] = lowers
 
     # pos tagging
     # --------------------------------------------------
-    print "pos tagging."
+    print "STAT: Start pos tagging."
+
+    # 'pos_bat' function is a func to execute a set of tokens
+    # in this process, the func does:
+    #   1. pos tagging.
+    #   2. update pos tokens in mongodb.
+    #   3. update pos tagging flag bit.
+    pos_bat(coll, peer_id)
+
     for item in peer_text:
         tokens  = item['tokens']
         tokens_p= pos_tag(tokens)
@@ -131,6 +126,7 @@ if __name__ == "__main__":
 
     for peer in peers:
         name     = peer["name"]
+        peer_id  = peer["_id"]
         print name, '-'*50
-        entities = extractor(tweets, peer)
+        entities = extractor(tweets, peer_id)
 

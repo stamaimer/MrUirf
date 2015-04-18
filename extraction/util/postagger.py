@@ -14,6 +14,9 @@ def pos_stanford(tokens):
                        './stanford-postagger.jar')
     return tagger.tag(tokens)
 
+def pos_bat(coll, peer_id):
+    pass
+
 if __name__ == "__main__":
 
     sample = [
