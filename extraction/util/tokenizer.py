@@ -50,11 +50,13 @@ def tokenize_stf(text):
     tok = STokenizer(preserve_case=False)
     return tok.tokenize(text)
 
+def tokenizer_bat(text_set):
+    pass
+
 def print_token(tokens):
 
     for token in tokens:
         print token,
-
 
 if __name__ == "__main__":
 

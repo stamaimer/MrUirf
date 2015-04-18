@@ -7,14 +7,17 @@
 
 import re
 import json
+from pymongo            import MongoClient
 from nltk               import pos_tag
 from nltk               import ne_chunk
 from nltk.stem.wordnet  import WordNetLemmatizer    as Lemmatizer
 from util.mitie         import named_entity_extractor
 from util.tokenizer_ark import tokenizeRawTweetText as tokenizer
+from util.tokenizer     import tokenizer_bat
 
 # extractor for short text, such as twitter and facebook
-def extractor(peer_text):
+def extractor(client, peer):
+    peer_text = peer['tweets']
     lemmatizer= Lemmatizer()
     entities  = []
 
@@ -107,12 +110,24 @@ def extractor(peer_text):
 
 if __name__ == "__main__":
 
-    with file('tweets.json', 'r') as f:
-        tweets = json.load(f)
+    client = MongoClient('mongodb://localhost:27017/')
+    tweets = client.msif.twitter_tweets
+    peers  = tweets.find().limit(2)
+
     with file('status.json', 'r') as f:
         status = json.load(f)
 
-    for peer in status:
-        name     = peer.keys()[0] 
+    with file('tweet.json', 'w') as f:
+        peer = {}
+        peer['name'] = peers[0]['name']
+        peer['username'] = peers[0]['username']
+        peer['tweets'] = peers[0]['tweets']
+        peer['time'] = peers[0]['time']
+        peer['link'] = peers[0]['link']
+        json.dump(peer, f)
+
+    for peer in peers:
+        name     = peer["name"]
         print name, '-'*50
-        entities = extractor(peer[name])
+        entities = extractor(client, peer)
+
