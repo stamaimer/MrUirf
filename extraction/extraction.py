@@ -15,6 +15,7 @@ from util.mitie         import named_entity_extractor
 from util.tokenizer_ark import tokenizeRawTweetText as tokenizer
 from util.tokenizer     import tokenizer_bat
 from util.postagger     import pos_bat
+from util.nerclassifier import ner_bat
 
 # extractor for short text, such as twitter and facebook
 def extractor(coll, peer_id):
@@ -61,6 +62,7 @@ def extractor(coll, peer_id):
     #   3. update ner flag bit
     ner_bat(coll, peer_id)
 
+    s = '''
     print "nering 1."
     # load ner classifier
     ner = named_entity_extractor('util/ner_model.dat')
@@ -112,7 +114,7 @@ def extractor(coll, peer_id):
     print "relation words extracting."
     for item in peer_text:
         entity  = item['entity']
-
+    '''
 
 
 if __name__ == "__main__":

@@ -45,7 +45,12 @@ def ner_nltk(texts):
 
     return entities
 
-def pos_bat(coll, peer_id):
+# [ner_bat]
+# @input: peer_id
+# @brief: ner all texts of a peer
+#         1. store in mongodb directly
+#         2. modify ner flag bit
+def ner_bat(coll, peer_id):
 
     peer    = coll.find_one({'_id': peer_id})
     texts   = peer['texts']
@@ -54,7 +59,7 @@ def pos_bat(coll, peer_id):
     count_e = 0     # count for error
 
     print "STAT: Nering 1."
-    ner = named_entity_extractor('./ner_model.dat')
+    ner = named_entity_extractor('util/ner_model.dat')
 
     for text in texts:
 
@@ -134,10 +139,10 @@ if __name__ == '__main__':
         u'', u' '
     ]
 
-print ner_mit(sample)
-print ner_nltk(sample)
+    print ner_mit(sample)
+    print ner_nltk(sample)
 
-# snerer = NERTagger('english.all.3class.distsim.crf.ser.gz',
-#                    'stanford-ner.jar')
-# print snerer.tag([pos_t])
+    # snerer = NERTagger('english.all.3class.distsim.crf.ser.gz',
+    #                    'stanford-ner.jar')
+    # print snerer.tag([pos_t])
 
