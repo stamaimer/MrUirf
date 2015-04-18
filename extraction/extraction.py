@@ -52,6 +52,14 @@ def extractor(coll, peer_id):
 
     # entities recognition
     # --------------------------------------------------
+    print "STAT: Start entities recognition."
+
+    # 'ner_bat' function is a func to execute a set of texts
+    # in this process, the func does:
+    #   1. entities recognition.
+    #   2. update entities in mongodb.
+    #   3. update ner flag bit
+    ner_bat(coll, peer_id)
 
     print "nering 1."
     # load ner classifier
