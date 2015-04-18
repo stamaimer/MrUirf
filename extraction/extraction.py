@@ -14,6 +14,7 @@ from nltk.stem.wordnet  import WordNetLemmatizer    as Lemmatizer
 from util.mitie         import named_entity_extractor
 from util.tokenizer_ark import tokenizeRawTweetText as tokenizer
 from util.tokenizer     import tokenizer_bat
+from util.postagger     import pos_bat
 
 # extractor for short text, such as twitter and facebook
 def extractor(coll, peer_id):
@@ -21,7 +22,6 @@ def extractor(coll, peer_id):
     peer      = coll.find_one({'_id': peer_id})
     peer_text = peer['texts']
     peer_id   = peer['_id']
-    lemmatizer= Lemmatizer()
     entities  = []
 
     # tokenization
@@ -49,12 +49,6 @@ def extractor(coll, peer_id):
     #   2. update pos tokens in mongodb.
     #   3. update pos tagging flag bit.
     pos_bat(coll, peer_id)
-
-    for item in peer_text:
-        tokens  = item['tokens']
-        tokens_p= pos_tag(tokens)
-
-        item['pos'] = tokens_p
 
     # entities recognition
     # --------------------------------------------------

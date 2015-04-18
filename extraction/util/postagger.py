@@ -14,8 +14,46 @@ def pos_stanford(tokens):
                        './stanford-postagger.jar')
     return tagger.tag(tokens)
 
+# [pos_bat]
+# @input: peer_id
+# @brief: pos tag all texts of a peer
+#         1. store in mongodb directly
+#         2. modify pos tagging flag bit
 def pos_bat(coll, peer_id):
-    pass
+
+    peer    = coll.find_one({'_id': peer_id})
+    texts   = peer['texts']
+    count_s = 0
+    count_w = 0
+
+    for text in texts:
+
+        flag   = text['flag']
+        content= text['content']
+
+        # memo: 
+        #   the first flag bit refer to tokenization flag bit.
+        #   the second flag bit refer to pos tagging flag bit.
+        if flag[0:1] == '1' and flag[1:2] == '0':
+
+            tokens  = text['tokens']
+
+            # pos tagging
+            tokens_p= pos_tag(tokens)
+
+            text['pos'] = tokens_p
+
+            text['flag']= flag[0:1] + '1' + flag[2:]
+            count_s += 1
+
+        else:
+
+            count_w += 1
+
+    coll.update_one({'_id':peer_id}, {"$set": {'texts': texts}})
+    print "SUCC: POS tagging done."
+    print "STAT: %s texts executed and %s texts have been executed before." \
+            % (count_s, count_w)
 
 if __name__ == "__main__":
 
