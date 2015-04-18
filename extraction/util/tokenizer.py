@@ -53,7 +53,7 @@ def tokenize_stf(text):
 
 # [tokenizer_bat]
 # @input: peer_id
-# @memo : tokenize all tweets of a peer
+# @brief: tokenize all tweets of a peer
 #         1. store in the mongodb directly
 #         2. modify the tokenization flag bit
 def tokenizer_bat(coll, peer_id):
