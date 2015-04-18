@@ -62,60 +62,11 @@ def extractor(coll, peer_id):
     #   3. update ner flag bit
     ner_bat(coll, peer_id)
 
-    s = '''
-    print "nering 1."
-    # load ner classifier
-    ner = named_entity_extractor('util/ner_model.dat')
-
-    for item in peer_text:
-        tokens  = item['tokens']
-        for i in range(len(tokens)):
-            tokens[i] = tokens[i].encode('utf8')
-
-        entity  = {}
-        ent_mid = ner.extract_entities(tokens)
-
-        for e in ent_mid:
-            entity_text = " ".join(tokens[i] for i in e[0])
-            entity[entity_text] = []
-
-        item['entity'] = entity
-
-    # delete ner classifier
-    del ner
-
-    print "nering 2."
-    for item in peer_text:
-        tokens_p= item['pos']
-
-        entity  = {}
-
-        # extractor raw entity
-        ne_mid  = ne_chunk(tokens_p, binary = True)
-
-        # filter entity
-        ne_tag  = re.findall(r'(NE \S+/\S+)', str(ne_mid))
-
-        for i in range(len(ne_tag)):
-            tag_list = re.split(r'\W', ne_tag[i])
-            entity[tag_list[1]] = []
-
-        # remove redundant
-        ent_low = [e.lower() for e in item['entity']]
-        for i in [i for i in entity if i.lower() not in ent_low]:
-            item['entity'][i] = []
-
-    for item in peer_text:
-        print item['content'].encode('utf8')
-        print item['entity']
-
     # relation words extractor
     # --------------------------------------------------
-    print "relation words extracting."
+    print "STAT: Start relation words extracting."
     for item in peer_text:
-        entity  = item['entity']
-    '''
-
+        pass
 
 if __name__ == "__main__":
 
