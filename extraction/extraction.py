@@ -93,7 +93,7 @@ if __name__ == "__main__":
 
     for i, peer in enumerate(peers):
 
-        print "STAT: %s peer under executing." % i+1
+        print "STAT: %s peer under executing." % str(i+1)
         name     = peer["name"]
         peer_id  = peer["_id"]
         print name, '-'*50

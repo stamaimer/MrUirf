@@ -110,7 +110,7 @@ def ner_bat(coll, peer_id):
                                'relevance':[]})
 
             text['entity'] = entity
-            #text['flag'] = flag[0:2] + '1' + flag[3:]
+            text['flag'] = flag[0:2] + '1' + flag[3:]
             count_s += 1
 
         elif flag[1:2] == '0':
