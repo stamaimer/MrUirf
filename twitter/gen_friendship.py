@@ -145,7 +145,7 @@ def is_valid(name, requester):
     else:
 
         return False
-@profile
+
 def worker(login, depth, requester):
 
     while 1:
@@ -215,7 +215,7 @@ def worker(login, depth, requester):
 
                         try:
 
-                            nodes.index(tmpu)
+                            indices = nodes.index(tmpu)
 
                             links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
