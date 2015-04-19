@@ -14,7 +14,9 @@ nodes = multiprocessing.Manager().list()
 links = multiprocessing.Manager().list()
 tasks = multiprocessing.Queue()
 
-percent, group1, group2 = 0.0, 0, 0#
+percent, group1, group2 = multiprocessing.Value('d', 0.0), \ 
+                          multiprocessing.Value('i', 0), \
+                          multiprocessing.Value('i', 0)
 
 lock = multiprocessing.Lock()
 
@@ -149,9 +151,7 @@ def worker(login, depth, requester):
 
         try:
 
-            print tasks.qsize()
-
-            node = tasks.get()
+            node = tasks.get_nowait()
 
         except:
 
@@ -163,8 +163,6 @@ def worker(login, depth, requester):
 
         group = node["group"]
 
-        print name, group
-
         if group > depth:
 
             print "%s terminate..." % multiprocessing.current_process().name
@@ -172,8 +170,6 @@ def worker(login, depth, requester):
             multiprocessing.current_process().terminate()
 
         else:
-
-            lock.acquire()
 
             global percent, group1, group2
 
@@ -198,8 +194,6 @@ def worker(login, depth, requester):
                 percent = (nodes.index(node) - group1) / float(group2)
 
             print "%s is serving %s,\t\t group : %d,\t\t percent : %f" % (multiprocessing.current_process().name, name, group, percent)
-
-            lock.release()
 
             if is_valid(name, requester):
 
