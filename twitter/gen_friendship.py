@@ -63,6 +63,14 @@ def retrieve(url, requester):
 
             raise
 
+def find_by_name(name):
+
+    for index, node in enumerate(nodes):
+
+        if node["name"] == name:
+
+            return index
+
 def parse(tree, xpath):
 
     eles = tree.xpath(xpath, smart_strings=False)
@@ -214,37 +222,23 @@ def worker(login, depth, requester):
 
                 for user in intersection:
 
-                    for i in xrange(group + 1):
+                    indices = find_by_name(user)
 
-                        tmpu = {"name":user, "group":i}
+                    if indices:
 
-                        if tmpu in nodes:
+                        links.put({"source":node["index"], "target":indices})
 
-                            links.put({"source":nodes.index(node), "target":nodes.index(tmpu)})
-
-                            break
-
-                        # try:
-
-                        #     indices = nodes.index(tmpu)
-
-                        #     links.put({"source":nodes.index(node), "target":nodes.index(tmpu)})
-
-                        #     break
-
-                        # except ValueError:
-
-                        #     continue
+                        continue
 
                     else:
 
-                        tmpu = {"name":user, "group":group + 1}
+                        tmpu = {"name":user, "group":group + 1, "index":len(nodes)}
 
                         nodes.append(tmpu)
 
                         tasks.put(tmpu)
 
-                        links.put({"source":nodes.index(node), "target":nodes.index(tmpu)})
+                        links.put({"source":node["index"], "target":tmpu["index"]})
 
                 #gc.enable()
 
@@ -258,7 +252,7 @@ def profiler(login, depth, requester):
 
 def start(login, depth):
 
-    node = {"name":login, "group":0}
+    node = {"name":login, "group":0, "index":0}
 
     nodes.append(node)
 
@@ -273,13 +267,13 @@ def start(login, depth):
 
         for user in intersection:
 
-            tmpu = {"name":user, "group":1}
+            tmpu = {"name":user, "group":1, "index":len(nodes)}
 
             nodes.append(tmpu)
 
             tasks.put(tmpu)
 
-            links.put({"source":nodes.index(node), "target":nodes.index(tmpu)})
+            links.put({"source":node["index"], "target":tmpu["index"]})
 
     else:
 
