@@ -18,7 +18,7 @@ percent, group1, group2 = 0.0, 0, 0#
 
 lock = multiprocessing.Lock()
 
-AMOUNT_OF_PROCESS = 12
+AMOUNT_OF_PROCESS = multiprocessing.cpu_count() * 2
 
 HOST = "https://mobile.twitter.com"
 
@@ -153,7 +153,7 @@ def worker(login, depth, requester):
 
         except:
 
-            return
+            multiprocessing.current_process().terminate()
 
         name = node["name"]
 
@@ -161,7 +161,7 @@ def worker(login, depth, requester):
 
         if group > depth:
 
-            return
+            multiprocessing.current_process().terminate()
 
         else:
 
