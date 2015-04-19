@@ -10,6 +10,8 @@ import multiprocessing
 
 from lxml import html
 
+import cProfile
+
 nodes = multiprocessing.Manager().list()
 links = multiprocessing.Manager().list()
 tasks = multiprocessing.Queue()
@@ -239,6 +241,9 @@ def worker(login, depth, requester):
 
                 print "%s is invalid" % name
 
+def profiler(login, depth, requester):
+
+    cProfile.runctx("worker(login, depth, requester)", globals(), locals(), "prof_%s.prof" % multiprocessing.current_process().name)
 
 def start(login, depth):
 
@@ -277,7 +282,7 @@ def start(login, depth):
 
     for i in xrange(AMOUNT_OF_PROCESS):
 
-        process[i] = multiprocessing.Process(target=worker, args=(login, depth, requests[i]))
+        process[i] = multiprocessing.Process(target=profiler, args=(login, depth, requests[i]))
 
         process[i].start()
 
