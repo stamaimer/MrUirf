@@ -11,16 +11,11 @@ import multiprocessing
 
 from lxml import html
 
-from Queue import Queue
-
 import cProfile
 
-# nodes = multiprocessing.Manager().list()
-# links = multiprocessing.Manager().list()
-# tasks = multiprocessing.Queue()
-nodes = []
-links = []
-tasks = Queue()
+nodes = multiprocessing.Manager().list()
+links = multiprocessing.Manager().list()
+tasks = multiprocessing.Queue()
 
 lock = multiprocessing.Lock()
 
@@ -160,12 +155,11 @@ def worker(login, depth, requester):
 
         try:
 
-            #node = tasks.get_nowait()
-            node = tasks.get()
+            node = tasks.get_nowait()
 
         except:
 
-            #print "%s terminate..." % multiprocessing.current_process().name
+            print "%s terminate..." % multiprocessing.current_process().name
 
             return
 
@@ -175,7 +169,7 @@ def worker(login, depth, requester):
 
         if group > depth:
 
-            #print "%s terminate..." % multiprocessing.current_process().name
+            print "%s terminate..." % multiprocessing.current_process().name
 
             return
 
