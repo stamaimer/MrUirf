@@ -14,9 +14,9 @@ nodes = multiprocessing.Manager().list()
 links = multiprocessing.Manager().list()
 tasks = multiprocessing.Queue()
 
-percent, group1, group2 = multiprocessing.Value('d', 0.0), \ 
-                          multiprocessing.Value('i', 0), \
-                          multiprocessing.Value('i', 0)
+percent = multiprocessing.Value('d', 0.0)
+group1 = multiprocessing.Value('i', 0)
+group2 = multiprocessing.Value('i', 0)
 
 lock = multiprocessing.Lock()
 
