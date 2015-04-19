@@ -77,18 +77,23 @@ def extractor(coll, peer_id):
     for item in peer_text:
         pass
 
+    print
+    print
+
 if __name__ == "__main__":
 
     client = MongoClient('mongodb://localhost:27017/')
     tweets = client.msif.twitter_tweets
-    peers  = tweets.find().limit(2)
+    peers  = tweets.find()
 
     with file('status.json', 'r') as f:
         status = json.load(f)
 
     #tweets.update_one({'_id': peers[0]['_id']}, {'$set': {'time':'2014-7-10' }})
 
-    for peer in peers:
+    for i, peer in enumerate(peers):
+
+        print "STAT: %s peer under executing." % str(i+1)
         name     = peer["name"]
         peer_id  = peer["_id"]
         print name, '-'*50

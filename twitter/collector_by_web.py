@@ -69,7 +69,8 @@ def get_tweets(peer):
             # 1. tokenization flag: '0' means no, '1' means already done
             # 2. pos tagging flag
             # 3. ner flag
-            tweets["texts"].append({'content':tweet, 'time':time, 'flag':'000'})
+            # 4. relevance flag
+            tweets["texts"].append({'content':tweet, 'time':time, 'flag':'0000'})
         try:
             # refresh link
             link     = timeline[0].cssselect('div.w-button-more a')[0].get("href")
