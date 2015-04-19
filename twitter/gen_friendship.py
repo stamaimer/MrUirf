@@ -154,6 +154,8 @@ def worker(login, depth, requester):
 
         try:
 
+            print "get task from tasks"
+
             node = tasks.get_nowait()
 
         except:
@@ -175,6 +177,8 @@ def worker(login, depth, requester):
         else:
 
             lock.acquire()
+
+            print "calculate progess..."
 
             global percent, group1, group2
 
@@ -204,20 +208,34 @@ def worker(login, depth, requester):
 
             if is_valid(name, requester):
 
+                print "send requests"
+
                 following = extract_info(FOLLOWING_URL % name, requester)
                 followers = extract_info(FOLLOWERS_URL % name, requester)
 
+                print "intersection"
+
                 intersection = set(following).intersection(followers)
+
+                print "deal"
 
                 for user in intersection:
 
+                    print "check"
+
                     for i in xrange(group + 1):
+
+                        print "create"
 
                         tmpu = {"name":user, "group":i}
 
                         try:
 
+                            print "search"
+
                             indices = nodes.index(tmpu)
+
+                            print "append old"
 
                             links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
@@ -230,6 +248,8 @@ def worker(login, depth, requester):
                     else:
 
                         tmpu = {"name":user, "group":group + 1}
+
+                        print "append new"
 
                         nodes.append(tmpu)
 
