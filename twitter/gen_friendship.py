@@ -157,7 +157,7 @@ def worker(login, depth, requester):
 
             print "%s terminate..." % multiprocessing.current_process().name
 
-            multiprocessing.current_process().terminate()
+            return
 
         name = node["name"]
 
@@ -167,7 +167,7 @@ def worker(login, depth, requester):
 
             print "%s terminate..." % multiprocessing.current_process().name
 
-            multiprocessing.current_process().terminate()
+            return
 
         else:
 
@@ -276,7 +276,7 @@ def start(login, depth):
 
     print "generate graph ..."
 
-    data = {"nodes":nodes, "links":links}
+    data = {"nodes":[node for node in nodes], "links":[link for link in links]}
 
     with open(login + "_twitter.json", 'w') as outfile:
 
