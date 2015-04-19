@@ -153,6 +153,8 @@ def worker(login, depth, requester):
 
         except:
 
+            print "%s terminate..." % multiprocessing.current_process().name
+
             multiprocessing.current_process().terminate()
 
         name = node["name"]
