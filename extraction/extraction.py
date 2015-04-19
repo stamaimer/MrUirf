@@ -77,6 +77,9 @@ def extractor(coll, peer_id):
     for item in peer_text:
         pass
 
+    print
+    print
+
 if __name__ == "__main__":
 
     client = MongoClient('mongodb://localhost:27017/')
