@@ -10,15 +10,15 @@ import multiprocessing
 
 from lxml import html
 
-nodes = multiprocessing.Manager().list()
-links = multiprocessing.Manager().list()
-tasks = multiprocessing.Manager().list()
+nodes = multiprocessing.Queue()
+links = multiprocessing.Queue()
+tasks = multiprocessing.Queue()
 
 percent, group1, group2 = 0.0, 0, 0#
 
 lock = multiprocessing.Lock()
 
-AMOUNT_OF_PROCESS = 20
+AMOUNT_OF_PROCESS = 12
 
 HOST = "https://mobile.twitter.com"
 
@@ -147,61 +147,19 @@ def worker(login, depth, requester):
 
     while 1:
 
-        if 1 == AMOUNT_OF_PROCESS:
-
-            print "generate graph ..."
-
-            data = {"nodes":nodes, "links":links}
-
-            with open(login + "_twitter.json", 'w') as outfile:
-
-                json.dump(data, outfile)
-
-            return os.path.abspath( login + "_twitter.json")
-
-        lock.acquire()
-
         try:
 
-            node = tasks.pop(0)
+            node = tasks.get()
 
         except:
 
-            global AMOUNT_OF_PROCESS
-
-            AMOUNT_OF_PROCESS -= 1
-
-            lock.release()
-
             return
-
-        lock.release()
 
         name = node["name"]
 
         group = node["group"]
 
-        if group == -1:
-
-            lock.acquire()
-
-            global AMOUNT_OF_PROCESS
-
-            AMOUNT_OF_PROCESS -= 1
-
-            lock.release()
-
-            return
-
         if group > depth:
-
-            lock.acquire()
-
-            for i in xrange(AMOUNT_OF_PROCESS - 2):
-
-                tasks.insert(0, {"name":"", "group":-1})
-
-            lock.release()
 
             return
 
@@ -248,31 +206,21 @@ def worker(login, depth, requester):
 
                         tmpu = {"name":user, "group":i}
 
-                        lock.acquire()
-
                         if tmpu in nodes:
 
                             links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
-                            lock.release()
-
                             break
-
-                        lock.release()
 
                     else:
 
                         tmpu = {"name":user, "group":group + 1}
-
-                        lock.acquire()
 
                         nodes.append(tmpu)
 
                         tasks.append(tmpu)
 
                         links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
-
-                        lock.release()
 
             else:
 
@@ -283,7 +231,7 @@ def start(login, depth):
 
     node = {"name":login, "group":0}
 
-    nodes.append(node)
+    nodes.put(node)
 
     requester = session.get_session()
 
@@ -298,11 +246,11 @@ def start(login, depth):
 
             tmpu = {"name":user, "group":1}
 
-            nodes.append(tmpu)
+            nodes.put(tmpu)
 
-            tasks.append(tmpu)
+            tasks.put(tmpu)
 
-            links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
+            links.put({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
     else:
 
@@ -323,6 +271,16 @@ def start(login, depth):
     for i in xrange(AMOUNT_OF_PROCESS):
 
         process[i].join()
+
+    print "generate graph ..."
+
+    data = {"nodes":nodes, "links":links}
+
+    with open(login + "_twitter.json", 'w') as outfile:
+
+        json.dump(data, outfile)
+
+    return os.path.abspath( login + "_twitter.json")
 
 if __name__ == "__main__":
 
