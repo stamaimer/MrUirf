@@ -11,6 +11,8 @@ import multiprocessing
 
 from lxml import html
 
+from Queue import Queue
+
 import cProfile
 
 # nodes = multiprocessing.Manager().list()
@@ -18,7 +20,7 @@ import cProfile
 # tasks = multiprocessing.Queue()
 nodes = []
 links = []
-tasks = []
+tasks = Queue()
 
 lock = multiprocessing.Lock()
 
@@ -159,7 +161,7 @@ def worker(login, depth, requester):
         try:
 
             #node = tasks.get_nowait()
-            node = tasks.pop(0)
+            node = tasks.get()
 
         except:
 
@@ -240,8 +242,7 @@ def worker(login, depth, requester):
 
                         nodes.append(tmpu)
 
-                        #tasks.put(tmpu)
-                        tasks.append(tmpu)
+                        tasks.put(tmpu)
 
                         links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
@@ -276,8 +277,7 @@ def start(login, depth):
 
             nodes.append(tmpu)
 
-            #tasks.put(tmpu)
-            tasks.append(tmpu)
+            tasks.put(tmpu)
 
             links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
