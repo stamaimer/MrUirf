@@ -213,12 +213,18 @@ def worker(login, depth, requester):
 
                         tmpu = {"name":user, "group":i}
 
-                        if tmpu in nodes:
+                        try:
+
+                            nodes.index(tmpu)
 
                             links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
                             break
 
+                        except ValueError:
+
+                            continue
+                            
                     else:
 
                         tmpu = {"name":user, "group":group + 1}
