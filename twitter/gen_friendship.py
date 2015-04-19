@@ -10,8 +10,8 @@ import multiprocessing
 
 from lxml import html
 
-nodes = multiprocessing.Queue()
-links = multiprocessing.Queue()
+nodes = multiprocessing.Manager().list()
+links = multiprocessing.Manager().list()
 tasks = multiprocessing.Queue()
 
 percent, group1, group2 = 0.0, 0, 0#
@@ -218,7 +218,7 @@ def worker(login, depth, requester):
 
                         nodes.append(tmpu)
 
-                        tasks.append(tmpu)
+                        tasks.put(tmpu)
 
                         links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
@@ -231,7 +231,7 @@ def start(login, depth):
 
     node = {"name":login, "group":0}
 
-    nodes.put(node)
+    nodes.append(node)
 
     requester = session.get_session()
 
@@ -246,11 +246,11 @@ def start(login, depth):
 
             tmpu = {"name":user, "group":1}
 
-            nodes.put(tmpu)
+            nodes.append(tmpu)
 
             tasks.put(tmpu)
 
-            links.put({"source":nodes.index(node), "target":nodes.index(tmpu)})
+            links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
     else:
 
