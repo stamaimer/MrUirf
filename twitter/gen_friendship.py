@@ -14,7 +14,7 @@ from lxml import html
 import cProfile
 
 nodes = multiprocessing.Manager().list()
-links = multiprocessing.Manager().list()
+links = multiprocessing.Queue()
 tasks = multiprocessing.Queue()
 
 lock = multiprocessing.Lock()
@@ -222,7 +222,7 @@ def worker(login, depth, requester):
 
                             indices = nodes.index(tmpu)
 
-                            links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
+                            links.put({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
                             break
 
@@ -238,7 +238,7 @@ def worker(login, depth, requester):
 
                         tasks.put(tmpu)
 
-                        links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
+                        links.put({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
                 #gc.enable()
 
@@ -273,7 +273,7 @@ def start(login, depth):
 
             tasks.put(tmpu)
 
-            links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
+            links.put({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
     else:
 
