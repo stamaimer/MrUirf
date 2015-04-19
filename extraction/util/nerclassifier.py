@@ -170,7 +170,7 @@ def ner_bat(coll, peer_id):
                 if entity['type'] not in entity_types:
                     entity_types.append(entity_type)
 
-            text['entities_type'] = entities_type
+            text['entity_types'] = entity_types
 
     coll.update_one({'_id':peer_id}, {'$set': {'texts':texts}})
     print "SUCC: Nering done."
