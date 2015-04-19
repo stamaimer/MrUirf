@@ -91,7 +91,9 @@ if __name__ == "__main__":
 
     #tweets.update_one({'_id': peers[0]['_id']}, {'$set': {'time':'2014-7-10' }})
 
-    for peer in peers:
+    for i, peer in enumerate(peers):
+
+        print "STAT: %s peer under executing." % i+1
         name     = peer["name"]
         peer_id  = peer["_id"]
         print name, '-'*50
