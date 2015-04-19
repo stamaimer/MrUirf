@@ -175,7 +175,7 @@ def worker(login, depth, requester):
 
         else:
 
-            #lock.acquire()
+            lock.acquire()
 
             global percent, group1, group2
 
@@ -201,7 +201,7 @@ def worker(login, depth, requester):
 
             print "%s is serving %s,\t\t group : %d,\t\t percent : %f" % (multiprocessing.current_process().name, name, group, percent)
 
-            #lock.release()
+            lock.release()
 
             if is_valid(name, requester):
 
@@ -287,21 +287,21 @@ def start(login, depth):
 
         sys.exit(0)
 
-    # requests = [ session.get_session() for i in xrange(AMOUNT_OF_PROCESS) ]
+    requests = [ session.get_session() for i in xrange(AMOUNT_OF_PROCESS) ]
 
-    # process = [ None for i in xrange(AMOUNT_OF_PROCESS) ]
+    process = [ None for i in xrange(AMOUNT_OF_PROCESS) ]
 
-    # for i in xrange(AMOUNT_OF_PROCESS):
+    for i in xrange(AMOUNT_OF_PROCESS):
 
-    #     process[i] = multiprocessing.Process(target=profiler, args=(login, depth, requests[i]))
+        process[i] = multiprocessing.Process(target=worker, args=(login, depth, requests[i]))
 
-    #     process[i].start()
+        process[i].start()
 
-    # for i in xrange(AMOUNT_OF_PROCESS):
+    for i in xrange(AMOUNT_OF_PROCESS):
 
-    #     process[i].join()
+        process[i].join()
 
-    worker(login, depth, requester)
+    # worker(login, depth, requester)
 
     print "generate graph ..."
 
