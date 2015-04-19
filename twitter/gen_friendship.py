@@ -149,6 +149,8 @@ def worker(login, depth, requester):
 
         try:
 
+            print tasks.qsize()
+
             node = tasks.get()
 
         except:
@@ -162,6 +164,8 @@ def worker(login, depth, requester):
         group = node["group"]
 
         if group > depth:
+
+            print "%s terminate..." % multiprocessing.current_process().name
 
             multiprocessing.current_process().terminate()
 
