@@ -158,6 +158,20 @@ def ner_bat(coll, peer_id):
                 if (entity_word.lower(), entity_type) not in inside_entities:
                     text['entity'].append(candidate_e)
 
+    print "STAT: Induce entity types."
+    for text in texts:
+        flag = text['flag']
+
+        if flag[2:3] == '1':
+            entities     = text['entity']
+            entity_types = []
+
+            for entity in entities:
+                if entity['type'] not in entity_types:
+                    entity_types.append(entity_type)
+
+            text['entities_type'] = entities_type
+
     coll.update_one({'_id':peer_id}, {'$set': {'texts':texts}})
     print "SUCC: Nering done."
     print "STAT: %s texts executed, %s have done before and %s errors." \
