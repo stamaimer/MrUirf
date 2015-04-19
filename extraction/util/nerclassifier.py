@@ -1,5 +1,24 @@
 # -*- coding: utf-8 -*-
 
+'''
+    In this file, we introduce two types of ner tools, mitie and nltk.ne_chunk.
+    In short, in mitie's readme file, we can learn the entities recognition from
+mitie have four types: 
+    1. PERSON, for people
+    2. LOCATION, for geo location
+    3. ORGANIZATION, for org
+    4. MSIC, for other types of entities
+    In terms of nltk, there are 9 types of entities recorded in docs, PERCENT,
+FACILITY, ORGANIZATION, PERSON, LOCATION, DATE, TIME, MONEY, and GPE. However,
+actually there are only 3 types:
+    1. PERSON, for people
+    2. ORGANIZATION, for org
+    3. GPE, for geo-political entity, the same as LOCATION
+    Finally, to detect full set of entities, we determine to combine these two
+ner tools. And inducing 4 types of entities, PERSON, LOCATION, ORGANIZATION and
+MSIC.
+'''
+
 import re
 from nltk.tokenize      import word_tokenize
 from nltk               import pos_tag
@@ -23,7 +42,7 @@ def ner_mit(texts):
             score = e[2]
             score_text = "{:0.3f}".format(score)
             entity_text = " ".join(tokens[i] for i in range)
-            # print "   Score: " + score_text + ": " + tag + ": " + entity_text
+            print "   Score: " + score_text + ": " + tag + ": " + entity_text
 
             entities.append(entity_text)
 
@@ -36,11 +55,15 @@ def ner_nltk(texts):
     for text in texts:
         tokens = word_tokenize(text)
         pos_tg = pos_tag(tokens)
-        ne     = ne_chunk(pos_tg, binary = True)
-        ne_tag = re.findall(r'(NE \S+/\S+)', str(ne))
+        ne     = ne_chunk(pos_tg)
+
+        #print ne
+        ne_tag = re.findall(r'((GPE|PERSON|ORGANIZATION) \S+/\S+)', str(ne))
+        print ne_tag
 
         for i in range(len(ne_tag)):
-            tag_list = re.split(r'\W', ne_tag[i])
+            tag_list = re.split(r'\W', ne_tag[i][0])
+            print ' '*10,tag_list
             entities.append(tag_list[1])
 
     return entities
@@ -136,10 +159,15 @@ if __name__ == '__main__':
         u'@IanBDunne Our kids are still excited about Barbie being pushed of the Van-der-Graaf generator from the pressure wave. Good job!',
         u'#piday2015 works best in American date notation. Still nice, though.',
         u'these women taught English, they are now lying here!',
-        u'', u' '
+        u'today is 6th June, a great festival',
+        u'this t-shirt cost me 10 dollar.',
+        u'two fifty a m, 1:30 p.m.',
+        u'175 million Canadian Dollars, GBP 10.40',
+        u'Murray River, Mount Everest',
+        u'twenty pct, 18.75 %',
     ]
 
-    print ner_mit(sample)
+    # print ner_mit(sample)
     print ner_nltk(sample)
 
     # snerer = NERTagger('english.all.3class.distsim.crf.ser.gz',
