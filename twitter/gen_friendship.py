@@ -13,9 +13,12 @@ from lxml import html
 
 import cProfile
 
-nodes = multiprocessing.Manager().list()
-links = multiprocessing.Manager().list()
-tasks = multiprocessing.Queue()
+# nodes = multiprocessing.Manager().list()
+# links = multiprocessing.Manager().list()
+# tasks = multiprocessing.Queue()
+nodes = []
+links = []
+tasks = []
 
 lock = multiprocessing.Lock()
 
@@ -148,18 +151,19 @@ def is_valid(name, requester):
     else:
 
         return False
-
+@profile
 def worker(login, depth, requester):
 
     while 1:
 
         try:
 
-            node = tasks.get_nowait()
+            #node = tasks.get_nowait()
+            node = tasks.pop(0)
 
         except:
 
-            print "%s terminate..." % multiprocessing.current_process().name
+            #print "%s terminate..." % multiprocessing.current_process().name
 
             return
 
@@ -169,13 +173,13 @@ def worker(login, depth, requester):
 
         if group > depth:
 
-            print "%s terminate..." % multiprocessing.current_process().name
+            #print "%s terminate..." % multiprocessing.current_process().name
 
             return
 
         else:
 
-            lock.acquire()
+            #lock.acquire()
 
             global percent, group1, group2
 
@@ -201,7 +205,7 @@ def worker(login, depth, requester):
 
             print "%s is serving %s,\t\t group : %d,\t\t percent : %f" % (multiprocessing.current_process().name, name, group, percent)
 
-            lock.release()
+            #lock.release()
 
             if is_valid(name, requester):
 
@@ -210,7 +214,7 @@ def worker(login, depth, requester):
 
                 intersection = set(following).intersection(followers)
 
-                gc.disable()
+                #gc.disable()
 
                 for user in intersection:
 
@@ -236,11 +240,12 @@ def worker(login, depth, requester):
 
                         nodes.append(tmpu)
 
-                        tasks.put(tmpu)
+                        #tasks.put(tmpu)
+                        tasks.append(tmpu)
 
                         links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
-                gc.enable()
+                #gc.enable()
 
             else:
 
@@ -271,7 +276,8 @@ def start(login, depth):
 
             nodes.append(tmpu)
 
-            tasks.put(tmpu)
+            #tasks.put(tmpu)
+            tasks.append(tmpu)
 
             links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
@@ -281,19 +287,21 @@ def start(login, depth):
 
         sys.exit(0)
 
-    requests = [ session.get_session() for i in xrange(AMOUNT_OF_PROCESS) ]
+    # requests = [ session.get_session() for i in xrange(AMOUNT_OF_PROCESS) ]
 
-    process = [ None for i in xrange(AMOUNT_OF_PROCESS) ]
+    # process = [ None for i in xrange(AMOUNT_OF_PROCESS) ]
 
-    for i in xrange(AMOUNT_OF_PROCESS):
+    # for i in xrange(AMOUNT_OF_PROCESS):
 
-        process[i] = multiprocessing.Process(target=profiler, args=(login, depth, requests[i]))
+    #     process[i] = multiprocessing.Process(target=profiler, args=(login, depth, requests[i]))
 
-        process[i].start()
+    #     process[i].start()
 
-    for i in xrange(AMOUNT_OF_PROCESS):
+    # for i in xrange(AMOUNT_OF_PROCESS):
 
-        process[i].join()
+    #     process[i].join()
+
+    worker(login, depth, requester)
 
     print "generate graph ..."
 
