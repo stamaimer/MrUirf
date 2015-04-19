@@ -81,7 +81,7 @@ if __name__ == "__main__":
 
     client = MongoClient('mongodb://localhost:27017/')
     tweets = client.msif.twitter_tweets
-    peers  = tweets.find().limit(2)
+    peers  = tweets.find().limit(1)
 
     with file('status.json', 'r') as f:
         status = json.load(f)

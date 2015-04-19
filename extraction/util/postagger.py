@@ -41,6 +41,7 @@ def pos_bat(coll, peer_id):
 
             # pos tagging
             tokens_p= pos_tag(tokens)
+            print tokens_p
 
             text['pos'] = tokens_p
 

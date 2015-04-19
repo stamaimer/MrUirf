@@ -99,15 +99,18 @@ def ner_bat(coll, peer_id):
             for i in range(len(tokens)):
                 tokens[i] = tokens[i].encode('utf8')
 
-            entity  = {}
+            entity  = []
             ent_mid = ner.extract_entities(tokens)
 
             for e in ent_mid:
-                entity_text = " ".join(tokens[i] for i in e[0])
-                entity[entity_text] = []
+                ranges= e[0]    # the indecs of entity words
+                tag   = e[1]    # the type of entity
+                entity_text = " ".join(tokens[i] for i in ranges)
+                entity.append({'word':entity_text, 'type':tag,
+                               'relevance':[]})
 
             text['entity'] = entity
-            text['flag'] = flag[0:2] + '1' + flag[3:]
+            #text['flag'] = flag[0:2] + '1' + flag[3:]
             count_s += 1
 
         elif flag[1:2] == '0':
@@ -128,24 +131,32 @@ def ner_bat(coll, peer_id):
 
         if flag[1:2] == '1' and flag[2:3] == '1':
 
+            entity   = []
             tokens_p = text['pos']
-
-            entity   = {}
+            for i in range(len(tokens_p)):
+                tokens_p[i] = (tokens_p[i][0], tokens_p[i][1])
 
             # extractor raw entity
-            ne_mid = ne_chunk(tokens_p, binary = True)
+            ne_mid = ne_chunk(tokens_p)
+            ne_raw = re.findall(r'((GPE|PERSON|ORGANIZATION) \S+/\S+)', \
+                                str(ne_mid))
 
-            # filter entity
-            ne_tag = re.findall(r'(NE \S+/\S+)', str(ne_mid))
-
-            for i in range(len(ne_tag)):
-                tag_list = re.split(r'\W', ne_tag[i])
-                entity[tag_list[1]] = []
+            # peel entity out
+            for entity_raw in ne_raw:
+                entity_list = re.split(r'\W', entity_raw[0])
+                entity_type = entity_raw[1]
+                if 'GPE' == entity_type: entity_type = 'LOCATION'
+                entity.append({'word':entity_list[1], 'type':entity_type,
+                               'relevance':[]})
 
             # remove redundant
-            ent_low = [e.lower() for e in text['entity']]
-            for i in [i for i in entity if i.lower() not in ent_low]:
-                text['entity'][i] = []
+            inside_entities = [(e['word'].lower(), e['type']) \
+                               for e in text['entity']]
+            for candidate_e in entity:
+                entity_word = candidate_e['word']
+                entity_type = candidate_e['type']
+                if (entity_word.lower(), entity_type) not in inside_entities:
+                    text['entity'].append(candidate_e)
 
     coll.update_one({'_id':peer_id}, {'$set': {'texts':texts}})
     print "SUCC: Nering done."
