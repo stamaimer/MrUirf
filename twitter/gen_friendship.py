@@ -163,6 +163,8 @@ def worker(login, depth, requester):
 
         group = node["group"]
 
+        print name, group
+
         if group > depth:
 
             print "%s terminate..." % multiprocessing.current_process().name
