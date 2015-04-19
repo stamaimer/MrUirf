@@ -145,7 +145,7 @@ def is_valid(name, requester):
     else:
 
         return False
-
+@profile
 def worker(login, depth, requester):
 
     while 1:
@@ -224,7 +224,7 @@ def worker(login, depth, requester):
                         except ValueError:
 
                             continue
-                            
+
                     else:
 
                         tmpu = {"name":user, "group":group + 1}
