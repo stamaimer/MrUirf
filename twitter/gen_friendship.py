@@ -218,17 +218,23 @@ def worker(login, depth, requester):
 
                         tmpu = {"name":user, "group":i}
 
-                        try:
-
-                            indices = nodes.index(tmpu)
+                        if tmpu in nodes:
 
                             links.put({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
                             break
 
-                        except ValueError:
+                        # try:
 
-                            continue
+                        #     indices = nodes.index(tmpu)
+
+                        #     links.put({"source":nodes.index(node), "target":nodes.index(tmpu)})
+
+                        #     break
+
+                        # except ValueError:
+
+                        #     continue
 
                     else:
 
