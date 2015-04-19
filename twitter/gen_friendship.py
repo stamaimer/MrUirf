@@ -154,8 +154,6 @@ def worker(login, depth, requester):
 
         try:
 
-            print "get task from tasks"
-
             node = tasks.get_nowait()
 
         except:
@@ -177,8 +175,6 @@ def worker(login, depth, requester):
         else:
 
             lock.acquire()
-
-            print "calculate progess..."
 
             global percent, group1, group2
 
@@ -208,54 +204,38 @@ def worker(login, depth, requester):
 
             if is_valid(name, requester):
 
-                print "send requests"
-
                 following = extract_info(FOLLOWING_URL % name, requester)
                 followers = extract_info(FOLLOWERS_URL % name, requester)
 
-                print "intersection"
-
                 intersection = set(following).intersection(followers)
-
-                print "deal"
 
                 for user in intersection:
 
-                    # print "check"
+                    for i in xrange(group + 1):
 
-                    # for i in xrange(group + 1):
+                        tmpu = {"name":user, "group":i}
 
-                    #     print "create"
+                        try:
 
-                    #     tmpu = {"name":user, "group":i}
+                            indices = nodes.index(tmpu)
 
-                    #     try:
+                            links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
-                    #         print "search"
+                            break
 
-                    #         indices = nodes.index(tmpu)
+                        except ValueError:
 
-                    #         print "append old"
+                            continue
 
-                    #         links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
+                    else:
 
-                    #         break
+                        tmpu = {"name":user, "group":group + 1}
 
-                    #     except ValueError:
+                        nodes.append(tmpu)
 
-                    #         continue
+                        tasks.put(tmpu)
 
-                    # else:
-
-                    tmpu = {"name":user, "group":group + 1}
-
-                    print "append new"
-
-                    nodes.append(tmpu)
-
-                    tasks.put(tmpu)
-
-                    links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
+                        links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
             else:
 
