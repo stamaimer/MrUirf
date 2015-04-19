@@ -14,13 +14,13 @@ nodes = multiprocessing.Manager().list()
 links = multiprocessing.Manager().list()
 tasks = multiprocessing.Queue()
 
-percent = multiprocessing.Value('d', 0.0)
-group1 = multiprocessing.Value('i', 0)
-group2 = multiprocessing.Value('i', 0)
-
 lock = multiprocessing.Lock()
 
-AMOUNT_OF_PROCESS = multiprocessing.cpu_count() * 2
+percent = multiprocessing.Value('d', 0.0, lock=lock)
+group1 = multiprocessing.Value('i', 0, lock=lock)
+group2 = multiprocessing.Value('i', 0, lock=lock)
+
+AMOUNT_OF_PROCESS = multiprocessing.cpu_count() * 4
 
 HOST = "https://mobile.twitter.com"
 
