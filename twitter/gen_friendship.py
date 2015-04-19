@@ -175,25 +175,25 @@ def worker(login, depth, requester):
 
             if 1 == group:
 
-                if not group1:
+                if not group1.value:
 
-                    group1 = sum(( 1 for ele in nodes if ele["group"] == 1 ))
+                    group1.value = sum(( 1 for ele in nodes if ele["group"] == 1 ))
 
-                    print "amounts of group1 : %d" % group1
+                    print "amounts of group1 : %d" % group1.value
 
-                percent = nodes.index(node) / float(group1)
+                percent.value = nodes.index(node) / float(group1.value)
 
             elif 2 == group:
 
-                if not group2:
+                if not group2.value:
 
-                    group2 = sum(( 1 for ele in nodes if ele["group"] == 2 ))
+                    group2.value = sum(( 1 for ele in nodes if ele["group"] == 2 ))
 
-                    print "amounts of group2 : %d" % group2
+                    print "amounts of group2 : %d" % group2.value
 
-                percent = (nodes.index(node) - group1) / float(group2)
+                percent.value = (nodes.index(node) - group1) / float(group2.value)
 
-            print "%s is serving %s,\t\t group : %d,\t\t percent : %f" % (multiprocessing.current_process().name, name, group, percent)
+            print "%s is serving %s,\t\t group : %d,\t\t percent : %f" % (multiprocessing.current_process().name, name, group, percent.value)
 
             if is_valid(name, requester):
 
