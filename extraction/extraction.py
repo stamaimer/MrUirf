@@ -94,8 +94,11 @@ if __name__ == "__main__":
     for i, peer in enumerate(peers):
 
         print "STAT: %s peer under executing." % str(i+1)
-        name     = peer["name"]
+        name     = peer["name"].encode('utf8')
         peer_id  = peer["_id"]
         print name, '-'*50
-        entities = extractor(tweets, peer_id)
 
+        try:
+            entities = extractor(tweets, peer_id)
+        except:
+            pass
