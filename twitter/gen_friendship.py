@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import gc
 import sys
 import json
 import session
@@ -209,6 +210,8 @@ def worker(login, depth, requester):
 
                 intersection = set(following).intersection(followers)
 
+                gc.disable()
+
                 for user in intersection:
 
                     for i in xrange(group + 1):
@@ -236,6 +239,8 @@ def worker(login, depth, requester):
                         tasks.put(tmpu)
 
                         links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
+
+                gc.enable()
 
             else:
 
