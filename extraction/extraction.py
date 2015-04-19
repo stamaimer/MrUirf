@@ -39,6 +39,7 @@ def extractor(coll, peer_id):
     #       if flag is '1', then skip the tokenization.
     #       if flag is '0', then set the flag to '1' after processing.
     tokenizer_bat(coll, peer_id)
+    print "STAT: ---------------------------------------"
 
     # pos tagging
     # --------------------------------------------------
@@ -49,7 +50,11 @@ def extractor(coll, peer_id):
     #   1. pos tagging.
     #   2. update pos tokens in mongodb.
     #   3. update pos tagging flag bit.
+    #       if tokenization flag is '1' and pos flag is '0', then pos tagging.
+    #       if tokenization flag is '0', then stop executing.
+    #       if pos flag is '1', then skip the pos tagging.
     pos_bat(coll, peer_id)
+    print "STAT: ---------------------------------------"
 
     # entities recognition
     # --------------------------------------------------
@@ -60,7 +65,11 @@ def extractor(coll, peer_id):
     #   1. entities recognition.
     #   2. update entities in mongodb.
     #   3. update ner flag bit
+    #       if pos flag is '1' and ner flag is '0', then nering.
+    #       if pos flag is '0', then stop executing.
+    #       if ner flag is '1', then skip the nering.
     ner_bat(coll, peer_id)
+    print "STAT: ---------------------------------------"
 
     # relation words extractor
     # --------------------------------------------------
