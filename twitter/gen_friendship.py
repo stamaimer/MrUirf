@@ -221,41 +221,41 @@ def worker(login, depth, requester):
 
                 for user in intersection:
 
-                    print "check"
+                    # print "check"
 
-                    for i in xrange(group + 1):
+                    # for i in xrange(group + 1):
 
-                        print "create"
+                    #     print "create"
 
-                        tmpu = {"name":user, "group":i}
+                    #     tmpu = {"name":user, "group":i}
 
-                        try:
+                    #     try:
 
-                            print "search"
+                    #         print "search"
 
-                            indices = nodes.index(tmpu)
+                    #         indices = nodes.index(tmpu)
 
-                            print "append old"
+                    #         print "append old"
 
-                            links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
+                    #         links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
-                            break
+                    #         break
 
-                        except ValueError:
+                    #     except ValueError:
 
-                            continue
+                    #         continue
 
-                    else:
+                    # else:
 
-                        tmpu = {"name":user, "group":group + 1}
+                    tmpu = {"name":user, "group":group + 1}
 
-                        print "append new"
+                    print "append new"
 
-                        nodes.append(tmpu)
+                    nodes.append(tmpu)
 
-                        tasks.put(tmpu)
+                    tasks.put(tmpu)
 
-                        links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
+                    links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
             else:
 
