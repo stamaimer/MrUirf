@@ -21,7 +21,7 @@ def relevance_chi_square(coll, text):
 
         exile_words = stopwords.words('english')
         # entity itself need not execute relevance
-        exile_words.append(entity_word.lowe()) 
+        exile_words.append(entity_word.lower()) 
         exile_puncs = ['!', '"', '#', '$', '%', '&', '\'','(', ')', '*', '+',
                        ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', 
                        '[', '\\',']', '^', '_', '`', '{', '|', '}', '~', '...']
@@ -40,9 +40,9 @@ def relevance_chi_square(coll, text):
 
                 for corpus_text in corpus_texts:
                     ct_entity_types = corpus_text['entity_types']
-                    ct_tokens       = corpus_text['tokens']
+                    ct_tokens       = corpus_text['token_lower']
 
-                    if token in ct_tokens:
+                    if token.lower() in ct_tokens:
                         if entity_type in ct_entity_types:  n11 += 1
                         else :                              n10 += 1
                     else:
