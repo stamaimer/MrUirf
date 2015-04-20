@@ -130,7 +130,7 @@ def is_valid(name, requester):
     else:
 
         return False
-#@profile
+
 def worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, group2, indices):
 
     while 1:
@@ -145,11 +145,7 @@ def worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, 
 
             return
 
-        # name = node["name"]
-
         name = node[0]
-
-        # group = node["group"]
 
         group = node[1]
 
@@ -160,36 +156,6 @@ def worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, 
             return
 
         else:
-
-            # lock.acquire()
-
-            # if 1 == group:
-
-            #     if not group1:
-
-            #         # group1 = sum(( 1 for ele in nodes if ele["group"] == 1 ))
-
-            #         group1 = sum(( 1 for key in nodes.keys() if key[1] == 1 ))
-
-            #         print "amounts of group1 : %d" % group1
-
-            #     percent = nodes[node] / float(group1)
-
-            # elif 2 == group:
-
-            #     if not group2:
-
-            #         # group2 = sum(( 1 for ele in nodes if ele["group"] == 2 ))
-
-            #         group2 = sum(( 1 for key in nodes.keys() if key[1] == 2 ))
-
-            #         print "amounts of group2 : %d" % group2
-
-            #     percent = (nodes[node] - group1) / float(group2)
-
-            # print "%s is serving %s,\t\t group : %d,\t\t percent : %f" % (multiprocessing.current_process().name, name, group, percent)
-
-            # lock.release()
 
             current_indices = nodes[node]
 
@@ -242,10 +208,6 @@ def worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, 
 
                 print "%s is invalid" % name
 
-def profiler(login, depth, requester):
-
-    cProfile.runctx("worker(login, depth, requester)", globals(), locals(), "prof_%s.prof" % multiprocessing.current_process().name)
-
 def start(login, depth):
 
     nodes = multiprocessing.Manager().dict()
@@ -254,16 +216,9 @@ def start(login, depth):
 
     lock = multiprocessing.Lock()
 
-    percent = 0.0
-
-    group1 = 0
-    group2 = 0
-
     indices = 0
 
     AMOUNT_OF_PROCESS = multiprocessing.cpu_count() * 6
-
-    # node = {"name":login, "group":0}
 
     node = (login, 0)
 
@@ -279,8 +234,6 @@ def start(login, depth):
         intersection = set(following).intersection(followers)
 
         for user in intersection:
-
-            # tmpu = {"name":user, "group":1}
 
             tmpu = (user, 1)
 
@@ -310,11 +263,9 @@ def start(login, depth):
 
         process[i].join()
 
-    # worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, group2, indices)
-
     print "generate graph ..."
 
-    data = {"nodes":({"name":node[0], "group":node[1]} for node in nodes.iteritems()), "links":[link for link in links]}
+    data = {"nodes":({"name":node[0], "group":node[1]} for node in dict(nodes).iteritems()), "links":[link for link in links]}
 
     with open(login + "_twitter.json", 'w') as outfile:
 
