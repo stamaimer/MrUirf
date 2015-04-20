@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import gc
 import sys
 import json
 import session
@@ -10,8 +9,6 @@ import itertools
 import multiprocessing
 
 from lxml import html
-
-import cProfile
 
 HOST = "https://mobile.twitter.com"
 
@@ -34,15 +31,13 @@ def retrieve(url, requester):
 
             if 200 == response.status_code:
 
-                # print '.'
-
                 return response
 
             else:
 
                 print "request : %s %d" % (response.url, response.status_code)
 
-                if 404 == response.status_code:#anything else?
+                if 404 == response.status_code:
 
                     return None
                 
@@ -64,7 +59,7 @@ def parse(tree, xpath):
 
     else:
 
-        return [None]
+        return [0]
 
 def extract_info(url, requester):
 
@@ -166,35 +161,39 @@ def worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, 
 
         else:
 
-            lock.acquire()
+            # lock.acquire()
 
-            if 1 == group:
+            # if 1 == group:
 
-                if not group1:
+            #     if not group1:
 
-                    # group1 = sum(( 1 for ele in nodes if ele["group"] == 1 ))
+            #         # group1 = sum(( 1 for ele in nodes if ele["group"] == 1 ))
 
-                    group1 = sum(( 1 for key in nodes.keys() if key[1] == 1 ))
+            #         group1 = sum(( 1 for key in nodes.keys() if key[1] == 1 ))
 
-                    print "amounts of group1 : %d" % group1
+            #         print "amounts of group1 : %d" % group1
 
-                percent = nodes[node] / float(group1)
+            #     percent = nodes[node] / float(group1)
 
-            elif 2 == group:
+            # elif 2 == group:
 
-                if not group2:
+            #     if not group2:
 
-                    # group2 = sum(( 1 for ele in nodes if ele["group"] == 2 ))
+            #         # group2 = sum(( 1 for ele in nodes if ele["group"] == 2 ))
 
-                    group2 = sum(( 1 for key in nodes.keys() if key[1] == 2 ))
+            #         group2 = sum(( 1 for key in nodes.keys() if key[1] == 2 ))
 
-                    print "amounts of group2 : %d" % group2
+            #         print "amounts of group2 : %d" % group2
 
-                percent = (nodes[node] - group1) / float(group2)
+            #     percent = (nodes[node] - group1) / float(group2)
 
-            print "%s is serving %s,\t\t group : %d,\t\t percent : %f" % (multiprocessing.current_process().name, name, group, percent)
+            # print "%s is serving %s,\t\t group : %d,\t\t percent : %f" % (multiprocessing.current_process().name, name, group, percent)
 
-            lock.release()
+            # lock.release()
+
+            current_indices = nodes[node]
+
+            print "%s is serving %s,\t\t group : %d,\t\t indices : %d" % (multiprocessing.current_process().name, name, group, current_indices)
 
             if is_valid(name, requester):
 
@@ -213,11 +212,11 @@ def worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, 
 
                             exist = nodes[tmpu]
 
-                            links.append({"source":nodes[node], "target":nodes[tmpu]})
+                            links.append({"source":current_indices, "target":nodes[tmpu]})
 
                             break
 
-                        except KeyError:
+                        except:
 
                             continue
 
@@ -227,13 +226,17 @@ def worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, 
 
                         lock.acquire()
 
+                        print "acquire lock"
+
                         nodes[tmpu] = indices; indices+=1
+
+                        print "release lock"
 
                         lock.release()
 
                         tasks.put(tmpu)
 
-                        links.append({"source":nodes[node], "target":nodes[tmpu]})
+                        links.append({"source":current_indices, "target":nodes[tmpu]})
 
             else:
 
@@ -311,7 +314,7 @@ def start(login, depth):
 
     print "generate graph ..."
 
-    data = {"nodes":({"name":node[0], "group":node[1]} for node in nodes.iteritems()), "links":[link for link in links]}#
+    data = {"nodes":({"name":node[0], "group":node[1]} for node in nodes.iteritems()), "links":[link for link in links]}
 
     with open(login + "_twitter.json", 'w') as outfile:
 
