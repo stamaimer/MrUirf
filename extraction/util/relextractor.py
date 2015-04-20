@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from nltk.corpus import stopwords
 from pymongo     import MongoClient
+from stopwords   import stopwords_mysql, stopwords_nltk, punctuation
 
 def relevance_chi_square(coll, text):
 
@@ -19,12 +19,12 @@ def relevance_chi_square(coll, text):
         entity_word = entity['word']
         entity_type = entity['type']
 
-        exile_words = stopwords.words('english')
+        # exile_words = stopwords_nltk()
+        exile_words = stopwords_mysql()
+
         # entity itself need not execute relevance
-        exile_words.append(entity_word.lower()) 
-        exile_puncs = ['!', '"', '#', '$', '%', '&', '\'','(', ')', '*', '+',
-                       ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', 
-                       '[', '\\',']', '^', '_', '`', '{', '|', '}', '~', '...']
+        exile_words.append(entity_word.lower())
+        exile_puncs = punctuation()
         exile_words = exile_words + exile_puncs
 
         # calculate the relevance scores of every word and the entity
@@ -58,7 +58,7 @@ def relevance_chi_square(coll, text):
 
             pairs = [{'n':n11, 'e':e11}, {'n':n10, 'e':e10},
                      {'n':n01, 'e':e01}, {'n':n00, 'e':e00}] 
-            for pair in[pair for pair in pairs if pair['e'] == 0]: 
+            for pair in[pair for pair in pairs if not pair['e'] == 0]:
                 X2 += ((pair['n'] - pair['e']) ** 2) / pair['e']
 
             # if X2 value greater than or equal to 10.83
