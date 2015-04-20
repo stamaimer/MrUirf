@@ -150,9 +150,13 @@ def worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, 
 
             return
 
-        name = node["name"]
+        # name = node["name"]
 
-        group = node["group"]
+        name = node[0]
+
+        # group = node["group"]
+
+        group = node[1]
 
         if group > depth:
 
@@ -168,21 +172,25 @@ def worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, 
 
                 if not group1:
 
-                    group1 = sum(( 1 for ele in nodes if ele["group"] == 1 ))
+                    # group1 = sum(( 1 for ele in nodes if ele["group"] == 1 ))
+
+                    group1 = sum(( 1 for key in nodes.keys() if key[1] == 1 ))
 
                     print "amounts of group1 : %d" % group1
 
-                percent = nodes.index(node) / float(group1)
+                percent = nodes[node] / float(group1)
 
             elif 2 == group:
 
                 if not group2:
 
-                    group2 = sum(( 1 for ele in nodes if ele["group"] == 2 ))
+                    # group2 = sum(( 1 for ele in nodes if ele["group"] == 2 ))
+
+                    group2 = sum(( 1 for key in nodes.keys() if key[1] == 2 ))
 
                     print "amounts of group2 : %d" % group2
 
-                percent = (nodes.index(node) - group1) / float(group2)
+                percent = (nodes.[node] - group1) / float(group2)
 
             print "%s is serving %s,\t\t group : %d,\t\t percent : %f" % (multiprocessing.current_process().name, name, group, percent)
 
@@ -199,7 +207,7 @@ def worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, 
 
                     for i in xrange(group + 1):
 
-                        tmpu = {"name":user, "group":i}
+                        tmpu = (user, i)
 
                         try:
 
@@ -215,7 +223,7 @@ def worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, 
 
                     else:
 
-                        tmpu = {"name":user, "group":group + 1}
+                        tmpu = (user, group + 1)
 
                         lock.acquire()
 
@@ -252,7 +260,9 @@ def start(login, depth):
 
     AMOUNT_OF_PROCESS = multiprocessing.cpu_count() * 5
 
-    node = {"name":login, "group":0}
+    # node = {"name":login, "group":0}
+
+    node = (login, 0)
 
     nodes[node] = indices; indices+=1
 
@@ -267,7 +277,9 @@ def start(login, depth):
 
         for user in intersection:
 
-            tmpu = {"name":user, "group":1}
+            # tmpu = {"name":user, "group":1}
+
+            tmpu = (user, 1)
 
             nodes[tmpu] = indices; indices+=1
 
