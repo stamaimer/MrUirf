@@ -131,7 +131,7 @@ def is_valid(name, requester):
 
         return False
 
-def worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, group2, indices):
+def worker(login, depth, requester, nodes, links, tasks, lock, indices):
 
     while 1:
 
