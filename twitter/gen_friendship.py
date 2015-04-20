@@ -255,7 +255,7 @@ def start(login, depth):
 
     for i in xrange(AMOUNT_OF_PROCESS):
 
-        process[i] = multiprocessing.Process(target=worker, args=(login, depth, requests[i], nodes, links, tasks, lock, percent, group1, group2, indices))
+        process[i] = multiprocessing.Process(target=worker, args=(login, depth, requests[i], nodes, links, tasks, lock, indices))
 
         process[i].start()
 
