@@ -135,7 +135,7 @@ def is_valid(name, requester):
     else:
 
         return False
-#@profile
+@profile
 def worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, group2, indices):
 
     while 1:
@@ -166,7 +166,7 @@ def worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, 
 
         else:
 
-            lock.acquire()
+            # lock.acquire()
 
             if 1 == group:
 
@@ -194,7 +194,7 @@ def worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, 
 
             print "%s is serving %s,\t\t group : %d,\t\t percent : %f" % (multiprocessing.current_process().name, name, group, percent)
 
-            lock.release()
+            # lock.release()
 
             if is_valid(name, requester):
 
@@ -225,11 +225,11 @@ def worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, 
 
                         tmpu = (user, group + 1)
 
-                        lock.acquire()
+                        # lock.acquire()
 
                         nodes[tmpu] = indices; indices+=1
 
-                        lock.release()
+                        # lock.release()
 
                         tasks.put(tmpu)
 
@@ -293,25 +293,25 @@ def start(login, depth):
 
         sys.exit(0)
 
-    requests = [ session.get_session() for i in xrange(AMOUNT_OF_PROCESS) ]
+    # requests = [ session.get_session() for i in xrange(AMOUNT_OF_PROCESS) ]
 
-    process = [ None for i in xrange(AMOUNT_OF_PROCESS) ]
+    # process = [ None for i in xrange(AMOUNT_OF_PROCESS) ]
 
-    for i in xrange(AMOUNT_OF_PROCESS):
+    # for i in xrange(AMOUNT_OF_PROCESS):
 
-        process[i] = multiprocessing.Process(target=worker, args=(login, depth, requests[i], nodes, links, tasks, lock, percent, group1, group2, indices))
+    #     process[i] = multiprocessing.Process(target=worker, args=(login, depth, requests[i], nodes, links, tasks, lock, percent, group1, group2, indices))
 
-        process[i].start()
+    #     process[i].start()
 
-    for i in xrange(AMOUNT_OF_PROCESS):
+    # for i in xrange(AMOUNT_OF_PROCESS):
 
-        process[i].join()
+    #     process[i].join()
 
-    # worker(login, depth, requester)
+    worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, group2, indices)
 
     print "generate graph ..."
 
-    data = {"nodes":[node for node in nodes], "links":[link for link in links]}#
+    data = {"nodes":({"name":node[0], "group":node[1]} for node in nodes.iteritems()), "links":[link for link in links]}#
 
     with open(login + "_twitter.json", 'w') as outfile:
 
