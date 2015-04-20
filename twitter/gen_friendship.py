@@ -193,7 +193,7 @@ def worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, 
 
             current_indices = nodes[node]
 
-            print "%s is serving %s,\t\t group : %d,\t\t indices : %d" % (multiprocessing.current_process().name, name, group, current_indices)
+            print "%s is serving %s,\t\t group : %d,\t\t %d left" % (multiprocessing.current_process().name, name, group, tasks.qsize())
 
             if is_valid(name, requester):
 
@@ -226,11 +226,7 @@ def worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, 
 
                         lock.acquire()
 
-                        print "%s acquire lock" % multiprocessing.current_process().name
-
                         nodes[tmpu] = indices; indices+=1
-
-                        print "%s release lock" % multiprocessing.current_process().name
 
                         lock.release()
 
