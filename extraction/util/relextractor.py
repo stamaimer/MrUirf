@@ -14,11 +14,11 @@ def relevance_chi_square(coll, text):
         entity_word = entity['word']
         entity_type = entity['type']
 
-        stopwords   = stopwords.words('english')
-        stopwords.append(entity_word) # entity itself need not execute relevance
+        exile_words = stopwords.words('english')
+        exile_words.append(entity_word) # entity itself need not execute relevance
 
         # calculate the relevance scores of every word and the entity
-        for token in [t for t in tokens if t not in stopwords]:
+        for token in [t for t in tokens if t not in exile_words]:
             n11 = 0.0   # token hit     |   type hit
             n10 = 0.0   # token hit     |   type not hit
             n01 = 0.0   # token not hit |   type hit
@@ -44,17 +44,13 @@ def relevance_chi_square(coll, text):
             e10 = n * ((n10+n11)/n) * ((n10+n00)/n)
             e01 = n * ((n01+n11)/n) * ((n01+n00)/n)
             e00 = n * ((n00+n10)/n) * ((n00+n01)/n)
+            X2  = 0
 
             pairs = [{'n':n11, 'e':e11}, {'n':n10, 'e':e10},
                      {'n':n01, 'e':e01}, {'n':n00, 'e':e00}] 
-            X2  = 0
-            print n11, n10, n01, n00
-            print pairs
+            for pair in pairs: X2 += ((pair['n'] - pair['e']) ** 2) / pair['e']
 
-            for pair in pairs:
-                X2 += ((pair['n'] - pair['e']) ** 2) / pair['e']
-
-            print token, X2
+            if X2 >= 10.83: print token, X2
 
     return flag, tokens, entity
 
