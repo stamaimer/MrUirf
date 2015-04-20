@@ -190,7 +190,7 @@ def worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, 
 
                     print "amounts of group2 : %d" % group2
 
-                percent = (nodes.[node] - group1) / float(group2)
+                percent = (nodes[node] - group1) / float(group2)
 
             print "%s is serving %s,\t\t group : %d,\t\t percent : %f" % (multiprocessing.current_process().name, name, group, percent)
 
