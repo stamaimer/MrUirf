@@ -226,11 +226,11 @@ def worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, 
 
                         lock.acquire()
 
-                        print "acquire lock"
+                        print "%s acquire lock" % multiprocessing.current_process().name
 
                         nodes[tmpu] = indices; indices+=1
 
-                        print "release lock"
+                        print "%s release lock" % multiprocessing.current_process().name
 
                         lock.release()
 
