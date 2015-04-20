@@ -164,8 +164,6 @@ def worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, 
 
             lock.acquire()
 
-            global percent, group1, group2
-
             if 1 == group:
 
                 if not group1:
