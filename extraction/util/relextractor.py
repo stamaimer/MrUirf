@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from pymongo    import MongoClient
+from nltk.corpus import stopwords
+from pymongo     import MongoClient
 
 def relevance_chi_square(coll, text):
 
@@ -13,14 +14,17 @@ def relevance_chi_square(coll, text):
         entity_word = entity['word']
         entity_type = entity['type']
 
+        stopwords   = stopwords.words('english')
+        stopwords.append(entity_word) # entity itself need not execute relevance
+
         # calculate the relevance scores of every word and the entity
-        for token in tokens:
+        for token in [t for t in tokens if t not in stopwords]:
             n11 = 0.0   # token hit     |   type hit
             n10 = 0.0   # token hit     |   type not hit
             n01 = 0.0   # token not hit |   type hit
             n00 = 0.0   # token not hit |   type not hit
 
-            corpus = coll.find().limit(100)
+            corpus      = coll.find().limit(100)
             for corpus_peer in corpus:
                 corpus_texts = corpus_peer['texts']
 
