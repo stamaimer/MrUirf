@@ -13,21 +13,6 @@ from lxml import html
 
 import cProfile
 
-nodes = multiprocessing.Manager().dict()
-links = multiprocessing.Queue()
-tasks = multiprocessing.Manager().list()
-
-lock = multiprocessing.Lock()
-
-percent = 0.0
-
-group1 = 0
-group2 = 0
-
-indices = 0
-
-AMOUNT_OF_PROCESS = multiprocessing.cpu_count() * 5
-
 HOST = "https://mobile.twitter.com"
 
 HOMEPAGES_URL = HOST + "/%s"
@@ -151,7 +136,7 @@ def is_valid(name, requester):
 
         return False
 #@profile
-def worker(login, depth, requester):
+def worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, group2, indices):
 
     while 1:
 
@@ -254,6 +239,21 @@ def profiler(login, depth, requester):
 
 def start(login, depth):
 
+    nodes = multiprocessing.Manager().dict()
+    links = multiprocessing.Queue()
+    tasks = multiprocessing.Manager().list()
+
+    lock = multiprocessing.Lock()
+
+    percent = 0.0
+
+    group1 = 0
+    group2 = 0
+
+    indices = 0
+
+    AMOUNT_OF_PROCESS = multiprocessing.cpu_count() * 5
+
     node = {"name":login, "group":0}
 
     nodes[node] = indices; indices+=1
@@ -289,7 +289,7 @@ def start(login, depth):
 
     for i in xrange(AMOUNT_OF_PROCESS):
 
-        process[i] = multiprocessing.Process(target=worker, args=(login, depth, requests[i]))
+        process[i] = multiprocessing.Process(target=worker, args=(login, depth, requests[i], nodes, links, tasks, lock, percent, group1, group2, indices))
 
         process[i].start()
 
