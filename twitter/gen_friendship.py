@@ -222,6 +222,10 @@ def worker(login, depth, requester, nodes, links, tasks, lock, percent, group1, 
 
                     else:
 
+                        if group == 2:
+
+                            continue
+
                         tmpu = (user, group + 1)
 
                         lock.acquire()
