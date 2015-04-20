@@ -20,7 +20,8 @@ def relevance_chi_square(coll, text):
         entity_type = entity['type']
 
         exile_words = stopwords.words('english')
-        exile_words.append(entity_word) # entity itself need not execute relevance
+        # entity itself need not execute relevance
+        exile_words.append(entity_word.lowe()) 
         exile_puncs = ['!', '"', '#', '$', '%', '&', '\'','(', ')', '*', '+',
                        ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', 
                        '[', '\\',']', '^', '_', '`', '{', '|', '}', '~', '...']
@@ -73,7 +74,7 @@ if __name__ == '__main__':
 
     sample = twcoll.find_one({'username':'@Pat_M514'})
 
-    tweets = sample['texts'][90:110]
+    tweets = sample['texts'][1500:1520]
 
     for tweet in tweets:
 
