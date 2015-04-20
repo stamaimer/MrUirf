@@ -14,6 +14,8 @@ def relevance_chi_square(coll, text):
 
     for entity in entities:
 
+        print entity
+
         entity_word = entity['word']
         entity_type = entity['type']
 
@@ -57,7 +59,6 @@ def relevance_chi_square(coll, text):
                      {'n':n01, 'e':e01}, {'n':n00, 'e':e00}] 
             for pair in pairs: X2 += ((pair['n'] - pair['e']) ** 2) / pair['e']
 
-            print entity
             # if X2 value greater than or equal to 10.83
             # means the relevance rate of entity and token is greater than 0.999
             if X2 >= 10.83: print token, X2
