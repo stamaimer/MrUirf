@@ -246,8 +246,8 @@ def profiler(login, depth, requester):
 def start(login, depth):
 
     nodes = multiprocessing.Manager().dict()
-    links = multiprocessing.Queue()
-    tasks = multiprocessing.Manager().list()
+    tasks = multiprocessing.Queue()
+    links = multiprocessing.Manager().list()
 
     lock = multiprocessing.Lock()
 
