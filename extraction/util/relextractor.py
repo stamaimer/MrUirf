@@ -76,4 +76,4 @@ if __name__ == '__main__':
 
     for tweet in tweets:
 
-        relevance_chi_square(twcoll, sample['texts'][101])
+        relevance_chi_square(twcoll, tweet)
