@@ -150,7 +150,7 @@ def is_valid(name, requester):
     else:
 
         return False
-@profile
+#@profile
 def worker(login, depth, requester):
 
     while 1:
