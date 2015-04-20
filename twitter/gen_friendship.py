@@ -13,9 +13,9 @@ from lxml import html
 
 import cProfile
 
-nodes = multiprocessing.Manager().list()
+nodes = multiprocessing.Manager().dict()
 links = multiprocessing.Queue()
-tasks = multiprocessing.Queue()
+tasks = multiprocessing.Manager().list()
 
 lock = multiprocessing.Lock()
 
@@ -24,7 +24,9 @@ percent = 0.0
 group1 = 0
 group2 = 0
 
-AMOUNT_OF_PROCESS = multiprocessing.cpu_count() * 4
+indices = 0
+
+AMOUNT_OF_PROCESS = multiprocessing.cpu_count() * 5
 
 HOST = "https://mobile.twitter.com"
 
@@ -62,14 +64,6 @@ def retrieve(url, requester):
         except :
 
             raise
-
-def find_by_name(name):
-
-    for index, node in enumerate(nodes):
-
-        if node["name"] == name:
-
-            return index
 
 def parse(tree, xpath):
 
@@ -183,7 +177,7 @@ def worker(login, depth, requester):
 
         else:
 
-            # lock.acquire()
+            lock.acquire()
 
             global percent, group1, group2
 
@@ -209,7 +203,7 @@ def worker(login, depth, requester):
 
             print "%s is serving %s,\t\t group : %d,\t\t percent : %f" % (multiprocessing.current_process().name, name, group, percent)
 
-            # lock.release()
+            lock.release()
 
             if is_valid(name, requester):
 
@@ -218,29 +212,37 @@ def worker(login, depth, requester):
 
                 intersection = set(following).intersection(followers)
 
-                #gc.disable()
-
                 for user in intersection:
 
-                    indices = find_by_name(user)
+                    for i in xrange(group + 1):
 
-                    if indices:
+                        tmpu = {"name":user, "group":i}
 
-                        links.put({"source":node["index"], "target":indices})
+                        try:
 
-                        continue
+                            exist = nodes[tmpu]
+
+                            links.append({"source":nodes[node], "target":nodes[tmpu]})
+
+                            break
+
+                        except KeyError:
+
+                            continue
 
                     else:
 
-                        tmpu = {"name":user, "group":group + 1, "index":len(nodes)}
+                        tmpu = {"name":user, "group":group + 1}
 
-                        nodes.append(tmpu)
+                        lock.acquire()
+
+                        nodes[tmpu] = indices; indices+=1
+
+                        lock.release()
 
                         tasks.put(tmpu)
 
-                        links.put({"source":node["index"], "target":tmpu["index"]})
-
-                #gc.enable()
+                        links.append({"source":nodes[node], "target":nodes[tmpu]})
 
             else:
 
@@ -252,9 +254,9 @@ def profiler(login, depth, requester):
 
 def start(login, depth):
 
-    node = {"name":login, "group":0, "index":0}
+    node = {"name":login, "group":0}
 
-    nodes.append(node)
+    nodes[node] = indices; indices+=1
 
     requester = session.get_session()
 
@@ -267,13 +269,13 @@ def start(login, depth):
 
         for user in intersection:
 
-            tmpu = {"name":user, "group":1, "index":len(nodes)}
+            tmpu = {"name":user, "group":1}
 
-            nodes.append(tmpu)
+            nodes[tmpu] = indices; indices+=1
 
             tasks.put(tmpu)
 
-            links.put({"source":node["index"], "target":tmpu["index"]})
+            links.append({"source":nodes[node], "target":nodes[tmpu]})
 
     else:
 
@@ -281,25 +283,25 @@ def start(login, depth):
 
         sys.exit(0)
 
-    # requests = [ session.get_session() for i in xrange(AMOUNT_OF_PROCESS) ]
+    requests = [ session.get_session() for i in xrange(AMOUNT_OF_PROCESS) ]
 
-    # process = [ None for i in xrange(AMOUNT_OF_PROCESS) ]
+    process = [ None for i in xrange(AMOUNT_OF_PROCESS) ]
 
-    # for i in xrange(AMOUNT_OF_PROCESS):
+    for i in xrange(AMOUNT_OF_PROCESS):
 
-    #     process[i] = multiprocessing.Process(target=worker, args=(login, depth, requests[i]))
+        process[i] = multiprocessing.Process(target=worker, args=(login, depth, requests[i]))
 
-    #     process[i].start()
+        process[i].start()
 
-    # for i in xrange(AMOUNT_OF_PROCESS):
+    for i in xrange(AMOUNT_OF_PROCESS):
 
-    #     process[i].join()
+        process[i].join()
 
-    worker(login, depth, requester)
+    # worker(login, depth, requester)
 
     print "generate graph ..."
 
-    data = {"nodes":[node for node in nodes], "links":[link for link in links]}
+    data = {"nodes":[node for node in nodes], "links":[link for link in links]}#
 
     with open(login + "_twitter.json", 'w') as outfile:
 
