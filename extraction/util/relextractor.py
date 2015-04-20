@@ -7,7 +7,10 @@ def relevance_chi_square(coll, text):
 
     flag     = text['flag']
     tokens   = text['tokens']
+    content  = text['content']
     entities = text['entity']
+    print '-'*60
+    print content
 
     for entity in entities:
 
@@ -16,9 +19,13 @@ def relevance_chi_square(coll, text):
 
         exile_words = stopwords.words('english')
         exile_words.append(entity_word) # entity itself need not execute relevance
+        exile_puncs = ['!', '"', '#', '$', '%', '&', '\'','(', ')', '*', '+',
+                       ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', 
+                       '[', '\\',']', '^', '_', '`', '{', '|', '}', '~', '...']
+        exile_words = exile_words + exile_puncs
 
         # calculate the relevance scores of every word and the entity
-        for token in [t for t in tokens if t not in exile_words]:
+        for token in [t for t in tokens if t.lower() not in exile_words]:
             n11 = 0.0   # token hit     |   type hit
             n10 = 0.0   # token hit     |   type not hit
             n01 = 0.0   # token not hit |   type hit
@@ -50,16 +57,23 @@ def relevance_chi_square(coll, text):
                      {'n':n01, 'e':e01}, {'n':n00, 'e':e00}] 
             for pair in pairs: X2 += ((pair['n'] - pair['e']) ** 2) / pair['e']
 
+            print entity
+            # if X2 value greater than or equal to 10.83
+            # means the relevance rate of entity and token is greater than 0.999
             if X2 >= 10.83: print token, X2
 
-    return flag, tokens, entity
+    return
 
 if __name__ == '__main__':
 
     client = MongoClient('mongodb://localhost:27017/')
 
-    tweets = client.msif.twitter_tweets
+    twcoll = client.msif.twitter_tweets
 
-    sample = tweets.find_one({'username':'@Pat_M514'})
+    sample = twcoll.find_one({'username':'@Pat_M514'})
 
-    print relevance_chi_square(tweets, sample['texts'][100])
+    tweets = sample['texts'][90:110]
+
+    for tweet in tweets:
+
+        relevance_chi_square(twcoll, sample['texts'][101])
