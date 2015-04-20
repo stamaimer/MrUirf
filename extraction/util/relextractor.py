@@ -9,12 +9,12 @@ def relevance_chi_square(coll, text):
     tokens   = text['tokens']
     content  = text['content']
     entities = text['entity']
-    print '-'*60
-    print content
+    print "STAT: %s" % ('-'*60)
+    print "STAT: Tweet: %s" % " ".join(content.encode('utf8').split('\n'))
 
     for entity in entities:
 
-        print entity
+        print "STAT: Entity: %s" % str(entity)
 
         entity_word = entity['word']
         entity_type = entity['type']
@@ -58,11 +58,13 @@ def relevance_chi_square(coll, text):
 
             pairs = [{'n':n11, 'e':e11}, {'n':n10, 'e':e10},
                      {'n':n01, 'e':e01}, {'n':n00, 'e':e00}] 
-            for pair in pairs: X2 += ((pair['n'] - pair['e']) ** 2) / pair['e']
+            for pair in[pair for pair in pairs if pair['e'] == 0]: 
+                X2 += ((pair['n'] - pair['e']) ** 2) / pair['e']
 
             # if X2 value greater than or equal to 10.83
             # means the relevance rate of entity and token is greater than 0.999
-            if X2 >= 10.83: print token, X2
+            if X2 >= 10.83: print "STAT: Relevance: %s, \tX2: %s" \
+                                    % (token.encode('utf8'), X2)
 
     return
 
@@ -74,7 +76,7 @@ if __name__ == '__main__':
 
     sample = twcoll.find_one({'username':'@Pat_M514'})
 
-    tweets = sample['texts'][1500:1520]
+    tweets = sample['texts'][2000:2020]
 
     for tweet in tweets:
 
