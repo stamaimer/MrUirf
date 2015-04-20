@@ -13,4 +13,14 @@ if __name__ == '__main__':
 
     tweets = client.msif.twitter_tweets
 
-    sample = tweets.find({})
+    #sample = tweets.find({})
+
+    all = tweets.find()
+
+    sample = all[50]
+
+    name = sample['username']
+    texts = sample['texts']
+
+    print name
+    print len(texts)
