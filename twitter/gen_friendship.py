@@ -269,7 +269,7 @@ def start(login, depth):
 
         print node
 
-    data = {"nodes":[{"name":node[0], "group":node[1]} for node in dict(nodes).iteritems()], "links":[link for link in links]}
+    data = {"nodes":[{"name":node[0][0], "group":node[0][1]} for node in dict(nodes).iteritems()], "links":[link for link in links]}
 
     with open(login + "_twitter.json", 'w') as outfile:
 
