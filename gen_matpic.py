@@ -18,11 +18,13 @@ def foo(path, name):
     nodes = data["nodes"]
     links = data["links"]
 
-    for link in links[:]:
+    if name == "github":
 
-        if {"source":link["target"], "target":link["source"]} not in links:
+        for link in links[:]:
 
-            links.remove(link)
+            if {"source":link["target"], "target":link["source"]} not in links:
+
+                links.remove(link)
 
     graph = json_graph.node_link_graph({"nodes":nodes, "links":links}, directed=False, multigraph=False)
 
