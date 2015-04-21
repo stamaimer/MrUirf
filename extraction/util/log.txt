@@ -5,3 +5,1605 @@ STAT: Relevance: Sales, 	X2: 51.5176548573
 STAT: Relevance: Manager, 	X2: 435.58347804
 STAT: Relevance: #job, 	X2: 222.908157122
 STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'India'}
+STAT: Relevance: Unity, 	X2: 120.382705561
+STAT: Relevance: Sales, 	X2: 31.8326569232
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Unity'}
+STAT: Relevance: Sales, 	X2: 31.8326569232
+STAT: Relevance: India, 	X2: 64.7669234074
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Technologies'}
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: Sales, 	X2: 51.5176548573
+STAT: Relevance: Manager, 	X2: 435.58347804
+STAT: Relevance: #job, 	X2: 222.908157122
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Sales'}
+STAT: Relevance: Unity, 	X2: 208.484477224
+STAT: Relevance: Technologies, 	X2: 26.9008803629
+STAT: Relevance: Manager, 	X2: 30.2086842622
+STAT: Relevance: #job, 	X2: 23.3312256407
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          John Belushi, Dan Aykroyd y Carrie Fisher en el set de 'Granujas a todo ritmo' (The Blues Brothers) pic.twitter.com/LsVJxSpxbh      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'John Belushi'}
+STAT: Relevance: y, 	X2: 75.4793579683
+STAT: Relevance: en, 	X2: 555.719090396
+STAT: Relevance: el, 	X2: 94.2695372405
+STAT: Relevance: set, 	X2: 34.0807905169
+STAT: Relevance: de, 	X2: 460.670506941
+STAT: Relevance: todo, 	X2: 60.6592366431
+STAT: Relevance: Blues, 	X2: 14.5492626831
+STAT: Relevance: Brothers, 	X2: 11.070592568
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Dan Aykroyd'}
+STAT: Relevance: John, 	X2: 164.47599916
+STAT: Relevance: y, 	X2: 75.4793579683
+STAT: Relevance: en, 	X2: 555.719090396
+STAT: Relevance: el, 	X2: 94.2695372405
+STAT: Relevance: set, 	X2: 34.0807905169
+STAT: Relevance: de, 	X2: 460.670506941
+STAT: Relevance: todo, 	X2: 60.6592366431
+STAT: Relevance: Blues, 	X2: 14.5492626831
+STAT: Relevance: Brothers, 	X2: 11.070592568
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Carrie Fisher'}
+STAT: Relevance: John, 	X2: 164.47599916
+STAT: Relevance: y, 	X2: 75.4793579683
+STAT: Relevance: en, 	X2: 555.719090396
+STAT: Relevance: el, 	X2: 94.2695372405
+STAT: Relevance: set, 	X2: 34.0807905169
+STAT: Relevance: de, 	X2: 460.670506941
+STAT: Relevance: todo, 	X2: 60.6592366431
+STAT: Relevance: Blues, 	X2: 14.5492626831
+STAT: Relevance: Brothers, 	X2: 11.070592568
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Granujas'}
+STAT: Relevance: John, 	X2: 164.47599916
+STAT: Relevance: y, 	X2: 75.4793579683
+STAT: Relevance: en, 	X2: 555.719090396
+STAT: Relevance: el, 	X2: 94.2695372405
+STAT: Relevance: set, 	X2: 34.0807905169
+STAT: Relevance: de, 	X2: 460.670506941
+STAT: Relevance: todo, 	X2: 60.6592366431
+STAT: Relevance: Blues, 	X2: 14.5492626831
+STAT: Relevance: Brothers, 	X2: 11.070592568
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Blues Brothers'}
+STAT: Relevance: y, 	X2: 50.2241369497
+STAT: Relevance: el, 	X2: 33.8269239477
+STAT: Relevance: de, 	X2: 21.7741380586
+STAT: Relevance: a, 	X2: 68.2720318904
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'John'}
+STAT: Relevance: y, 	X2: 75.4793579683
+STAT: Relevance: en, 	X2: 555.719090396
+STAT: Relevance: el, 	X2: 94.2695372405
+STAT: Relevance: set, 	X2: 34.0807905169
+STAT: Relevance: de, 	X2: 460.670506941
+STAT: Relevance: todo, 	X2: 60.6592366431
+STAT: Relevance: Blues, 	X2: 14.5492626831
+STAT: Relevance: Brothers, 	X2: 11.070592568
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Dan'}
+STAT: Relevance: John, 	X2: 164.47599916
+STAT: Relevance: y, 	X2: 75.4793579683
+STAT: Relevance: en, 	X2: 555.719090396
+STAT: Relevance: el, 	X2: 94.2695372405
+STAT: Relevance: set, 	X2: 34.0807905169
+STAT: Relevance: de, 	X2: 460.670506941
+STAT: Relevance: todo, 	X2: 60.6592366431
+STAT: Relevance: Blues, 	X2: 14.5492626831
+STAT: Relevance: Brothers, 	X2: 11.070592568
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Carrie'}
+STAT: Relevance: John, 	X2: 164.47599916
+STAT: Relevance: y, 	X2: 75.4793579683
+STAT: Relevance: en, 	X2: 555.719090396
+STAT: Relevance: el, 	X2: 94.2695372405
+STAT: Relevance: set, 	X2: 34.0807905169
+STAT: Relevance: de, 	X2: 460.670506941
+STAT: Relevance: todo, 	X2: 60.6592366431
+STAT: Relevance: Blues, 	X2: 14.5492626831
+STAT: Relevance: Brothers, 	X2: 11.070592568
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Blues'}
+STAT: Relevance: y, 	X2: 50.2241369497
+STAT: Relevance: el, 	X2: 33.8269239477
+STAT: Relevance: de, 	X2: 21.7741380586
+STAT: Relevance: a, 	X2: 68.2720318904
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @BuckRuckman @Activision I mean a real one!      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Dear @Activision .. Interstate 76 HD remake please?...      
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Dear'}
+STAT: Relevance: .., 	X2: 43.0207966218
+STAT: Relevance: HD, 	X2: 259.160641353
+STAT: Relevance: ?..., 	X2: 140.410819534
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          We talk Unity Networking with @UnityGames bit.ly/1NDaIrr #madewithunity youtu.be/QOjOygsj4lo #GameDev #IndieDev      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Unity Networking with @UnityGames'}
+STAT: Relevance: #madewithunity, 	X2: 261.474383635
+STAT: Relevance: #GameDev, 	X2: 49.1989688186
+STAT: Relevance: #IndieDev, 	X2: 70.8569089045
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Unity'}
+STAT: Relevance: #madewithunity, 	X2: 74.8324849435
+STAT: Relevance: #GameDev, 	X2: 790.096827275
+STAT: Relevance: #IndieDev, 	X2: 515.087699511
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Working on touch input for iOS game. I'll post the code on my blog later #madewithunity #unity3d #indiedev pic.twitter.com/lTTJEPrRUs      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'iOS'}
+STAT: Relevance: game, 	X2: 245.778852234
+STAT: Relevance: post, 	X2: 136.169327811
+STAT: Relevance: code, 	X2: 58.823353165
+STAT: Relevance: #madewithunity, 	X2: 261.474383635
+STAT: Relevance: #indiedev, 	X2: 70.8569089045
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          In case you've missed the Announcement Trailer for Shooting Stars (@bloodirony) youtube.com/watch?v=l8osxj… #gamedev #indiegame #madewithunity      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Shooting Stars'}
+STAT: Relevance: Trailer, 	X2: 292.501407834
+STAT: Relevance: …, 	X2: 3399.70447966
+STAT: Relevance: #gamedev, 	X2: 49.1989688186
+STAT: Relevance: #madewithunity, 	X2: 261.474383635
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Announcement'}
+STAT: Relevance: Trailer, 	X2: 292.501407834
+STAT: Relevance: …, 	X2: 3399.70447966
+STAT: Relevance: #gamedev, 	X2: 49.1989688186
+STAT: Relevance: #madewithunity, 	X2: 261.474383635
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Shooting'}
+STAT: Relevance: Trailer, 	X2: 292.501407834
+STAT: Relevance: …, 	X2: 3399.70447966
+STAT: Relevance: #gamedev, 	X2: 49.1989688186
+STAT: Relevance: #madewithunity, 	X2: 261.474383635
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Macho loco is a Runner game with some unique jumping physics, in a lucha libre theme. coming soon. #madewithunity pic.twitter.com/Ua9MvpqqIt      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Macho'}
+STAT: Relevance: Runner, 	X2: 13.4390203888
+STAT: Relevance: game, 	X2: 293.96036733
+STAT: Relevance: unique, 	X2: 31.1530534825
+STAT: Relevance: physic, 	X2: 18.9306291541
+STAT: Relevance: #madewithunity, 	X2: 74.8324849435
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Runner'}
+STAT: Relevance: game, 	X2: 213.870421486
+STAT: Relevance: lucha, 	X2: 25.8485382595
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Monster Mingle was proudly made for kids with #unity3d #madewithunity @unity3d : youtube.com/watch?v=zNbHD_… pic.twitter.com/AnI86C45Eb      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Monster'}
+STAT: Relevance: wa, 	X2: 17.0617677089
+STAT: Relevance: kid, 	X2: 19.8738350895
+STAT: Relevance: #unity3d, 	X2: 413.516567167
+STAT: Relevance: #madewithunity, 	X2: 74.8324849435
+STAT: Relevance: @unity3d, 	X2: 128.015951828
+STAT: Relevance: …, 	X2: 118.581328116
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Mingle'}
+STAT: Relevance: wa, 	X2: 91.1660996956
+STAT: Relevance: kid, 	X2: 27.5163159602
+STAT: Relevance: #madewithunity, 	X2: 261.474383635
+STAT: Relevance: @unity3d, 	X2: 116.295751735
+STAT: Relevance: …, 	X2: 3399.70447966
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          In just a few weeks we'll be showing off Spacebro Justice Rocket at @TheBitBazaar! #madewithunity #gamedev #indiedev youtu.be/eWdyyEE15S0      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Spacebro Justice Rocket'}
+STAT: Relevance: #madewithunity, 	X2: 74.8324849435
+STAT: Relevance: #gamedev, 	X2: 790.096827275
+STAT: Relevance: #indiedev, 	X2: 515.087699511
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'#indiedev'}
+STAT: Relevance: Justice, 	X2: 28.1741048669
+STAT: Relevance: #madewithunity, 	X2: 74.8324849435
+STAT: Relevance: #gamedev, 	X2: 790.096827275
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Spacebro'}
+STAT: Relevance: a, 	X2: 68.2720318904
+STAT: Relevance: week, 	X2: 14.7750683662
+STAT: Relevance: #madewithunity, 	X2: 261.474383635
+STAT: Relevance: #gamedev, 	X2: 49.1989688186
+STAT: Relevance: #indiedev, 	X2: 70.8569089045
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          #madewithunity: The Trace, an intriguing iOS Murder mystery puzzle game from Relentless Software: youtube.com/watch?t=21&v=X… #Unity5      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Trace'}
+STAT: Relevance: #madewithunity, 	X2: 261.474383635
+STAT: Relevance: game, 	X2: 245.778852234
+STAT: Relevance: Software, 	X2: 232.454946208
+STAT: Relevance: …, 	X2: 3399.70447966
+STAT: Relevance: #Unity5, 	X2: 12.0454555759
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'iOS'}
+STAT: Relevance: #madewithunity, 	X2: 261.474383635
+STAT: Relevance: game, 	X2: 245.778852234
+STAT: Relevance: Software, 	X2: 232.454946208
+STAT: Relevance: …, 	X2: 3399.70447966
+STAT: Relevance: #Unity5, 	X2: 12.0454555759
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Relentless'}
+STAT: Relevance: #madewithunity, 	X2: 261.474383635
+STAT: Relevance: game, 	X2: 245.778852234
+STAT: Relevance: Software, 	X2: 232.454946208
+STAT: Relevance: …, 	X2: 3399.70447966
+STAT: Relevance: #Unity5, 	X2: 12.0454555759
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          geodata driven. audioreactive. this is vienna. well, a district of it. #madewithunity #realtime #wip pic.twitter.com/smnubEWTHV      
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'vienna'}
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          More noodling in Unity 5. Inspired by Micheal Bay maybe? IDK. #gamedev #madewithunity pic.twitter.com/uCHKBPZyWx      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'IDK'}
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: 5, 	X2: 14.7600260901
+STAT: Relevance: Inspired, 	X2: 44.5693026267
+STAT: Relevance: #gamedev, 	X2: 49.1989688186
+STAT: Relevance: #madewithunity, 	X2: 261.474383635
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Micheal'}
+STAT: Relevance: Unity, 	X2: 208.484477224
+STAT: Relevance: 5, 	X2: 25.1806907212
+STAT: Relevance: Bay, 	X2: 19.9025678851
+STAT: Relevance: #gamedev, 	X2: 790.096827275
+STAT: Relevance: #madewithunity, 	X2: 74.8324849435
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Early morning noodle, because everything needs more - Spaceships - Lasers - Lens flares Right? Right? #madewithunity pic.twitter.com/dIOQeXThO3      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Lens'}
+STAT: Relevance: morning, 	X2: 82.3572101726
+STAT: Relevance: #madewithunity, 	X2: 261.474383635
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Spaceships'}
+STAT: Relevance: morning, 	X2: 50.8696651505
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Lasers'}
+STAT: Relevance: morning, 	X2: 50.8696651505
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Lens'}
+STAT: Relevance: morning, 	X2: 50.8696651505
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Coming Soon: Make your own music with Cadence! Get your hands on it via noodlestarter.com :D #madewithunity pic.twitter.com/Qi4VYrf6VM      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Cadence'}
+STAT: Relevance: hand, 	X2: 28.3344024989
+STAT: Relevance: :D, 	X2: 289.575653758
+STAT: Relevance: #madewithunity, 	X2: 261.474383635
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Cadence'}
+STAT: Relevance: music, 	X2: 199.615832544
+STAT: Relevance: :D, 	X2: 79.5249292456
+STAT: Relevance: #madewithunity, 	X2: 74.8324849435
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @VICEUK bill murray does that? that's crazy. what a guy.      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Another digital painting demo. NeoTokyo in the rain. pic.twitter.com/HbLjloxL8a      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'NeoTokyo'}
+STAT: Relevance: demo, 	X2: 143.552912858
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          I love how all our reactions to the Star Wars trailer are those of a cautious, feral animal who fears human touch, yet yearns to love again.      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Star'}
+STAT: Relevance: I, 	X2: 562.151934094
+STAT: Relevance: love, 	X2: 53.1137803357
+STAT: Relevance: Wars, 	X2: 34.3572178631
+STAT: Relevance: trailer, 	X2: 292.501407834
+STAT: Relevance: a, 	X2: 68.2720318904
+STAT: Relevance: human, 	X2: 11.3041394531
+STAT: Relevance: love, 	X2: 53.1137803357
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Not to be a dick but remember what happened last time Han & Chewie went home pic.twitter.com/hnkl49EFXg      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Han & Chewie'}
+STAT: Relevance: remember, 	X2: 32.2857488008
+STAT: Relevance: happened, 	X2: 12.8943726413
+STAT: Relevance: home, 	X2: 20.1759974754
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Han'}
+STAT: Relevance: remember, 	X2: 32.2857488008
+STAT: Relevance: happened, 	X2: 12.8943726413
+STAT: Relevance: home, 	X2: 20.1759974754
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Chewie'}
+STAT: Relevance: remember, 	X2: 32.2857488008
+STAT: Relevance: happened, 	X2: 12.8943726413
+STAT: Relevance: Han, 	X2: 32.1230549004
+STAT: Relevance: home, 	X2: 20.1759974754
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          RT @T_h_o_m_a_s_A: 30 Famous Logos That Have A Hidden Message j.mp/1FNVruv #design pic.twitter.com/8PWp9sMDoX      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Logos'}
+STAT: Relevance: #design, 	X2: 26.8659225794
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Hidden'}
+STAT: Relevance: Logos, 	X2: 32.2646375085
+STAT: Relevance: A, 	X2: 68.2720318904
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          USB-powered 1541 floppy drive! Backing up all the games and code I wrote when I was a kid. pic.twitter.com/2tP8a0GGRX      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @Andromeda_3d @yezzer @UnityAssetStore ;)      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'@UnityAssetStore ;)'}
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          The @indieroyale Insulin Bundle Is Live! - indiekings.com/p/bundle-track… (@Desura @steam_games #gamedev #indiegame #bundle) pic.twitter.com/ryXcPpr3XK      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'indiekings.com/p/bundle-track \u2026'}
+STAT: Relevance: #gamedev, 	X2: 49.1989688186
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Insulin'}
+STAT: Relevance: …, 	X2: 118.581328116
+STAT: Relevance: #gamedev, 	X2: 790.096827275
+STAT: Relevance: #indiegame, 	X2: 26.2708013075
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Unity Technologies is looking for: Business Development Director, Unity Ads (Japan) hire.jobvite.com/m?3qlTdhwD #job      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Unity Technologies'}
+STAT: Relevance: Business, 	X2: 198.036732271
+STAT: Relevance: Development, 	X2: 47.3646770679
+STAT: Relevance: Japan, 	X2: 26.9171005896
+STAT: Relevance: #job, 	X2: 222.908157122
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Japan'}
+STAT: Relevance: Unity, 	X2: 120.382705561
+STAT: Relevance: Business, 	X2: 522.794944362
+STAT: Relevance: Unity, 	X2: 120.382705561
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Unity'}
+STAT: Relevance: Business, 	X2: 522.794944362
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Technologies'}
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: Business, 	X2: 198.036732271
+STAT: Relevance: Development, 	X2: 47.3646770679
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: Japan, 	X2: 26.9171005896
+STAT: Relevance: #job, 	X2: 222.908157122
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Unity'}
+STAT: Relevance: Technologies, 	X2: 26.9008803629
+STAT: Relevance: Business, 	X2: 526.12056346
+STAT: Relevance: Development, 	X2: 26.6792542617
+STAT: Relevance: Director, 	X2: 11.6446453645
+STAT: Relevance: Ads, 	X2: 13.3226837252
+STAT: Relevance: Japan, 	X2: 12.7975182281
+STAT: Relevance: #job, 	X2: 23.3312256407
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Also hey, so TITAN SOULS from @acidnerve is out today and it's pretty freakin cool! devolverdigital.com/games/view/tit… #crossbuy      
+STAT: Entity: {u'relevance': [], u'type': u'MISC', u'word': u'TITAN'}
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'TITAN'}
+STAT: Relevance: hey, 	X2: 22.8062597543
+STAT: Relevance: today, 	X2: 84.7138434522
+STAT: Relevance: pretty, 	X2: 16.6373915341
+STAT: Relevance: freakin, 	X2: 24.9944624212
+STAT: Relevance: cool, 	X2: 23.1095464482
+STAT: Relevance: …, 	X2: 3399.70447966
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @hownottodraw I don't know how to break this to you.. it's a thermometer.. soo..      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          #C3PO #Stormtrooper #BB8 just testing. had to be sure.      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @Nick_Scarpino in case you missed it.. youtube.com/watch?v=ZTidn2…      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Those @Disney guys must feel pretty silly putting their movie trailer up against #KungFury today, yikes. youtube.com/watch?v=ZTidn2…      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Sound the alarms THE STAR WARS TRAILER IS UP!      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'THE'}
+STAT: Relevance: STAR, 	X2: 39.5425883334
+STAT: Relevance: WARS, 	X2: 34.3572178631
+STAT: Relevance: TRAILER, 	X2: 292.501407834
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'STAR'}
+STAT: Relevance: WARS, 	X2: 34.3572178631
+STAT: Relevance: TRAILER, 	X2: 292.501407834
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          I played almost an hour of Everybody's Gone to the Rapture. It's sad and beautiful and terrifying. gamespot.com/articles/every…      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Rapture'}
+STAT: Relevance: I, 	X2: 562.151934094
+STAT: Relevance: played, 	X2: 13.2558801153
+STAT: Relevance: …, 	X2: 3399.70447966
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @TimeOutFilm @empiremagazine @jabble ?      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'@TimeOutFilm @empiremagazine'}
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          So it begins. @laserunicorns starts to break the internet. #KUNGFURY youtube.com/watch?v=ZTidn2…      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @tha_rami @ChristinaCoffin @arabictype much appreciated Rami! aaaand i've just realised who you are.. your games are awesome thanks!      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'@tha_rami @ChristinaCoffin'}
+STAT: Relevance: appreciated, 	X2: 35.8534437171
+STAT: Relevance: game, 	X2: 245.778852234
+STAT: Relevance: awesome, 	X2: 12.1758689875
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Rami'}
+STAT: Relevance: appreciated, 	X2: 51.8296455582
+STAT: Relevance: .., 	X2: 94.9171184353
+STAT: Relevance: game, 	X2: 293.96036733
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @MoatyX no just recreating our greetings on the Getting Started video in Unity for version 5.1.      
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Unity'}
+STAT: Relevance: Started, 	X2: 15.3264503568
+STAT: Relevance: video, 	X2: 72.4365441154
+STAT: Relevance: version, 	X2: 110.700457873
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @on_code @tha_rami thanks Laurent!      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Laurent'}
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @digibawb cheers Gordon!      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Gordon'}
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Ok thanks for the advice, I'm told this makes sense, thanks all! you rock. gyazo.com/c456c61d9528e6…      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Ok'}
+STAT: Relevance: told, 	X2: 12.5238870877
+STAT: Relevance: rock, 	X2: 115.323520446
+STAT: Relevance: …, 	X2: 118.581328116
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u"I'm"}
+STAT: Relevance: told, 	X2: 12.5238870877
+STAT: Relevance: rock, 	X2: 115.323520446
+STAT: Relevance: …, 	X2: 118.581328116
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @ChristinaCoffin @tha_rami thanks Christina, that's the second recommendation! appreciated.      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'@ChristinaCoffin @tha_rami'}
+STAT: Relevance: appreciated, 	X2: 51.8296455582
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Christina'}
+STAT: Relevance: appreciated, 	X2: 51.8296455582
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Christina'}
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @digibawb @rustumscammell this is in after effects, so trying other fonts. Google has this, thoughts? gyazo.com/e27ef58f6d9a7d…      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Google'}
+STAT: Relevance: ha, 	X2: 23.5149483674
+STAT: Relevance: …, 	X2: 3399.70447966
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Google'}
+STAT: Relevance: ha, 	X2: 37.9898085326
+STAT: Relevance: thought, 	X2: 17.3683303571
+STAT: Relevance: …, 	X2: 118.581328116
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Unity Technologies is looking for: Business Development Director, Unity Ads (Other APAC) hire.jobvite.com/m?3VuMdhwa #job      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Unity Technologies'}
+STAT: Relevance: Business, 	X2: 198.036732271
+STAT: Relevance: Development, 	X2: 47.3646770679
+STAT: Relevance: #job, 	X2: 222.908157122
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'APAC'}
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: Technologies, 	X2: 241.190970861
+STAT: Relevance: Business, 	X2: 198.036732271
+STAT: Relevance: Development, 	X2: 47.3646770679
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: #job, 	X2: 222.908157122
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Unity'}
+STAT: Relevance: Business, 	X2: 522.794944362
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Technologies'}
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: Business, 	X2: 198.036732271
+STAT: Relevance: Development, 	X2: 47.3646770679
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: #job, 	X2: 222.908157122
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Unity'}
+STAT: Relevance: Technologies, 	X2: 26.9008803629
+STAT: Relevance: Business, 	X2: 526.12056346
+STAT: Relevance: Development, 	X2: 26.6792542617
+STAT: Relevance: Director, 	X2: 11.6446453645
+STAT: Relevance: Ads, 	X2: 13.3226837252
+STAT: Relevance: #job, 	X2: 23.3312256407
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @rustumscammell hey! thanks - can you potentially recommend a font that works?      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Any arabic readers able to help me? just need to know if this font makes sense? this should just be a simple hello gyazo.com/cf954faad01880…      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @Andromeda_3d then i'd encourage you to continue the dialogue we started via email already just before GDC to explain what steps you took.      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'GDC'}
+STAT: Relevance: started, 	X2: 33.045331367
+STAT: Relevance: step, 	X2: 34.5800535059
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @Andromeda_3d ..judgement on your appropriateness for being featured whatsoever, but I want to assure you that no harm was meant there.      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @Andromeda_3d ..trailer by my team, but even if they did it's still up to their discretion to pick content - not mine. I'm not making a..      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u"I'm"}
+STAT: Relevance: .., 	X2: 94.9171184353
+STAT: Relevance: team, 	X2: 13.3083632235
+STAT: Relevance: pick, 	X2: 14.9471515502
+STAT: Relevance: content, 	X2: 181.748204164
+STAT: Relevance: .., 	X2: 94.9171184353
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @Andromeda_3d ..and those themes feature a lot of users at once. Our asset store team may not have awareness of your featuring in our..      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @Andromeda_3d I can guarantee you no one is giving any fingers. We don't seek to marginalise or snub any of our contributors. We've themes..      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @Andromeda_3d I'm unfamiliar with your exchanges with store team but can you clarify-are you equating not being featured with being snubbed?      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u"@Andromeda_3d I'm"}
+STAT: Relevance: store, 	X2: 10.9809813781
+STAT: Relevance: team, 	X2: 15.2038154576
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @Andromeda_3d @AntonVertex @yezzer I would agree the numbers are lower than views of the content, yes. However I'm not sure which aspect..      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u"I'm"}
+STAT: Relevance: I, 	X2: 562.151934094
+STAT: Relevance: agree, 	X2: 23.5328063867
+STAT: Relevance: view, 	X2: 225.155805888
+STAT: Relevance: content, 	X2: 31.070180203
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          I decided to get a little creative in the hotel room…  #StarWarsCelebration pic.twitter.com/0tXPzlZAP4      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'\u2026 #StarWarsCelebration'}
+STAT: Relevance: I, 	X2: 562.151934094
+STAT: Relevance: a, 	X2: 68.2720318904
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          YaaaaaaaaY! Titan Souls on my Vita! :D pic.twitter.com/aqhEXa8f6D      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'YaaaaaaaaY'}
+STAT: Relevance: Titan, 	X2: 19.4300096929
+STAT: Relevance: Vita, 	X2: 63.7683786283
+STAT: Relevance: :D, 	X2: 289.575653758
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Vita'}
+STAT: Relevance: Souls, 	X2: 15.9859726344
+STAT: Relevance: :D, 	X2: 79.5249292456
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Titan'}
+STAT: Relevance: Souls, 	X2: 15.9859726344
+STAT: Relevance: :D, 	X2: 79.5249292456
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @AntonVertex @yezzer ..was that not helpful at all or? genuine question.      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @AntonVertex @yezzer I understand your frustration at not being featured sure, but having your work showcased / linked to from our trailer..      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          The @unity3d frame debugger is probably the best thing added in 5. It quickly turns a lot of assumptions into facts.      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Wish there were more PBS assets on @UnityAssetStore, particularly environments. Artists, I want to buy your work.. :)      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'@UnityAssetStore'}
+STAT: Relevance: environment, 	X2: 14.5136276779
+STAT: Relevance: I, 	X2: 562.151934094
+STAT: Relevance: :), 	X2: 689.906252822
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Wish'}
+STAT: Relevance: PBS, 	X2: 15.8523636381
+STAT: Relevance: asset, 	X2: 118.891059776
+STAT: Relevance: @UnityAssetStore, 	X2: 14.5487749441
+STAT: Relevance: Artists, 	X2: 41.8845823935
+STAT: Relevance: I, 	X2: 77.4470959149
+STAT: Relevance: .., 	X2: 43.0207966218
+STAT: Relevance: :), 	X2: 83.8505504849
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'PBS'}
+STAT: Relevance: @UnityAssetStore, 	X2: 26.2181756367
+STAT: Relevance: environment, 	X2: 14.5136276779
+STAT: Relevance: I, 	X2: 562.151934094
+STAT: Relevance: :), 	X2: 689.906252822
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          ご好評のうちに予約完売となりました「WIRED × MGSV:TPP コラボレーションウオッチ デジボーグ」ですが、数量わずかですが緊急追加予約受付決定！！詳細は後日お知らせいたします。573.jp/KjAS pic.twitter.com/xDWTC1IMnr      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'TPP'}
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          "Kickstartled", verb. Arriving home to find that a Kickstarter project that you had given up on & forgotten has actually arrived      
+STAT: Entity: {u'relevance': [], u'type': u'MISC', u'word': u'Kickstartled'}
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          FINE I'LL POST A DICK PIC pic.twitter.com/H9lI3xFUUR      
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'FINE'}
+STAT: Relevance: POST, 	X2: 15.8704593107
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'DICK'}
+STAT: Relevance: POST, 	X2: 136.169327811
+STAT: Relevance: A, 	X2: 68.2720318904
+STAT: Relevance: PIC, 	X2: 23.8834813766
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          pic.twitter.com/ItVTX9WVGh      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          PlayStation Music, now with Spotify on PS4/PS3. Listen to the Project CARS playlists now! play.spotify.com/user/projectca… pic.twitter.com/yNThGIWL1U      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'PlayStation Music'}
+STAT: Relevance: Project, 	X2: 43.4752822822
+STAT: Relevance: …, 	X2: 3399.70447966
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'PlayStation'}
+STAT: Relevance: Project, 	X2: 43.4752822822
+STAT: Relevance: …, 	X2: 3399.70447966
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Music'}
+STAT: Relevance: Listen, 	X2: 15.3304151581
+STAT: Relevance: CARS, 	X2: 12.3618252593
+STAT: Relevance: playlist, 	X2: 99.6628669007
+STAT: Relevance: …, 	X2: 118.581328116
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Spotify'}
+STAT: Relevance: Music, 	X2: 199.615832544
+STAT: Relevance: Listen, 	X2: 15.3304151581
+STAT: Relevance: CARS, 	X2: 12.3618252593
+STAT: Relevance: playlist, 	X2: 99.6628669007
+STAT: Relevance: …, 	X2: 118.581328116
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Listen'}
+STAT: Relevance: Music, 	X2: 199.615832544
+STAT: Relevance: CARS, 	X2: 12.3618252593
+STAT: Relevance: playlist, 	X2: 99.6628669007
+STAT: Relevance: …, 	X2: 118.581328116
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Project'}
+STAT: Relevance: PlayStation, 	X2: 16.9255844952
+STAT: Relevance: …, 	X2: 3399.70447966
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Hey how was your day?  Me? Oh nothing big.. Just did a PHOTO SHOOT!  You're a model?  Yeah, you could say that.. pic.twitter.com/2lsJNbEzQy      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'PHOTO'}
+STAT: Relevance: Hey, 	X2: 22.8062597543
+STAT: Relevance: wa, 	X2: 91.1660996956
+STAT: Relevance: day, 	X2: 63.6003000379
+STAT: Relevance: a, 	X2: 68.2720318904
+STAT: Relevance: a, 	X2: 68.2720318904
+STAT: Relevance: model, 	X2: 11.3599489254
+STAT: Relevance: Yeah, 	X2: 51.4486003089
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Learn how @reactgames are using #Unity Networking for @DungeonBros blogs.unity3d.com/2015/04/14/uni…      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'@DungeonBros'}
+STAT: Relevance: Learn, 	X2: 1655.25734782
+STAT: Relevance: #Unity, 	X2: 224.816023992
+STAT: Relevance: Networking, 	X2: 40.2344430566
+STAT: Relevance: …, 	X2: 3399.70447966
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Learn'}
+STAT: Relevance: …, 	X2: 987.022045194
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Bet you haven't seen this ALIEN admat before! ABC trying to downplay the actual alien aspect of the film. pic.twitter.com/kayqht3XUm      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'ABC'}
+STAT: Relevance: ALIEN, 	X2: 12.8531293893
+STAT: Relevance: alien, 	X2: 12.8531293893
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @Gorremhome you've got mail!      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @RodeoBenjamin I'd estimate a quarterly watch myself too. That and The Rock.      
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'The Rock'}
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Rock'}
+STAT: Relevance: @RodeoBenjamin, 	X2: 11.8845021863
+STAT: Relevance: a, 	X2: 68.2720318904
+STAT: Relevance: quarterly, 	X2: 76.9849129336
+STAT: Relevance: watch, 	X2: 63.317638131
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @RodeoBenjamin UM GOIN HOME SSOOOIN!!      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'GOIN'}
+STAT: Relevance: @RodeoBenjamin, 	X2: 11.8845021863
+STAT: Relevance: HOME, 	X2: 11.0689031292
+STAT: Relevance: !!, 	X2: 136.128762713
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Con Air is on Sky right now. Seriously you guys!!      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Con Air'}
+STAT: Relevance: !!, 	X2: 136.128762713
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Sky'}
+STAT: Relevance: Con, 	X2: 11.1173661958
+STAT: Relevance: !!, 	X2: 136.128762713
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Con'}
+STAT: Relevance: guy, 	X2: 11.3836670643
+STAT: Relevance: !!, 	X2: 47.6582879508
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Air'}
+STAT: Relevance: Con, 	X2: 11.1173661958
+STAT: Relevance: !!, 	X2: 136.128762713
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          WordPress 4.2 Release Candidate wp.me/pZhYe-Wd      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'WordPress'}
+STAT: Relevance: 4.2, 	X2: 10.8689660108
+STAT: Relevance: Release, 	X2: 87.1521404228
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Custom Mac Pro 5, 1 workstations with free delivery & 12 month RTB warranty. The best value Apple system available. cards.twitter.com/cards/18ce53x0…      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Apple'}
+STAT: Relevance: Custom, 	X2: 11.1853345814
+STAT: Relevance: Pro, 	X2: 18.0436535138
+STAT: Relevance: 5, 	X2: 14.7600260901
+STAT: Relevance: free, 	X2: 342.943949315
+STAT: Relevance: 12, 	X2: 28.9483689858
+STAT: Relevance: system, 	X2: 10.8983252028
+STAT: Relevance: …, 	X2: 3399.70447966
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Custom'}
+STAT: Relevance: Pro, 	X2: 14.1969573339
+STAT: Relevance: 5, 	X2: 25.1806907212
+STAT: Relevance: 1, 	X2: 12.3936236537
+STAT: Relevance: free, 	X2: 1449.96755693
+STAT: Relevance: delivery, 	X2: 83.7785477229
+STAT: Relevance: Apple, 	X2: 66.5788709025
+STAT: Relevance: …, 	X2: 118.581328116
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Mac'}
+STAT: Relevance: Custom, 	X2: 11.1853345814
+STAT: Relevance: Pro, 	X2: 18.0436535138
+STAT: Relevance: 5, 	X2: 14.7600260901
+STAT: Relevance: free, 	X2: 342.943949315
+STAT: Relevance: 12, 	X2: 28.9483689858
+STAT: Relevance: Apple, 	X2: 24.140146926
+STAT: Relevance: system, 	X2: 10.8983252028
+STAT: Relevance: …, 	X2: 3399.70447966
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'RTB'}
+STAT: Relevance: Custom, 	X2: 11.1853345814
+STAT: Relevance: Pro, 	X2: 18.0436535138
+STAT: Relevance: 5, 	X2: 14.7600260901
+STAT: Relevance: free, 	X2: 342.943949315
+STAT: Relevance: 12, 	X2: 28.9483689858
+STAT: Relevance: Apple, 	X2: 24.140146926
+STAT: Relevance: system, 	X2: 10.8983252028
+STAT: Relevance: …, 	X2: 3399.70447966
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @xiotex i've never had such issues, It's maturing well i'd say so I like it. Friends who work in TV say it's useless for full production tho      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Just heard there was a #Justified finale?! I didn't even know it was BACK!? my lord, I'm in for a treat. No spoilers now.      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'BACK'}
+STAT: Relevance: wa, 	X2: 91.1660996956
+STAT: Relevance: a, 	X2: 68.2720318904
+STAT: Relevance: I, 	X2: 562.151934094
+STAT: Relevance: wa, 	X2: 91.1660996956
+STAT: Relevance: lord, 	X2: 15.4454463398
+STAT: Relevance: a, 	X2: 68.2720318904
+STAT: Relevance: treat, 	X2: 16.1070014966
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @xiotex there's an imovie app otherwise not sure what you mean? (haven't used that but seems pretty cool for a mobile thing)      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          I know it's pedantic, but this use of space on the new Final Cut Pro X splash is surprisingly off.. grab.by/Gros      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @matkins85 it's good man! hoping to make a preview video soon to show it off..      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          VR software engineer job at Unity eh? hire.jobvite.com/Jobvite/jobvit…      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Unity'}
+STAT: Relevance: software, 	X2: 232.454946208
+STAT: Relevance: engineer, 	X2: 34.1260962695
+STAT: Relevance: job, 	X2: 1371.09255816
+STAT: Relevance: eh, 	X2: 20.4752042569
+STAT: Relevance: …, 	X2: 3399.70447966
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          WipEout models from the Playstation 1 in your browser phoboslab.org/wipeout/ Reverse engineering wipeout (psx) phoboslab.org/log/2015/04/re…      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Reverse'}
+STAT: Relevance: 1, 	X2: 12.3936236537
+STAT: Relevance: browser, 	X2: 30.9117529902
+STAT: Relevance: …, 	X2: 118.581328116
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @maxfelker genuinely thought you had changed your name to 'Fast and Max Felker' in some fast and furious tie in! pic.twitter.com/UyQTZjkTna      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Max Felker'}
+STAT: Relevance: thought, 	X2: 17.3683303571
+STAT: Relevance: Fast, 	X2: 207.665828342
+STAT: Relevance: fast, 	X2: 207.665828342
+STAT: Relevance: furious, 	X2: 38.3305454839
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Max'}
+STAT: Relevance: thought, 	X2: 17.3683303571
+STAT: Relevance: Fast, 	X2: 207.665828342
+STAT: Relevance: fast, 	X2: 207.665828342
+STAT: Relevance: furious, 	X2: 38.3305454839
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @andytouch not wut, @watcast.      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Unity Technologies is looking for: Software Engineer -Virtual Reality hire.jobvite.com/m?3lMwdhwC #job      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Unity Technologies'}
+STAT: Relevance: Software, 	X2: 232.454946208
+STAT: Relevance: Engineer, 	X2: 34.1260962695
+STAT: Relevance: #job, 	X2: 222.908157122
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Unity'}
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Technologies'}
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: Software, 	X2: 232.454946208
+STAT: Relevance: Engineer, 	X2: 34.1260962695
+STAT: Relevance: #job, 	X2: 222.908157122
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          More #SEGA #Megadrive editor work - dockable panels, load/save, zoom/pan, and it has a name! Big Evil Editor #gamedev pic.twitter.com/u1gpxb268Q      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          I guess you live & learn, never try to follow an erotic sci fantasy about an alien master race during a podcast. Seems obvious in hindsight.      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Unity devs, take note: Unity support is coming to the New Nintendo 3DS: gamasutra.com/view/news/2409… pic.twitter.com/C2ZdaJROC6      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Unity devs ,'}
+STAT: Relevance: Nintendo, 	X2: 211.335924551
+STAT: Relevance: 3DS, 	X2: 94.5722163179
+STAT: Relevance: …, 	X2: 3399.70447966
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Unity'}
+STAT: Relevance: support, 	X2: 14.560919015
+STAT: Relevance: Nintendo, 	X2: 27.6054802054
+STAT: Relevance: 3DS, 	X2: 24.0054843165
+STAT: Relevance: …, 	X2: 987.022045194
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'New'}
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: devs, 	X2: 53.563470519
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: Nintendo, 	X2: 211.335924551
+STAT: Relevance: 3DS, 	X2: 94.5722163179
+STAT: Relevance: …, 	X2: 3399.70447966
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @rancon Hi there, sorry for the delay now done!      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @Aurore360 @nanosounds to be fair it's a remarkably fresh take on the meaning of the word 'courageous'. Who knew 'cuntily' was a synonym!      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Unity Technologies is looking for: Education Marketing Manager hire.jobvite.com/m?3CTkdhwO #job      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Unity Technologies'}
+STAT: Relevance: Education, 	X2: 25.8047725531
+STAT: Relevance: Marketing, 	X2: 29.4862171862
+STAT: Relevance: Manager, 	X2: 435.58347804
+STAT: Relevance: #job, 	X2: 222.908157122
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Unity'}
+STAT: Relevance: Marketing, 	X2: 188.368486557
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Technologies'}
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: Education, 	X2: 25.8047725531
+STAT: Relevance: Marketing, 	X2: 29.4862171862
+STAT: Relevance: Manager, 	X2: 435.58347804
+STAT: Relevance: #job, 	X2: 222.908157122
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @startswest @mattmirrorfish @mikegeig @theantranch it's @unity3d and they're included in the Standard Assets package in the installer.      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'@startswest @mattmirrorfish'}
+STAT: Relevance: @mikegeig, 	X2: 17.8885027992
+STAT: Relevance: @theantranch, 	X2: 13.5515370682
+STAT: Relevance: @unity3d, 	X2: 128.015951828
+STAT: Relevance: included, 	X2: 1167.41600355
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Standard Assets'}
+STAT: Relevance: @startswest, 	X2: 11.8845021863
+STAT: Relevance: @mattmirrorfish, 	X2: 61.732277487
+STAT: Relevance: @mikegeig, 	X2: 56.6803977351
+STAT: Relevance: @theantranch, 	X2: 48.4510150617
+STAT: Relevance: @unity3d, 	X2: 116.295751735
+STAT: Relevance: included, 	X2: 8753.54276661
+STAT: Relevance: installer, 	X2: 11.4354454483
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Standard'}
+STAT: Relevance: @startswest, 	X2: 11.8845021863
+STAT: Relevance: @mattmirrorfish, 	X2: 61.732277487
+STAT: Relevance: @mikegeig, 	X2: 56.6803977351
+STAT: Relevance: @theantranch, 	X2: 48.4510150617
+STAT: Relevance: @unity3d, 	X2: 116.295751735
+STAT: Relevance: included, 	X2: 8753.54276661
+STAT: Relevance: installer, 	X2: 11.4354454483
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @StartSWest @MattMirrorFish @mikegeig @TheAntRanch what you describe is a mix of post fx and shaders and is down to the talent of the artist      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'@StartSWest @MattMirrorFish'}
+STAT: Relevance: @mikegeig, 	X2: 17.8885027992
+STAT: Relevance: @TheAntRanch, 	X2: 13.5515370682
+STAT: Relevance: mix, 	X2: 28.4872794468
+STAT: Relevance: post, 	X2: 76.9430937511
+STAT: Relevance: talent, 	X2: 176.118649058
+STAT: Relevance: artist, 	X2: 61.0988424051
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @StartSWest @mikegeig @TheAntRanch don't forget @MattMirrorFish ! Glad you're enjoying them Ivan!      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Ivan !'}
+STAT: Relevance: @mikegeig, 	X2: 17.8885027992
+STAT: Relevance: @TheAntRanch, 	X2: 13.5515370682
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Glad'}
+STAT: Relevance: @mikegeig, 	X2: 17.8885027992
+STAT: Relevance: @TheAntRanch, 	X2: 13.5515370682
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Ivan'}
+STAT: Relevance: @mikegeig, 	X2: 17.8885027992
+STAT: Relevance: @TheAntRanch, 	X2: 13.5515370682
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          One to watch - XO from @jmpdrv steamcommunity.com/sharedfiles/fi… #madewithunity      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'@jmpdrv'}
+STAT: Relevance: …, 	X2: 118.581328116
+STAT: Relevance: #madewithunity, 	X2: 74.8324849435
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'\u2026 #madewithunity'}
+STAT: Relevance: watch, 	X2: 63.317638131
+STAT: Relevance: steamcommunity.com/sharedfiles/fi, 	X2: 18.8920896257
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Boom! Basic nested prefab system built! It's rough but it is pretty cool. #unity3d      
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Boom'}
+STAT: Relevance: nested, 	X2: 30.7702265503
+STAT: Relevance: #unity3d, 	X2: 1156.47679849
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Basic'}
+STAT: Relevance: pretty, 	X2: 55.4411180122
+STAT: Relevance: #unity3d, 	X2: 413.516567167
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @drcharlesunity making the magic happen #unity3d pic.twitter.com/E5z5dFiNS8      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @willgoldstone  twitter.com/mu4ma6/status/…      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'@willgoldstone'}
+STAT: Relevance: …, 	X2: 118.581328116
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @ChrisDeneos it seems like a perfect fit! Hoping @NintendoEurope agrees ;)      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'@ChrisDeneos'}
+STAT: Relevance: a, 	X2: 68.2720318904
+STAT: Relevance: ;), 	X2: 186.337870632
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @willgoldstone Nintendo just announce new 3DS export for Unity. I hope they will allow me to do this for Tako  (I have the rights for wii U)      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Nintendo'}
+STAT: Relevance: @willgoldstone, 	X2: 189.558781729
+STAT: Relevance: announce, 	X2: 14.689051928
+STAT: Relevance: 3DS, 	X2: 94.5722163179
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: I, 	X2: 562.151934094
+STAT: Relevance: hope, 	X2: 89.1193711441
+STAT: Relevance: Tako, 	X2: 11.8845021863
+STAT: Relevance: I, 	X2: 562.151934094
+STAT: Relevance: wii, 	X2: 35.5947311863
+STAT: Relevance: U, 	X2: 91.7943779319
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Tako'}
+STAT: Relevance: @willgoldstone, 	X2: 50.4230714705
+STAT: Relevance: Nintendo, 	X2: 24.7422826575
+STAT: Relevance: 3DS, 	X2: 30.0673118954
+STAT: Relevance: Unity, 	X2: 208.484477224
+STAT: Relevance: I, 	X2: 769.124594699
+STAT: Relevance: hope, 	X2: 20.8326435795
+STAT: Relevance: I, 	X2: 769.124594699
+STAT: Relevance: U, 	X2: 17.8807219219
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Nintendo'}
+STAT: Relevance: @willgoldstone, 	X2: 50.4230714705
+STAT: Relevance: 3DS, 	X2: 30.0673118954
+STAT: Relevance: Unity, 	X2: 208.484477224
+STAT: Relevance: I, 	X2: 769.124594699
+STAT: Relevance: hope, 	X2: 20.8326435795
+STAT: Relevance: I, 	X2: 769.124594699
+STAT: Relevance: U, 	X2: 17.8807219219
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Unity'}
+STAT: Relevance: @willgoldstone, 	X2: 189.558781729
+STAT: Relevance: Nintendo, 	X2: 211.335924551
+STAT: Relevance: announce, 	X2: 14.689051928
+STAT: Relevance: 3DS, 	X2: 94.5722163179
+STAT: Relevance: I, 	X2: 562.151934094
+STAT: Relevance: hope, 	X2: 89.1193711441
+STAT: Relevance: Tako, 	X2: 11.8845021863
+STAT: Relevance: I, 	X2: 562.151934094
+STAT: Relevance: wii, 	X2: 35.5947311863
+STAT: Relevance: U, 	X2: 91.7943779319
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Tako'}
+STAT: Relevance: Nintendo, 	X2: 27.6054802054
+STAT: Relevance: 3DS, 	X2: 24.0054843165
+STAT: Relevance: export, 	X2: 20.4803667854
+STAT: Relevance: Unity, 	X2: 120.382705561
+STAT: Relevance: I, 	X2: 77.4470959149
+STAT: Relevance: hope, 	X2: 27.7652644198
+STAT: Relevance: I, 	X2: 77.4470959149
+STAT: Relevance: U, 	X2: 307.545887794
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Did you guys take a look at the upcoming #Unity 5.1 features yet? Multiplayer is ace btw ;) forum.unity3d.com/threads/5-1-be…      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @Mrt3D go home Elliott, you're drunk.      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Elliott'}
+STAT: Relevance: home, 	X2: 20.1759974754
+STAT: Relevance: drunk, 	X2: 22.2894846966
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Right. Updated to Unity 5, updated various Unity plugins, upgraded projects, updated to Xcode 6.3 and iOS 8.2. Too tired to #gamedev now :)      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'#gamedev'}
+STAT: Relevance: Unity, 	X2: 208.484477224
+STAT: Relevance: 5, 	X2: 25.1806907212
+STAT: Relevance: Unity, 	X2: 208.484477224
+STAT: Relevance: :), 	X2: 155.412569837
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Updated'}
+STAT: Relevance: Unity, 	X2: 208.484477224
+STAT: Relevance: 5, 	X2: 25.1806907212
+STAT: Relevance: Unity, 	X2: 208.484477224
+STAT: Relevance: #gamedev, 	X2: 790.096827275
+STAT: Relevance: :), 	X2: 155.412569837
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Unity'}
+STAT: Relevance: 5, 	X2: 14.7600260901
+STAT: Relevance: project, 	X2: 43.4752822822
+STAT: Relevance: 6.3, 	X2: 12.9232453243
+STAT: Relevance: #gamedev, 	X2: 49.1989688186
+STAT: Relevance: :), 	X2: 689.906252822
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Unity'}
+STAT: Relevance: 5, 	X2: 14.7600260901
+STAT: Relevance: project, 	X2: 43.4752822822
+STAT: Relevance: 6.3, 	X2: 12.9232453243
+STAT: Relevance: #gamedev, 	X2: 49.1989688186
+STAT: Relevance: :), 	X2: 689.906252822
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'iOS'}
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: 5, 	X2: 14.7600260901
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: project, 	X2: 43.4752822822
+STAT: Relevance: 6.3, 	X2: 12.9232453243
+STAT: Relevance: #gamedev, 	X2: 49.1989688186
+STAT: Relevance: :), 	X2: 689.906252822
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Too'}
+STAT: Relevance: Unity, 	X2: 208.484477224
+STAT: Relevance: 5, 	X2: 25.1806907212
+STAT: Relevance: Unity, 	X2: 208.484477224
+STAT: Relevance: #gamedev, 	X2: 790.096827275
+STAT: Relevance: :), 	X2: 155.412569837
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @S0phieH love it      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Don't mind me, just taking unity 5's fancy new demos and rendering them at 64x64pix pic.twitter.com/cJ2jPsVGLT      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u"Don't"}
+STAT: Relevance: unity, 	X2: 208.484477224
+STAT: Relevance: demo, 	X2: 38.1647484883
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Happy Saturday! #timelapse #gamedev #indiedev #screenshotsaturday #unity pic.twitter.com/3Cl6S8CSsY      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Happy'}
+STAT: Relevance: #gamedev, 	X2: 790.096827275
+STAT: Relevance: #indiedev, 	X2: 515.087699511
+STAT: Relevance: #screenshotsaturday, 	X2: 43.3728176674
+STAT: Relevance: #unity, 	X2: 74.2899744736
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          For those excitied about doing some Unity work on a 3DS: this is your first step Go sign up wiiu-developers.nintendo.com  unity3d.com/company/public…      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          More info on upcoming Unity support for New Nintendo 3DS and New Nintendo 3DS XL: unity3d.com/company/public… #unity3d pic.twitter.com/lmOew6cNpD      
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'New Nintendo'}
+STAT: Relevance: Unity, 	X2: 120.382705561
+STAT: Relevance: support, 	X2: 14.560919015
+STAT: Relevance: 3DS, 	X2: 24.0054843165
+STAT: Relevance: 3DS, 	X2: 24.0054843165
+STAT: Relevance: …, 	X2: 987.022045194
+STAT: Relevance: #unity3d, 	X2: 1156.47679849
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Unity'}
+STAT: Relevance: info, 	X2: 17.2411160226
+STAT: Relevance: upcoming, 	X2: 18.787158968
+STAT: Relevance: Nintendo, 	X2: 211.335924551
+STAT: Relevance: 3DS, 	X2: 94.5722163179
+STAT: Relevance: Nintendo, 	X2: 211.335924551
+STAT: Relevance: 3DS, 	X2: 94.5722163179
+STAT: Relevance: XL, 	X2: 10.9574287678
+STAT: Relevance: …, 	X2: 3399.70447966
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'New'}
+STAT: Relevance: Unity, 	X2: 120.382705561
+STAT: Relevance: support, 	X2: 14.560919015
+STAT: Relevance: Nintendo, 	X2: 27.6054802054
+STAT: Relevance: 3DS, 	X2: 24.0054843165
+STAT: Relevance: Nintendo, 	X2: 27.6054802054
+STAT: Relevance: 3DS, 	X2: 24.0054843165
+STAT: Relevance: …, 	X2: 987.022045194
+STAT: Relevance: #unity3d, 	X2: 1156.47679849
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'New'}
+STAT: Relevance: Unity, 	X2: 120.382705561
+STAT: Relevance: support, 	X2: 14.560919015
+STAT: Relevance: Nintendo, 	X2: 27.6054802054
+STAT: Relevance: 3DS, 	X2: 24.0054843165
+STAT: Relevance: Nintendo, 	X2: 27.6054802054
+STAT: Relevance: 3DS, 	X2: 24.0054843165
+STAT: Relevance: …, 	X2: 987.022045194
+STAT: Relevance: #unity3d, 	X2: 1156.47679849
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Just 3 more days to save up to 50% on BFD3. fxpansion.com/index.php?page…      
+STAT: Entity: {u'relevance': [], u'type': u'MISC', u'word': u'BFD3'}
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'BFD3'}
+STAT: Relevance: day, 	X2: 63.6003000379
+STAT: Relevance: save, 	X2: 62.9978494485
+STAT: Relevance: 50%, 	X2: 19.6064090841
+STAT: Relevance: …, 	X2: 3399.70447966
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @maverikou ouch      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @maverikou you really wanna deny the ngage community? That's ok..      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          That's… that's all the platforms now right? 22? we miss any? oh wait.. nokia ngage.. ok sorry guys back to work!      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          We are thrilled to announce that #Unity is coming to 3DS! unity3d.com/company/public… #nintendo #unite2015tokyo      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          New #Unity Jobs up on unity3dwork.com #gamedev #work      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Jobs'}
+STAT: Relevance: #Unity, 	X2: 74.2899744736
+STAT: Relevance: #gamedev, 	X2: 790.096827275
+STAT: Relevance: #work, 	X2: 17.5900517919
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'#gamedev'}
+STAT: Relevance: #Unity, 	X2: 74.2899744736
+STAT: Relevance: Jobs, 	X2: 31.1436237764
+STAT: Relevance: #work, 	X2: 17.5900517919
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'New'}
+STAT: Relevance: Jobs, 	X2: 374.840069205
+STAT: Relevance: #gamedev, 	X2: 1956.41583007
+STAT: Relevance: #work, 	X2: 53.3823997355
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          "@mu4ma6: Unite2015東京開幕だ！やらないか？#unite2015tokyo #unity #DrCharles #Unity仮面 #Unityおじさん #雲丹五郎 pic.twitter.com/hYtAtB5dq3" @willgoldstone      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'@willgoldstone'}
+STAT: Relevance: #unity, 	X2: 74.2899744736
+STAT: Relevance: #Unity, 	X2: 74.2899744736
+STAT: Relevance: #Unity, 	X2: 74.2899744736
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          The sheer authenticity of Save me Mr Tako! From @ChrisDeneos pleases me greatly! m.youtube.com/watch?v=CInqEe… #madewithunity #gameboy      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'@ChrisDeneos'}
+STAT: Relevance: Save, 	X2: 62.9978494485
+STAT: Relevance: Tako, 	X2: 11.8845021863
+STAT: Relevance: …, 	X2: 3399.70447966
+STAT: Relevance: #madewithunity, 	X2: 261.474383635
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'\u2026 #madewithunity'}
+STAT: Relevance: Save, 	X2: 62.9978494485
+STAT: Relevance: Tako, 	X2: 11.8845021863
+STAT: Relevance: @ChrisDeneos, 	X2: 10.8689660108
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Who let me near the cat books pic.twitter.com/2zzj5x7ODl      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @willgoldstone hey ^^ Tako is progressing well! youtube.com/watch?v=CInqEe…      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Tako'}
+STAT: Relevance: @willgoldstone, 	X2: 50.4230714705
+STAT: Relevance: hey, 	X2: 11.6013912977
+STAT: Relevance: ^^, 	X2: 11.7139432168
+STAT: Relevance: …, 	X2: 118.581328116
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          .@Terminator I want to unlock exclusive content and the new trailer with #TerminatorUnlock flwcs.co/4AB      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Mods are cool! #CitiesSkylines #BetterCallSaul pic.twitter.com/m0t3BgJRYf      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Cc @saracecilia helllooooo twitter.com/dropdeaduk/sta…      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Cc @saracecilia'}
+STAT: Relevance: …, 	X2: 3399.70447966
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @laserunicorns definitely! If the label doesn't accept it I'll share you an unlisted 'tube for funzies      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u"it I'll"}
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Also, this chap looks highly familiar.. #Unity #Unite pic.twitter.com/wjAPI7raA0      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Looks like the #Unite Asia tour is a fan, I'm honoured! #Unity pic.twitter.com/VWbHEdCJFd      
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Asia'}
+STAT: Relevance: honoured, 	X2: 60.8461460298
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Mind = blown pic.twitter.com/RxTY6xuVy2      
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Mind'}
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @laserunicorns btw thank you so much for the after fx tutorial, using it for a music video for friends in the electro biz.      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @laserunicorns I'm one of em! So happy to contribute to art like this, it marries everything I love creatively! Congrats on nearing release.      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          pic.twitter.com/nXwTmcWPNS      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Heads up Hollywood, @laserunicorns just won everything. #kungfury pic.twitter.com/jMZMIod2TY      
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Hollywood'}
+STAT: Relevance: won, 	X2: 24.116302356
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Unity Technologies is looking for: Senior Corporate Counsel hire.jobvite.com/m?3JR5chwD #job      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Unity Technologies'}
+STAT: Relevance: #job, 	X2: 222.908157122
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Senior Corporate Counsel'}
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: Technologies, 	X2: 241.190970861
+STAT: Relevance: #job, 	X2: 222.908157122
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Unity'}
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Technologies'}
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: #job, 	X2: 222.908157122
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Corporate'}
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: Technologies, 	X2: 241.190970861
+STAT: Relevance: #job, 	X2: 222.908157122
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @SebuwufuFelix devices don't work that way, each has its own format eg .apk for android, exe on PC etc      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'@SebuwufuFelix'}
+STAT: Relevance: device, 	X2: 7885.88491557
+STAT: Relevance: ha, 	X2: 23.5149483674
+STAT: Relevance: PC, 	X2: 17.3899377354
+STAT: Entity: {u'relevance': [], u'type': u'MISC', u'word': u'PC'}
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          My new sounds: Rings soundcloud.com/willgoldstone/… on #SoundCloud      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          How to present a product and document it. 11/10 would think about buying without needing again! And again. And again twitter.com/willgoldstone/…      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Try and top these badboys. Am I missing any gems? #NowPlaying electro cutz by Will Goldstone  ♫ electro cutz spoti.fi/1DVtzcH      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Will Goldstone'}
+STAT: Relevance: top, 	X2: 89.6724977242
+STAT: Relevance: I, 	X2: 769.124594699
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Try'}
+STAT: Relevance: top, 	X2: 640.045709829
+STAT: Relevance: I, 	X2: 77.4470959149
+STAT: Relevance: missing, 	X2: 18.2445779679
+STAT: Relevance: #NowPlaying, 	X2: 47.4557751398
+STAT: Relevance: ♫, 	X2: 40.8309535884
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Will'}
+STAT: Relevance: top, 	X2: 89.6724977242
+STAT: Relevance: I, 	X2: 769.124594699
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Unity Technologies is looking for: Front-end Web Developer (Unity Austin) hire.jobvite.com/m?3il2chwD #job      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Unity Technologies'}
+STAT: Relevance: Web, 	X2: 48.605881363
+STAT: Relevance: Developer, 	X2: 87.7704080543
+STAT: Relevance: #job, 	X2: 222.908157122
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Unity'}
+STAT: Relevance: Web, 	X2: 11.5425865044
+STAT: Relevance: Developer, 	X2: 192.110185277
+STAT: Relevance: Austin, 	X2: 36.2372827037
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Technologies'}
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: Web, 	X2: 48.605881363
+STAT: Relevance: Developer, 	X2: 87.7704080543
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: #job, 	X2: 222.908157122
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Unity'}
+STAT: Relevance: Technologies, 	X2: 241.190970861
+STAT: Relevance: Web, 	X2: 48.605881363
+STAT: Relevance: Developer, 	X2: 87.7704080543
+STAT: Relevance: #job, 	X2: 222.908157122
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @palgorithm bear in mind they had to later create the Pocket. Which is probably still smaller than an iPhone 6 plus.      
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Pocket'}
+STAT: Relevance: iPhone, 	X2: 74.9408991291
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Which'}
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          pic.twitter.com/HtTa8oTRf8      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          When you realize that you have accomplished nothing in life. pic.twitter.com/QX17drznVf      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Forgot I made it, Forgot to posted. So here you go. Dino versus Bear. alexia-way.deviantart.com/art/NODE-LAN-P… pic.twitter.com/jWKc6HjQTm      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Forgot'}
+STAT: Relevance: I, 	X2: 769.124594699
+STAT: Relevance: posted, 	X2: 1220.98289733
+STAT: Relevance: …, 	X2: 118.581328116
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Dino'}
+STAT: Relevance: Forgot, 	X2: 12.4113291478
+STAT: Relevance: I, 	X2: 769.124594699
+STAT: Relevance: Forgot, 	X2: 12.4113291478
+STAT: Relevance: posted, 	X2: 1220.98289733
+STAT: Relevance: …, 	X2: 118.581328116
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'alexia-way.deviantart.com/art/NODE-LAN-P \u2026'}
+STAT: Relevance: I, 	X2: 562.151934094
+STAT: Relevance: posted, 	X2: 9775.87548495
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Forgot'}
+STAT: Relevance: I, 	X2: 77.4470959149
+STAT: Relevance: posted, 	X2: 499.653139246
+STAT: Relevance: …, 	X2: 987.022045194
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Game design prototype vs final game. #gamedev pic.twitter.com/8c5TA6n6BC      
+STAT: Entity: {u'relevance': [], u'type': u'MISC', u'word': u'Game'}
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'#gamedev'}
+STAT: Relevance: Game, 	X2: 293.96036733
+STAT: Relevance: game, 	X2: 293.96036733
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @SimonDarksideJ what's that a reply to? Twitter isn't telling me!      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Unity Technologies is looking for: Senior Systems Engineer (Unity Austin) hire.jobvite.com/m?38OYchwS #job      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Unity Technologies'}
+STAT: Relevance: Systems, 	X2: 37.3638627779
+STAT: Relevance: Engineer, 	X2: 34.1260962695
+STAT: Relevance: #job, 	X2: 222.908157122
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Unity'}
+STAT: Relevance: Austin, 	X2: 36.2372827037
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Technologies'}
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: Systems, 	X2: 37.3638627779
+STAT: Relevance: Engineer, 	X2: 34.1260962695
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: #job, 	X2: 222.908157122
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Engineer'}
+STAT: Relevance: Unity, 	X2: 120.382705561
+STAT: Relevance: Unity, 	X2: 120.382705561
+STAT: Relevance: Austin, 	X2: 36.2372827037
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Unity'}
+STAT: Relevance: Technologies, 	X2: 241.190970861
+STAT: Relevance: Systems, 	X2: 37.3638627779
+STAT: Relevance: Engineer, 	X2: 34.1260962695
+STAT: Relevance: #job, 	X2: 222.908157122
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Bringing our A game. #mobilegaming #tetris vine.co/v/euz1vzJvYHZ      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          And here go, @XMercs in its full 64bit #metal glory =) #madewithunity #unity3d pic.twitter.com/7eTdTzgj71      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'@XMercs'}
+STAT: Relevance: #madewithunity, 	X2: 261.474383635
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Trying out some more stylised visuals for Havenrise, lots of experiments still to do! #madewithunity #gamedev pic.twitter.com/iG884gsy6J      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Havenrise'}
+STAT: Relevance: #madewithunity, 	X2: 74.8324849435
+STAT: Relevance: #gamedev, 	X2: 790.096827275
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'#gamedev'}
+STAT: Relevance: #madewithunity, 	X2: 74.8324849435
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Finish missions whatever the cost or flee the fight? Next week in v0.7 of #DriftingLands a RPG-shmup #madewithunity pic.twitter.com/h1zlPe80Qx      
+STAT: Entity: {u'relevance': [], u'type': u'MISC', u'word': u'Finish'}
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Finish'}
+STAT: Relevance: v, 	X2: 334.382935453
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Total War Battles: KINGDOM by @CAGames has really good looking sword fights! Now in open beta on PC: youtu.be/7pi1U1wovvg #madewithunity      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'@CAGames'}
+STAT: Relevance: War, 	X2: 26.5368905069
+STAT: Relevance: ha, 	X2: 23.5149483674
+STAT: Relevance: good, 	X2: 92.307382556
+STAT: Relevance: sword, 	X2: 14.4988762975
+STAT: Relevance: open, 	X2: 398.080538976
+STAT: Relevance: beta, 	X2: 73.1193885878
+STAT: Relevance: PC, 	X2: 17.3899377354
+STAT: Relevance: #madewithunity, 	X2: 261.474383635
+STAT: Entity: {u'relevance': [], u'type': u'MISC', u'word': u'PC'}
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Little Devil Inside, the next indie gem #madewithunity to follow.  youtu.be/sEjRTx_tvnE #Unity3D #IndieGame      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Little Devil'}
+STAT: Relevance: Inside, 	X2: 108.995289856
+STAT: Relevance: #madewithunity, 	X2: 261.474383635
+STAT: Relevance: follow, 	X2: 27.569529678
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Devil'}
+STAT: Relevance: indie, 	X2: 20.1368017854
+STAT: Relevance: #madewithunity, 	X2: 74.8324849435
+STAT: Relevance: follow, 	X2: 25.04870856
+STAT: Relevance: #Unity3D, 	X2: 413.516567167
+STAT: Relevance: #IndieGame, 	X2: 26.2708013075
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Made this last night in Unity. pic.twitter.com/nEolUEpmrD      
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Made'}
+STAT: Relevance: Unity, 	X2: 120.382705561
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Unity'}
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Agreed. pic.twitter.com/KetwDzqghp      
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Agreed'}
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Unity Technologies is looking for: Graphics Programmer hire.jobvite.com/m?3r8Vchws #job      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Unity Technologies'}
+STAT: Relevance: Graphics, 	X2: 15.4321609645
+STAT: Relevance: #job, 	X2: 222.908157122
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Unity'}
+STAT: Relevance: Programmer, 	X2: 457.066189186
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Technologies'}
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: Graphics, 	X2: 15.4321609645
+STAT: Relevance: #job, 	X2: 222.908157122
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @maxfelker grats man!      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          We make direct distribution super easy. Sign up free for VHX: bit.ly/1BcK1m2 #video pic.twitter.com/RYArgkQH85      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'VHX'}
+STAT: Relevance: distribution, 	X2: 110.711557067
+STAT: Relevance: super, 	X2: 14.1005400763
+STAT: Relevance: easy, 	X2: 60.1635880037
+STAT: Relevance: free, 	X2: 342.943949315
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Implosion is out on iOS, one of the most awesome #madewithunity titles out of Taiwan I've seen youtube.com/watch?v=11a_9y…      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Implosion'}
+STAT: Relevance: awesome, 	X2: 12.1758689875
+STAT: Relevance: #madewithunity, 	X2: 261.474383635
+STAT: Relevance: …, 	X2: 3399.70447966
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u"Taiwan I've"}
+STAT: Relevance: iOS, 	X2: 290.863963374
+STAT: Relevance: …, 	X2: 987.022045194
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Implosion'}
+STAT: Relevance: iOS, 	X2: 290.863963374
+STAT: Relevance: Taiwan, 	X2: 146.776765806
+STAT: Relevance: …, 	X2: 987.022045194
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'iOS'}
+STAT: Relevance: awesome, 	X2: 12.1758689875
+STAT: Relevance: #madewithunity, 	X2: 261.474383635
+STAT: Relevance: …, 	X2: 3399.70447966
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Taiwan'}
+STAT: Relevance: iOS, 	X2: 290.863963374
+STAT: Relevance: …, 	X2: 987.022045194
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @ShadowOverlord your Twitter name suggests you are in some kind of illuminati cult. Is this true or vicious rumour?      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Do you speak French? Follow our official French Twitter: @TwitchFR  On vient juste de créer notre compte francophone : @TwitchFR !      
+STAT: Entity: {u'relevance': [], u'type': u'MISC', u'word': u'French'}
+STAT: Entity: {u'relevance': [], u'type': u'MISC', u'word': u'French'}
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'French'}
+STAT: Relevance: Follow, 	X2: 30.6681875144
+STAT: Relevance: Twitter, 	X2: 371.730047401
+STAT: Relevance: de, 	X2: 254.384404795
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'French'}
+STAT: Relevance: Follow, 	X2: 25.04870856
+STAT: Relevance: official, 	X2: 295.086674253
+STAT: Relevance: Twitter, 	X2: 532.181048406
+STAT: Relevance: de, 	X2: 460.670506941
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Unity Technologies is looking for: Contracts Manager hire.jobvite.com/m?3vlOchwC #job      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Unity Technologies'}
+STAT: Relevance: Manager, 	X2: 435.58347804
+STAT: Relevance: #job, 	X2: 222.908157122
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Unity'}
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Technologies'}
+STAT: Relevance: Unity, 	X2: 428.850038833
+STAT: Relevance: Manager, 	X2: 435.58347804
+STAT: Relevance: #job, 	X2: 222.908157122
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Manager'}
+STAT: Relevance: Unity, 	X2: 208.484477224
+STAT: Relevance: Technologies, 	X2: 26.9008803629
+STAT: Relevance: #job, 	X2: 23.3312256407
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          I know I'm a child. But there's a party joke in there somewhere, I just know it. pic.twitter.com/Nc17Exa161      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u"I'm"}
+STAT: Relevance: I, 	X2: 769.124594699
+STAT: Relevance: party, 	X2: 1449.33711483
+STAT: Relevance: I, 	X2: 769.124594699
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @onimitch @andytouch @TheAntRanch @unity3d I kind of meant an internal to do list but I appreciate the effort dude!      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          VSCO cam makes the beautiful even more stunning somehow. pic.twitter.com/4LmMBYrl0D      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'VSCO'}
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'VSCO'}
+STAT: Relevance: make, 	X2: 22.0935351744
+STAT: Relevance: beautiful, 	X2: 40.6898574686
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Test piloting the new Up at Noon at @IGN today. I absolutely love where this show is going. Can't wait to relaunch it with @MaxScoville.      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u"Can't"}
+STAT: Relevance: Test, 	X2: 22.7171163663
+STAT: Relevance: today, 	X2: 133.757134
+STAT: Relevance: I, 	X2: 769.124594699
+STAT: Relevance: show, 	X2: 22.205995642
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'@MaxScoville'}
+STAT: Relevance: @IGN, 	X2: 22.2550625297
+STAT: Relevance: today, 	X2: 84.7138434522
+STAT: Relevance: I, 	X2: 562.151934094
+STAT: Relevance: love, 	X2: 53.1137803357
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Test'}
+STAT: Relevance: I, 	X2: 77.4470959149
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Noon'}
+STAT: Relevance: @IGN, 	X2: 22.2550625297
+STAT: Relevance: today, 	X2: 84.7138434522
+STAT: Relevance: I, 	X2: 562.151934094
+STAT: Relevance: love, 	X2: 53.1137803357
+STAT: Relevance: @MaxScoville, 	X2: 23.4792206642
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          #madewithunity Tactical strategy game @XMercs features a beautiful story with a mandatory Mars colony =] #unity3d pic.twitter.com/cWuKGeqd7W      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'#madewithunity Tactical'}
+STAT: Relevance: strategy, 	X2: 22.1258155709
+STAT: Relevance: game, 	X2: 245.778852234
+STAT: Relevance: @XMercs, 	X2: 11.8845021863
+STAT: Relevance: feature, 	X2: 13.9808557533
+STAT: Relevance: a, 	X2: 68.2720318904
+STAT: Relevance: story, 	X2: 154.728137753
+STAT: Relevance: a, 	X2: 68.2720318904
+STAT: Relevance: Mars, 	X2: 17.9371154833
+STAT: Relevance: =], 	X2: 11.8845021863
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Mars'}
+STAT: Relevance: game, 	X2: 213.870421486
+STAT: Relevance: beautiful, 	X2: 40.6898574686
+STAT: Relevance: #unity3d, 	X2: 1156.47679849
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Mars'}
+STAT: Relevance: #madewithunity, 	X2: 74.8324849435
+STAT: Relevance: game, 	X2: 293.96036733
+STAT: Relevance: story, 	X2: 17.5311668194
+STAT: Relevance: #unity3d, 	X2: 413.516567167
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @andytouch @TheAntRanch @unity3d it all starts with a Google doc. Someone at a computer make this!      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Google'}
+STAT: Relevance: @andytouch, 	X2: 14.2217608001
+STAT: Relevance: @TheAntRanch, 	X2: 48.4510150617
+STAT: Relevance: @unity3d, 	X2: 116.295751735
+STAT: Relevance: a, 	X2: 68.2720318904
+STAT: Relevance: a, 	X2: 68.2720318904
+STAT: Relevance: computer, 	X2: 63.3100848277
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Google'}
+STAT: Relevance: computer, 	X2: 25.7169622081
+STAT: Relevance: make, 	X2: 22.0935351744
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @TheAntRanch @unity3d we really have to make that tips section :S      
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Say, did you know that you can Right Click the Title Bar of the Preview Pane in @unity3d and pop it out into a window of it's own? #gamedev      
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Say'}
+STAT: Relevance: #gamedev, 	X2: 1956.41583007
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Click'}
+STAT: Relevance: Bar, 	X2: 15.5803350365
+STAT: Relevance: @unity3d, 	X2: 128.015951828
+STAT: Relevance: pop, 	X2: 15.5200291174
+STAT: Relevance: #gamedev, 	X2: 790.096827275
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Title'}
+STAT: Relevance: Preview, 	X2: 12.0651011644
+STAT: Relevance: @unity3d, 	X2: 116.295751735
+STAT: Relevance: a, 	X2: 68.2720318904
+STAT: Relevance: #gamedev, 	X2: 49.1989688186
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Rewind time. Reason #1 why Chronos > Time.timeScale. Grab it now: u3d.as/bX5 #unity3d #indiedev #gamedev pic.twitter.com/GjPhzYBJrW      
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'Rewind'}
+STAT: Relevance: #unity3d, 	X2: 1156.47679849
+STAT: Relevance: #indiedev, 	X2: 2487.87465886
+STAT: Relevance: #gamedev, 	X2: 1956.41583007
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Reason'}
+STAT: Relevance: Grab, 	X2: 21.4907809748
+STAT: Relevance: #unity3d, 	X2: 413.516567167
+STAT: Relevance: #indiedev, 	X2: 515.087699511
+STAT: Relevance: #gamedev, 	X2: 790.096827275
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Chronos'}
+STAT: Relevance: Reason, 	X2: 41.6997035358
+STAT: Relevance: Grab, 	X2: 21.4907809748
+STAT: Relevance: #unity3d, 	X2: 413.516567167
+STAT: Relevance: #indiedev, 	X2: 515.087699511
+STAT: Relevance: #gamedev, 	X2: 790.096827275
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'timeScale'}
+STAT: Relevance: #1, 	X2: 38.3764202487
+STAT: Relevance: #indiedev, 	X2: 70.8569089045
+STAT: Relevance: #gamedev, 	X2: 49.1989688186
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @Joe_Robins @SamanthaZero @cattsmall .. So like Samantha says please ask us anything you need!      
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'@Joe_Robins @SamanthaZero @cattsmall'}
+STAT: Relevance: .., 	X2: 94.9171184353
+STAT: Relevance: Samantha, 	X2: 21.8050508233
+STAT: Relevance: u, 	X2: 17.8807219219
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Samantha'}
+STAT: Relevance: .., 	X2: 94.9171184353
+STAT: Relevance: u, 	X2: 17.8807219219
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Samantha'}
+STAT: Relevance: @Joe_Robins, 	X2: 10.8689660108
+STAT: Relevance: @cattsmall, 	X2: 18.5695906842
+STAT: Relevance: u, 	X2: 91.7943779319
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @Joe_Robins @SamanthaZero @cattsmall I've realised in making the leap between Audio DAWs this week how jarring a switch of software can be..      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'@Joe_Robins @SamanthaZero'}
+STAT: Relevance: @cattsmall, 	X2: 18.5695906842
+STAT: Relevance: making, 	X2: 52.2360522482
+STAT: Relevance: Audio, 	X2: 42.9363970703
+STAT: Relevance: week, 	X2: 14.7750683662
+STAT: Relevance: a, 	X2: 68.2720318904
+STAT: Relevance: software, 	X2: 232.454946208
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u"@cattsmall I've"}
+STAT: Relevance: software, 	X2: 22.13743351
+STAT: Relevance: .., 	X2: 94.9171184353
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Audio DAWs'}
+STAT: Relevance: @Joe_Robins, 	X2: 10.8689660108
+STAT: Relevance: @cattsmall, 	X2: 18.5695906842
+STAT: Relevance: making, 	X2: 52.2360522482
+STAT: Relevance: week, 	X2: 14.7750683662
+STAT: Relevance: a, 	X2: 68.2720318904
+STAT: Relevance: software, 	X2: 232.454946208
+STAT: Entity: {u'relevance': [], u'type': u'PERSON', u'word': u'Audio'}
+STAT: Relevance: software, 	X2: 22.13743351
+STAT: Relevance: .., 	X2: 94.9171184353
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          @ShadowOverlord word up man good to hear from you, thanks for taking the burden off of staff on the booth by manning a pod for us ;)      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'u ;)'}
+STAT: Relevance: word, 	X2: 1311.79364934
+STAT: Relevance: good, 	X2: 92.307382556
+STAT: Relevance: hear, 	X2: 48.2687810705
+STAT: Relevance: taking, 	X2: 14.1352561993
+STAT: Relevance: booth, 	X2: 481.234016462
+STAT: Relevance: a, 	X2: 68.2720318904
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:
