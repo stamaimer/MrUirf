@@ -29,7 +29,13 @@ if __name__ == "__main__":
 
 	matrix_g, nodes_g = gen_matpic.foo(path2json_graph_g, "github")
 
+	print matrix_g
+	print nodes_g
+
 	matrix_t, nodes_t = gen_matpic.foo(path2json_graph_t, "twitter")
+
+	print matrix_t
+	print nodes_t
 
 	similarity_matrix = cal_matrix.cal_similarity_matrix(matrix_g, matrix_t)
 
