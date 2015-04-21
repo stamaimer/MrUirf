@@ -1,0 +1,7 @@
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Unity Technologies is looking for: Sales Manager (India) hire.jobvite.com/m?3NJXdhws #job      
+STAT: Entity: {u'relevance': [], u'type': u'ORGANIZATION', u'word': u'Unity Technologies'}
+STAT: Relevance: Sales, 	X2: 51.5176548573
+STAT: Relevance: Manager, 	X2: 435.58347804
+STAT: Relevance: #job, 	X2: 222.908157122
+STAT: Entity: {u'relevance': [], u'type': u'LOCATION', u'word': u'India'}

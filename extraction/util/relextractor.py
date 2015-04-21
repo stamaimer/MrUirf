@@ -3,18 +3,26 @@
 from pymongo     import MongoClient
 from stopwords   import stopwords_mysql, stopwords_nltk, punctuation
 
-def relevance_chi_square(coll, text):
+def relevance_chi_square(coll, text, file):
 
     flag     = text['flag']
     tokens   = text['tokens']
     content  = text['content']
     entities = text['entity']
+
     print "STAT: %s" % ('-'*60)
+    file.write("STAT: %s" % ('-'*60))
+    file.write('\n')
+
     print "STAT: Tweet: %s" % " ".join(content.encode('utf8').split('\n'))
+    file.write("STAT: Tweet: %s" % " ".join(content.encode('utf8').split('\n')))
+    file.write('\n')
 
     for entity in entities:
 
         print "STAT: Entity: %s" % str(entity)
+        file.write("STAT: Entity: %s" % str(entity))
+        file.write('\n')
 
         entity_word = entity['word']
         entity_type = entity['type']
@@ -23,7 +31,8 @@ def relevance_chi_square(coll, text):
         exile_words = stopwords_mysql()
 
         # entity itself need not execute relevance
-        exile_words.append(entity_word.lower())
+        entity_word_list = entity_word.lower().split()
+        for word in entity_word_list: exile_words.append(word)
         exile_puncs = punctuation()
         exile_words = exile_words + exile_puncs
 
@@ -63,8 +72,14 @@ def relevance_chi_square(coll, text):
 
             # if X2 value greater than or equal to 10.83
             # means the relevance rate of entity and token is greater than 0.999
-            if X2 >= 10.83: print "STAT: Relevance: %s, \tX2: %s" \
-                                    % (token.encode('utf8'), X2)
+            if X2 >= 10.83: 
+                print "STAT: Relevance: %s, \tX2: %s" % (token.encode('utf8'), X2)
+                file.write("STAT: Relevance: %s, \tX2: %s" \
+                           % (token.encode('utf8'), X2))
+                file.write('\n')
+
+    print 
+    file.write('\n')
 
     return
 
@@ -74,10 +89,14 @@ if __name__ == '__main__':
 
     twcoll = client.msif.twitter_tweets
 
-    sample = twcoll.find_one({'username':'@Pat_M514'})
+    sample = twcoll.find_one({'username':'@willgoldstone'})
 
-    tweets = sample['texts'][2000:2020]
+    tweets = sample['texts']
+
+    logfile= file('log.txt', 'w+r')
 
     for tweet in tweets:
 
-        relevance_chi_square(twcoll, tweet)
+        relevance_chi_square(twcoll, tweet, logfile)
+
+    logfile.close()
