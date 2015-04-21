@@ -5,6 +5,7 @@ import github.gen_friendship as github
 import gen_matpic
 import cal_matrix
 import leven
+import numpy
 
 import argparse
 
@@ -31,6 +32,10 @@ if __name__ == "__main__":
 	matrix_t, nodes_t = gen_matpic.foo(path2json_graph_t, "twitter")
 
 	similarity_matrix = cal_matrix.cal_similarity_matrix(matrix_g, matrix_t)
+
+	numpy.set_printoptions(threshold="nan")
+
+	print similarity_matrix
 
 
 	
