@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import ssl
 import requests
 from requests.adapters import HTTPAdapter

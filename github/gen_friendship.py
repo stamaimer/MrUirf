@@ -15,8 +15,9 @@ CLIENT_ID = "1c6409e7a4219e6dea66"
 CLIENT_SECRET = "44636a9d327c1e47aba28a9b50a22b39ac4caeb4"
 
 ROOT_ENDPOINT = "https://api.github.com"
-FOLLOWERS_ENDPOINT = ROOT_ENDPOINT + "/users/%s/followers"
-FOLLOWING_ENDPOINT = ROOT_ENDPOINT + "/users/%s/following"
+USER_ENDPOINT = ROOT_ENDPOINT + "/users/%s"
+FOLLOWERS_ENDPOINT = USER_ENDPOINT + "/followers"
+FOLLOWING_ENDPOINT = USER_ENDPOINT + "/following"
 
 headers = {"Accept" : "application/vnd.github.v3+json", "User-Agent" : "stamaimer"}
 
@@ -145,7 +146,19 @@ def get_following(node):
 
                 links.append({"source":nodes.index(node), "target":find_by_name(user["login"])})
 
+def is_valid(name):
+
+    response = retrieve(USER_ENDPOINT % name)
+
+    if response:
+
+        return not "message" in response.json()
+
 def start(login, depth):
+
+    if not is_valid(login):
+
+        return None
 
     nodes.append({"name":login, "group":0})
 

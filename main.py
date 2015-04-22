@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import twitter.gen_friendship as twitter
+import twitter.gen_friendship as twiter
 import github.gen_friendship as github
 import gen_matpic
 import cal_matrix
-import leven
-import numpy
+import filters
 
 import argparse
 
@@ -13,35 +12,45 @@ if __name__ == "__main__":
 
 	argument_parser = argparse.ArgumentParser(description="")
 	
-	argument_parser.add_argument("login", help="")
+	argument_parser.add_argument("github", help="")
+
+	argument_parser.add_argument("twiter", help="")
 	
 	argument_parser.add_argument("depth", help="", type=int)
 
 	args = argument_parser.parse_args()
 
-	sed_login = args.login
+	githubu = args.github
+
+	twiteru = args.twiter
 
 	max_depth = args.depth
 
-	path2json_graph_g = github.start(sed_login, max_depth)
+	path2json_graph_g = github.start(githubu, max_depth)
 
-	path2json_graph_t = twitter.start(sed_login, max_depth)
+	if path2json_graph_g == None:
 
-	matrix_g, nodes_g = gen_matpic.foo(path2json_graph_g, "github")
+		print "%s isn't found!" % githubu
 
-	print matrix_g
-	print nodes_g
+		return
 
-	matrix_t, nodes_t = gen_matpic.foo(path2json_graph_t, "twitter")
+	path2json_graph_t = twiter.start(twiteru, max_depth)
 
-	print matrix_t
-	print nodes_t
+	if path2json_graph_g == None:
+
+		print "%s isn't found!" % twiteru
+
+		return
+
+	matrix_g, nodes_g = gen_matpic.foo(path2json_graph_g, "github")#
+
+	matrix_t, nodes_t = gen_matpic.foo(path2json_graph_t, "twitter")#
 
 	similarity_matrix = cal_matrix.cal_similarity_matrix(matrix_g, matrix_t)
 
-	numpy.set_printoptions(threshold="nan")
+	filters.start(similarity_matrix, gnodes, tnodes)
 
-	print similarity_matrix
+
 
 
 	

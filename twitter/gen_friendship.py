@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import sys
 import json
 import session
 import argparse
@@ -17,6 +16,7 @@ FOLLOWING_URL = HOST + "/%s/following"
 FOLLOWERS_URL = HOST + "/%s/followers"
 
 VXPATH = "//a[@class='badge']/img"
+EXPATH = "//div[@class='title']/text()"
 CXPATH = "//div[@class='statnum']/text()"
 MXPATH = "//span[@class='username']/text()"
 NXPATH = "//*[@id='main_content']/div/div[2]/div/a/@href"
@@ -102,6 +102,12 @@ def is_valid(name, requester):
     if response:
 
         tree = html.fromstring(response.content)
+
+        exist = parse(tree, EXPATH)[0]
+
+        if exist == u"对不起,这个页面不存在":
+
+            return False
 
         verify = parse(tree, VXPATH)[0]
 
@@ -247,7 +253,7 @@ def start(login, depth):
 
         print "%s is invalid" % login
 
-        sys.exit(0)
+        return None
 
     requests = [ session.get_session() for i in xrange(AMOUNT_OF_PROCESS) ]
 
