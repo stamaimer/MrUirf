@@ -62,7 +62,7 @@ def retrieve(url):
 
             if 200 == response.status_code:
 
-                print "request : %s success" % response.url
+                # print "request : %s success" % response.url
 
                 return response
 
@@ -104,19 +104,21 @@ def get_followers(node):
 
         followers = response.json()
 
-        for user in followers:
+        return followers
 
-            if user["login"] not in [ele["name"] for ele in nodes]:
+        # for user in followers:
 
-                tmpu = {"name":user["login"], "group":group + 1}
+        #     if user["login"] not in [ele["name"] for ele in nodes]:
 
-                nodes.append(tmpu)
+        #         tmpu = {"name":user["login"], "group":group + 1}
 
-                links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
+        #         nodes.append(tmpu)
 
-            else:
+        #         links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
 
-                links.append({"source":find_by_name(user["login"]), "target":nodes.index(node)})
+        #     else:
+
+        #         links.append({"source":find_by_name(user["login"]), "target":nodes.index(node)})
 
 def get_following(node):
 
@@ -132,19 +134,21 @@ def get_following(node):
 
         following = response.json()
 
-        for user in following:
+        return following
 
-            if user["login"] not in [ele["name"] for ele in nodes]:
+        # for user in following:
 
-                tmpu = {"name":user["login"], "group":group + 1}
+        #     if user["login"] not in [ele["name"] for ele in nodes]:
 
-                nodes.append(tmpu)
+        #         tmpu = {"name":user["login"], "group":group + 1}
 
-                links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
+        #         nodes.append(tmpu)
 
-            else:
+        #         links.append({"source":nodes.index(node), "target":nodes.index(tmpu)})
 
-                links.append({"source":nodes.index(node), "target":find_by_name(user["login"])})
+        #     else:
+
+        #         links.append({"source":nodes.index(node), "target":find_by_name(user["login"])})
 
 def is_valid(name):
 
@@ -178,8 +182,28 @@ def start(login, depth):
 
         else:
 
-            get_followers(node)
-            get_following(node)
+            followers = get_followers(node)
+            following = get_following(node)
+
+            intersection = set(following).intersection(followers)
+
+            for user in intersection:
+
+                if user["login"] not in [ele["name"] for ele in nodes]:
+
+                    if 2 == group:
+
+                        continue
+
+                    tmpu = {"name":user["login"], "group":group + 1}
+
+                    nodes.append(tmpu)
+
+                    links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
+
+                else:
+
+                    links.append({"source":find_by_name(user["login"]), "target":nodes.index(node)})
 
 if __name__ == "__main__":
 
