@@ -85,7 +85,7 @@ if __name__ == "__main__":
     client = MongoClient('mongodb://localhost:27017/')
     tweets = client.msif.twitter_tweets
     # set no time out
-    peers  = tweets.find().addOption(DBQuery.Option.noTimeout)
+    peers  = tweets.find(timeout=False)
 
     with file('status.json', 'r') as f:
         status = json.load(f)
@@ -106,7 +106,5 @@ if __name__ == "__main__":
 
     # because in former line, we set cursor no time out
     # now we should make sure the cursor closed
-    # taht means all of the data exhausted
-    for peer in peers:
-        name = peer['name']
-        # do nothing and continue
+    # that means all of the data exhausted
+    peers.close()
