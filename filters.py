@@ -2,19 +2,21 @@
 
 import numpy
 
-def topns(matrix, n):
+def topns(matrix, N):
 
 	flatted = matrix.flatten()
 
-	idx_1d = numpy.argpartition(flatted, -n)[-n:]
+	idx_1d = numpy.argpartition(flatted, -N)[-N:]
 
-	x_idx, y_idx = numpy.unravel_index(idx_1d, matrix.shape)
+	idx_2d = numpy.vstack(numpy.unravel_index(idx_1d, matrix.shape)).T
 
-	for x, y in zip(x_idx, y_idx):
+	print idx_2d
 
-		print x, y, matrix[x][y]
+	# for x, y in zip(x_idx, y_idx):
 
-		print "----------------------------"
+	# 	print x, y, matrix[x][y]
+
+	# 	print "----------------------------"
 
 def leven(gnodes, tnodes):
 
