@@ -17,8 +17,19 @@ if __name__ == "__main__":
 
     texts  = peer['texts']
 
-    text   = texts[0]
+    for text in texts:
 
-    pos    = text['pos']
+        print '#'*80
 
-    print pos
+        pos    = text['pos']
+
+        for pos_token in pos:
+
+            print pos_token[1], 
+
+            if pos_token[1] == '.':
+
+                print
+                print '-'*80
+
+        print
