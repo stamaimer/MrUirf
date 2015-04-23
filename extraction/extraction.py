@@ -85,6 +85,7 @@ if __name__ == "__main__":
     client = MongoClient('mongodb://localhost:27017/')
     tweets = client.msif.twitter_tweets
     peers  = tweets.find()
+    tweets.close()
 
     with file('status.json', 'r') as f:
         status = json.load(f)
@@ -101,5 +102,6 @@ if __name__ == "__main__":
         try:
             tweets = client.msif.twitter_tweets
             entities = extractor(tweets, peer_id)
+            tweets.close()
         except:
             pass
