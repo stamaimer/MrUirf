@@ -106,21 +106,17 @@ def get_user_list():
 
 	items = github_users.find({}, {"login":1, "email":1, "_id":0})
 
-	items = ( {"login":item["login"], "email":item["email"]} \
+	items = [ {"login":item["login"], "email":item["email"]} \
 			  for item in items \
 			  if item.has_key("email") \
 			  and item["email"] != None \
-			  and item["email"] != '')
+			  and item["email"] != '' ]
 
 	items = reversed(items)
 
 	seeds = open("GithubUsersEmails.json", 'w')
 
-	for item in items:
-
-		seeds.write(item)
-
-		seeds.write("\n")	
+	seeds.writelines(items)	
 
 	seeds.close()
 
