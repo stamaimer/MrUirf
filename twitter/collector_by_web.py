@@ -282,7 +282,7 @@ if __name__ == '__main__':
             print
             print
 
-            # log: 2015-04-12 get an 1000p corpus
+            # log: 2015-04-17 get an 1000p corpus
             # log: 2015-04-23 add more 2000p
             if client.mruirf.twitter_tweets.count() > 3000 : break
 
