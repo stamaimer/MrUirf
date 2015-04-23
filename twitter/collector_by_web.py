@@ -159,10 +159,7 @@ def get_followers(peer, filter = False):
             f_fnum = f_fers.cssselect('div.statnum')[0].text_content()
             f_fnum = int("".join(f_fnum.split(',')))
 
-            if 5000 > f_tnum or f_tnum > 10000:
-                fers.remove(follower)
-
-            if f_fnum > 3000:
+            if 5000 > f_tnum or f_tnum > 10000 or f_fnum > 3000:
                 fers.remove(follower)
 
             if 0 == i % 20:
