@@ -26,9 +26,13 @@ def start(matrix, gnodes, tnodes):
 
 	print matrix
 
-	print gnodes
+	for node in gnodes:
+	
+		print node
 
-	print tnodes
+	for node in tnodes:
+	
+		print node
 
 	print "============================" 
 
