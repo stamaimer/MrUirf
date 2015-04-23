@@ -15,7 +15,7 @@ if __name__ == "__main__":
 
 	argument_parser.add_argument("twiter", help="")
 	
-	argument_parser.add_argument("-d", "depth", help="", type=int)
+	argument_parser.add_argument("-d", "--depth", help="", type=int)
 
 	argument_parser.add_argument("-i", "--iterations", type=int, help="")
 

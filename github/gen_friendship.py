@@ -182,7 +182,7 @@ if __name__ == "__main__":
 
     argument_parser.add_argument("login", help="")
 
-    argument_parser.add_argument("-d", "depth", help="", type=int)
+    argument_parser.add_argument("-d", "--depth", help="", type=int)
 
     args = argument_parser.parse_args()
 
