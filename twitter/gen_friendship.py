@@ -179,7 +179,7 @@ def worker(login, depth, requester, nodes, links, tasks, lock, indices):
 
         current_indices = nodes[node]
 
-        print "%s is serving %s,\t\t group : %d,\t\t %d left" % (multiprocessing.current_process().name, name, group, tasks.qsize())
+        print "%s is serving,\t\t group : %d,\t\t %d left, %s" % (multiprocessing.current_process().name, group, tasks.qsize(), name)
 
         if is_valid(name, requester):
 
