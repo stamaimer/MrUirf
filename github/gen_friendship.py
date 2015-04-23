@@ -90,11 +90,11 @@ def find_by_name(name):
 
             return nodes.index(node)
 
-def get_followers(node):
+def get_followers(name):
 
-    name = node["name"]
+    # name = node["name"]
 
-    group = node["group"]
+    # group = node["group"]
 
     response = retrieve(FOLLOWERS_ENDPOINT % name)
 
@@ -120,11 +120,11 @@ def get_followers(node):
 
         #         links.append({"source":find_by_name(user["login"]), "target":nodes.index(node)})
 
-def get_following(node):
+def get_following(name):
 
-    name = node["name"]
+    # name = node["name"]
 
-    group = node["group"]
+    # group = node["group"]
 
     response = retrieve(FOLLOWING_ENDPOINT % name)
 
@@ -182,8 +182,10 @@ def start(login, depth):
 
         else:
 
-            followers = get_followers(node)
-            following = get_following(node)
+            name = node["name"]; group = node["group"]
+
+            followers = get_followers(name)
+            following = get_following(name)
 
             intersection = set(following).intersection(followers)
 
