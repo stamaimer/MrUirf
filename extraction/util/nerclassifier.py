@@ -167,8 +167,8 @@ def ner_bat(coll, peer_id):
             entity_types = []
 
             for entity in entities:
-                if entity['type'] not in entity_types:
-                    entity_types.append(entity_type)
+                if not entity['type'] in entity_types:
+                    entity_types.append(entity['type'])
 
             text['entity_types'] = entity_types
 
