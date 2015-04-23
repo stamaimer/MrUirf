@@ -150,7 +150,7 @@ def worker(login, depth, requester, nodes, links, tasks, lock, indices):
 
         except:
 
-            print "%s terminate ..." % multiprocessing.current_process().name
+            # print "%s terminate ..." % multiprocessing.current_process().name
 
             return
 
@@ -160,7 +160,7 @@ def worker(login, depth, requester, nodes, links, tasks, lock, indices):
 
         if group > depth:
 
-            print "%s terminate ..." % multiprocessing.current_process().name
+            # print "%s terminate ..." % multiprocessing.current_process().name
 
             return
 

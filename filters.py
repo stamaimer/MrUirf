@@ -22,17 +22,17 @@ def leven(gnodes, tnodes):
 
 def start(matrix, gnodes, tnodes):
 
-	numpy.set_printoptions(threshold="nan")
+	# numpy.set_printoptions(threshold="nan")
 
-	print matrix
+	# print matrix
 
-	for node in gnodes:
+	# for node in gnodes:
 	
-		print node
+	# 	print node
 
-	for node in tnodes:
+	# for node in tnodes:
 	
-		print node
+	# 	print node
 
 	print "============================" 
 
