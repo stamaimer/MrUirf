@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import time
+import json
 import smtplib
 import pymongo
 import argparse
@@ -114,11 +115,9 @@ def get_user_list():
 
 	items = reversed(items)
 
-	seeds = open("GithubUsersEmails.json", 'w')
+	with open("GithubUsersEmails.json", 'w') as target:
 
-	seeds.writelines(items)	
-
-	seeds.close()
+		json.dump(items, target)
 
 	return items
 
