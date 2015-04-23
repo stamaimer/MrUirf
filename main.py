@@ -27,11 +27,24 @@ if __name__ == "__main__":
 
 	print "crawl the github social graph of %s" % githubu
 
-	matrix_g, nodes_g = github.start(githubu, args.depth)
+	if args.depth:
+
+		matrix_g, nodes_g = github.start(githubu, args.depth)
+
+	else:
+
+		matrix_g, nodes_g = github.start(githubu)
 
 	print "crawl the twiter social graph of %s" % twiteru
 
-	matrix_t, nodes_t = twiter.start(twiteru, args.depth)
+	if args.depth:
+
+		matrix_t, nodes_t = twiter.start(twiteru, args.depth)
+
+	else:
+
+		matrix_t, nodes_t = twiter.start(twiteru)
+
 
 	print "calculate the similarity matrix between github social graph and twiter social graph"
 
