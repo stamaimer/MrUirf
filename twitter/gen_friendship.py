@@ -175,58 +175,58 @@ def worker(login, depth, requester, nodes, links, tasks, lock, indices):
 
         #     return
 
-        else:
+        # else:
 
-            current_indices = nodes[node]
+        current_indices = nodes[node]
 
-            print "%s is serving %s,\t\t group : %d,\t\t %d left" % (multiprocessing.current_process().name, name, group, tasks.qsize())
+        print "%s is serving %s,\t\t group : %d,\t\t %d left" % (multiprocessing.current_process().name, name, group, tasks.qsize())
 
-            if is_valid(name, requester):
+        if is_valid(name, requester):
 
-                following = extract_info(FOLLOWING_URL % name, requester)
-                followers = extract_info(FOLLOWERS_URL % name, requester)
+            following = extract_info(FOLLOWING_URL % name, requester)
+            followers = extract_info(FOLLOWERS_URL % name, requester)
 
-                intersection = set(following).intersection(followers)
+            intersection = set(following).intersection(followers)
 
-                for user in intersection:
+            for user in intersection:
 
-                    for i in xrange(group + 1):
+                for i in xrange(group + 1):
 
-                        tmpu = (user, i)
+                    tmpu = (user, i)
 
-                        try:
+                    try:
 
-                            exist = nodes[tmpu]
-
-                            links.append({"source":current_indices, "target":nodes[tmpu]})
-
-                            break
-
-                        except:
-
-                            continue
-
-                    else:
-
-                        if group == 2:
-
-                            continue
-
-                        tmpu = (user, group + 1)
-
-                        lock.acquire()
-
-                        nodes[tmpu] = indices; indices+=1
-
-                        lock.release()
-
-                        tasks.put(tmpu)
+                        exist = nodes[tmpu]
 
                         links.append({"source":current_indices, "target":nodes[tmpu]})
 
-            else:
+                        break
 
-                print "%s is invalid" % name
+                    except:
+
+                        continue
+
+                else:
+
+                    if group == 2:
+
+                        continue
+
+                    tmpu = (user, group + 1)
+
+                    lock.acquire()
+
+                    nodes[tmpu] = indices; indices+=1
+
+                    lock.release()
+
+                    tasks.put(tmpu)
+
+                    links.append({"source":current_indices, "target":nodes[tmpu]})
+
+        else:
+
+            print "%s is invalid" % name
 
 def start(login, depth=2):
 
