@@ -58,7 +58,10 @@ def get_tweets(peer):
     print "STAT: Crawl tweets start."
 
     while True:
-        print "STAT: Start page %d tweets crawl. link : %s" % (page_count, link)
+        if page_count == 1 or page_count % 10 == 0:
+            print "STAT: Start page %d tweets crawl. link : %s" \
+                    % (page_count, link)
+
         tree     = html.fromstring(web_page.text.encode('utf8'))
         timeline = tree.cssselect('div.timeline')
         t_cons   = timeline[0].cssselect('table.tweet')
