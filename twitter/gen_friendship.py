@@ -143,7 +143,7 @@ def is_valid(name, requester):
 
 def worker(login, depth, requester, nodes, links, tasks, lock, indices):
 
-    max_sleep_times = 10
+    max_sleep_times = 6
 
     while 1:
 
