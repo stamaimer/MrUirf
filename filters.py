@@ -12,6 +12,8 @@ def topns(matrix, n):
 
 	idx_2d = numpy.vstack(numpy.unravel_index(idx_1d, matrix.shape)).transpose()
 
+	idx_2d = reversed(idx_2d)
+
 	# print idx_2d
 
 	for index in idx_2d:
