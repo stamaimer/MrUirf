@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import numpy
+import soundex
 
 def topns(matrix, n):
 
@@ -25,6 +26,20 @@ def topns(matrix, n):
 def leven(gnodes, tnodes, pairs):
 
 	pass
+
+def sondx(gnodes, tnodes, pairs):
+
+	print pairs
+
+	for pair in pairs:
+
+		str1 = gnodes[pair[0]]
+
+		str2 = tnodes[pair[1]]
+
+		similarity = soundex.Soundex().compare(str1, str2)
+
+		print "The similarity between %s and %s is %d" % (str1, str2, similarity)
 
 def start(matrix, gnodes, tnodes):
 
