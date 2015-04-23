@@ -104,7 +104,7 @@ def get_followers(node):
 
         followers = response.json()
 
-        return followers
+        return ( user["login"] for user in followers )
 
         # for user in followers:
 
@@ -134,7 +134,7 @@ def get_following(node):
 
         following = response.json()
 
-        return following
+        return ( user["login"] for user in following )
 
         # for user in following:
 
@@ -189,13 +189,13 @@ def start(login, depth):
 
             for user in intersection:
 
-                if user["login"] not in [ele["name"] for ele in nodes]:
+                if user not in [ele["name"] for ele in nodes]:
 
                     if 2 == group:
 
                         continue
 
-                    tmpu = {"name":user["login"], "group":group + 1}
+                    tmpu = {"name":user, "group":group + 1}
 
                     nodes.append(tmpu)
 
@@ -203,7 +203,7 @@ def start(login, depth):
 
                 else:
 
-                    links.append({"source":find_by_name(user["login"]), "target":nodes.index(node)})
+                    links.append({"source":find_by_name(user), "target":nodes.index(node)})
 
 if __name__ == "__main__":
 
