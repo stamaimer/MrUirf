@@ -84,8 +84,12 @@ if __name__ == "__main__":
 
     client = MongoClient('mongodb://localhost:27017/')
     tweets = client.msif.twitter_tweets
+
     # set no time out
-    peers  = tweets.find(timeout=False)
+    # in python 1.x you could set "find(timeout=False)"
+    # however, in python 2.x, subprocess.call does not have a timeout argument
+    # you could not do like so
+    peers  = tweets.find(None, None, 0, 0, False)
 
     with file('status.json', 'r') as f:
         status = json.load(f)
