@@ -6,6 +6,7 @@ def stopwords_nltk():
 
     return stopwords.words('english')
 
+# Below the default list of full-text stopwords as used by MySQL.
 def stopwords_mysql():
 
     stopwords = ["a's",     'able',     'about',    'above',    'according', 
@@ -132,6 +133,13 @@ def punctuation():
 
     puncs = ['!', '"', '#', '$', '%', '&', '\'','(', ')', '*', '+',
              ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', 
-             '[', '\\',']', '^', '_', '`', '{', '|', '}', '~', '...']
+             '[', '\\',']', '^', '_', '`', '{', '|', '}', '~', '...', 
+             '…']
 
     return puncs
+
+if __name__ == '__main__':
+
+    print "nltk  stopwords set has %s words." % len(stopwords_nltk)
+    print "mysql stopwords set has %s words." % len(stopwords_mysql)
+    print "punctuations set has %s punss." % len(punctuations)
