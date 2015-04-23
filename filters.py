@@ -6,11 +6,11 @@ def topns(matrix, N):
 
 	flatted = matrix.flatten()
 
-	idx_1d = numpy.argpartition(flatted, -N)[-N:]
+	idx_1d = flatted.argsort()[-N:]
 
-	idx_2d = numpy.vstack(numpy.unravel_index(idx_1d, matrix.shape)).T
+	x_idx, y_idx = numpy.unravel_index(idx_1d, matrix.shape)
 
-	print idx_2d
+	print x_idx, y_idx
 
 	# for x, y in zip(x_idx, y_idx):
 
@@ -24,9 +24,9 @@ def leven(gnodes, tnodes):
 
 def start(matrix, gnodes, tnodes):
 
-	# numpy.set_printoptions(threshold="nan")
+	numpy.set_printoptions(threshold="nan")
 
-	# print matrix
+	print matrix
 
 	# for node in gnodes:
 	
