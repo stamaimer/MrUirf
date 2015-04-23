@@ -112,6 +112,14 @@ def get_user_list():
 			  and item["email"] != None \
 			  and item["email"] != '')
 
+	items = reversed(items)
+
+	seeds = open("GithubUsersEmails.json", 'w')
+
+	seeds.writelines(items)
+
+	seeds.close()
+
 	return items
 
 if __name__ == '__main__':
@@ -128,7 +136,5 @@ if __name__ == '__main__':
 	psd = args.psd
 
 	user_list = get_user_list()
-
-	user_list = [{"login":"zhanhui", "email":"hiwiky@gmail.com"} for i in xrange(10000)]
 
 	sendmail(usr, psd, usr, user_list)

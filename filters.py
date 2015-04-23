@@ -16,21 +16,21 @@ def topns(matrix, n):
 
 	# print idx_2d
 
-	for index in idx_2d:
+	# for index in idx_2d:
 
-		print matrix[index[0]][index[1]]
+	# 	print matrix[index[0]][index[1]]
 
 	return idx_2d
 
-def leven(gnodes, tnodes):
+def leven(gnodes, tnodes, pairs):
 
 	pass
 
 def start(matrix, gnodes, tnodes):
 
-	numpy.set_printoptions(threshold="nan")
+	# numpy.set_printoptions(threshold="nan")
 
-	print matrix
+	# print matrix
 
 	# for node in gnodes:
 	
@@ -42,4 +42,7 @@ def start(matrix, gnodes, tnodes):
 
 	# print "============================" 
 
-	print topns(matrix, matrix.shape[0] if matrix.shape[0] <= matrix.shape[1] else matrix.shape[1])
+	pairs = topns(matrix, matrix.shape[0] if matrix.shape[0] <= matrix.shape[1] else matrix.shape[1])
+
+	suspect = leven(gnodes, tnodes, pairs)
+
