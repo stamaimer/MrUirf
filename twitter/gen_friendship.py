@@ -285,7 +285,7 @@ def start(login, depth):
 
     matrix =  networkx.to_numpy_matrix(graph)
 
-    return matrix, nodes
+    return matrix, ( node["name"] for node in data["nodes"] )
 
 if __name__ == "__main__":
 
