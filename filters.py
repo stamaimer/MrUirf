@@ -14,6 +14,10 @@ def topns(matrix, n):
 
 	# print idx_2d
 
+	for index in idx_2d:
+
+		print matrix[index[0]][index[1]]
+
 	return idx_2d
 
 def leven(gnodes, tnodes):
@@ -22,9 +26,9 @@ def leven(gnodes, tnodes):
 
 def start(matrix, gnodes, tnodes):
 
-	# numpy.set_printoptions(threshold="nan")
+	numpy.set_printoptions(threshold="nan")
 
-	# print matrix
+	print matrix
 
 	# for node in gnodes:
 	
