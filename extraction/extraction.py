@@ -99,6 +99,7 @@ if __name__ == "__main__":
         print name, '-'*50
 
         try:
+            tweets = client.msif.twitter_tweets
             entities = extractor(tweets, peer_id)
         except:
             pass
