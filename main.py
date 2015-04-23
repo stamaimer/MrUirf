@@ -5,6 +5,7 @@ import github.gen_friendship as github
 import gen_matpic
 import cal_matrix
 import filters
+import sys
 
 import argparse
 
@@ -32,7 +33,7 @@ if __name__ == "__main__":
 
 		print "%s isn't found!" % githubu
 
-		return
+		sys.exit(0)
 
 	path2json_graph_t = twiter.start(twiteru, max_depth)
 
@@ -40,7 +41,7 @@ if __name__ == "__main__":
 
 		print "%s isn't found!" % twiteru
 
-		return
+		sys.exit(0)
 
 	matrix_g, nodes_g = gen_matpic.foo(path2json_graph_g, "github")#
 
