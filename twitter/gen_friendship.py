@@ -114,7 +114,7 @@ def is_valid(name, requester):
 
         verify = parse(tree, VXPATH)[0]
 
-        if verify is not None:
+        if verify is None:
 
             return False
 
