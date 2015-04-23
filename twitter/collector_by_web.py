@@ -260,7 +260,7 @@ def get_default_peers():
 if __name__ == '__main__':
 
     client = MongoClient('mongodb://localhost:27017/')
-    peers  = get_default_peers
+    peers  = get_default_peers()
     e_peer = []
 
     for peer in peers:
