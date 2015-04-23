@@ -217,7 +217,7 @@ def worker(login, depth, requester, nodes, links, tasks, lock, indices):
 
                 print "%s is invalid" % name
 
-def start(login, depth):
+def start(login, depth=2):
 
     nodes = multiprocessing.Manager().dict()
     tasks = multiprocessing.Queue()
@@ -293,12 +293,10 @@ if __name__ == "__main__":
 
     argument_parser.add_argument("login", help="")
 
-    argument_parser.add_argument("depth", help="", type=int)
+    argument_parser.add_argument("-d", "depth", help="", type=int)
 
     args = argument_parser.parse_args()
 
     sed_login = args.login
 
-    max_depth = args.depth
-
-    start(sed_login, max_depth)
+    start(sed_login, args.depth)

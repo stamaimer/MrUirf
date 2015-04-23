@@ -15,7 +15,9 @@ if __name__ == "__main__":
 
 	argument_parser.add_argument("twiter", help="")
 	
-	argument_parser.add_argument("depth", help="", type=int)
+	argument_parser.add_argument("-d", "depth", help="", type=int)
+
+	argument_parser.add_argument("-i", "--iterations", type=int, help="")
 
 	args = argument_parser.parse_args()
 
@@ -23,19 +25,17 @@ if __name__ == "__main__":
 
 	twiteru = args.twiter
 
-	max_depth = args.depth
-
 	print "crawl the github social graph of %s" % githubu
 
-	matrix_g, nodes_g = github.start(githubu, max_depth)
+	matrix_g, nodes_g = github.start(githubu, args.depth)
 
 	print "crawl the twiter social graph of %s" % twiteru
 
-	matrix_t, nodes_t = twiter.start(twiteru, max_depth)
+	matrix_t, nodes_t = twiter.start(twiteru, args.depth)
 
 	print "calculate the similarity matrix between github social graph and twiter social graph"
 
-	similarity_matrix = cal_matrix.cal_similarity_matrix(matrix_g, matrix_t)
+	similarity_matrix = cal_matrix.cal_similarity_matrix(matrix_g, matrix_t, args.iterations)
 
 	print "make decision"
 
