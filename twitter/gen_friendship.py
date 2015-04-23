@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 
 import os
+import sys
 import json
 import session
 import argparse
+import networkx
 import itertools
 import multiprocessing
 
 from lxml import html
+from networkx.readwrite import json_graph
 
 HOST = "https://mobile.twitter.com"
 
@@ -251,9 +254,9 @@ def start(login, depth):
 
     else:
 
-        print "%s is invalid" % login
+        print "%s isn't found!" % login
 
-        return None
+        sys.exit(0)
 
     requests = [ session.get_session() for i in xrange(AMOUNT_OF_PROCESS) ]
 
@@ -273,11 +276,15 @@ def start(login, depth):
 
     data = {"nodes":[{"name":node[0][0], "group":node[0][1]} for node in dict(nodes).iteritems()], "links":[link for link in links]}
 
-    with open(login + "_twitter.json", 'w') as outfile:
+    with open("/var/www/html/msif/" + login + "_twitter.json", 'w') as outfile:
 
         json.dump(data, outfile)
 
-    return os.path.abspath( login + "_twitter.json")
+    graph = json_graph.node_link_graph(data, directed=False, multigraph=False)
+
+    matrix =  networkx.to_numpy_matrix(graph)
+
+    return matrix, nodes
 
 if __name__ == "__main__":
 

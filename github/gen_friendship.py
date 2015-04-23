@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 
 import requests
+import networkx
 import argparse
 import json
 import time
+import sys
 import os
+
+from networkx.readwrite import json_graph
 
 nodes = []
 links = []
@@ -162,50 +166,66 @@ def start(login, depth):
 
     if not is_valid(login):
 
-        return None
+        print "%s isn't found!" % login
+
+        sys.exit(0)
 
     nodes.append({"name":login, "group":0})
 
     for node in nodes:
 
-        if node["group"] > depth:
+        # if node["group"] > depth:
 
-            print "generate graph ..."
+        #     print "generate graph ..."
 
-            data = {"nodes":nodes, "links":links}
+        #     data = {"nodes":nodes, "links":links}
 
-            with open(login + "_github.json", 'w') as outfile:
+        #     with open(login + "_github.json", 'w') as outfile:
 
-                json.dump(data, outfile)
+        #         json.dump(data, outfile)
             
-            return os.path.abspath(login + "_github.json")
+        #     return os.path.abspath(login + "_github.json")
 
-        else:
+        # else:
 
-            name = node["name"]; group = node["group"]
+        name = node["name"]; group = node["group"]
 
-            followers = get_followers(name)
-            following = get_following(name)
+        followers = get_followers(name)
+        following = get_following(name)
 
-            intersection = set(following).intersection(followers)
+        intersection = set(following).intersection(followers)
 
-            for user in intersection:
+        for user in intersection:
 
-                if user not in [ele["name"] for ele in nodes]:
+            if user not in [ele["name"] for ele in nodes]:
 
-                    if 2 == group:
+                if 2 == group:
 
-                        continue
+                    continue
 
-                    tmpu = {"name":user, "group":group + 1}
+                tmpu = {"name":user, "group":group + 1}
 
-                    nodes.append(tmpu)
+                nodes.append(tmpu)
 
-                    links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
+                links.append({"source":nodes.index(tmpu), "target":nodes.index(node)})
 
-                else:
+            else:
 
-                    links.append({"source":find_by_name(user), "target":nodes.index(node)})
+                links.append({"source":find_by_name(user), "target":nodes.index(node)})
+
+    print "generate graph ..."
+
+    data = {"nodes":nodes, "links":links}
+
+    with open("/var/www/html/msif/" + login + "_github.json", 'w') as outfile:
+
+        json.dump(data, outfile)
+
+    graph = json_graph.node_link_graph(data, directed=False, multigraph=False)
+
+    matrix =  networkx.to_numpy_matrix(graph)
+
+    return matrix, nodes
 
 if __name__ == "__main__":
 
