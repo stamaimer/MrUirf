@@ -10,7 +10,8 @@ never recognizing the language, though in this period we only need tweets in
 English.
 
     MEMO
-    1. In first test, we prefer to filter out those users whoes tweets count more
+    2015-04-23
+    In first test, we prefer to filter out those users whoes tweets count more
 than 16000, the more the better. Because we believe the more tweets the user push
 the more active the user is, and it is a effective way to downsize seed user, we 
 choose those users to construct our corpus. However, we find there exist an 
@@ -139,7 +140,8 @@ def get_followers(peer, filter = False):
     if filter:
         print "WARN: Filter flag opened."
         print "STAT: Filter start. "
-        print "Kick out users whose tweets less than 10000."
+        print "STAT: Filter out users whose tweet less than 10000 but over 5000"
+        print "STAT: & followers less than 3000."
 
         follower_count = len(fers)
         print "STAT: %s selected followers in all." % follower_count
@@ -152,8 +154,14 @@ def get_followers(peer, filter = False):
             f_twee = f_tree.cssselect('td.stat')[0]
             f_tnum = f_twee.cssselect('div.statnum')[0].text_content()
             f_tnum = int("".join(f_tnum.split(',')))
+            f_fers = f_tree.cssselect('td.stat')[2]
+            f_fnum = f_fers.cssselect('div.statnum')[0].text_content()
+            f_fnum = int("".join(f_fnum.split(',')))
 
-            if f_tnum < 10000:
+            if 5000 > f_tnum or f_tnum > 10000:
+                fers.remove(follower)
+
+            if f_fnum > 3000:
                 fers.remove(follower)
 
             if 0 == i % 20:
@@ -252,7 +260,7 @@ def get_default_peers():
 if __name__ == '__main__':
 
     client = MongoClient('mongodb://localhost:27017/')
-    peers  = get_default_peers
+    peers  = get_default_peers()
     e_peer = []
 
     for peer in peers:
@@ -268,7 +276,7 @@ if __name__ == '__main__':
                 store(client, get_tweets(peer))
 
             # get followers
-            if len(peers) < 1000:
+            if len(peers) < 3000:
                 followers = get_followers(peer, True)
                 for follower in followers:
                     peers.append(follower)
@@ -276,8 +284,9 @@ if __name__ == '__main__':
             print
             print
 
-            # get an 1000p corpus
-            if client.mruirf.twitter_tweets.count() > 1000 : break
+            # log: 2015-04-12 get an 1000p corpus
+            # log: 2015-04-23 add more 2000p
+            if client.mruirf.twitter_tweets.count() > 3000 : break
 
         except:
 
