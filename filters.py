@@ -59,5 +59,5 @@ def start(matrix, gnodes, tnodes):
 
 	pairs = topns(matrix, matrix.shape[0] if matrix.shape[0] <= matrix.shape[1] else matrix.shape[1])
 
-	sondx(gnodes, tnodes, pairs)
+	sondx(list(gnodes), list(tnodes), pairs)
 
