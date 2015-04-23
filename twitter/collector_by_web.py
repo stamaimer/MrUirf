@@ -91,6 +91,7 @@ def get_tweets(peer):
         except:
             break
 
+    print "SUCC: Crawl %s tweets." % len(tweets['texts'])
     print "SUCC: Crawl tweets done."
     return tweets
 
