@@ -4,10 +4,6 @@ import numpy
 
 def topns(matrix, n):
 
-	numpy.set_printoptions(threshold="nan")
-
-	print matrix
-
 	flatted = matrix.flatten()
 
 	idx_1d = numpy.argpartition(flatted, -n)[-n:]
@@ -16,12 +12,24 @@ def topns(matrix, n):
 
 	for x, y in zip(x_idx, y_idx):
 
-		print matrix[x][y]
+		print x, y, matrix[x][y]
+
+		print "----------------------------"
 
 def leven(gnodes, tnodes):
 
 	pass
 
 def start(matrix, gnodes, tnodes):
+
+	numpy.set_printoptions(threshold="nan")
+
+	print matrix
+
+	print gnodes
+
+	print tnodes
+
+	print "============================" 
 
 	topns(matrix, 3)

@@ -217,7 +217,8 @@ def start(login, depth):
 
     data = {"nodes":nodes, "links":links}
 
-    with open("/var/www/html/msif/" + login + "_github.json", 'w') as outfile:
+    # with open("/var/www/html/msif/" + login + "_github.json", 'w') as outfile:
+    with open("/var/www/html/msif/github.json", 'w') as outfile:
 
         json.dump(data, outfile)
 
