@@ -2,6 +2,7 @@
 
 import os
 import sys
+import time
 import json
 import session
 import argparse
@@ -142,6 +143,8 @@ def is_valid(name, requester):
 
 def worker(login, depth, requester, nodes, links, tasks, lock, indices):
 
+    max_sleep_times = 10
+
     while 1:
 
         try:
@@ -149,6 +152,14 @@ def worker(login, depth, requester, nodes, links, tasks, lock, indices):
             node = tasks.get_nowait()
 
         except:
+
+            if max_sleep_times:
+
+                time.sleep(1)
+
+                max_sleep_times -= 1
+
+                continue
 
             # print "%s terminate ..." % multiprocessing.current_process().name
 
@@ -158,11 +169,11 @@ def worker(login, depth, requester, nodes, links, tasks, lock, indices):
 
         group = node[1]
 
-        if group > depth:
+        # if group > depth:
 
-            # print "%s terminate ..." % multiprocessing.current_process().name
+        #     # print "%s terminate ..." % multiprocessing.current_process().name
 
-            return
+        #     return
 
         else:
 
