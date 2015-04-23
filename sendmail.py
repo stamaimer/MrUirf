@@ -116,7 +116,11 @@ def get_user_list():
 
 	seeds = open("GithubUsersEmails.json", 'w')
 
-	seeds.writelines(items)
+	for item in items:
+
+		seeds.write(item)
+
+		seeds.write("\n")	
 
 	seeds.close()
 
