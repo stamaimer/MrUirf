@@ -1,12 +1,27 @@
 # -*- coding: utf-8 -*-
 
 '''
+    BRIEF
     In this file, the function 'get_tweets' will crawl users' tweets.
     And function 'get_followers' will crawl users' followers to enlarge peers.
     Function 'store' will store users' tweets in mongodb.
     And this file only crawl the tweets and followers of selected seed users and 
 never recognizing the language, though in this period we only need tweets in
 English.
+
+    MEMO
+    1. In first test, we prefer to filter out those users whoes tweets count more
+than 16000, the more the better. Because we believe the more tweets the user push
+the more active the user is, and it is a effective way to downsize seed user, we 
+choose those users to construct our corpus. However, we find there exist an 
+insidious problem, there exist a sinew between tweet count and follower count. 
+To explain in detail, if a user push too many tweets, there may have two factors.
+First is that this user use twitter too frequent to make complete sentences or 
+include important infomation. Secondly, if a person push tweets happily and
+endlessly, he/she might be a famous user and using the twitter account in a 
+commercial use, he/she may has many followers, but they always or all the way 
+push ads, it's harmful to our system. So in second test, we will try to lower 
+our tweets count limit and add followers count limit. 
 '''
 
 import re
@@ -17,21 +32,7 @@ from datetime   import date, datetime, timedelta
 from lxml       import html
 from lxml       import cssselect
 
-host    = "https://mobile.twitter.com"
-peers   = [
-#    {'name':'Hans Fangoh',  'link':'/ProfCompMod',  'username':'@ProfCompMod'},
-#    {'name':'Tiffany Horan','link':'/TiffanyHoran', 'username':'@TiffanyHoran'},
-#    {'name':'Darius H',     'link':'/ComethTheNerd','username':'@ComethTheNerd'},
-#    {'name':'Danny mc',     'link':'/Danny_Mc12',   'username':'@Danny_Mc12'},
-#    {'name':'Jiri Mocicka', 'link':'/givision',     'username':'@givision'},
-#    {'name':'R Fouchaux',   'link':'/thefooshshow', 'username':'@thefooshshow'},
-#    {'name':'Ev Williams',  'link':'/ev',           'username':'@ev'},
-#    {'name':'Ryan Seacrest','link':'/RyanSeacrest', 'username':'@RyanSeacrest'},
-#    {'name':'Jenna Lucas',  'link':'/JennaLucas81', 'username':'@JennaLucas81'},
-#    {'name':'Adam Lofting', 'link':'/adamlofting',  'username':'@adamlofting'},
-    {'name':'Ginger Kadlec', 'link':'/GingerKadlec?p=s',
-     'username':'@GingerKadlec'},
-]
+HOST    = "https://mobile.twitter.com"
 
 # tweets json format:
 # {
@@ -52,7 +53,7 @@ def get_tweets(peer):
               "link":link, "texts": []}
     page_count = 1
 
-    web_page = requests.get( host + link )
+    web_page = requests.get( HOST + link )
     print "STAT: Crawl tweets start."
 
     while True:
@@ -60,12 +61,14 @@ def get_tweets(peer):
         tree     = html.fromstring(web_page.text.encode('utf8'))
         timeline = tree.cssselect('div.timeline')
         t_cons   = timeline[0].cssselect('table.tweet')
+
         for con in t_cons:
+            # check retweet
             try:
-                repost = con.cssselect('div.tweet-content')[0]
+                repost = con.cssselect('tr.tweet-content')[0]
                 continue
-            except:
-                pass
+            except: pass
+
             tweet   = con.cssselect('div.tweet-text')[0].text_content()
             raw_time= con.cssselect('td.timestamp a')[0].text_content()
             time    = timer(raw_time)
@@ -76,12 +79,14 @@ def get_tweets(peer):
             # 3. ner flag
             # 4. relevance flag
             tweets["texts"].append({'content':tweet, 'time':time, 'flag':'0000'})
+
         try:
             # refresh link
             link     = timeline[0].cssselect('div.w-button-more a')[0].get("href")
             # refresh web_page
-            web_page = requests.get( host + link )
+            web_page = requests.get( HOST + link )
             page_count += 1
+
         except:
             break
 
@@ -94,11 +99,11 @@ def get_followers(peer, filter = False):
     fers = []
     page_count = 1
 
-    web_page = requests.get( host + link )
+    web_page = requests.get( HOST + link )
     tree     = html.fromstring(web_page.text.encode('utf8'))
     fer_butt = tree.cssselect('td.stat')[2]
     fer_link = fer_butt.cssselect('a')[0].get('href')
-    web_page = requests.get( host + fer_link )
+    web_page = requests.get( HOST + fer_link )
     print "STAT: Crawl followers start."
 
     while True:
@@ -117,7 +122,7 @@ def get_followers(peer, filter = False):
             # refresh link
             link     = foll_line.cssselect('div.w-button-more a')[0].get("href")
             # refresh web_page
-            web_page = requests.get( host + link )
+            web_page = requests.get( HOST + link )
             page_count += 1
         except:
             break
@@ -127,13 +132,14 @@ def get_followers(peer, filter = False):
         # secondly, crawling users' former 10 pages of followers do not break
         # the randomness of sample corpus
         # and honestly, it's no use to crawl too many users in vain
-        if page_count > 10 : 
+        if page_count > 10 :
             print "WARN: Satisfied and break."
             break
 
     if filter:
         print "WARN: Filter flag opened."
-        print "STAT: Filter start. Kick out users whose tweets less than 10000."
+        print "STAT: Filter start. "
+        print "Kick out users whose tweets less than 10000."
 
         follower_count = len(fers)
         print "STAT: %s selected followers in all." % follower_count
@@ -141,7 +147,7 @@ def get_followers(peer, filter = False):
         for i, follower in enumerate(fers[::-1]):
             f_name = follower['name']
             f_link = follower['link']
-            f_page = requests.get( host + f_link )
+            f_page = requests.get( HOST + f_link )
             f_tree = html.fromstring(f_page.text.encode('utf8'))
             f_twee = f_tree.cssselect('td.stat')[0]
             f_tnum = f_twee.cssselect('div.statnum')[0].text_content()
@@ -221,10 +227,32 @@ def store(client, tweets_json):
     tweets.insert(tweets_json)
     print "SUCC: Stored."
 
+def get_default_peers():
+
+    # the following peers have too many tweets and do not contain many important
+    # infomation
+    #{'name':'Hans Fangoh',  'link':'/ProfCompMod',  'username':'@ProfCompMod'},
+    #{'name':'Tiffany Horan','link':'/TiffanyHoran', 'username':'@TiffanyHoran'},
+    #{'name':'Danny mc',     'link':'/Danny_Mc12',   'username':'@Danny_Mc12'},
+    #{'name':'Jiri Mocicka', 'link':'/givision',     'username':'@givision'},
+    #{'name':'R Fouchaux',   'link':'/thefooshshow', 'username':'@thefooshshow'},
+    #{'name':'Ev Williams',  'link':'/ev',           'username':'@ev'},
+    #{'name':'Ryan Seacrest','link':'/RyanSeacrest', 'username':'@RyanSeacrest'},
+    #{'name':'Jenna Lucas',  'link':'/JennaLucas81', 'username':'@JennaLucas81'},
+    #{'name':'Adam Lofting', 'link':'/adamlofting',  'username':'@adamlofting'},
+    #{'name':'Ginger Kadlec','link':'/GingerKadlec', 'username':'@GingerKadlec'},
+
+    peers   = [
+    {'name':'David Chan', 'link':'/chanatown', 'username':'@chanatown'}
+    ]
+
+    return peers
+
 
 if __name__ == '__main__':
 
     client = MongoClient('mongodb://localhost:27017/')
+    peers  = get_default_peers
     e_peer = []
 
     for peer in peers:
