@@ -36,4 +36,4 @@ def start(matrix, gnodes, tnodes):
 
 	# print "============================" 
 
-	print topns(matrix, if matrix.shape[0] <= matrix.shape[1] return matrix.shape[0] else return matrix.shape[1])
+	print topns(matrix, matrix.shape[0] if matrix.shape[0] <= matrix.shape[1] else matrix.shape[1])
