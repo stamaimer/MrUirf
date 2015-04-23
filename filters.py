@@ -4,13 +4,19 @@ import numpy
 
 def topns(matrix, N):
 
+	matrix = numpy.array(matrix)
+
 	flatted = matrix.flatten()
 
-	idx_1d = flatted.argsort()[-N:]
+	print flatted
 
-	x_idx, y_idx = numpy.unravel_index(idx_1d, matrix.shape)
+	idx_1d = numpy.argpartition(flatted, -N)[-N:]
 
-	print x_idx, y_idx
+	print idx_1d
+
+	idx_2d = numpy.vstack(numpy.unravel_index(idx_1d, matrix.shape)).T
+
+	print idx_2d
 
 	# for x, y in zip(x_idx, y_idx):
 
