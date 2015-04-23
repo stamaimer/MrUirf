@@ -49,7 +49,7 @@ if __name__ == "__main__":
 
 	similarity_matrix = cal_matrix.cal_similarity_matrix(matrix_g, matrix_t)
 
-	filters.start(similarity_matrix, gnodes, tnodes)
+	filters.start(similarity_matrix, nodes_g, nodes_t)
 
 
 
