@@ -35,7 +35,13 @@ if __name__ == "__main__":
 
 	print "calculate the similarity matrix between github social graph and twiter social graph"
 
-	similarity_matrix = cal_matrix.cal_similarity_matrix(matrix_g, matrix_t, args.iterations)
+	if args.iterations:
+
+		similarity_matrix = cal_matrix.cal_similarity_matrix(matrix_g, matrix_t, args.iterations)
+
+	else:
+
+		similarity_matrix = cal_matrix.cal_similarity_matrix(matrix_g, matrix_t)
 
 	print "make decision"
 
