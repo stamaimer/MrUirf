@@ -15,11 +15,11 @@ def topns(matrix, n):
 
 	idx_2d = reversed(idx_2d)
 
-	# print idx_2d
+	print idx_2d
 
-	# for index in idx_2d:
+	for index in idx_2d:
 
-	# 	print matrix[index[0]][index[1]]
+		print matrix[index[0]][index[1]]
 
 	return idx_2d
 
@@ -28,8 +28,6 @@ def leven(gnodes, tnodes, pairs):
 	pass
 
 def sondx(gnodes, tnodes, pairs):
-
-	print pairs
 
 	for pair in pairs:
 
@@ -43,9 +41,9 @@ def sondx(gnodes, tnodes, pairs):
 
 def start(matrix, gnodes, tnodes):
 
-	# numpy.set_printoptions(threshold="nan")
+	numpy.set_printoptions(threshold="nan")
 
-	# print matrix
+	print matrix
 
 	# for node in gnodes:
 	
