@@ -45,6 +45,8 @@ def start(matrix, gnodes, tnodes):
 
 	print matrix
 
+	print matrix.shape, len(list(gnodes)), len(list(tnodes))
+
 	# for node in gnodes:
 	
 	# 	print node
