@@ -15,11 +15,9 @@ def topns(matrix, n):
 
 	idx_2d = reversed(idx_2d)
 
-	print idx_2d
-
 	for index in idx_2d:
 
-		print matrix[index[0]][index[1]]
+		print index[0], index[1], matrix[index[0]][index[1]]
 
 	return idx_2d
 
@@ -31,9 +29,9 @@ def sondx(gnodes, tnodes, pairs):
 
 	for pair in pairs:
 
-		str1 = gnodes[pair[0]]
+		str1 = gnodes[pair[1]]
 
-		str2 = tnodes[pair[1]]
+		str2 = tnodes[pair[0]]
 
 		similarity = soundex.Soundex().compare(str1, str2)
 
@@ -44,8 +42,6 @@ def start(matrix, gnodes, tnodes):
 	numpy.set_printoptions(threshold="nan")
 
 	print matrix
-
-	print matrix.shape, len(list(gnodes)), len(list(tnodes))
 
 	# for node in gnodes:
 	
