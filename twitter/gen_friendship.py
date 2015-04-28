@@ -121,7 +121,7 @@ def is_valid(name, requester):
 
         verify = parse(tree, VXPATH)[0]
 
-        if "verified" in verify:
+        if verify != 0:
 
             print "sorry, this user is verified"
 
