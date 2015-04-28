@@ -205,7 +205,7 @@ def worker(login, depth, requester, nodes, links, tasks, lock, indices):
 
                         exist = nodes[tmpu]
 
-                        print "%s has been in the nodes, the indices is %d, in %s processing..." % (user, i, name)
+                        #print "%s has been in the nodes, the indices is %d, in %s processing..." % (user, i, name)
 
                         links.append({"source":current_indices, "target":nodes[tmpu]})
 
@@ -225,11 +225,11 @@ def worker(login, depth, requester, nodes, links, tasks, lock, indices):
 
                     lock.acquire()
 
-                    print "acquire lock"
+                    print "%s acquire lock, indices is %d" % (name, indices)
 
                     nodes[tmpu] = indices; indices+=1
 
-                    print "release lock"
+                    print "%s release lock, indices is %d" % (name, indices)
 
                     lock.release()
 
@@ -298,13 +298,13 @@ def start(login, depth=2):
 
     links = [link for link in links]
 
-    for x in sorted_nodes:
+    # for x in sorted_nodes:
 
-        print x
+    #     print x
 
-    for link in links:
+    # for link in links:
 
-        print link
+    #     print link
 
     for link in links[:]:
 
