@@ -9,6 +9,10 @@ def topns(matrix, n):
 
 	flatted = matrix.flatten()
 
+	for ele in flatted.sort():
+
+		print ele
+
 	idx_1d = numpy.argpartition(flatted, -n)[-n:]
 
 	idx_2d = numpy.vstack(numpy.unravel_index(idx_1d, matrix.shape)).transpose()
