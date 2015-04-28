@@ -163,10 +163,6 @@ def start(login, depth=2):
 
     print "generate graph ..."
 
-    for link in links:
-
-        print link
-
     data = {"nodes":nodes, "links":links}
 
     # with open("/var/www/html/msif/" + login + "_github.json", 'w') as outfile:
