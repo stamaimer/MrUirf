@@ -192,4 +192,10 @@ if __name__ == "__main__":
 
     sed_login = args.login
 
-    start(sed_login, args.depth)
+    if args.depth:
+
+        start(sed_login, args.depth)
+
+    else:
+
+        start(sed_login)
