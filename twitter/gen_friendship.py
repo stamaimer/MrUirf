@@ -19,7 +19,7 @@ HOMEPAGES_URL = HOST + "/%s"
 FOLLOWING_URL = HOST + "/%s/following"
 FOLLOWERS_URL = HOST + "/%s/followers"
 
-VXPATH = "//a[@class='badge']/img"
+VXPATH = "//a[@class='badge']/img/@src"
 EXPATH = "//div[@class='title']/text()"
 CXPATH = "//div[@class='statnum']/text()"
 MXPATH = "//span[@class='username']/text()"
@@ -52,6 +52,8 @@ def retrieve(url, requester):
 def parse(tree, xpath):
 
     eles = tree.xpath(xpath, smart_strings=False)
+
+    print eles
 
     if 1 == len(eles):
 
