@@ -53,7 +53,9 @@ def parse(tree, xpath):
 
     eles = tree.xpath(xpath, smart_strings=False)
 
-    print eles
+    for ele in eles:
+        
+        print ele
 
     if 1 == len(eles):
 
