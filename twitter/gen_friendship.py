@@ -225,7 +225,11 @@ def worker(login, depth, requester, nodes, links, tasks, lock, indices):
 
                     lock.acquire()
 
+                    print "acquire lock"
+
                     nodes[tmpu] = indices; indices+=1
+
+                    print "release lock"
 
                     lock.release()
 
@@ -243,7 +247,7 @@ def start(login, depth=2):
 
     indices = 0
 
-    AMOUNT_OF_PROCESS = 1# multiprocessing.cpu_count() * 6
+    AMOUNT_OF_PROCESS =  multiprocessing.cpu_count() * 6
 
     node = (login, 0)
 
