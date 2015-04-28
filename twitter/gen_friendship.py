@@ -292,6 +292,10 @@ def start(login, depth=2):
 
         print x
 
+    for link in links:
+
+        print link
+
     data = {"nodes":[{"name":node[0][0], "group":node[0][1]} for node in sorted_nodes], "links":[link for link in links]}
 
     # with open("/var/www/html/msif/" + login + "_twitter.json", 'w') as outfile:
