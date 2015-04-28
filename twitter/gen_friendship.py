@@ -290,7 +290,11 @@ def start(login, depth=2):
 
     sorted_nodes = sorted(dict(nodes).items(), key=operator.itemgetter(1))
 
-    for x in sorted_nodes:
+    nodes = [{"name":node[0][0], "group":node[0][1]} for node in sorted_nodes]
+
+    links = [link for link in links]
+
+    for x in nodes:
 
         print x
 
@@ -298,18 +302,46 @@ def start(login, depth=2):
 
         print link
 
-    data = {"nodes":[{"name":node[0][0], "group":node[0][1]} for node in sorted_nodes], "links":[link for link in links]}
+    for link in links[:]:
 
-    # with open("/var/www/html/msif/" + login + "_twitter.json", 'w') as outfile:
-    with open("/var/www/html/msif/twitter.json", 'w') as outfile:
+        if {"source":link["target"], "target":link["source"]} not in links:
 
-        json.dump(data, outfile)
+            print link
+
+            links.remove(link)
+
+    data = {"nodes":nodes, "links":links}
 
     graph = json_graph.node_link_graph(data, directed=False, multigraph=False)
 
-    matrix =  networkx.to_numpy_matrix(graph)
+    graphs = list(networkx.connected_component_subgraphs(graph))
 
-    return matrix, ( node["name"] for node in data["nodes"] )
+    for graph in graphs:
+
+        if 0 in graph.nodes():
+
+            nodes = [node["name"] for node in nodes if nodes.index(node) in graph.nodes()]
+
+            labels = {}
+
+            for index, node in zip(graph.nodes(), nodes):
+
+                labels[index] = node
+
+            graph = networkx.relabel_nodes(graph, labels)
+
+            data = json_graph.node_link_data(graph)
+
+            # with open("/var/www/html/msif/" + login + "_twitter.json", 'w') as outfile:
+            with open("/var/www/html/msif/twitter.json", 'w') as outfile:
+
+                json.dump(data, outfile)
+
+            # graph = json_graph.node_link_graph(data, directed=False, multigraph=False)
+
+            matrix =  networkx.to_numpy_matrix(graph)
+
+            return matrix, nodes# ( node["name"] for node in data["nodes"] )
 
 if __name__ == "__main__":
 
