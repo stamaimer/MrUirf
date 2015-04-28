@@ -205,6 +205,8 @@ def worker(login, depth, requester, nodes, links, tasks, lock, indices):
 
                         exist = nodes[tmpu]
 
+                        print "%s has been in the nodes, the indices is %d" % (user, i)
+
                         links.append({"source":current_indices, "target":nodes[tmpu]})
 
                         break
