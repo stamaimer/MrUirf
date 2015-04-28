@@ -227,6 +227,8 @@ def worker(login, depth, requester, nodes, links, tasks, lock, indices):
 
                     print "%s acquire lock, indices is %d" % (name, indices)
 
+                    print tmpu, indices
+
                     nodes[tmpu] = indices; indices+=1
 
                     print "%s release lock, indices is %d" % (name, indices)
@@ -298,9 +300,9 @@ def start(login, depth=2):
 
     links = [link for link in links]
 
-    # for x in sorted_nodes:
+    for x in sorted_nodes:
 
-    #     print x
+        print x
 
     # for link in links:
 
