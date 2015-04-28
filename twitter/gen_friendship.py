@@ -5,6 +5,7 @@ import sys
 import time
 import json
 import session
+import operator
 import argparse
 import networkx
 import itertools
@@ -285,11 +286,13 @@ def start(login, depth=2):
 
     print "generate graph ..."
 
-    for node in dict(nodes).iteritems():
+    sorted_nodes = sorted(dict(nodes).items(), key=operator.itemgetter(1))
 
-        print node
+    for x in sorted_nodes:
 
-    data = {"nodes":[{"name":node[0][0], "group":node[0][1]} for node in dict(nodes).iteritems()], "links":[link for link in links]}
+        print x
+
+    data = {"nodes":[{"name":node[0][0], "group":node[0][1]} for node in sorted_nodes], "links":[link for link in links]}
 
     # with open("/var/www/html/msif/" + login + "_twitter.json", 'w') as outfile:
     with open("/var/www/html/msif/twitter.json", 'w') as outfile:
