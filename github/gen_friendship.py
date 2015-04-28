@@ -147,7 +147,7 @@ def start(login, depth=2):
 
             if user not in [ele["name"] for ele in nodes]:
 
-                if 2 == group:
+                if depth == group:
 
                     continue
 

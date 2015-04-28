@@ -217,7 +217,7 @@ def worker(login, depth, requester, nodes, links, tasks, lock, indices):
 
                 else:
 
-                    if group == 2:
+                    if group == depth:
 
                         continue
 
@@ -243,7 +243,7 @@ def start(login, depth=2):
 
     indices = 0
 
-    AMOUNT_OF_PROCESS = multiprocessing.cpu_count() * 6
+    AMOUNT_OF_PROCESS = 1# multiprocessing.cpu_count() * 6
 
     node = (login, 0)
 
