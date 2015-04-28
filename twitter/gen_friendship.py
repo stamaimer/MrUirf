@@ -205,8 +205,6 @@ def worker(login, depth, requester, nodes, links, tasks, lock, indices):
 
                         exist = nodes[tmpu]
 
-                        #print "%s has been in the nodes, the indices is %d, in %s processing..." % (user, i, name)
-
                         links.append({"source":current_indices, "target":nodes[tmpu]})
 
                         break
@@ -300,19 +298,9 @@ def start(login, depth=2):
 
     links = [link for link in links]
 
-    for x in sorted_nodes:
-
-        print x
-
-    # for link in links:
-
-    #     print link
-
     for link in links[:]:
 
         if {"source":link["target"], "target":link["source"]} not in links:
-
-            print link
 
             links.remove(link)
 
@@ -343,11 +331,9 @@ def start(login, depth=2):
 
                 json.dump(data, outfile)
 
-            # graph = json_graph.node_link_graph(data, directed=False, multigraph=False)
-
             matrix =  networkx.to_numpy_matrix(graph)
 
-            return matrix, nodes# ( node["name"] for node in data["nodes"] )
+            return matrix, nodes
 
 if __name__ == "__main__":
 
