@@ -223,13 +223,7 @@ def worker(login, depth, requester, nodes, links, tasks, lock, indices):
 
                     lock.acquire()
 
-                    print "%s acquire lock, indices is %d" % (name, indices.value)
-
-                    print tmpu, indices.value
-
                     nodes[tmpu] = indices.value; indices.value += 1
-
-                    print "%s release lock, indices is %d" % (name, indices.value)
 
                     lock.release()
 
