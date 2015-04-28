@@ -294,7 +294,7 @@ def start(login, depth=2):
 
     links = [link for link in links]
 
-    for x in nodes:
+    for x in sorted_nodes:
 
         print x
 
