@@ -111,11 +111,15 @@ def is_valid(name, requester):
 
         if exist == u"对不起,这个页面不存在":
 
+            print "sorry, the page doesn't exist"
+
             return False
 
         verify = parse(tree, VXPATH)[0]
 
-        if verify is None:
+        if verify is not None:
+
+            print "sorry, this user is verified"
 
             return False
 
@@ -130,6 +134,8 @@ def is_valid(name, requester):
             or following_count >= 6000 \
             or following_count == 2001 \
             or following_count * 10 < followers_count:
+
+                print "sorry, this user is invalid"
 
                 return False
 
@@ -242,7 +248,7 @@ def start(login, depth=2):
 
     node = (login, 0)
 
-    nodes[node] = indices; indices+=1
+    nodes[node] = indices; indices += 1
 
     requester = session.get_session()
 
