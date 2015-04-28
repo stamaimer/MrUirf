@@ -225,13 +225,13 @@ def worker(login, depth, requester, nodes, links, tasks, lock, indices):
 
                     lock.acquire()
 
-                    print "%s acquire lock, indices is %d" % (name, indices)
+                    print "%s acquire lock, indices is %d" % (name, indices.value)
 
-                    print tmpu, indices
+                    print tmpu, indices.value
 
-                    nodes[tmpu] = indices; indices+=1
+                    nodes[tmpu] = indices.value; indices.value += 1
 
-                    print "%s release lock, indices is %d" % (name, indices)
+                    print "%s release lock, indices is %d" % (name, indices.value)
 
                     lock.release()
 
@@ -247,13 +247,13 @@ def start(login, depth=2):
 
     lock = multiprocessing.Lock()
 
-    indices = 0
+    indices = multiprocessing.Value('i', 0)
 
     AMOUNT_OF_PROCESS =  multiprocessing.cpu_count() * 6
 
     node = (login, 0)
 
-    nodes[node] = indices; indices += 1
+    nodes[node] = indices.value; indices.value += 1
 
     requester = session.get_session()
 
@@ -268,7 +268,7 @@ def start(login, depth=2):
 
             tmpu = (user, 1)
 
-            nodes[tmpu] = indices; indices+=1
+            nodes[tmpu] = indices.value; indices.value += 1
 
             tasks.put(tmpu)
 
