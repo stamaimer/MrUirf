@@ -53,10 +53,6 @@ def parse(tree, xpath):
 
     eles = tree.xpath(xpath, smart_strings=False)
 
-    for ele in eles:
-        
-        print ele
-
     if 1 == len(eles):
 
         return eles
@@ -115,7 +111,7 @@ def is_valid(name, requester):
 
         if exist == u"对不起,这个页面不存在":
 
-            print "sorry, the page doesn't exist"
+            print "sorry, %s doesn't exist" % name
 
             return False
 
@@ -123,7 +119,7 @@ def is_valid(name, requester):
 
         if verify != 0:
 
-            print "sorry, this user is verified"
+            print "sorry, %s is verified" % name
 
             return False
 
@@ -139,7 +135,7 @@ def is_valid(name, requester):
             or following_count == 2001 \
             or following_count * 10 < followers_count:
 
-                print "sorry, this user is invalid"
+                print "sorry, %s is invalid" % name
 
                 return False
 
@@ -234,10 +230,6 @@ def worker(login, depth, requester, nodes, links, tasks, lock, indices):
 
                     links.append({"source":current_indices, "target":nodes[tmpu]})
 
-        else:
-
-            print "%s is invalid" % name
-
 def start(login, depth=2):
 
     nodes = multiprocessing.Manager().dict()
@@ -274,8 +266,6 @@ def start(login, depth=2):
             links.append({"source":nodes[node], "target":nodes[tmpu]})
 
     else:
-
-        print "%s isn't found!" % login
 
         sys.exit(0)
 
