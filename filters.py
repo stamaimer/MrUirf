@@ -9,15 +9,11 @@ def topns(matrix, n):
 
 	flatted = matrix.flatten()
 
-	for ele in flatted.sort():
-
-		print ele
-
 	idx_1d = numpy.argpartition(flatted, -n)[-n:]
 
 	idx_2d = numpy.vstack(numpy.unravel_index(idx_1d, matrix.shape)).transpose()
 
-	idx_2d = list(reversed(idx_2d))
+	# idx_2d = list(reversed(idx_2d))
 
 	for index in idx_2d:
 
@@ -54,8 +50,6 @@ def start(matrix, gnodes, tnodes):
 	# for node in tnodes:
 	
 	# 	print node
-
-	# print "============================" 
 
 	pairs = topns(matrix, matrix.shape[0] if matrix.shape[0] <= matrix.shape[1] else matrix.shape[1])
 
