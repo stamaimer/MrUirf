@@ -35,7 +35,7 @@ def pos_sentence_collection(db, filter):
         texts_len= len(texts)
         username = peer['username']
         print "STAT: %s %s" % ( username, '-'*50 )
-        print "STAT: This is the %d peer." % peer_index
+        print "STAT: This is the %s peer." % str(peer_index + 1)
         print "STAT: Start sentences pattern scanning."
 
         for text_index, text in enumerate(texts):
