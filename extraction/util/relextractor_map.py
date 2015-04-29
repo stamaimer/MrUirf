@@ -40,9 +40,9 @@ def pos_sentence_collection(db, filter):
 
         for text_index, text in enumerate(texts):
 
-            if text_index % 100 == 0 :
-                print "STAT: %s %% scanned." \
-                % ( 100 * float(text_index) / texts_len )[:5]
+            if text_index % 300 == 0 :
+                print "STAT: %s %% scanned."   \
+                % str( 100 * float(text_index) / texts_len )[:5]
 
             if len(text['entity_types']) == 0 : continue
 
