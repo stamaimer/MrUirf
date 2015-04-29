@@ -27,9 +27,13 @@ def convert_pos(pos):
 def pos_sentence_collection(db, filter):
 
     sents  = db.twitter_sentences
-    peers  = db.twitter_tweets.find(filter)
+    peers  = db.twitter_tweets.find(filter, None, 0, 0, False)
+    print peers.count()
 
     for peer_index, peer in enumerate(peers):
+
+        #############################
+        if peer_index < 90 : continue
 
         texts    = peer['texts']
         texts_len= len(texts)
@@ -80,10 +84,42 @@ def pos_sentence_collection(db, filter):
         print
         print
 
+def evaluate(db):
+
+    sents   = db.twitter_sentences
+    patterns= sents.find()
+    result  = []
+
+    for pattern in patterns:
+
+        item = {}
+        item['pattern'] = pattern['pattern']
+        item['people'] = []
+        item['sentences'] = len(pattern['set'])
+
+        for set in pattern['set']:
+
+            if set['username'] not in item['people']:
+
+                item['people'].append(set['username'])
+
+        item['people'] = len(item['people'])
+        result.append(item)
+
+    with file('output.txt', 'w') as f:
+
+        for item in result:
+
+            if item['people'] >= 5:
+
+                f.write('%s\t%s\t%s\n' % (item['pattern'], item['people'], \
+                                      item['sentences']))
+
 
 if __name__ == "__main__":
 
     client = MongoClient('mongodb://localhost:27017/')
     twdb   = client.msif
 
-    pos_sentence_collection(twdb, {'time':'2015-04-23'})
+    # pos_sentence_collection(twdb, {'time':'2015-04-23'})
+    evaluate(twdb)
