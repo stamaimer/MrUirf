@@ -29,7 +29,7 @@ def pos_sentence_collection(db, filter):
     sents  = db.twitter_sentences
     peers  = db.twitter_tweets.find(filter)
 
-    for peer in peers[:1]:
+    for peer in peers:
 
         texts    = peer['texts']
         username = peer['username']
