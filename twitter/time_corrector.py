@@ -20,6 +20,7 @@ if __name__ == "__main__":
         for text in texts[::-1]:
             text_time = text['time']
             if re.match(r'\d+s', text_time): text_time = str(peer_time)
+            if re.match(r'now',  text_time): text_time = str(peer_time)
             t_time_lst= text_time.split('-')
             year = int(t_time_lst[0])
             month= int(t_time_lst[1])
