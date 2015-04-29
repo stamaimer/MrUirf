@@ -52,10 +52,9 @@ def pos_sentence_collection(db, filter):
                 if pattern == None:
                     data = {}
                     data['pattern'] = item
-                    data['set']     = []
                     set_first       = {'username':username, 'index':text_index, 
                                        'entity':[], 'relevance_index':[]}
-                    data['set'].append(set_first)
+                    data['set']     = [set_first]
                     sents.insert(data)
                 else:
                     sets = pattern['set']
