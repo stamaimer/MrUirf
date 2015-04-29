@@ -180,8 +180,10 @@ def timer(raw_time):
     # formats :
     # 1. only minutes:          xxm
     # 2. only hours:            xxh
-    # 3. month and day:         mmm dd
-    # 4. day, month and year:   dd mmm yy
+    # 3. only seconds:          xxs
+    # 4. now                    now
+    # 5. month and day:         mmm dd
+    # 6. day, month and year:   dd mmm yy
     now              = datetime.now()
     year, month, day = now.year, now.month, now.day
     today            = date(year, month, day)
@@ -214,6 +216,16 @@ def timer(raw_time):
         elif re.match(r'\d+h', time_list[0]):
             delta = timedelta(hours = int(filter(str.isdigit, time_list[0])))
             push_d= now - delta
+            push_time = date(push_d.year, push_d.month, push_d.day)
+            return str(push_time)
+        # only seconds : xxs
+        elif re.match(r'\d+s', time_list[0]):
+            push_d= now
+            push_time = date(push_d.year, push_d.month, push_d.day)
+            return str(push_time)
+        # now
+        elif re.match(r'now', time_list[0]):
+            push_d= now
             push_time = date(push_d.year, push_d.month, push_d.day)
             return str(push_time)
         else:
