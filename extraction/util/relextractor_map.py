@@ -11,8 +11,9 @@ def convert_pos(pos):
     prp_set = ['PR', 'PRP', 'PRP$','WP',  'WP$']        # for pronoun
     veb_set = ['VB', 'VBD', 'VBG', 'VBN', 'VBP', 'VBZ'] # for verb
     nou_set = ['NN', 'NNS', 'NNP', 'NNPS']              # for noun
-    jun_set = ['',   'TO',  'CC',  'CD',  'UH',  'RP', 
-               'IN', 'MD',  'LS',  'EX',  'POS']        # for junk
+    jun_set = ['',   'TO',  'CC',  'CD',  'UH',  'RP',  # for junk
+               'IN', 'MD',  'LS',  'EX',  'POS', '-LRB-', 
+               '-NONE-',    '$',   '#',   '\'',  ':', '`']
 
     if   pos in adv_set: return adv_set[0]
     elif pos in adj_set: return adj_set[0]
@@ -23,48 +24,55 @@ def convert_pos(pos):
     elif pos in jun_set: return jun_set[0]
     else : return pos
 
-def pos_sentence_collection(coll):
+def pos_sentence_collection(db, filter):
 
-    pass
+    sents  = db.twitter_sentences
+    peers  = db.twitter_tweets.find(filter)
 
-if __name__ == "__main__":
+    for peer in peers[:1]:
 
-    client = MongoClient('mongodb://localhost:27017/')
-    twcoll = client.msif.twitter_tweets
+        texts    = peer['texts']
+        username = peer['username']
 
-    peers  = twcoll.find()
-    peer   = peers[5]
-    texts  = peer['texts']
+        for text_index, text in enumerate(texts):
 
-    result = []
+            if len(text['entity_types']) == 0 : continue
 
-    for peer in peers[5:101]:
-        texts = peer['texts']
-
-        for text in texts:
-            pos    = text['pos']
-            for item in pos: item[1] = convert_pos(item[1])
-
-            entity_types = text['entity_types']
-            if len(entity_types) == 0 : continue
-
-            pos_str= " ".join([token[1] for token in pos 
-                               if not token[1]=='-NONE-' and not token[1]==''])
-            pos_lst= re.split(r'[.|,|:|\'|`]', pos_str)
+            pos     = [convert_pos(item[1]) for item in text['pos']]
+            pos     = [item for item in pos if not item == '']
+            pos_str = " ".join( pos )
+            pos_lst = re.split(r'[.|,]', pos_str)
 
             for item in pos_lst:
                 if len(item) > 0 and item[0] == ' ': item = item[1:]
                 if len(item) > 0 and item[-1]== ' ': item = item[:len(item)-1]
                 if len(item) ==0: continue
-                if item not in result: 
-                    result.append(item)
 
-    #for item in result:
-    #    print "#"*80
-    #    print item
-    print len(result)
-    result.sort()
-    with file('types.txt', 'w') as f:
-        for t in result:
-            f.write(str(t))
-            f.write('\n')
+                pattern = sents.find_one({'pattern':item})
+                if pattern == None:
+                    data = {}
+                    data['pattern'] = item
+                    data['set']     = []
+                    set_first       = {'username':username, 'index':text_index, 
+                                       'entity':[], 'relevance_index':[]}
+                    data['set'].append(set_first)
+                    sents.insert(data)
+                else:
+                    sets = pattern['set']
+                    for set in sets:
+                        if text_index == set['index'] and \
+                           username   == set['username']:
+                            break
+                    else:
+                        set_new = {'username':username, 'index':text_index,
+                                   'entity':[], 'relevance_index':[]}
+                        sets.append(set_new)
+                        sents.update({'pattern':item}, {'$set':{'set':sets}})
+
+
+if __name__ == "__main__":
+
+    client = MongoClient('mongodb://localhost:27017/')
+    twdb   = client.msif
+
+    pos_sentence_collection(twdb, {'time':'2015-04-23'})
