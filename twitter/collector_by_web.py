@@ -184,6 +184,7 @@ def timer(raw_time):
     # 4. day, month and year:   dd mmm yy
     now              = datetime.now()
     year, month, day = now.year, now.month, now.day
+    today            = date(year, month, day)
     month_dict       = {'Jan':1, 'Feb':2, 'Mar':3, 'Apr':4, 'May':5, 'Jun':6, 
                         'Jul':7, 'Aug':8, 'Sep':9, 'Oct':10, 'Nov':11, 'Dec':12}
     time_list        = raw_time.split()
@@ -200,6 +201,7 @@ def timer(raw_time):
         month     = month_dict[time_list[0]]
         day       = int(time_list[1])
         push_time = date(year, month, day)
+        if push_time > today: push_time = date(year-1, month, day)
         return str(push_time)
     elif 1 == len(time_list):
         # only minute : xxm
