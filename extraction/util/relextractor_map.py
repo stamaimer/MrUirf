@@ -29,12 +29,20 @@ def pos_sentence_collection(db, filter):
     sents  = db.twitter_sentences
     peers  = db.twitter_tweets.find(filter)
 
-    for peer in peers[::-1]:
+    for peer_index, peer in enumerate(peers):
 
         texts    = peer['texts']
+        texts_len= len(texts)
         username = peer['username']
+        print "STAT: %s %s" % ( username, '-'*50 )
+        print "STAT: This is the %d peer." % peer_index
+        print "STAT: Start sentences pattern scanning."
 
         for text_index, text in enumerate(texts):
+
+            if text_index % 100 == 0 :
+                print "STAT: %s %% scanned." \
+                % ( 100 * float(text_index) / texts_len )[:5]
 
             if len(text['entity_types']) == 0 : continue
 
@@ -67,6 +75,10 @@ def pos_sentence_collection(db, filter):
                                    'entity':[], 'relevance_index':[]}
                         sets.append(set_new)
                         sents.update({'pattern':item}, {'$set':{'set':sets}})
+
+        print "SUCC: Scan done."
+        print
+        print
 
 
 if __name__ == "__main__":
