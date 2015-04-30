@@ -2,14 +2,25 @@
 
 '''
     MEMO
-    1. 2015-4-30
-    In the first test, we choose the peers crawled in 2015-04-23, totally 100
+    2015-4-30
+    1. In the first test, we choose the peers crawled in 2015-04-23, totally 100
 peers, as corpus. In this corpus, we induce more than 300,000 tweets and more
 than 60,000 patterns. So we want to filter out a set of patterns, which peers
 using most and the size of the set will not be too big. After evaluation, we
 found that those patterns talked by more than 40 peers are frequently used, and
-the tweets in these patterns make up nearly 60 percent. Finally we determined
+the tweets in these patterns make up nearly 60 percent. Finally we determined to
 use this set.
+    2. Then we find that the patterns used by more than 40 people are always
+short ones, which do not contain any infomation. So we need filter pattern
+length also. In the evaluate we find the patterns whose length greater than or
+equal to 8 make up nearly 80 percent. Finally we determined to filter out those
+patterns longer than or equal to 8. However, the rule together with the rule
+above: used by more than 40 people, the result only make up 5 percent in all
+tweets. To make the test set larger, we modify the rules: 1. the pattern longer
+than or equal to 7, which make up 90 percent patterns; 2. the pattern used by
+more than 10 peers, which means used by more than 10 percent peers in corpus, as
+if in a larger corpus like real twitter, it is still a huge and convinced test
+set. Filtering under these two rule, we filter out 10 percent tweets.
 '''
 
 import re
@@ -92,7 +103,7 @@ def pos_sentence_collection(db, filter):
         print
         print
 
-def evaluate(db, people_limit):
+def evaluate_people_limit(db, people_limit, pattern_len = 0):
 
     sents   = db.twitter_sentences
     patterns= sents.find()
@@ -114,16 +125,30 @@ def evaluate(db, people_limit):
     filter = []
     for item in result:
         if item['people'] >= people_limit:
-            filter.append(item)
+            if len(item['pattern'].split()) >= pattern_len:
+                filter.append(item)
     fter= sum([item['sentences'] for item in filter])
     print "fter in all: %s %%" % str(100 * float(fter) / all)
     print "patterns: %d" % len(filter)
 
     with file('frequent_patterns.txt', 'w') as f:
-        for item in result:
-            if item['people'] >= people_limit:
-                f.write('%s\t%s\t%s\n' % (item['pattern'], item['people'], \
-                        item['sentences']))
+        for item in filter:
+            f.write('%s\t%s\t%s\n' % (item['pattern'], item['people'], \
+                    item['sentences']))
+
+def evaluate_pattern_len(db, pattern_len):
+
+    twsent  = db.twitter_sentences
+    sents   = twsent.find()
+    all     = sents.count()
+    result  = []
+
+    for sent in sents:
+        if len(sent['pattern'].split()) >= pattern_len:
+            result.append(sent)
+    result = len(result)
+
+    print "result in all: %s %%" % str(100 * float(result) / all)
 
 
 if __name__ == "__main__":
@@ -132,7 +157,8 @@ if __name__ == "__main__":
     twdb   = client.msif
 
     # pos_sentence_collection(twdb, {'time':'2015-04-23'})
-    evaluate(twdb, 40)
+    # evaluate_pattern_len(twdb, 7)
+    # evaluate_people_limit(twdb, 10, 7)
 
     ''' to fix cursor timeout
     twsents= twdb.twitter_sentences
