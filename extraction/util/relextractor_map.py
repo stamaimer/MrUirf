@@ -27,13 +27,9 @@ def convert_pos(pos):
 def pos_sentence_collection(db, filter):
 
     sents  = db.twitter_sentences
-    peers  = db.twitter_tweets.find(filter, None, 0, 0, False)
-    print peers.count()
+    peers  = db.twitter_tweets.find(filter)
 
     for peer_index, peer in enumerate(peers):
-
-        #############################
-        if peer_index < 90 : continue
 
         texts    = peer['texts']
         texts_len= len(texts)
@@ -121,5 +117,26 @@ if __name__ == "__main__":
     client = MongoClient('mongodb://localhost:27017/')
     twdb   = client.msif
 
-    # pos_sentence_collection(twdb, {'time':'2015-04-23'})
-    evaluate(twdb)
+    twsents= twdb.twitter_sentences
+    tweets = twdb.twitter_tweets
+    people = []
+    peers = tweets.find({'time':'2015-04-23'})
+    for peer in peers:
+        people.append(peer['username'])
+
+    people_have = []
+    sents = twsents.find()
+    for sent in sents:
+        sets = sent['set']
+        for set in sets:
+            peer = set['username']
+            if peer not in people_have:
+                people_have.append(peer)
+
+    people_not = [peer for peer in people if peer not in people_have]
+
+    for peer in people_not:
+        pos_sentence_collection(twdb, {'username':peer})
+
+    #pos_sentence_collection(twdb, {'time':'2015-04-23'})
+    #evaluate(twdb)
