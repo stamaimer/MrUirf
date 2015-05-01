@@ -55,6 +55,8 @@ content = """
 # def sendmail(usr, psd, morf, tolist):
 def sendmail(tolist):
 
+	log = open("log", 'w')
+
 	try:
 
 		server = smtplib.SMTP(addr, port)
@@ -81,11 +83,15 @@ def sendmail(tolist):
 
 				print "successfully sent email to %s, addr: %s" % (to["login"], to["email"])
 
+				log.write("successfully sent email to %s, addr: %s\n" % (to["login"], to["email"]))
+
 				time.sleep(60)
 
 			except:
 
 				print "failed to send email to %s, addr: %s" % (to["login"], to["email"])
+
+				log.write("failed to send email to %s, addr: %s\n" % (to["login"], to["email"]))
 
 				continue
 
@@ -96,6 +102,10 @@ def sendmail(tolist):
 	except:
 
 		print "failed to send mail..."
+
+	finally:
+
+		log.close()
 
 def get_user_list():
 
