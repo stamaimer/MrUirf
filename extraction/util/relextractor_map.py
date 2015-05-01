@@ -21,10 +21,18 @@ than or equal to 7, which make up 90 percent patterns; 2. the pattern used by
 more than 10 peers, which means used by more than 10 percent peers in corpus, as
 if in a larger corpus like real twitter, it is still a huge and convinced test
 set. Filtering under these two rule, we filter out 10 percent tweets.
+    2015-5-1
+    1. To determine how many texts should be marked for one pattern, in our test
+corpus there are nearly 600 patterns and 30,000 texts, 50 texts for 1 pattern on
+average. We determined to mark 20 percent of them, so finally we filter 10 texts
+from each pattern to mark.
 '''
 
 import re
 from pymongo     import MongoClient
+
+def get_green_str(word):
+    return "\x1b[32m%s\x1b[0m" % word
 
 def convert_pos(pos):
 
@@ -166,19 +174,108 @@ def manual_mark(db, pattern_set):
     twsent  = db.twitter_sentences
     tweets  = db.twitter_tweets
 
-    for pattern in pattern_set[:2]:
+    for pattern in pattern_set:
         pattern = pattern['pattern']
+        pattern_l=pattern.split()
         sent = twsent.find_one({'pattern':pattern})
         if not sent == None:
+            sent_flag = sent['flag']
+            # check if marked
+            if sent_flag == '1' : continue
+            print "STAT: Start marking %d pattern." \
+                  % (twsent.find({'flag':'1'}).count()+1)
+            print "STAT: Pattern: %s." % pattern
+
             sets = sent['set']
-            for set in sets:
+            for set_index, set in enumerate(sets[:10]):
+                set_flag = set['flag']
+                # check if marked
+                if set_flag == '1' : continue
+                print "STAT: Mark %d text of the pattern." % (set_index+1)
+
+                set_entity=set['entity']
+                set_rele = set['relevance_index']
                 username = set['username']
                 text_index=set['index']
                 peer = tweets.find_one({'username':username})
                 texts= peer['texts']
                 text = texts[text_index]
-                print pattern
-                print text['pos']
+                pos  = [(pos[0], convert_pos(pos[1])) for pos in text['pos']]
+                entities=[entity['word'] for entity in text['entity']]
+
+                # segment pos list by '.' and ','
+                pos_l, tmp  = [], []
+                for p in pos: 
+                    if p[1] == '.' or p[1] == ',': 
+                        pos_l.append(tmp)
+                        tmp = []
+                    else: tmp.append(p)
+                pos_l.append(tmp)
+
+                # filter pos segment
+                for pos_seg in pos_l:
+                    pos_seg_c = [pos[1] for pos in pos_seg if not pos[1] == '']
+                    if pos_seg_c == pattern_l:
+                        pos = pos_seg
+                        break
+
+                # print
+                index_str, pos_str, text_str = "", "", ""
+                pos_index_filter = 0
+                for pos_index, item in enumerate(pos):
+
+                    if ( pos_index + 1 ) % 8 == 0:
+                        print index_str.encode('utf8')
+                        print pos_str.encode('utf8')
+                        print text_str.encode('utf8')
+                        index_str, pos_str, text_str = "", "", ""
+
+                    word = item[0]
+                    tag  = item[1]
+                    word_len = len(word)
+                    tab_num  = word_len / 8 + 1
+
+                    # get real index (for those tag in (NN, PR, VB, JJ, RB))
+                    if tag == '' : real_index = ''
+                    else:
+                        real_index = pos_index_filter
+                        pos_index_filter += 1
+
+                    # filter entity word, and make it green
+                    if word in entities:
+                        if real_index not in set_entity:
+                            set_entity.append(real_index)
+                        real_index= get_green_str(real_index)
+                        word      = get_green_str(word)
+                        tag       = get_green_str(tag)
+
+                    # add str
+                    index_str += str(real_index)+ '\t'*tab_num
+                    pos_str   += tag            + '\t'*tab_num
+                    text_str  += word           + '\t'
+
+                print index_str.encode('utf8')
+                print pos_str.encode('utf8')
+                print text_str.encode('utf8')
+
+                # marking ---------------------------------------------------
+                while True:
+                    set_rele = raw_input('The indice of relevance: ').split()
+                    ensure   = raw_input('Finish this text?(y/n): ')
+                    set_flag = '1'
+                    if ensure == 'y':
+                        set['entity'] = set_entity
+                        set['relevance_index'] = set_rele
+                        set['flag'] = set_flag
+                        twsent.update({'pattern':pattern}, {'$set':{'set':sets}})
+                        print "SUCC: Text done."
+                        break
+                # marking ---------------------------------------------------
+                print "STAT: %s" + ('-'*60)
+
+            twsent.update({'pattern':pattern}, {'$set':{'flag':'1'}})
+            print "SUCC: Pattern done."
+
 
 if __name__ == "__main__":
 
