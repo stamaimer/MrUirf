@@ -83,8 +83,11 @@ def pos_sentence_collection(db, filter):
                 if pattern == None:
                     data = {}
                     data['pattern'] = item
+                    data['flag']    = '0'   # if in this pattern more than 5 sets
+                                            # are flaged, then set flag to 1
                     set_first       = {'username':username, 'index':text_index, 
-                                       'entity':[], 'relevance_index':[]}
+                                       'entity':[], 'relevance_index':[],
+                                       'flag':'0'}
                     data['set']     = [set_first]
                     sents.insert(data)
                 else:
@@ -95,7 +98,7 @@ def pos_sentence_collection(db, filter):
                             break
                     else:
                         set_new = {'username':username, 'index':text_index,
-                                   'entity':[], 'relevance_index':[]}
+                                   'entity':[], 'relevance_index':[], 'flag':'0'}
                         sets.append(set_new)
                         sents.update({'pattern':item}, {'$set':{'set':sets}})
 
@@ -103,37 +106,45 @@ def pos_sentence_collection(db, filter):
         print
         print
 
-def evaluate_people_limit(db, people_limit, pattern_len = 0):
+def filter_pattern(db, peers_limit, pattern_len = 0):
 
-    sents   = db.twitter_sentences
-    patterns= sents.find()
+    twsent  = db.twitter_sentences
+    sents   = twsent.find()
+
     result  = []
-
-    for pattern in patterns:
+    for sent in sents:
         item = {}
-        item['pattern'] = pattern['pattern']
-        item['people'] = []
-        item['sentences'] = len(pattern['set'])
-        for set in pattern['set']:
-            if set['username'] not in item['people']:
-                item['people'].append(set['username'])
-        item['people'] = len(item['people'])
-
+        item['pattern'] = sent['pattern']
+        item['peers'] = []
+        item['sentences'] = len(sent['set'])
+        for set in sent['set']:
+            if set['username'] not in item['peers']:
+                item['peers'].append(set['username'])
+        item['peers'] = len(item['peers'])
         result.append(item)
 
-    all = sum([item['sentences'] for item in result])
     filter = []
     for item in result:
-        if item['people'] >= people_limit:
+        if item['peers'] >= peers_limit:
             if len(item['pattern'].split()) >= pattern_len:
                 filter.append(item)
-    fter= sum([item['sentences'] for item in filter])
+
+    return filter
+
+def evaluate_peers_limit(db, peers_limit, pattern_len = 0):
+
+    twsent  = db.twitter_sentences
+    sents   = twsent.find()
+    all     = sum([len(sent['set']) for sent in sents])
+    filter  = filter_pattern(db, peers_limit, pattern_len)
+    fter    = sum([item['sentences'] for item in filter])
+
     print "fter in all: %s %%" % str(100 * float(fter) / all)
     print "patterns: %d" % len(filter)
 
     with file('frequent_patterns.txt', 'w') as f:
         for item in filter:
-            f.write('%s\t%s\t%s\n' % (item['pattern'], item['people'], \
+            f.write('%s\t%s\t%s\n' % (item['pattern'], item['peers'], \
                     item['sentences']))
 
 def evaluate_pattern_len(db, pattern_len):
@@ -150,6 +161,24 @@ def evaluate_pattern_len(db, pattern_len):
 
     print "result in all: %s %%" % str(100 * float(result) / all)
 
+def manual_mark(db, pattern_set):
+
+    twsent  = db.twitter_sentences
+    tweets  = db.twitter_tweets
+
+    for pattern in pattern_set[:2]:
+        pattern = pattern['pattern']
+        sent = twsent.find_one({'pattern':pattern})
+        if not sent == None:
+            sets = sent['set']
+            for set in sets:
+                username = set['username']
+                text_index=set['index']
+                peer = tweets.find_one({'username':username})
+                texts= peer['texts']
+                text = texts[text_index]
+                print pattern
+                print text['pos']
 
 if __name__ == "__main__":
 
@@ -158,7 +187,9 @@ if __name__ == "__main__":
 
     # pos_sentence_collection(twdb, {'time':'2015-04-23'})
     # evaluate_pattern_len(twdb, 7)
-    # evaluate_people_limit(twdb, 10, 7)
+    # evaluate_peers_limit(twdb, 10, 7)
+    patterns = filter_pattern(twdb, 10, 7)
+    manual_mark(twdb, patterns)
 
     ''' to fix cursor timeout
     twsents= twdb.twitter_sentences
