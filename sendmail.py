@@ -7,10 +7,10 @@ import argparse
 
 from email.mime.text import MIMEText
 
-addr = "smtp.gmail.com"
-port = 587
+addr = "localhost" # "smtp.gmail.com"
+port = 25 # 587
 
-morf = "mr.uir.uif@gmail.com"
+morf = "seboraim@gmail.com"
 
 subject = "A Request for Twitter Screen Name and Facebook Homepage URL"
 
@@ -52,19 +52,20 @@ content = """
    MrUirf.
 """
 
-def sendmail(usr, psd, morf, tolist):
+# def sendmail(usr, psd, morf, tolist):
+def sendmail(tolist):
 
 	try:
 
 		server = smtplib.SMTP(addr, port)
 
-		server.ehlo()
+		# server.ehlo()
 
-		server.starttls()
+		# server.starttls()
 
-		server.ehlo()
+		# server.ehlo()
 
-		server.login(usr, psd)
+		# server.login(usr, psd)
 
 		for to in tolist:
 
@@ -80,7 +81,7 @@ def sendmail(usr, psd, morf, tolist):
 
 				print "successfully sent email to %s, addr: %s" % (to["login"], to["email"])
 
-				time.sleep(300)
+				time.sleep(60)
 
 			except:
 
@@ -112,33 +113,39 @@ def get_user_list():
 			  and item["email"] != None \
 			  and item["email"] != '' ]
 
-	items = reversed(items)
+	# items = reversed(items)
 
-	seeds = open("GithubUsersEmails.json", 'w')
+	# seeds = open("GithubUsersEmails.json", 'w')
 
-	for item in items:
+	# for item in items:
 
-		seeds.write(str(item))
+	# 	seeds.write(str(item))
 
-		seeds.write("\n")	
+	# 	seeds.write("\n")	
 
-	seeds.close()
+	# seeds.close()
 
 	return items
 
 if __name__ == '__main__':
 	
-	argument_parser = argparse.ArgumentParser(description="")
+	# argument_parser = argparse.ArgumentParser(description="")
 
-	argument_parser.add_argument("usr", help="")
+	# argument_parser.add_argument("usr", help="")
 
-	argument_parser.add_argument("psd", help="")
+	# argument_parser.add_argument("psd", help="")
 
-	args = argument_parser.parse_args()
+	# args = argument_parser.parse_args()
 
-	usr = args.usr
-	psd = args.psd
+	# usr = args.usr
+	# psd = args.psd
 
 	user_list = get_user_list()
 
-	sendmail(usr, psd, usr, user_list)
+	user_list = [{"login":"stamaimer", "email":"stamaimer@gmail.com"},
+				 {"login":"stamaimer", "email":"stamaimer@icloud.com"},
+				 {"login":"curmium", "email":"curmium@gmail.com"}]
+
+	# sendmail(usr, psd, usr, user_list)
+
+	sendmail(user_list)
