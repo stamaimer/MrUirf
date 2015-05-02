@@ -187,7 +187,7 @@ def manual_mark(db, pattern_set):
             print "STAT: Pattern: %s." % pattern
 
             sets = sent['set']
-            for set_index, set in enumerate(sets[:10]):
+            for set_index, set in enumerate(sets[::-1][:10]):
                 set_flag = set['flag']
                 # check if marked
                 if set_flag == '1' : continue

@@ -107,7 +107,7 @@ def ner_bat(coll, peer_id):
                 tag   = e[1]    # the type of entity
                 entity_text = " ".join(tokens[i] for i in ranges)
                 entity.append({'word':entity_text, 'type':tag,
-                               'relevance':[]})
+                               'relevance':{}})
 
             text['entity'] = entity
             text['flag'] = flag[0:2] + '1' + flag[3:]
@@ -147,7 +147,7 @@ def ner_bat(coll, peer_id):
                 entity_type = entity_raw[1]
                 if 'GPE' == entity_type: entity_type = 'LOCATION'
                 entity.append({'word':entity_list[1], 'type':entity_type,
-                               'relevance':[]})
+                               'relevance':{}})
 
             # remove redundant
             inside_entities = [(e['word'].lower(), e['type']) \

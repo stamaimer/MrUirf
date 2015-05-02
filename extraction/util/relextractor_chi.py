@@ -1,9 +1,28 @@
 # -*- coding: utf-8 -*-
 
+'''
+    MEMO
+    2015-5-2
+    1. In this file we use chi square to calculate relevance words of entities.
+The result of chi square is much better than pos pattern entity-relevance map.
+However, one of urgent flaws of chi square is it cost much time to execute one
+peer, getting all of relevance of every entity. Finally, we determined to
+rewrite function 'relevance_chi_square' to a multi-thread function.
+    Before we reconstruct this function, the approximate speed of execution is
+42 texts per 3 hours, as for total corpus or peer, the speed is 12 texts / hour.
+However, these are 7 texts do not have entity, needing no relevance extraction,
+so as for each text, the speed is around one text per 6 minutes.
+'''
+
+import threading
 from pymongo     import MongoClient
 from stopwords   import stopwords_mysql, stopwords_nltk, punctuation
 
-def relevance_chi_square(coll, text, file):
+def peer_relevance_chi_square(coll, peer_username, file):
+
+    pass
+
+def text_relevance_chi_square(coll, text, file):
 
     flag     = text['flag']
     tokens   = text['tokens']
@@ -43,7 +62,7 @@ def relevance_chi_square(coll, text, file):
             n01 = 0.0   # token not hit |   type hit
             n00 = 0.0   # token not hit |   type not hit
 
-            corpus      = coll.find().limit(100)
+            corpus      = coll.find({'time':'2015-04-23'})
             for corpus_peer in corpus:
                 corpus_texts = corpus_peer['texts']
 
@@ -89,7 +108,7 @@ if __name__ == '__main__':
 
     twcoll = client.msif.twitter_tweets
 
-    sample = twcoll.find_one({'username':'@willgoldstone'})
+    sample = twcoll.find_one({'username':'@CFinchMOISD'})
 
     tweets = sample['texts']
 
@@ -97,6 +116,6 @@ if __name__ == '__main__':
 
     for tweet in tweets:
 
-        relevance_chi_square(twcoll, tweet, logfile)
+        text_relevance_chi_square(twcoll, tweet, logfile)
 
     logfile.close()
