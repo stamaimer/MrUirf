@@ -69,31 +69,33 @@ def sendmail(tolist):
 
 		# server.login(usr, psd)
 
-		for to in tolist:
+		while 1:
 
-			msg = MIMEText(content % to["login"], 'html')
+			for to in tolist:
 
-			msg["From"] = morf
-			msg["To"] = to["email"]
-			msg["Subject"] = subject
+				msg = MIMEText(content % to["login"], 'html')
 
-			try:
+				msg["From"] = morf
+				msg["To"] = to["email"]
+				msg["Subject"] = subject
 
-				server.sendmail(morf, [to["email"]], msg.as_string())
+				try:
 
-				print "successfully sent email to %s, addr: %s" % (to["login"], to["email"])
+					server.sendmail(morf, [to["email"]], msg.as_string())
 
-				log.write("successfully sent email to %s, addr: %s\n" % (to["login"], to["email"]))
+					print "successfully sent email to %s, addr: %s" % (to["login"], to["email"])
 
-				time.sleep(60)
+					log.write("successfully sent email to %s, addr: %s\n" % (to["login"], to["email"]))
 
-			except:
+					time.sleep(300)
 
-				print "failed to send email to %s, addr: %s" % (to["login"], to["email"])
+				except:
 
-				log.write("failed to send email to %s, addr: %s\n" % (to["login"], to["email"]))
+					print "failed to send email to %s, addr: %s" % (to["login"], to["email"])
 
-				continue
+					log.write("failed to send email to %s, addr: %s\n" % (to["login"], to["email"]))
+
+					continue
 
 		server.close()
 
@@ -150,11 +152,11 @@ if __name__ == '__main__':
 	# usr = args.usr
 	# psd = args.psd
 
-	user_list = get_user_list()
+	# user_list = get_user_list()
 
 	user_list = [{"login":"stamaimer", "email":"stamaimer@gmail.com"},
 				 {"login":"stamaimer", "email":"stamaimer@icloud.com"},
-				 {"login":"curmium", "email":"curmium@gmail.com"}]
+				 {"login":"curmium", "email":"hiwiky@gmail.com"}]
 
 	# sendmail(usr, psd, usr, user_list)
 
