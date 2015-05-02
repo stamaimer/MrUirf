@@ -1,527 +1,143 @@
 STAT: ------------------------------------------------------------
-STAT: Tweet:          Cool place setting for #CountySchoolBoard meeting at #MOCC. pic.twitter.com/uWv7XVAYhu      
-STAT: Entity: {u'relevance': [], u'word': u'#MOCC', u'type': u'ORGANIZATION'}
-STAT: Entity: {u'relevance': [], u'word': u'Cool', u'type': u'LOCATION'}
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          Q&A: Safe Routes to School encourages walking and biking inspiredmichigan.com/features/4.15q…      
-STAT: Entity: {u'relevance': [], u'word': u'Safe', u'type': u'ORGANIZATION'}
-STAT: Relevance: Q&A, 	X2: 14.4446966567
-STAT: Relevance: School, 	X2: 238.562818565
-STAT: Relevance: …, 	X2: 8490.46321634
-STAT: Entity: {u'relevance': [], u'word': u'School', u'type': u'LOCATION'}
-STAT: Relevance: …, 	X2: 2091.97835156
-
-STAT: ------------------------------------------------------------
 STAT: Tweet:          Detroit lawmaker wants registration of homeschooled students after kids found in freezer s.mlive.com/YUgT0xE via @mlive      
-STAT: Entity: {u'relevance': [], u'word': u'Detroit', u'type': u'LOCATION'}
+STAT: Entity: {u'relevance': {}, u'type': u'LOCATION', u'word': u'Detroit'}
 STAT: Relevance: lawmaker, 	X2: 106.005688034
 STAT: Relevance: kid, 	X2: 37.1414146927
 STAT: Relevance: found, 	X2: 22.7821056779
 STAT: Relevance: @mlive, 	X2: 43.5115488436
 
 STAT: ------------------------------------------------------------
+STAT: Tweet:          Cool place setting for #CountySchoolBoard meeting at #MOCC. pic.twitter.com/uWv7XVAYhu      
+STAT: Entity: {u'relevance': {}, u'type': u'ORGANIZATION', u'word': u'#MOCC'}
+STAT: Entity: {u'relevance': {}, u'type': u'LOCATION', u'word': u'Cool'}
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          Q&A: Safe Routes to School encourages walking and biking inspiredmichigan.com/features/4.15q…      
+STAT: Entity: {u'relevance': {}, u'type': u'ORGANIZATION', u'word': u'Safe'}
+STAT: Relevance: Q&A, 	X2: 14.4446966567
+STAT: Relevance: School, 	X2: 238.562818565
+STAT: Relevance: …, 	X2: 8490.46321634
+STAT: Entity: {u'relevance': {}, u'type': u'LOCATION', u'word': u'School'}
+STAT: Relevance: …, 	X2: 2091.97835156
+
+STAT: ------------------------------------------------------------
 STAT: Tweet:          Mecosta -Osceola County-wide SB Meeting tonight. MASB event registration shar.es/1prMTW via @sharethis      
-STAT: Entity: {u'relevance': [], u'word': u'MASB', u'type': u'ORGANIZATION'}
+STAT: Entity: {u'relevance': {}, u'type': u'ORGANIZATION', u'word': u'MASB'}
 STAT: Relevance: SB, 	X2: 25.2688257922
 STAT: Relevance: event, 	X2: 33.0695289707
 STAT: Relevance: registration, 	X2: 13.0601828952
 STAT: Relevance: @sharethis, 	X2: 39.2478516147
-STAT: Entity: {u'relevance': [], u'word': u'Mecosta', u'type': u'PERSON'}
+STAT: Entity: {u'relevance': {}, u'type': u'PERSON', u'word': u'Mecosta'}
 STAT: Relevance: tonight, 	X2: 18.6647782761
 STAT: Relevance: @sharethis, 	X2: 11.4043906015
 
 STAT: ------------------------------------------------------------
 STAT: Tweet:          Huddleston: Set higher bar for Michigan charter schools detne.ws/1yM2ruZ via @detroitnews      
-STAT: Entity: {u'relevance': [], u'word': u'Huddleston', u'type': u'PERSON'}
+STAT: Entity: {u'relevance': {}, u'type': u'PERSON', u'word': u'Huddleston'}
 STAT: Relevance: Set, 	X2: 13.4560059934
 STAT: Relevance: bar, 	X2: 13.0808362406
 STAT: Relevance: Michigan, 	X2: 85.4723000662
 STAT: Relevance: school, 	X2: 31.2886024308
-STAT: Entity: {u'relevance': [], u'word': u'Michigan', u'type': u'LOCATION'}
+STAT: Entity: {u'relevance': {}, u'type': u'LOCATION', u'word': u'Michigan'}
 STAT: Relevance: bar, 	X2: 56.9526891681
 STAT: Relevance: charter, 	X2: 11.1429778314
 STAT: Relevance: school, 	X2: 130.835240551
 STAT: Relevance: @detroitnews, 	X2: 27.7340058851
-STAT: Entity: {u'relevance': [], u'word': u'Huddleston', u'type': u'LOCATION'}
+STAT: Entity: {u'relevance': {}, u'type': u'LOCATION', u'word': u'Huddleston'}
 STAT: Relevance: bar, 	X2: 56.9526891681
 STAT: Relevance: Michigan, 	X2: 755.038300022
 STAT: Relevance: charter, 	X2: 11.1429778314
 STAT: Relevance: school, 	X2: 130.835240551
 STAT: Relevance: @detroitnews, 	X2: 27.7340058851
-STAT: Entity: {u'relevance': [], u'word': u'Michigan', u'type': u'PERSON'}
+STAT: Entity: {u'relevance': {}, u'type': u'PERSON', u'word': u'Michigan'}
 STAT: Relevance: Set, 	X2: 13.4560059934
 STAT: Relevance: bar, 	X2: 13.0808362406
 STAT: Relevance: school, 	X2: 31.2886024308
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          #MOCC #Cosmotology Instructor, Linda Ward, with #GovernorSynder at #SkillsUSA  - Career Centers make a difference. pic.twitter.com/sl54DxDhoe      
-STAT: Entity: {u'relevance': [], u'word': u'#MOCC #Cosmotology Instructor', u'type': u'ORGANIZATION'}
-STAT: Relevance: Career, 	X2: 45.9786407606
-STAT: Relevance: Centers, 	X2: 31.0197792513
-STAT: Relevance: make, 	X2: 119.277699916
-STAT: Relevance: a, 	X2: 35.8489208993
-STAT: Entity: {u'relevance': [], u'word': u'Linda Ward', u'type': u'PERSON'}
-STAT: Relevance: Career, 	X2: 22.6623604412
-STAT: Relevance: a, 	X2: 66.8599324186
-STAT: Relevance: difference, 	X2: 13.8775667628
-STAT: Entity: {u'relevance': [], u'word': u'#SkillsUSA', u'type': u'LOCATION'}
-STAT: Relevance: Centers, 	X2: 32.4235878361
-STAT: Relevance: make, 	X2: 41.2739837252
-STAT: Relevance: a, 	X2: 81.6255936593
-STAT: Entity: {u'relevance': [], u'word': u'Centers make', u'type': u'ORGANIZATION'}
-STAT: Relevance: #MOCC, 	X2: 48.396433821
-STAT: Relevance: Career, 	X2: 45.9786407606
-STAT: Relevance: a, 	X2: 35.8489208993
-STAT: Entity: {u'relevance': [], u'word': u'Linda', u'type': u'PERSON'}
-STAT: Relevance: Ward, 	X2: 39.8352989503
-STAT: Relevance: Career, 	X2: 22.6623604412
-STAT: Relevance: a, 	X2: 66.8599324186
-STAT: Relevance: difference, 	X2: 13.8775667628
-STAT: Entity: {u'relevance': [], u'word': u'', u'type': u'ORGANIZATION'}
-STAT: Relevance: #MOCC, 	X2: 48.396433821
-STAT: Relevance: Career, 	X2: 45.9786407606
-STAT: Relevance: Centers, 	X2: 31.0197792513
-STAT: Relevance: make, 	X2: 119.277699916
-STAT: Relevance: a, 	X2: 35.8489208993
-STAT: Entity: {u'relevance': [], u'word': u'Career', u'type': u'ORGANIZATION'}
-STAT: Relevance: #MOCC, 	X2: 48.396433821
-STAT: Relevance: Centers, 	X2: 31.0197792513
-STAT: Relevance: make, 	X2: 119.277699916
-STAT: Relevance: a, 	X2: 35.8489208993
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          Block: Electric choice boosts school budgets detne.ws/1Gd10oW      
-STAT: Entity: {u'relevance': [], u'word': u'Block', u'type': u'PERSON'}
-STAT: Relevance: school, 	X2: 31.2886024308
-STAT: Relevance: budget, 	X2: 21.5649236768
-STAT: Entity: {u'relevance': [], u'word': u'Electric', u'type': u'ORGANIZATION'}
-STAT: Relevance: school, 	X2: 238.562818565
-STAT: Entity: {u'relevance': [], u'word': u'Block', u'type': u'LOCATION'}
-STAT: Relevance: school, 	X2: 130.835240551
-STAT: Relevance: budget, 	X2: 47.682987501
 
 STAT: ------------------------------------------------------------
 STAT: Tweet:          Snowing? Really? #PureMichigan pic.twitter.com/wn0ei8gRCP      
 
 STAT: ------------------------------------------------------------
-STAT: Tweet:          Meds Trump Therapy Recommendation for Treating ADHD scientificamerican.com/article/meds-t…      
-STAT: Entity: {u'relevance': [], u'word': u'Meds Trump Therapy Recommendation', u'type': u'ORGANIZATION'}
-STAT: Relevance: ADHD, 	X2: 25.203262355
-STAT: Relevance: …, 	X2: 8490.46321634
-STAT: Entity: {u'relevance': [], u'word': u'ADHD', u'type': u'ORGANIZATION'}
-STAT: Relevance: …, 	X2: 8490.46321634
-STAT: Entity: {u'relevance': [], u'word': u'Trump', u'type': u'PERSON'}
-STAT: Relevance: …, 	X2: 1039.77184004
-STAT: Entity: {u'relevance': [], u'word': u'Treating', u'type': u'ORGANIZATION'}
-STAT: Relevance: ADHD, 	X2: 25.203262355
-STAT: Relevance: …, 	X2: 8490.46321634
+STAT: Tweet:          Block: Electric choice boosts school budgets detne.ws/1Gd10oW      
+STAT: Entity: {u'relevance': {}, u'type': u'PERSON', u'word': u'Block'}
+STAT: Relevance: school, 	X2: 31.2886024308
+STAT: Relevance: budget, 	X2: 21.5649236768
+STAT: Entity: {u'relevance': {}, u'type': u'ORGANIZATION', u'word': u'Electric'}
+STAT: Relevance: school, 	X2: 238.562818565
+STAT: Entity: {u'relevance': {}, u'type': u'LOCATION', u'word': u'Block'}
+STAT: Relevance: school, 	X2: 130.835240551
+STAT: Relevance: budget, 	X2: 47.682987501
 
 STAT: ------------------------------------------------------------
 STAT: Tweet:          Lawmaker proposes state registry of homeschooled children petoskeynews.com/news/state-reg… via @petoskeynews      
-STAT: Entity: {u'relevance': [], u'word': u'Lawmaker', u'type': u'LOCATION'}
+STAT: Entity: {u'relevance': {}, u'type': u'LOCATION', u'word': u'Lawmaker'}
 STAT: Relevance: state, 	X2: 279.987026053
 STAT: Relevance: …, 	X2: 2091.97835156
 
 STAT: ------------------------------------------------------------
-STAT: Tweet:          Evart schools qualify for savings due to low enrollment CadillacNews.com cadillacnews.com/news_story/?st… via @CadillacNews      
-STAT: Entity: {u'relevance': [], u'word': u'Evart', u'type': u'ORGANIZATION'}
-STAT: Relevance: school, 	X2: 238.562818565
-STAT: Relevance: enrollment, 	X2: 24.7805016333
-STAT: Relevance: CadillacNews.com, 	X2: 34.8975362359
-STAT: Relevance: cadillacnews.com/news_story/?st, 	X2: 35.0487020995
+STAT: Tweet:          Meds Trump Therapy Recommendation for Treating ADHD scientificamerican.com/article/meds-t…      
+STAT: Entity: {u'relevance': {}, u'type': u'ORGANIZATION', u'word': u'Meds Trump Therapy Recommendation'}
+STAT: Relevance: ADHD, 	X2: 25.203262355
 STAT: Relevance: …, 	X2: 8490.46321634
-STAT: Relevance: @CadillacNews, 	X2: 35.0487020995
-STAT: Entity: {u'relevance': [], u'word': u'CadillacNews.com', u'type': u'ORGANIZATION'}
-STAT: Relevance: school, 	X2: 238.562818565
-STAT: Relevance: enrollment, 	X2: 24.7805016333
-STAT: Relevance: cadillacnews.com/news_story/?st, 	X2: 35.0487020995
+STAT: Entity: {u'relevance': {}, u'type': u'ORGANIZATION', u'word': u'ADHD'}
 STAT: Relevance: …, 	X2: 8490.46321634
-STAT: Relevance: @CadillacNews, 	X2: 35.0487020995
-STAT: Entity: {u'relevance': [], u'word': u'@CadillacNews', u'type': u'ORGANIZATION'}
-STAT: Relevance: school, 	X2: 238.562818565
-STAT: Relevance: enrollment, 	X2: 24.7805016333
-STAT: Relevance: CadillacNews.com, 	X2: 34.8975362359
-STAT: Relevance: cadillacnews.com/news_story/?st, 	X2: 35.0487020995
+STAT: Entity: {u'relevance': {}, u'type': u'PERSON', u'word': u'Trump'}
+STAT: Relevance: …, 	X2: 1039.77184004
+STAT: Entity: {u'relevance': {}, u'type': u'ORGANIZATION', u'word': u'Treating'}
+STAT: Relevance: ADHD, 	X2: 25.203262355
 STAT: Relevance: …, 	X2: 8490.46321634
-STAT: Entity: {u'relevance': [], u'word': u'Evart', u'type': u'LOCATION'}
-STAT: Relevance: school, 	X2: 130.835240551
-STAT: Relevance: …, 	X2: 2091.97835156
 
 STAT: ------------------------------------------------------------
 STAT: Tweet:          #MOCC Culinary Arts takes 3rd at the state level #SkillsUSA. Just like the #Spartans - come together when it counts! pic.twitter.com/om1AXSH0rg      
 
 STAT: ------------------------------------------------------------
-STAT: Tweet:          School News Network :: Proposal 1 May Be Complicated, but Has Major Implications for Schools schoolnewsnetwork.org/index.php/2014…      
-STAT: Entity: {u'relevance': [], u'word': u'School News Network :: Proposal', u'type': u'ORGANIZATION'}
-STAT: Relevance: 1, 	X2: 223.253542573
-STAT: Relevance: Schools, 	X2: 130.279540663
-STAT: Relevance: …, 	X2: 8490.46321634
-STAT: Entity: {u'relevance': [], u'word': u'Has Major', u'type': u'ORGANIZATION'}
-STAT: Relevance: School, 	X2: 238.562818565
-STAT: Relevance: News, 	X2: 1558.78904252
-STAT: Relevance: Network, 	X2: 109.272502226
-STAT: Relevance: Proposal, 	X2: 19.1792794614
-STAT: Relevance: 1, 	X2: 223.253542573
-STAT: Relevance: Schools, 	X2: 130.279540663
-STAT: Relevance: …, 	X2: 8490.46321634
-STAT: Entity: {u'relevance': [], u'word': u'School', u'type': u'PERSON'}
-STAT: Relevance: News, 	X2: 488.370403732
-STAT: Relevance: Network, 	X2: 18.7600738323
-STAT: Relevance: 1, 	X2: 11.2494166179
-STAT: Relevance: Schools, 	X2: 90.0455710824
-STAT: Relevance: …, 	X2: 1039.77184004
-STAT: Entity: {u'relevance': [], u'word': u'News', u'type': u'ORGANIZATION'}
-STAT: Relevance: School, 	X2: 238.562818565
-STAT: Relevance: Network, 	X2: 109.272502226
-STAT: Relevance: Proposal, 	X2: 19.1792794614
-STAT: Relevance: 1, 	X2: 223.253542573
-STAT: Relevance: Schools, 	X2: 130.279540663
-STAT: Relevance: …, 	X2: 8490.46321634
-STAT: Entity: {u'relevance': [], u'word': u'Has', u'type': u'PERSON'}
-STAT: Relevance: School, 	X2: 31.2886024308
-STAT: Relevance: News, 	X2: 488.370403732
-STAT: Relevance: Network, 	X2: 18.7600738323
-STAT: Relevance: 1, 	X2: 11.2494166179
-STAT: Relevance: Schools, 	X2: 90.0455710824
-STAT: Relevance: …, 	X2: 1039.77184004
-STAT: Entity: {u'relevance': [], u'word': u'Schools', u'type': u'PERSON'}
-STAT: Relevance: School, 	X2: 31.2886024308
-STAT: Relevance: News, 	X2: 488.370403732
-STAT: Relevance: Network, 	X2: 18.7600738323
-STAT: Relevance: 1, 	X2: 11.2494166179
-STAT: Relevance: …, 	X2: 1039.77184004
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          Lawmaker proposes state registry of homeschooled children - Ludington Daily News: State shorelinemedia.net/ludington_dail…      
-STAT: Entity: {u'relevance': [], u'word': u'Ludington Daily News', u'type': u'ORGANIZATION'}
-STAT: Relevance: state, 	X2: 166.27948595
-STAT: Relevance: State, 	X2: 166.27948595
-STAT: Relevance: …, 	X2: 8490.46321634
-STAT: Entity: {u'relevance': [], u'word': u'Lawmaker', u'type': u'LOCATION'}
-STAT: Relevance: state, 	X2: 279.987026053
-STAT: Relevance: News, 	X2: 902.461127783
-STAT: Relevance: State, 	X2: 279.987026053
-STAT: Relevance: …, 	X2: 2091.97835156
-STAT: Entity: {u'relevance': [], u'word': u'Ludington', u'type': u'PERSON'}
-STAT: Relevance: state, 	X2: 69.6571959243
-STAT: Relevance: Daily, 	X2: 66.0063201795
-STAT: Relevance: News, 	X2: 488.370403732
-STAT: Relevance: State, 	X2: 69.6571959243
-STAT: Relevance: …, 	X2: 1039.77184004
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          School News Network :: Competing Plans to Fix Roads Produced Proposal 1, Lawmakers Say schoolnewsnetwork.org/index.php/2014…      
-STAT: Entity: {u'relevance': [], u'word': u'School News Network', u'type': u'ORGANIZATION'}
-STAT: Relevance: Plans, 	X2: 28.8230652654
-STAT: Relevance: Proposal, 	X2: 19.1792794614
-STAT: Relevance: 1, 	X2: 223.253542573
-STAT: Relevance: …, 	X2: 8490.46321634
-STAT: Entity: {u'relevance': [], u'word': u'School', u'type': u'PERSON'}
-STAT: Relevance: News, 	X2: 488.370403732
-STAT: Relevance: Network, 	X2: 18.7600738323
-STAT: Relevance: Plans, 	X2: 16.4723639144
-STAT: Relevance: 1, 	X2: 11.2494166179
-STAT: Relevance: …, 	X2: 1039.77184004
-STAT: Entity: {u'relevance': [], u'word': u'News', u'type': u'ORGANIZATION'}
-STAT: Relevance: School, 	X2: 238.562818565
-STAT: Relevance: Network, 	X2: 109.272502226
-STAT: Relevance: Plans, 	X2: 28.8230652654
-STAT: Relevance: Proposal, 	X2: 19.1792794614
-STAT: Relevance: 1, 	X2: 223.253542573
-STAT: Relevance: …, 	X2: 8490.46321634
-STAT: Entity: {u'relevance': [], u'word': u'Fix', u'type': u'PERSON'}
-STAT: Relevance: School, 	X2: 31.2886024308
-STAT: Relevance: News, 	X2: 488.370403732
-STAT: Relevance: Network, 	X2: 18.7600738323
-STAT: Relevance: Plans, 	X2: 16.4723639144
-STAT: Relevance: 1, 	X2: 11.2494166179
-STAT: Relevance: …, 	X2: 1039.77184004
-STAT: Entity: {u'relevance': [], u'word': u'Lawmakers', u'type': u'ORGANIZATION'}
-STAT: Relevance: School, 	X2: 238.562818565
-STAT: Relevance: News, 	X2: 1558.78904252
-STAT: Relevance: Network, 	X2: 109.272502226
-STAT: Relevance: Plans, 	X2: 28.8230652654
-STAT: Relevance: Proposal, 	X2: 19.1792794614
-STAT: Relevance: 1, 	X2: 223.253542573
-STAT: Relevance: …, 	X2: 8490.46321634
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          Kayaking with the Boss. #PureMichigan pic.twitter.com/18bktbfPN1      
-STAT: Entity: {u'relevance': [], u'word': u'Kayaking', u'type': u'PERSON'}
-STAT: Entity: {u'relevance': [], u'word': u'Boss', u'type': u'ORGANIZATION'}
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          All #MOISD schools work together as illustrated in our logo picture. #together pic.twitter.com/W5whQW9V9O      
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          Oxi-vertical up by Alan at the #MOCC. I think he's pretty proud! #MOISD pic.twitter.com/iZk60Ig0M3      
-STAT: Entity: {u'relevance': [], u'word': u'Alan', u'type': u'PERSON'}
-STAT: Relevance: I, 	X2: 905.146919771
-STAT: Relevance: pretty, 	X2: 12.1048598207
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          They are awesome! He's quite the guitar player... twitter.com/ChrisVallette/…      
-STAT: Entity: {u'relevance': [], u'word': u'twitter.com/ChrisVallette/ \u2026', u'type': u'ORGANIZATION'}
-STAT: Relevance: guitar, 	X2: 11.7560204722
-STAT: Relevance: player, 	X2: 21.76930851
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          Local students are learning how to be good Great Lakes stewards inspiredmichigan.com/features/4.15f…      
-STAT: Entity: {u'relevance': [], u'word': u'Great Lakes', u'type': u'LOCATION'}
-STAT: Relevance: Local, 	X2: 48.6884716184
-STAT: Relevance: learning, 	X2: 41.5627854378
-STAT: Relevance: …, 	X2: 2091.97835156
-STAT: Entity: {u'relevance': [], u'word': u'Local', u'type': u'LOCATION'}
-STAT: Relevance: learning, 	X2: 41.5627854378
-STAT: Relevance: Great, 	X2: 1168.11342336
-STAT: Relevance: Lakes, 	X2: 38.0320714682
-STAT: Relevance: …, 	X2: 2091.97835156
-STAT: Entity: {u'relevance': [], u'word': u'Great', u'type': u'ORGANIZATION'}
-STAT: Relevance: Local, 	X2: 71.6216409954
-STAT: Relevance: learning, 	X2: 38.5331281063
-STAT: Relevance: good, 	X2: 142.635064815
-STAT: Relevance: Lakes, 	X2: 19.6683990155
-STAT: Relevance: …, 	X2: 8490.46321634
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          Is starting college during high school Michigan%27s ticket to success? inspiredmichigan.com/features/2.15f…      
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          Are year-round schools in Michigan%27s future? inspiredmichigan.com/features/11.14…      
-STAT: Entity: {u'relevance': [], u'word': u'Are', u'type': u'PERSON'}
-STAT: Relevance: school, 	X2: 31.2886024308
-STAT: Relevance: …, 	X2: 1039.77184004
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          Forward thinking helps U.P. schools push ahead with technology inspiredmichigan.com/features/4.15f…      
-STAT: Entity: {u'relevance': [], u'word': u'Forward', u'type': u'LOCATION'}
-STAT: Relevance: school, 	X2: 130.835240551
-STAT: Relevance: …, 	X2: 2091.97835156
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          Q&A: Safe Routes to School encourages walking and biking inspiredmichigan.com/features/4.15q…      
-STAT: Entity: {u'relevance': [], u'word': u'Safe', u'type': u'ORGANIZATION'}
-STAT: Relevance: Q&A, 	X2: 14.4446966567
-STAT: Relevance: School, 	X2: 238.562818565
-STAT: Relevance: …, 	X2: 8490.46321634
-STAT: Entity: {u'relevance': [], u'word': u'School', u'type': u'LOCATION'}
-STAT: Relevance: …, 	X2: 2091.97835156
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          Michigan House (attacks schools) votes to end February elections s.mlive.com/gOpYN0G via @mlive      
-STAT: Entity: {u'relevance': [], u'word': u'Michigan House', u'type': u'ORGANIZATION'}
+STAT: Tweet:          Evart schools qualify for savings due to low enrollment CadillacNews.com cadillacnews.com/news_story/?st… via @CadillacNews      
+STAT: Entity: {u'relevance': {}, u'type': u'ORGANIZATION', u'word': u'Evart'}
 STAT: Relevance: school, 	X2: 238.562818565
-STAT: Relevance: vote, 	X2: 39.5349334188
-STAT: Entity: {u'relevance': [], u'word': u'Michigan', u'type': u'PERSON'}
-STAT: Relevance: House, 	X2: 21.6953617863
-STAT: Relevance: attack, 	X2: 33.2319427488
-STAT: Relevance: school, 	X2: 31.2886024308
-STAT: Relevance: February, 	X2: 30.335879884
-STAT: Entity: {u'relevance': [], u'word': u'House', u'type': u'ORGANIZATION'}
-STAT: Relevance: Michigan, 	X2: 35.7842823328
-STAT: Relevance: school, 	X2: 238.562818565
-STAT: Relevance: vote, 	X2: 39.5349334188
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          Pacific Current Change Combats Global Warming scientificamerican.com/article/pacifi…      
-STAT: Entity: {u'relevance': [], u'word': u'Pacific Current Change Combats Global Warming', u'type': u'ORGANIZATION'}
-STAT: Relevance: …, 	X2: 8490.46321634
-STAT: Entity: {u'relevance': [], u'word': u'Pacific', u'type': u'PERSON'}
-STAT: Relevance: Global, 	X2: 84.7871942521
-STAT: Relevance: …, 	X2: 1039.77184004
-STAT: Entity: {u'relevance': [], u'word': u'Current', u'type': u'PERSON'}
-STAT: Relevance: Global, 	X2: 84.7871942521
-STAT: Relevance: …, 	X2: 1039.77184004
-STAT: Entity: {u'relevance': [], u'word': u'Global', u'type': u'PERSON'}
-STAT: Relevance: …, 	X2: 1039.77184004
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          The #MOISD ties Algebra II concepts into #MOCC programs and has pull-out math instruction as well. #LeadExcellence pic.twitter.com/hHpBAGBff5      
-STAT: Entity: {u'relevance': [], u'word': u'#MOCC', u'type': u'LOCATION'}
-STAT: Relevance: program, 	X2: 13.1764301797
-STAT: Relevance: a, 	X2: 81.6255936593
-STAT: Entity: {u'relevance': [], u'word': u'Algebra', u'type': u'PERSON'}
-STAT: Relevance: II, 	X2: 44.7369412888
-STAT: Relevance: math, 	X2: 29.6100732345
-STAT: Relevance: a, 	X2: 66.8599324186
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          Senator Booher: Make MI small business leader. detroitnews.com/story/opinion/…      
-STAT: Entity: {u'relevance': [], u'word': u'Booher', u'type': u'PERSON'}
-STAT: Relevance: MI, 	X2: 82.1264688956
-STAT: Relevance: …, 	X2: 1039.77184004
-STAT: Entity: {u'relevance': [], u'word': u'Make', u'type': u'PERSON'}
-STAT: Relevance: MI, 	X2: 82.1264688956
-STAT: Relevance: …, 	X2: 1039.77184004
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          My cat, Kevin, wants more action from the hockey game! O.T. #Nashville #Chicago #NHL pic.twitter.com/BB42QoaVMn      
-STAT: Entity: {u'relevance': [], u'word': u'Kevin', u'type': u'PERSON'}
-STAT: Entity: {u'relevance': [], u'word': u'#Nashville', u'type': u'PERSON'}
-STAT: Relevance: Kevin, 	X2: 184.210858394
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          Testing may matter less in Michigan teacher evaluations under proposed bill s.mlive.com/abBqP8E via @mlive      
-STAT: Entity: {u'relevance': [], u'word': u'Michigan', u'type': u'LOCATION'}
-STAT: Relevance: matter, 	X2: 16.0914435424
-STAT: Relevance: evaluation, 	X2: 14.4136689524
-STAT: Relevance: proposed, 	X2: 29.5147976805
-STAT: Relevance: bill, 	X2: 37.4502667066
-STAT: Relevance: @mlive, 	X2: 43.5115488436
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          How Abraham Lincoln's assassination chair ended up in Michigan s.mlive.com/kgPo07T via @mlive      
-STAT: Entity: {u'relevance': [], u'word': u"Abraham Lincoln's", u'type': u'PERSON'}
-STAT: Relevance: assassination, 	X2: 11.3470372678
-STAT: Relevance: Michigan, 	X2: 85.4723000662
-STAT: Entity: {u'relevance': [], u'word': u'Michigan', u'type': u'LOCATION'}
-STAT: Relevance: @mlive, 	X2: 43.5115488436
-STAT: Entity: {u'relevance': [], u'word': u'Abraham', u'type': u'PERSON'}
-STAT: Relevance: Lincoln's, 	X2: 13.8494507293
-STAT: Relevance: assassination, 	X2: 11.3470372678
-STAT: Relevance: Michigan, 	X2: 85.4723000662
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          Dustin and Josh putting an engine back together in Auto Tech. #MOCC pic.twitter.com/G7QVRbaKoH      
-STAT: Entity: {u'relevance': [], u'word': u'Dustin', u'type': u'PERSON'}
-STAT: Relevance: Josh, 	X2: 90.884969114
-STAT: Relevance: Tech, 	X2: 31.1144873288
-STAT: Entity: {u'relevance': [], u'word': u'Josh', u'type': u'PERSON'}
-STAT: Relevance: Tech, 	X2: 31.1144873288
-STAT: Entity: {u'relevance': [], u'word': u'Auto Tech', u'type': u'ORGANIZATION'}
-STAT: Relevance: engine, 	X2: 10.8361189342
-STAT: Relevance: back, 	X2: 69.1785562306
-STAT: Relevance: #MOCC, 	X2: 48.396433821
-STAT: Entity: {u'relevance': [], u'word': u'#MOCC', u'type': u'ORGANIZATION'}
-STAT: Relevance: engine, 	X2: 10.8361189342
-STAT: Relevance: back, 	X2: 69.1785562306
-STAT: Relevance: Tech, 	X2: 224.591817391
-STAT: Entity: {u'relevance': [], u'word': u'Dustin', u'type': u'LOCATION'}
-STAT: Relevance: back, 	X2: 27.0277799645
-STAT: Entity: {u'relevance': [], u'word': u'Auto', u'type': u'LOCATION'}
-STAT: Relevance: back, 	X2: 27.0277799645
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          'The Great Lakes state, graying: Demographic reality hits Michigan' from @bridgemichigan: bridgemi.com/2015/04/metzge…      
-STAT: Entity: {u'relevance': [], u'word': u'Michigan', u'type': u'LOCATION'}
-STAT: Relevance: Great, 	X2: 1168.11342336
-STAT: Relevance: Lakes, 	X2: 38.0320714682
-STAT: Relevance: state, 	X2: 279.987026053
-STAT: Relevance: hit, 	X2: 16.1084957887
-STAT: Relevance: @bridgemichigan, 	X2: 57.1952042583
-STAT: Relevance: …, 	X2: 2091.97835156
-STAT: Entity: {u'relevance': [], u'word': u'@bridgemichigan', u'type': u'LOCATION'}
-STAT: Relevance: Great, 	X2: 1168.11342336
-STAT: Relevance: Lakes, 	X2: 38.0320714682
-STAT: Relevance: state, 	X2: 279.987026053
-STAT: Relevance: hit, 	X2: 16.1084957887
-STAT: Relevance: Michigan, 	X2: 755.038300022
-STAT: Relevance: …, 	X2: 2091.97835156
-STAT: Entity: {u'relevance': [], u'word': u'Great', u'type': u'ORGANIZATION'}
-STAT: Relevance: Lakes, 	X2: 19.6683990155
-STAT: Relevance: state, 	X2: 166.27948595
-STAT: Relevance: Michigan, 	X2: 35.7842823328
-STAT: Relevance: …, 	X2: 8490.46321634
-STAT: Entity: {u'relevance': [], u'word': u'Michigan', u'type': u'PERSON'}
-STAT: Relevance: Great, 	X2: 33.5126505466
-STAT: Relevance: state, 	X2: 69.6571959243
-STAT: Relevance: …, 	X2: 1039.77184004
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          It's officially summer, when you can start your first campfire! #hotdog pic.twitter.com/lnPi3xJ4pQ      
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          Learning to climb in Public Safety at #MOCC   Full fire gear! pic.twitter.com/iBRsfu20nd      
-STAT: Entity: {u'relevance': [], u'word': u'Public', u'type': u'LOCATION'}
-STAT: Relevance: Learning, 	X2: 41.5627854378
-STAT: Relevance: fire, 	X2: 120.324875438
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          The #SquareD electric car/Kayak is making progress! #MOCC pic.twitter.com/HUZPKY64A6      
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          Dan sure is cheesy at the #MOCC. #MOISD pic.twitter.com/ZMqESihkBl      
-STAT: Entity: {u'relevance': [], u'word': u'Dan', u'type': u'PERSON'}
-STAT: Entity: {u'relevance': [], u'word': u'#MOCC', u'type': u'ORGANIZATION'}
-STAT: Relevance: Dan, 	X2: 27.9705093492
-STAT: Relevance: #MOISD, 	X2: 12.9579343807
-STAT: Entity: {u'relevance': [], u'word': u'Dan', u'type': u'LOCATION'}
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          Why public schools are wading into a debate about energy s.mlive.com/iTjsrak via @mlive      
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          Battle begins over Energy and competition in Michigan. detroitnews.com/story/news/pol…      
-STAT: Entity: {u'relevance': [], u'word': u'Energy', u'type': u'ORGANIZATION'}
-STAT: Relevance: Battle, 	X2: 16.5699432898
-STAT: Relevance: Michigan, 	X2: 35.7842823328
-STAT: Relevance: …, 	X2: 8490.46321634
-STAT: Entity: {u'relevance': [], u'word': u'Michigan', u'type': u'LOCATION'}
-STAT: Relevance: …, 	X2: 2091.97835156
-STAT: Entity: {u'relevance': [], u'word': u'Battle', u'type': u'LOCATION'}
-STAT: Relevance: Michigan, 	X2: 755.038300022
-STAT: Relevance: …, 	X2: 2091.97835156
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          GOP looks to important dates in May - Ludington Daily News: Local shorelinemedia.net/ludington_dail…      
-STAT: Entity: {u'relevance': [], u'word': u'GOP', u'type': u'ORGANIZATION'}
-STAT: Relevance: important, 	X2: 39.1500591429
-STAT: Relevance: Daily, 	X2: 142.322919804
-STAT: Relevance: News, 	X2: 1558.78904252
-STAT: Relevance: Local, 	X2: 71.6216409954
-STAT: Relevance: …, 	X2: 8490.46321634
-STAT: Entity: {u'relevance': [], u'word': u'Ludington Daily News', u'type': u'ORGANIZATION'}
-STAT: Relevance: GOP, 	X2: 98.9119724747
-STAT: Relevance: important, 	X2: 39.1500591429
-STAT: Relevance: Local, 	X2: 71.6216409954
-STAT: Relevance: …, 	X2: 8490.46321634
-STAT: Entity: {u'relevance': [], u'word': u'May', u'type': u'LOCATION'}
-STAT: Relevance: GOP, 	X2: 12.3332932258
-STAT: Relevance: important, 	X2: 26.8990009646
-STAT: Relevance: News, 	X2: 902.461127783
-STAT: Relevance: Local, 	X2: 48.6884716184
-STAT: Relevance: …, 	X2: 2091.97835156
-STAT: Entity: {u'relevance': [], u'word': u'Ludington', u'type': u'PERSON'}
-STAT: Relevance: important, 	X2: 53.3020832607
-STAT: Relevance: Daily, 	X2: 66.0063201795
-STAT: Relevance: News, 	X2: 488.370403732
-STAT: Relevance: …, 	X2: 1039.77184004
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          'Plan B or no Plan B, here’s what happens if road proposal fails' from @bridgemichigan: bridgemi.com/2015/04/plan-b…      
-STAT: Entity: {u'relevance': [], u'word': u'@bridgemichigan', u'type': u'LOCATION'}
-STAT: Relevance: Plan, 	X2: 17.6063270749
-STAT: Relevance: Plan, 	X2: 17.6063270749
-STAT: Relevance: here’s, 	X2: 12.8876264884
-STAT: Relevance: road, 	X2: 158.460322114
-STAT: Relevance: proposal, 	X2: 45.9202263088
-STAT: Relevance: …, 	X2: 2091.97835156
-STAT: Entity: {u'relevance': [], u'word': u'Plan', u'type': u'PERSON'}
-STAT: Relevance: B, 	X2: 64.5387491491
-STAT: Relevance: B, 	X2: 64.5387491491
-STAT: Relevance: road, 	X2: 36.3219414114
-STAT: Relevance: …, 	X2: 1039.77184004
-
-STAT: ------------------------------------------------------------
-STAT: Tweet:          Evart Schools Super Steps Down.. CadillacNews.com cadillacnews.com/news_story/?st… via @CadillacNews      
-STAT: Entity: {u'relevance': [], u'word': u'Evart Schools Super Steps Down', u'type': u'ORGANIZATION'}
-STAT: Relevance: .., 	X2: 23.4339454407
+STAT: Relevance: enrollment, 	X2: 24.7805016333
 STAT: Relevance: CadillacNews.com, 	X2: 34.8975362359
 STAT: Relevance: cadillacnews.com/news_story/?st, 	X2: 35.0487020995
 STAT: Relevance: …, 	X2: 8490.46321634
 STAT: Relevance: @CadillacNews, 	X2: 35.0487020995
-STAT: Entity: {u'relevance': [], u'word': u'CadillacNews.com', u'type': u'ORGANIZATION'}
-STAT: Relevance: Schools, 	X2: 130.279540663
-STAT: Relevance: Super, 	X2: 16.4507766041
-STAT: Relevance: Steps, 	X2: 22.2726856895
-STAT: Relevance: .., 	X2: 23.4339454407
+STAT: Entity: {u'relevance': {}, u'type': u'ORGANIZATION', u'word': u'CadillacNews.com'}
+STAT: Relevance: school, 	X2: 238.562818565
+STAT: Relevance: enrollment, 	X2: 24.7805016333
 STAT: Relevance: cadillacnews.com/news_story/?st, 	X2: 35.0487020995
 STAT: Relevance: …, 	X2: 8490.46321634
 STAT: Relevance: @CadillacNews, 	X2: 35.0487020995
-STAT: Entity: {u'relevance': [], u'word': u'Evart', u'type': u'PERSON'}
-STAT: Relevance: Schools, 	X2: 90.0455710824
-STAT: Relevance: Super, 	X2: 50.5854191651
-STAT: Relevance: Steps, 	X2: 66.5758267921
-STAT: Relevance: …, 	X2: 1039.77184004
-STAT: Entity: {u'relevance': [], u'word': u'Schools', u'type': u'PERSON'}
+STAT: Entity: {u'relevance': {}, u'type': u'ORGANIZATION', u'word': u'@CadillacNews'}
+STAT: Relevance: school, 	X2: 238.562818565
+STAT: Relevance: enrollment, 	X2: 24.7805016333
+STAT: Relevance: CadillacNews.com, 	X2: 34.8975362359
+STAT: Relevance: cadillacnews.com/news_story/?st, 	X2: 35.0487020995
+STAT: Relevance: …, 	X2: 8490.46321634
+STAT: Entity: {u'relevance': {}, u'type': u'LOCATION', u'word': u'Evart'}
+STAT: Relevance: school, 	X2: 130.835240551
+STAT: Relevance: …, 	X2: 2091.97835156
+
+STAT: ------------------------------------------------------------
+STAT: Tweet:          #MOCC #Cosmotology Instructor, Linda Ward, with #GovernorSynder at #SkillsUSA  - Career Centers make a difference. pic.twitter.com/sl54DxDhoe      
+STAT: Entity: {u'relevance': {}, u'type': u'ORGANIZATION', u'word': u'#MOCC #Cosmotology Instructor'}
+STAT: Relevance: Career, 	X2: 45.9786407606
+STAT: Relevance: Centers, 	X2: 31.0197792513
+STAT: Relevance: make, 	X2: 119.277699916
+STAT: Relevance: a, 	X2: 35.8489208993
+STAT: Entity: {u'relevance': {}, u'type': u'PERSON', u'word': u'Linda Ward'}
+STAT: Relevance: Career, 	X2: 22.6623604412
+STAT: Relevance: a, 	X2: 66.8599324186
+STAT: Relevance: difference, 	X2: 13.8775667628
+STAT: Entity: {u'relevance': {}, u'type': u'LOCATION', u'word': u'#SkillsUSA'}
+STAT: Relevance: Centers, 	X2: 32.4235878361
+STAT: Relevance: make, 	X2: 41.2739837252
+STAT: Relevance: a, 	X2: 81.6255936593
+STAT: Entity: {u'relevance': {}, u'type': u'ORGANIZATION', u'word': u'Centers make'}
+STAT: Relevance: #MOCC, 	X2: 48.396433821
+STAT: Relevance: Career, 	X2: 45.9786407606
+STAT: Relevance: a, 	X2: 35.8489208993
+STAT: Entity: {u'relevance': {}, u'type': u'PERSON', u'word': u'Linda'}
+STAT: Relevance: Ward, 	X2: 39.8352989503
+STAT: Relevance: Career, 	X2: 22.6623604412
+STAT: Relevance: a, 	X2: 66.8599324186
+STAT: Relevance: difference, 	X2: 13.8775667628
+STAT: Entity: {u'relevance': {}, u'type': u'ORGANIZATION', u'word': u''}
+STAT: Relevance: #MOCC

@@ -9,18 +9,45 @@ However, one of urgent flaws of chi square is it cost much time to execute one
 peer, getting all of relevance of every entity. Finally, we determined to
 rewrite function 'relevance_chi_square' to a multi-thread function.
     Before we reconstruct this function, the approximate speed of execution is
-42 texts per 3 hours, as for total corpus or peer, the speed is 12 texts / hour.
+42 texts per 3 hours, as for total corpus or peer, the speed is 14 texts / hour.
 However, these are 7 texts do not have entity, needing no relevance extraction,
 so as for each text, the speed is around one text per 6 minutes.
+    2. After rewriting the function to multi-threading, we find the executions
+lows down to 9 texts per hour. So we determined to improve our VPS to double
+cores.
 '''
 
 import threading
 from pymongo     import MongoClient
 from stopwords   import stopwords_mysql, stopwords_nltk, punctuation
 
+class TextThread(threading.Thread):
+
+    def __init__(self, coll, text, file):
+        threading.Thread.__init__(self)
+        self.coll = coll
+        self.text = text
+        self.file = file
+
+    def run(self):
+        text_relevance_chi_square(self.coll, self.text, self.file)
+
 def peer_relevance_chi_square(coll, peer_username, file):
 
-    pass
+    peer = coll.find_one({'username':peer_username})
+
+    texts = peer['texts']
+
+    while True:
+
+        if threading.activeCount() < 9:
+            try:
+                thread = TextThread(coll, texts.pop(0), file)
+                thread.start()
+            except:
+                continue
+
+        if len(texts) == 0: break
 
 def text_relevance_chi_square(coll, text, file):
 
@@ -28,20 +55,21 @@ def text_relevance_chi_square(coll, text, file):
     tokens   = text['tokens']
     content  = text['content']
     entities = text['entity']
+    log_str  = ""
 
     print "STAT: %s" % ('-'*60)
-    file.write("STAT: %s" % ('-'*60))
-    file.write('\n')
+    log_str += "STAT: %s" % ('-'*60)
+    log_str += '\n'
 
     print "STAT: Tweet: %s" % " ".join(content.encode('utf8').split('\n'))
-    file.write("STAT: Tweet: %s" % " ".join(content.encode('utf8').split('\n')))
-    file.write('\n')
+    log_str += "STAT: Tweet: %s" % " ".join(content.encode('utf8').split('\n'))
+    log_str += '\n'
 
     for entity in entities:
 
         print "STAT: Entity: %s" % str(entity)
-        file.write("STAT: Entity: %s" % str(entity))
-        file.write('\n')
+        log_str += "STAT: Entity: %s" % str(entity)
+        log_str += '\n'
 
         entity_word = entity['word']
         entity_type = entity['type']
@@ -93,12 +121,13 @@ def text_relevance_chi_square(coll, text, file):
             # means the relevance rate of entity and token is greater than 0.999
             if X2 >= 10.83: 
                 print "STAT: Relevance: %s, \tX2: %s" % (token.encode('utf8'), X2)
-                file.write("STAT: Relevance: %s, \tX2: %s" \
-                           % (token.encode('utf8'), X2))
-                file.write('\n')
+                log_str += "STAT: Relevance: %s, \tX2: %s" \
+                           % (token.encode('utf8'), X2)
+                log_str += '\n'
 
     print 
-    file.write('\n')
+    log_str += '\n'
+    file.write(log_str)
 
     return
 
@@ -108,14 +137,18 @@ if __name__ == '__main__':
 
     twcoll = client.msif.twitter_tweets
 
+    logfile= file('log.txt', 'w+r')
+
+    peer_relevance_chi_square(twcoll, '@CFinchMOISD', logfile)
+
+    ''' code before multi-threading
+
     sample = twcoll.find_one({'username':'@CFinchMOISD'})
 
     tweets = sample['texts']
-
-    logfile= file('log.txt', 'w+r')
 
     for tweet in tweets:
 
         text_relevance_chi_square(twcoll, tweet, logfile)
 
-    logfile.close()
+    '''
