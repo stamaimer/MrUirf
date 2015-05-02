@@ -156,7 +156,8 @@ if __name__ == '__main__':
 
 	user_list = [{"login":"stamaimer", "email":"stamaimer@gmail.com"},
 				 {"login":"stamaimer", "email":"stamaimer@icloud.com"},
-				 {"login":"curmium", "email":"hiwiky@gmail.com"}]
+				 {"login":"curmium", "email":"hiwiky@gmail.com"},
+				 {"login":"yaohu", "email":"kokoroyao@gmail.com"}]
 
 	# sendmail(usr, psd, usr, user_list)
 
