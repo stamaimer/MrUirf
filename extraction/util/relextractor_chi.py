@@ -15,39 +15,50 @@ so as for each text, the speed is around one text per 6 minutes.
     2. After rewriting the function to multi-threading, we find the executions
 lows down to 9 texts per hour. So we determined to improve our VPS to double
 cores.
+    3. After imporved my VPS CPU to double cores, the execution just speed up 
+slightly, around 11 texts per hour. Finally we determined to reconstruct the 
+function to multi-processing.
 '''
 
-import threading
-from pymongo     import MongoClient
-from stopwords   import stopwords_mysql, stopwords_nltk, punctuation
+import time
+from multiprocessing import Process, Queue, Manager, cpu_count
+from pymongo         import MongoClient
+from stopwords       import stopwords_mysql, stopwords_nltk, punctuation
 
-class TextThread(threading.Thread):
-
-    def __init__(self, coll, text, file):
-        threading.Thread.__init__(self)
-        self.coll = coll
-        self.text = text
-        self.file = file
-
-    def run(self):
-        text_relevance_chi_square(self.coll, self.text, self.file)
 
 def peer_relevance_chi_square(coll, peer_username, file):
 
-    peer = coll.find_one({'username':peer_username})
+    peer    = coll.find_one({'username':peer_username})
+    texts   = peer['texts']
+    tasks   = []
+    buffer  = Queue()
+    result  = Manager().list()
+    for index, text in enumerate(texts):
+        tasks.append({'index':index, 'text':text})
 
-    texts = peer['texts']
+    process_count = cpu_count() * 3
 
     while True:
+        try:    [buffer.put(tasks.pop(0)) for i in xrange(30)]
+        except: pass
 
-        if threading.activeCount() < 9:
-            try:
-                thread = TextThread(coll, texts.pop(0), file)
-                thread.start()
-            except:
-                continue
+        processes = [None for i in xrange(process_count)]
+        for i in xrange(len(processes)):
+            processes[i] = Process(target = text_agent, args=(coll,buffer,file))
+            processes[i].start()
+        for i in xrange(len(processes)):
+            processes[i].join()
 
-        if len(texts) == 0: break
+        if len(tasks) == 0: break
+
+def text_agent(coll, buffer, file):
+
+    while True:
+        try:    task = buffer.get_nowait()
+        except: break
+        task_index = task['index']
+        task_text  = task['text']
+        text_relevance_chi_square(coll, task_text, file)
 
 def text_relevance_chi_square(coll, text, file):
 
@@ -79,12 +90,12 @@ def text_relevance_chi_square(coll, text, file):
 
         # entity itself need not execute relevance
         entity_word_list = entity_word.lower().split()
-        for word in entity_word_list: exile_words.append(word)
+        for word in entity_word_list: exile_words.append(word.encode('utf8'))
         exile_puncs = punctuation()
         exile_words = exile_words + exile_puncs
 
         # calculate the relevance scores of every word and the entity
-        for token in [t for t in tokens if t.lower() not in exile_words]:
+        for token in [t for t in tokens if t.lower().encode('utf8') not in exile_words]:
             n11 = 0.0   # token hit     |   type hit
             n10 = 0.0   # token hit     |   type not hit
             n01 = 0.0   # token not hit |   type hit
