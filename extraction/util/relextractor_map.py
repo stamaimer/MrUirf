@@ -55,22 +55,6 @@ def convert_pos(pos):
     elif pos in jun_set: return jun_set[0]
     else : return pos
 
-def pos_sentence_list(raw_pos):
-
-    # the format of raw_pos:
-    # [[word, pos_tag], [word, pos_tag], ...] or
-    # [(word, pos_tag), (word, pos_tag), ...]
-    # if not those two formats, do not call this function
-    pos     = [convert_pos(item[1]) for item in raw_pos]
-    pos     = [item for item in pos if not item == '']
-    pos_str = " ".join( pos )
-    pos_lst = re.split(r'[.|,]', pos_str)
-    for item in pos_lst:
-        if len(item) > 0 and item[0] == ' ': item = item[1:]
-        if len(item) > 0 and item[-1]== ' ': item = item[:len(item)-1]
-        if len(item) ==0: continue
-    return pos_lst
-
 def pos_sentence_collection(db, filter):
 
     sents  = db.twitter_sentences
@@ -294,10 +278,21 @@ def manual_mark(db, pattern_set):
 
 def text_relevance_pos_pattern(coll, text):
 
-    pos_lst = pos_sentence_list(text['pos'])
-    for p in pos_lst:
-        print p
+    pos = [(p[0], convert_pos(p[1])) for p in text['pos']]
+    pattern_list = []
+    
+    # segment pos list by '.' and ','
+    pos_lst, tmp  = [], []
+    for p in pos: 
+        if p[1] == '.' or p[1] == ',': 
+            pos_lst.append(tmp)
+            tmp = []
+        else: tmp.append(p)
+    pos_lst.append(tmp)
 
+    for pos_seg in pos_lst:
+        pos_tags = [p[1] for p in pos_seg if not p[1] == '']
+        print " ".join(pos_tags)
 
 if __name__ == "__main__":
 
