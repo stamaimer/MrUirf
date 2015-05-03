@@ -55,6 +55,22 @@ def convert_pos(pos):
     elif pos in jun_set: return jun_set[0]
     else : return pos
 
+def pos_sentence_list(raw_pos):
+
+    # the format of raw_pos:
+    # [[word, pos_tag], [word, pos_tag], ...] or
+    # [(word, pos_tag), (word, pos_tag), ...]
+    # if not those two formats, do not call this function
+    pos     = [convert_pos(item[1]) for item in raw_pos]
+    pos     = [item for item in pos if not item == '']
+    pos_str = " ".join( pos )
+    pos_lst = re.split(r'[.|,]', pos_str)
+    for item in pos_lst:
+        if len(item) > 0 and item[0] == ' ': item = item[1:]
+        if len(item) > 0 and item[-1]== ' ': item = item[:len(item)-1]
+        if len(item) ==0: continue
+    return pos_lst
+
 def pos_sentence_collection(db, filter):
 
     sents  = db.twitter_sentences
@@ -276,6 +292,12 @@ def manual_mark(db, pattern_set):
             twsent.update({'pattern':pattern}, {'$set':{'flag':'1'}})
             print "SUCC: Pattern done."
 
+def text_relevance_pos_pattern(coll, text):
+
+    pos_lst = pos_sentence_list(text['pos'])
+    for p in pos_lst:
+        print p
+
 
 if __name__ == "__main__":
 
@@ -285,8 +307,16 @@ if __name__ == "__main__":
     # pos_sentence_collection(twdb, {'time':'2015-04-23'})
     # evaluate_pattern_len(twdb, 7)
     # evaluate_peers_limit(twdb, 10, 7)
-    patterns = filter_pattern(twdb, 10, 7)
-    manual_mark(twdb, patterns)
+
+    # marker
+    # patterns = filter_pattern(twdb, 10, 7)
+    # manual_mark(twdb, patterns)i
+
+    # relevance word extraction
+    peer = twdb.twitter_tweets.find_one({'username':'@CFinchMOISD'})
+    texts= peer['texts']
+    for text in texts:
+        text_relevance_pos_pattern(twdb.twitter_sentences, text)
 
     ''' to fix cursor timeout
     twsents= twdb.twitter_sentences
