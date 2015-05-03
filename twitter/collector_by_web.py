@@ -81,8 +81,9 @@ def get_tweets(peer):
             # 1. tokenization flag: '0' means no, '1' means already done
             # 2. pos tagging flag
             # 3. ner flag
-            # 4. relevance flag
-            tweets["texts"].append({'content':tweet, 'time':time, 'flag':'0000'})
+            # 4. relevance flag for chi square
+            # 5. relevance flag for pos pattern
+            tweets["texts"].append({'content':tweet, 'time':time, 'flag':'00000'})
 
         try:
             # refresh link
