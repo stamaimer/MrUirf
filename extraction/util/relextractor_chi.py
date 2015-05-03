@@ -18,6 +18,11 @@ cores.
     3. After imporved my VPS CPU to double cores, the execution just speed up 
 slightly, around 11 texts per hour. Finally we determined to reconstruct the 
 function to multi-processing.
+    2015-5-3
+    1. After reconstructed function to multi-processing, (6 processes and 30
+texts a set), the execution speed doubled, to 24 texts per hour. It might
+because of the improving of CPU core amount. So we determined improve our cpu
+cores to 4 or 8 to speed up.
 '''
 
 import time
@@ -25,10 +30,10 @@ from multiprocessing import Process, Queue, Manager, cpu_count
 from pymongo         import MongoClient
 from stopwords       import stopwords_mysql, stopwords_nltk, punctuation
 
-
-def peer_relevance_chi_square(coll, peer_username, file):
+def peer_relevance_chi_square(coll, peer_username):
 
     peer    = coll.find_one({'username':peer_username})
+    username= peer['username']
     texts   = peer['texts']
     tasks   = []
     buffer  = Queue()
@@ -36,54 +41,57 @@ def peer_relevance_chi_square(coll, peer_username, file):
     for index, text in enumerate(texts):
         tasks.append({'index':index, 'text':text})
 
-    process_count = cpu_count() * 3
+    process_count = cpu_count() * 2
 
     while True:
-        try:    [buffer.put(tasks.pop(0)) for i in xrange(30)]
+        try:    [buffer.put(tasks.pop(0)) for i in xrange(50)]
         except: pass
 
         processes = [None for i in xrange(process_count)]
         for i in xrange(len(processes)):
-            processes[i] = Process(target = text_agent, args=(coll,buffer,file))
+            processes[i]=Process(target = text_agent,args=(coll, buffer, result))
             processes[i].start()
         for i in xrange(len(processes)):
             processes[i].join()
 
+        for item in result: texts[item['index']] = item['text']
+        coll.update({'username':username}, {'$set':{'texts':texts}})
+
         if len(tasks) == 0: break
 
-def text_agent(coll, buffer, file):
+def text_agent(coll, buffer, result):
 
     while True:
         try:    task = buffer.get_nowait()
         except: break
         task_index = task['index']
         task_text  = task['text']
-        text_relevance_chi_square(coll, task_text, file)
+        text_done  = text_relevance_chi_square(coll, task_text)
+        task['text']=text_done
+        result.append(task)
 
-def text_relevance_chi_square(coll, text, file):
+def text_relevance_chi_square(coll, text):
 
+    # check flag: flag[3] means relevance flag for chi square
     flag     = text['flag']
+    if flag[2] == '0': return text # need ner done before
+    if flag[3] == '1': return text # have already done
+
     tokens   = text['tokens']
     content  = text['content']
     entities = text['entity']
-    log_str  = ""
 
     print "STAT: %s" % ('-'*60)
-    log_str += "STAT: %s" % ('-'*60)
-    log_str += '\n'
-
     print "STAT: Tweet: %s" % " ".join(content.encode('utf8').split('\n'))
-    log_str += "STAT: Tweet: %s" % " ".join(content.encode('utf8').split('\n'))
-    log_str += '\n'
 
     for entity in entities:
 
         print "STAT: Entity: %s" % str(entity)
-        log_str += "STAT: Entity: %s" % str(entity)
-        log_str += '\n'
 
         entity_word = entity['word']
         entity_type = entity['type']
+        entity_rele = entity['relevance']
+        entity_rele['chi_square'] = []
 
         # exile_words = stopwords_nltk()
         exile_words = stopwords_mysql()
@@ -131,35 +139,21 @@ def text_relevance_chi_square(coll, text, file):
             # if X2 value greater than or equal to 10.83
             # means the relevance rate of entity and token is greater than 0.999
             if X2 >= 10.83: 
-                print "STAT: Relevance: %s, \tX2: %s" % (token.encode('utf8'), X2)
-                log_str += "STAT: Relevance: %s, \tX2: %s" \
-                           % (token.encode('utf8'), X2)
-                log_str += '\n'
+                print "STAT: Relevance: %s, \tX2: %s" % (token.encode('utf8'),X2)
+                entity_rele['chi_square'].append(token)
 
-    print 
-    log_str += '\n'
-    file.write(log_str)
+        # this entity relevance words extraction done.
+        entity['relevance'] = entity_rele
 
-    return
+    # all entities relevance words extraction done.
+    text['entity'] = entities
+    text['flag']   = flag[0:3] + '1' + flag[4:]
+    print
+
+    return text
 
 if __name__ == '__main__':
 
     client = MongoClient('mongodb://localhost:27017/')
-
     twcoll = client.msif.twitter_tweets
-
-    logfile= file('log.txt', 'w+r')
-
-    peer_relevance_chi_square(twcoll, '@CFinchMOISD', logfile)
-
-    ''' code before multi-threading
-
-    sample = twcoll.find_one({'username':'@CFinchMOISD'})
-
-    tweets = sample['texts']
-
-    for tweet in tweets:
-
-        text_relevance_chi_square(twcoll, tweet, logfile)
-
-    '''
+    peer_relevance_chi_square(twcoll, '@CFinchMOISD')

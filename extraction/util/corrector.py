@@ -50,6 +50,22 @@ def twitter_entity_corrector():
         tweets.update({'username':username}, {'$set':{'texts':texts}})
 
 
+def twitter_flag_corrector():
+
+    client = MongoClient('mongodb://localhost:27017/')
+    tweets = client.mruirf.twitter_tweets
+    peers  = tweets.find()
+
+    for peer in peers:
+        username = peer['username']
+        texts    = peer['texts']
+        for text in texts:
+            flag = text['flag']
+            if len(flag) == 4:
+                flag += '0'
+                text['flag'] = flag
+        tweets.update({'username':username}, {'$set':{'texts':texts}})
+
 if __name__ == "__main__":
 
-    twitter_entity_corrector()
+    twitter_flag_corrector()
