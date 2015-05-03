@@ -280,19 +280,27 @@ def text_relevance_pos_pattern(coll, text):
 
     pos = [(p[0], convert_pos(p[1])) for p in text['pos']]
     pattern_list = []
-    
-    # segment pos list by '.' and ','
-    pos_lst, tmp  = [], []
-    for p in pos: 
-        if p[1] == '.' or p[1] == ',': 
-            pos_lst.append(tmp)
-            tmp = []
-        else: tmp.append(p)
-    pos_lst.append(tmp)
+    pattern      = {'pos':[]}
+    for p in pos:
+        if p[1] == '': continue
+        if p[1] == '.' or p[1] == ',':
+            pattern['words'] = [i[0] for i in pattern['pos']]
+            pattern['tags']  = [i[1] for i in pattern['pos']]
+            pattern['pattern']=" ".join(pattern['tags'])
+            del pattern['pos']
+            del pattern['tags']
+            pattern_list.append(pattern)
+            pattern = {'pos':[]}
+        pattern['pos'].append(p)
 
-    for pos_seg in pos_lst:
-        pos_tags = [p[1] for p in pos_seg if not p[1] == '']
-        print " ".join(pos_tags)
+    entities = text['entity']
+    for entity in entities:
+        entity_word = entity['word']
+        for pattern in pattern_list:
+            words = pattern['words']
+            if entity_word in words:
+                entity_index = words.index(entity_word)
+                print entity_index
 
 if __name__ == "__main__":
 
@@ -310,7 +318,7 @@ if __name__ == "__main__":
     # relevance word extraction
     peer = twdb.twitter_tweets.find_one({'username':'@CFinchMOISD'})
     texts= peer['texts']
-    for text in texts:
+    for text in texts[:1]:
         text_relevance_pos_pattern(twdb.twitter_sentences, text)
 
     ''' to fix cursor timeout
