@@ -23,6 +23,11 @@ function to multi-processing.
 texts a set), the execution speed doubled, to 24 texts per hour. It might
 because of the improving of CPU core amount. So we determined improve our cpu
 cores to 4 or 8 to speed up.
+    2. After improved CPU cores amount to 8, the execution speed up to 64 texts
+per hour.
+    3. Then we improve average processes of single core from 2 to 4, the speed
+go up to 86 texts per hour, and we could estimate that if we increase tasks pool
+size from 96 to a higher level, the speed will still increase.
 '''
 
 import time
@@ -41,10 +46,10 @@ def peer_relevance_chi_square(coll, peer_username):
     for index, text in enumerate(texts):
         tasks.append({'index':index, 'text':text})
 
-    process_count = cpu_count() * 2
+    process_count = cpu_count() * 4
 
     while True:
-        try:    [buffer.put(tasks.pop(0)) for i in xrange(50)]
+        try:    [buffer.put(tasks.pop(0)) for i in xrange(96)]
         except: pass
 
         processes = [None for i in xrange(process_count)]
