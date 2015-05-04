@@ -18,11 +18,12 @@ from util.postagger     import pos_bat
 from util.nerclassifier import ner_bat
 
 # extractor for short text, such as twitter and facebook
-def extractor(coll, peer_id):
+def preprocess(coll, username):
 
-    peer      = coll.find_one({'_id': peer_id})
+    peer      = coll.find_one({'username': username})
     peer_text = peer['texts']
     peer_id   = peer['_id']
+    username  = peer['username']
     entities  = []
 
     # tokenization
@@ -38,7 +39,7 @@ def extractor(coll, peer_id):
     #   5. update tokenization flag bit. 
     #       if flag is '1', then skip the tokenization.
     #       if flag is '0', then set the flag to '1' after processing.
-    tokenizer_bat(coll, peer_id)
+    tokenizer_bat(coll, username)
     print "STAT: ---------------------------------------"
 
     # pos tagging
@@ -53,7 +54,7 @@ def extractor(coll, peer_id):
     #       if tokenization flag is '1' and pos flag is '0', then pos tagging.
     #       if tokenization flag is '0', then stop executing.
     #       if pos flag is '1', then skip the pos tagging.
-    pos_bat(coll, peer_id)
+    pos_bat(coll, username)
     print "STAT: ---------------------------------------"
 
     # entities recognition
@@ -68,17 +69,8 @@ def extractor(coll, peer_id):
     #       if pos flag is '1' and ner flag is '0', then nering.
     #       if pos flag is '0', then stop executing.
     #       if ner flag is '1', then skip the nering.
-    ner_bat(coll, peer_id)
+    ner_bat(coll, username)
     print "STAT: ---------------------------------------"
-
-    # relation words extractor
-    # --------------------------------------------------
-    print "STAT: Start relation words extracting."
-    for item in peer_text:
-        pass
-
-    print
-    print
 
 if __name__ == "__main__":
 
@@ -89,22 +81,23 @@ if __name__ == "__main__":
     # in python 1.x you could set "find(timeout=False)"
     # however, in python 2.x, subprocess.call does not have a timeout argument
     # you could not do like so
-    peers  = tweets.find(None, None, 0, 0, False)
+    peers  = tweets.find({'time':'2015-04-24'})
 
     with file('status.json', 'r') as f:
         status = json.load(f)
 
     #tweets.update_one({'_id': peers[0]['_id']}, {'$set': {'time':'2014-7-10' }})
 
-    for i, peer in enumerate(peers):
+    for i, peer in enumerate(peers[:2]):
 
         print "STAT: %s peer under executing." % str(i+1)
         name     = peer["name"].encode('utf8')
+        username = peer["username"]
         peer_id  = peer["_id"]
         print name, '-'*50
 
         try:
-            entities = extractor(tweets, peer_id)
+            entities = preprocess(tweets, username)
         except:
             pass
 

@@ -19,9 +19,9 @@ def pos_stanford(tokens):
 # @brief: pos tag all texts of a peer
 #         1. store in mongodb directly
 #         2. modify pos tagging flag bit
-def pos_bat(coll, peer_id):
+def pos_bat(coll, username):
 
-    peer    = coll.find_one({'_id': peer_id})
+    peer    = coll.find_one({'username': username})
     texts   = peer['texts']
     count_s = 0     # count for success
     count_w = 0     # count for done before
@@ -59,7 +59,7 @@ def pos_bat(coll, peer_id):
 
             count_e += 1
 
-    coll.update_one({'_id':peer_id}, {"$set": {'texts': texts}})
+    coll.update_one({'username':username}, {"$set": {'texts': texts}})
     print "SUCC: POS tagging done."
     print "STAT: %s texts executed, %s have done before and %s errors." \
             % (count_s, count_w, count_e)

@@ -73,9 +73,9 @@ def ner_nltk(texts):
 # @brief: ner all texts of a peer
 #         1. store in mongodb directly
 #         2. modify ner flag bit
-def ner_bat(coll, peer_id):
+def ner_bat(coll, username):
 
-    peer    = coll.find_one({'_id': peer_id})
+    peer    = coll.find_one({'username': username})
     texts   = peer['texts']
     count_s = 0     # count for success
     count_w = 0     # count for done before
@@ -172,7 +172,7 @@ def ner_bat(coll, peer_id):
 
             text['entity_types'] = entity_types
 
-    coll.update_one({'_id':peer_id}, {'$set': {'texts':texts}})
+    coll.update_one({'username':username}, {'$set': {'texts':texts}})
     print "SUCC: Nering done."
     print "STAT: %s texts executed, %s have done before and %s errors." \
             % (count_s, count_w, count_e)

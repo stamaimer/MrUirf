@@ -28,6 +28,9 @@ per hour.
     3. Then we improve average processes of single core from 2 to 4, the speed
 go up to 86 texts per hour, and we could estimate that if we increase tasks pool
 size from 96 to a higher level, the speed will still increase.
+
+    2015-5-4
+    1. @CFinchMOISD(username) chi square relevance extraction has done.
 '''
 
 import time

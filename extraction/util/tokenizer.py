@@ -56,9 +56,9 @@ def tokenize_stf(text):
 # @brief: tokenize all tweets of a peer
 #         1. store in the mongodb directly
 #         2. modify the tokenization flag bit
-def tokenizer_bat(coll, peer_id):
+def tokenizer_bat(coll, username):
 
-    peer    = coll.find_one({'_id': peer_id})
+    peer    = coll.find_one({'username': username})
     texts   = peer['texts']
     count_s = 0
     count_w = 0
@@ -99,7 +99,7 @@ def tokenizer_bat(coll, peer_id):
 
             pass
 
-    coll.update_one({'_id':peer_id}, {'$set':{'texts':texts}})
+    coll.update_one({'username':username}, {'$set':{'texts':texts}})
     print "SUCC: Tokenization done." 
     print "STAT: %s texts executed and %s texts have been executed before." \
             % (count_s, count_w)
