@@ -49,7 +49,7 @@ def peer_relevance_chi_square(coll, peer_username):
     process_count = cpu_count() * 4
 
     while True:
-        try:    [buffer.put(tasks.pop(0)) for i in xrange(96)]
+        try:    [buffer.put(tasks.pop(0)) for i in xrange(256)]
         except: pass
 
         processes = [None for i in xrange(process_count)]

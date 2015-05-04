@@ -66,6 +66,22 @@ def twitter_flag_corrector():
                 text['flag'] = flag
         tweets.update({'username':username}, {'$set':{'texts':texts}})
 
+def pattern_relevance_index_corrector():
+
+    client = MongoClient('mongodb://localhost:27017/')
+    twsent = client.msif.twitter_sentences
+    sents  =twsent.find({'pattern':'RB VB NN NN NN NN NN NN NN'})
+
+    for sent in sents:
+        pattern = sent['pattern']
+        sets    = sent['set']
+        for set in sets:
+            relevance_indice = [int(r) for r in set['relevance_index'] if not r
+                                == u'']
+            set['relevance_index'] = relevance_indice
+        twsent.update({'pattern':pattern}, {'$set':{'set':sets}})
+
 if __name__ == "__main__":
 
-    twitter_flag_corrector()
+    pattern_relevance_index_corrector()
+    pass

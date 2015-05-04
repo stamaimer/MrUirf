@@ -261,6 +261,7 @@ def manual_mark(db, pattern_set):
                 # marking ---------------------------------------------------
                 while True:
                     set_rele = raw_input('The indice of relevance: ').split()
+                    set_rele = [int(r) for r in set_rele if not r == '']
                     ensure   = raw_input('Finish this text?(y/n): ')
                     set_flag = '1'
                     if ensure == 'y':
@@ -278,6 +279,12 @@ def manual_mark(db, pattern_set):
 
 def text_relevance_pos_pattern(coll, text):
 
+    # check flag
+    flag = text['flag']
+    if flag[2] == '0': return text # need ner done before
+    if flag[4] == '1': return text # have already done
+
+    # convert text to segment
     pos = [(p[0], convert_pos(p[1])) for p in text['pos']]
     pattern_list = []
     pattern      = {'pos':[]}
@@ -293,14 +300,50 @@ def text_relevance_pos_pattern(coll, text):
             pattern = {'pos':[]}
         pattern['pos'].append(p)
 
+    # pos pattern relevance extraction
     entities = text['entity']
     for entity in entities:
         entity_word = entity['word']
+        entity_rele = entity['relevance']
+        entity_rele['pos_pattern'] = []
+
         for pattern in pattern_list:
             words = pattern['words']
+
             if entity_word in words:
                 entity_index = words.index(entity_word)
-                print entity_index
+                sentence     = coll.find_one({'pattern':pattern['pattern']})
+                if sentence == None or sentence['flag'] == '0': continue
+                set_f=[s for s in sentence['set'] if entity_index in s['entity']]
+                rele_indice  = [s['relevance_index'] for s in set_f]
+                all_rele_count=sum([len(item) for item in rele_indice])
+                average_words= int(round(float(all_rele_count)/len(rele_indice)))
+
+                rele_frequ = {}
+                for set in rele_indice:
+                    for index in set:
+                        if index not in rele_frequ: rele_frequ[index] = 1
+                        else: rele_frequ[index]+=1
+
+                frequent_sort= rele_frequ.values()
+                frequent_sort.sort()
+                frequent     =frequent_sort[average_words-1]
+
+                for i in rele_frequ:
+                    if rele_frequ[i] >= frequent:
+                        entity_rele['pos_pattern'].append(words[i])
+        entity['relevance'] = entity_rele
+
+    text['entity'] = entities
+
+    #######################################################################
+    # ATTENTION:
+    # because pos pattern relevance rxtractor train set is not marked done,
+    # we could not set flag for pos pattern from 0 to 1
+    # text['flag'] = text['flag'][0:4] + '1' + text['flag'][5:]
+    #######################################################################
+
+    return text
 
 if __name__ == "__main__":
 
@@ -313,13 +356,15 @@ if __name__ == "__main__":
 
     # marker
     # patterns = filter_pattern(twdb, 10, 7)
-    # manual_mark(twdb, patterns)i
+    # manual_mark(twdb, patterns)
 
     # relevance word extraction
     peer = twdb.twitter_tweets.find_one({'username':'@CFinchMOISD'})
     texts= peer['texts']
-    for text in texts[:1]:
-        text_relevance_pos_pattern(twdb.twitter_sentences, text)
+    indice=[1113, 1280, 1356]
+    texts= [text for i, text in enumerate(texts) if i in indice]
+    for text in texts:
+        text_done = text_relevance_pos_pattern(twdb.twitter_sentences, text)
 
     ''' to fix cursor timeout
     twsents= twdb.twitter_sentences
