@@ -355,16 +355,16 @@ if __name__ == "__main__":
     # evaluate_peers_limit(twdb, 10, 7)
 
     # marker
-    # patterns = filter_pattern(twdb, 10, 7)
-    # manual_mark(twdb, patterns)
+    patterns = filter_pattern(twdb, 10, 7)
+    manual_mark(twdb, patterns)
 
     # relevance word extraction
-    peer = twdb.twitter_tweets.find_one({'username':'@CFinchMOISD'})
-    texts= peer['texts']
-    indice=[1113, 1280, 1356]
-    texts= [text for i, text in enumerate(texts) if i in indice]
-    for text in texts:
-        text_done = text_relevance_pos_pattern(twdb.twitter_sentences, text)
+    # peer = twdb.twitter_tweets.find_one({'username':'@CFinchMOISD'})
+    # texts= peer['texts']
+    # indice=[1113, 1280, 1356]
+    # texts= [text for i, text in enumerate(texts) if i in indice]
+    # for text in texts:
+    #     text_done = text_relevance_pos_pattern(twdb.twitter_sentences, text)
 
     ''' to fix cursor timeout
     twsents= twdb.twitter_sentences
