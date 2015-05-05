@@ -26,7 +26,7 @@ def uir():
 							 int(request.form["depth"]),        
 							 int(request.form["iterations"]))
 
-		return render_template("results.html", results)
+		return render_template("results.html", results=results)
 
 @app.route('/uif')
 def uif_index():
