@@ -1,87 +1,205 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<style>
+<html lang="en">
+	<head>
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>MrUirf</title>
+		<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+  		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<style>
 
-.link {
-  stroke: #999;
-  stroke-opacity: .6;
-}
+			.link {
+			  stroke: #999;
+			  stroke-opacity: 0.6;
+			}
 
-.node text{
-  pointer-events:none;
-  font: 10px sans-serif;
-}
+			.node text{
+			  pointer-events:none;
+			  font: 10px sans-serif;
+			}
 
-</style>
-<body style="display:flex; justify-content:space-around; flex-direction:column">
+		</style>
+	</head>
+	<body style="width:100%; height:100%; ">
+		<div class="header" style="background-color:#428BCA">
+			<div class="container">
+				<h2 style="color:white">User Identity Resolution and User Information Fusion across Multi-Social Network</h2>
+			</div>
+		</div>
+		<div class="body" style="display:flex; flex-direction:column">
+			<div class="panel panel-default">
+  				<div class="panel-body">
+    				<form class="form-inline" style="display:flex; justify-content:center">
+						<div class="form-group">
+							<label>GitHub Username</label>
+							<input type="text" class="form-control" id="gusername" placeholder="Jane Doe" style="margin: 0 8px">
+						</div>
+						<div class="form-group">
+							<label>Twitter Username</label>
+							<input type="text" class="form-control" id="tusername" placeholder="Jane Doe" style="margin: 0 8px">
+						</div>
+						<button type="submit" class="pure-button pure-button-primary">Begin</button>
+					</form>
+  				</div>
+			</div>
+			<div class="container" style="color:#777">
+				<caption>Visualization:</caption>
+			</div>
+			<div style="display:flex; justify-content:space-around; position:absolute; width:100%; height:50%;">
+				<div id="github" style="width:40%; height:100%;"></div>
+				<div id="twitter" style="width:40%; height:100%;"></div>
+			</div>
+			<div class="container" style="margin-top:26em; color:#777">
+				<table class="table table-striped" style="width:100%">
+					<caption>Results:</caption>
+					<tr>
+						<th style="text-align:center">GitHub Username</th>
+						<th style="text-align:center">Twitter Username</th>
+						<th style="text-align:center">Network Structure Similarity</th>
+						<th style="text-align:center">Username Similarity</th>
+					</tr>
+					<tr>
+						<td align="center">stamaimer</td>
+						<td align="center">stamaimer</td>
+						<td align="center">1</td>
+						<td align="center">0</td>
+					</tr>
+					<tr>
+						<td align="center">stamaimer</td>
+						<td align="center">stamaimer</td>
+						<td align="center">1</td>
+						<td align="center">0</td>
+					</tr>
+					<tr>
+						<td align="center">stamaimer</td>
+						<td align="center">stamaimer</td>
+						<td align="center">1</td>
+						<td align="center">0</td>
+					</tr>
+					<tr>
+						<td align="center">stamaimer</td>
+						<td align="center">stamaimer</td>
+						<td align="center">1</td>
+						<td align="center">0</td>
+					</tr>
+					<tr>
+						<td align="center">stamaimer</td>
+						<td align="center">stamaimer</td>
+						<td align="center">1</td>
+						<td align="center">0</td>
+					</tr>
+					<tr>
+						<td align="center">stamaimer</td>
+						<td align="center">stamaimer</td>
+						<td align="center">1</td>
+						<td align="center">0</td>
+					</tr>
+					<tr>
+						<td align="center">stamaimer</td>
+						<td align="center">stamaimer</td>
+						<td align="center">1</td>
+						<td align="center">0</td>
+					</tr>
+					<tr>
+						<td align="center">stamaimer</td>
+						<td align="center">stamaimer</td>
+						<td align="center">1</td>
+						<td align="center">0</td>
+					</tr>
+					<tr>
+						<td align="center">stamaimer</td>
+						<td align="center">stamaimer</td>
+						<td align="center">1</td>
+						<td align="center">0</td>
+					</tr>
+					<tr>
+						<td align="center">stamaimer</td>
+						<td align="center">stamaimer</td>
+						<td align="center">1</td>
+						<td align="center">0</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="footer" style="margin-top:20px; padding:10px 0; text-align:center; background-color:#428BCA;">
+			<img src="github.png" style="width:16px; height=16px">
+			<a href="https://github.com/stamaimer/MrUirf" style="color:white; font-size:10px">User Identity Resolution and User Information Fusion across Multi-Social Network</a>	
+		</div>
+	</body>
+	<script>
 
-  <script src="http://d3js.org/d3.v3.min.js"></script>
-  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-  <div id="header" style="width:100%; height:20%; position:absolute; display:relative"></div>
-  <div id="container" style="display:flex; justify-content:space-around; position:absolute; width:100%; height:60%">
-    <div id="github" style="width:40%; height:100%"></div>
-    <div id="twitter" style="width:40%; height:100%"></div>
-  </div>
-  <div id="footer" style="width:100%; height:20%; position:absolute; display:relative"></div>
+		var width = $("#github").width();
+		var height = $("#github").height();
 
-  <script>
+		console.log(width)
+		console.log(height)
 
-    var width = $("#github").width();
-    var height = $("#github").height();
+	    var github_ico = "https://github.com/favicon.ico";
+	    var twitter_ico = "https://twitter.com/favicon.ico";
 
-    console.log(width)
-    console.log(height)
+	    console.log(github_ico)
+	    console.log(twitter_ico)
 
-    var github_ico = "https://github.com/favicon.ico"
-    var twitter_ico = "https://twitter.com/favicon.ico"
+	    var github = d3.select("#github").append("svg").attr("width", width).attr("height", height);
+	    var twitter = d3.select("#twitter").append("svg").attr("width", width).attr("height", height);
 
-    var github = d3.select("#github").append("svg").attr("width", width).attr("height", height);
-    var twitter = d3.select("#twitter").append("svg").attr("width", width).attr("height", height);
+	    console.log(github)
+	    console.log(twitter)
 
-    function draw (error, graph, svg, ico) 
-    {
-      var force = d3.layout.force()
-        .charge(-100)
-        .gravity(.05)
-        .distance(100)
-        .size([width, height]);
+	    function draw(error, graph, svg, ico) 
+	    {
+	    	console.log("beg draw")
 
-      force.nodes(graph.nodes).links(graph.links).start();
+	      var force = d3.layout.force()
+	        .charge(-100)
+	        .gravity(.05)
+	        .distance(100)
+	        .size([width, height]);
 
-      var link = svg.selectAll(".link")
-          .data(graph.links)
-          .enter().append("line")
-          .attr("class", "link")
+	      force.nodes(graph.nodes).links(graph.links).start();
 
-      var node = svg.selectAll(".node")
-          .data(graph.nodes)
-          .enter().append("g")
-          .attr("class", "node")
-          .call(force.drag);
+	      var link = svg.selectAll(".link")
+	          .data(graph.links)
+	          .enter().append("line")
+	          .attr("class", "link")
 
-      node.append("image").attr("xlink:href", ico)
-      .attr("x", -8)
-      .attr("y", -8)
-      .attr("width", 16)
-      .attr("height", 16);
+	      var node = svg.selectAll(".node")
+	          .data(graph.nodes)
+	          .enter().append("g")
+	          .attr("class", "node")
+	          .call(force.drag);
 
-      node.append("text")
-      .attr("dx", 12)
-      .attr("dy", ".35em")
-      .text(function(d){ return d.name });
+	      node.append("image").attr("xlink:href", ico)
+	      .attr("x", -8)
+	      .attr("y", -8)
+	      .attr("width", 16)
+	      .attr("height", 16);
 
-      force.on("tick", function(){
-        link.attr("x1", function(d) { return d.source.x; })
-            .attr("y1", function(d) { return d.source.y; })
-            .attr("x2", function(d) { return d.target.x; })
-            .attr("y2", function(d) { return d.target.y; });
+	      node.append("text")
+	      .attr("dx", 12)
+	      .attr("dy", ".35em")
+	      .text(function(d){ return d.name });
 
-        node.attr("transform", function(d){ return "translate(" + d.x + "," + d.y + ")"; });
+	      force.on("tick", function(){
+	        link.attr("x1", function(d) { return d.source.x; })
+	            .attr("y1", function(d) { return d.source.y; })
+	            .attr("x2", function(d) { return d.target.x; })
+	            .attr("y2", function(d) { return d.target.y; });
 
-      });
-    }
+	        node.attr("transform", function(d){ return "translate(" + d.x + "," + d.y + ")"; });
 
-    d3.json("github.json", function(error, graph){draw(error, graph, github, github_ico)});
-    d3.json("twitter.json", function(error, graph){draw(error, graph, twitter, twitter_ico)});
+	      });
 
-  </script>
+	      console.log("end draw")
+	    }
+
+	    d3.json("github.json", function(error, graph){draw(error, graph, github, github_ico)});
+	    d3.json("twitter.json", function(error, graph){draw(error, graph, twitter, twitter_ico)});
+
+	</script>
+</html>

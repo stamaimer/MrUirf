@@ -7,6 +7,16 @@ import filters
 
 import argparse
 
+def start(githubu, twiteru, depth=2, iterations=100):
+
+	matrix_g, nodes_g = github.start(githubu, depth)
+
+	matrix_t, nodes_t = twiter.start(twiteru, depth)
+
+	similarity_matrix = cal_matrix.cal_similarity_matrix(matrix_g, matrix_t, iterations)
+
+	filters.start(similarity_matrix, nodes_g, nodes_t)
+	
 if __name__ == "__main__":
 
 	argument_parser = argparse.ArgumentParser(description="")

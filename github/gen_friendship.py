@@ -126,6 +126,8 @@ def is_valid(name):
 
 def start(login, depth=2):
 
+    print os.getcwd()
+
     if not is_valid(login):
 
         print "%s isn't found!" % login
@@ -166,7 +168,8 @@ def start(login, depth=2):
     data = {"nodes":nodes, "links":links}
 
     # with open("/var/www/html/msif/" + login + "_github.json", 'w') as outfile:
-    with open("/var/www/html/msif/github.json", 'w') as outfile:
+    # with open("/var/www/html/msif/github.json", 'w') as outfile:
+    with open("./static/data/github.json", 'w') as outfile:
 
         json.dump(data, outfile)
 
