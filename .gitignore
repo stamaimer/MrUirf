@@ -1,6 +1,4 @@
 *.pyc
-*.png
-*.json
 *.nodes
 *.matrix
 .DS_Store
