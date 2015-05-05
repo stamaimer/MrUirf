@@ -11,6 +11,7 @@
   		<script src="/static/js/jquery-1.11.2.min.js"></script>
 		<script src="/static/js/bootstrap.min.js"></script>
 		<script src="/static/js/d3.v3.min.js"></script>
+
 	</head>
 	<body>
 		<div class="header">
@@ -21,16 +22,24 @@
 		<div class="body">
 			<div class="panel panel-default">
   				<div class="panel-body">
-    				<form class="form-inline" method="POST", action="/uir">
+    				<form class="form-inline" action="/uir">
 						<div class="form-group">
 							<label>GitHub Username</label>
-							<input type="text" class="form-control" id="gusername" placeholder="Jane Doe" style="margin: 0 8px">
+							<input type="text" class="form-control" name="github_username" placeholder="Jane Doe" style="margin: 0 8px">
 						</div>
 						<div class="form-group">
 							<label>Twitter Username</label>
-							<input type="text" class="form-control" id="tusername" placeholder="Jane Doe" style="margin: 0 8px">
+							<input type="text" class="form-control" name="twitter_username" placeholder="Jane Doe" style="margin: 0 8px">
 						</div>
-						<button type="submit" class="pure-button pure-button-primary">Begin</button>
+						<div class="form-group">
+							<label>Depth</label>
+							<input type="text" class="form-control" name="depth" placeholder="2" style="margin: 0 8px">
+						</div>
+						<div class="form-group">
+							<label>Iterations</label>
+							<input type="text" class="form-control" name="iterations" placeholder="100" style="margin: 0 8px">
+						</div>
+						<button class="pure-button pure-button-primary">Begin</button>
 					</form>
   				</div>
 			</div>

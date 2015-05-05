@@ -53,3 +53,17 @@ function draw(error, graph, svg, ico)
 d3.json("/static/data/github.json", function(error, graph){draw(error, graph, github, github_ico)});
 d3.json("/static/data/twitter.json", function(error, graph){draw(error, graph, twitter, twitter_ico)});
 
+$("button").click(function(events){
+
+	events.preventDefault();
+
+	$.post("/uir", $("form").serialize(), 
+
+		function(data, status){
+
+			console.log(status)
+
+			d3.json("/static/data/github.json", function(error, graph){draw(error, graph, github, github_ico)});
+			d3.json("/static/data/twitter.json", function(error, graph){draw(error, graph, twitter, twitter_ico)});
+		});
+});

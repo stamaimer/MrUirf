@@ -17,4 +17,14 @@ def index():
 @app.route('/uir', methods=['POST'])
 def uir():
 
-	main.start("stamaimer", "stamaimer")
+	error = ""
+
+	if request.method == "POST":
+
+		data = ','.join([request.form["depth"], request.form["iterations"], request.form["github_username"], request.form["twitter_username"]])
+
+		main.start(request.form["github_username"], request.form["twitter_username"], request.form["depth"], request.form["iterations"])
+
+		return data
+
+
