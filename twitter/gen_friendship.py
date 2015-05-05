@@ -321,8 +321,8 @@ def start(login, depth=2):
             data = json_graph.node_link_data(graph)
 
             # with open("/var/www/html/msif/" + login + "_twitter.json", 'w') as outfile:
-            with open("/var/www/html/msif/twitter.json", 'w') as outfile:
-
+            # with open("/var/www/html/msif/twitter.json", 'w') as outfile:
+            with open("./static/data/twitter.json", 'w') as outfile
                 json.dump(data, outfile)
 
             matrix =  networkx.to_numpy_matrix(graph)

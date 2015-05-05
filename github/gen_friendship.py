@@ -126,8 +126,6 @@ def is_valid(name):
 
 def start(login, depth=2):
 
-    print os.getcwd()
-
     if not is_valid(login):
 
         print "%s isn't found!" % login
