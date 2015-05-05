@@ -55,9 +55,13 @@ def start(matrix, gnodes, tnodes):
 	
 	# 	print node
 
+	gnodes = list(gnodes)
+
+	tnodes = list(tnodes)
+
 	pairs = topns(matrix, matrix.shape[0] * matrix.shape[1])
 
-	similaritys = sondx(list(gnodes), list(tnodes), pairs)
+	similaritys = sondx(gnodes, tnodes, pairs)
 
 	results = []
 
