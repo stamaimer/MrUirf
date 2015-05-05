@@ -61,7 +61,7 @@ $("button").click(function(events){
 
 		function(data, status){
 
-      $("form").html(data)
+      $("table").html(data)
 
       $("svg").empty();
 
