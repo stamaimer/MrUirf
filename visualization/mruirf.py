@@ -21,11 +21,12 @@ def uir():
 
 	if request.method == "POST":
 
-		data = ','.join([request.form["depth"], request.form["iterations"], request.form["github_username"], request.form["twitter_username"]])
+		results = main.start(request.form["github_username"],   
+							 request.form["twitter_username"], 
+							 int(request.form["depth"]),        
+							 int(request.form["iterations"]))
 
-		main.start(request.form["github_username"], request.form["twitter_username"], int(request.form["depth"]), int(request.form["iterations"]))
-
-		return data
+		return render_template("results.html", results)
 
 @app.route('/uif')
 def uif_index():

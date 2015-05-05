@@ -13,10 +13,6 @@ def topns(matrix, n):
 
 	idx_2d = list(reversed(idx_2d))
 
-	# for index in idx_2d:
-
-	# 	print index[0], index[1], matrix[index[0]][index[1]]
-
 	return idx_2d
 
 def leven(gnodes, tnodes, pairs):
@@ -43,16 +39,6 @@ def start(matrix, gnodes, tnodes):
 
 	numpy.set_printoptions(threshold="nan")
 
-	# print matrix
-
-	# for node in gnodes:
-	
-	# 	print node
-
-	# for node in tnodes:
-	
-	# 	print node
-
 	gnodes = list(gnodes)
 
 	tnodes = list(tnodes)
@@ -68,8 +54,6 @@ def start(matrix, gnodes, tnodes):
 	for pair, similarity in zip(pairs, similaritys):
 
 		results.append([gnodes[pair[1]], tnodes[pair[0]], matrix[pair[0]][pair[1]], similarity])
-
-		# print results[-1]
 
 	return results
 

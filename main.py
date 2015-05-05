@@ -15,7 +15,7 @@ def start(githubu, twiteru, depth=2, iterations=100):
 
 	similarity_matrix = cal_matrix.cal_similarity_matrix(matrix_g, matrix_t, iterations)
 
-	filters.start(similarity_matrix, nodes_g, nodes_t)
+	return filters.start(similarity_matrix, nodes_g, nodes_t)
 	
 if __name__ == "__main__":
 
