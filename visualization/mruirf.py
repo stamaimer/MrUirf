@@ -23,7 +23,7 @@ def uir():
 
 		data = ','.join([request.form["depth"], request.form["iterations"], request.form["github_username"], request.form["twitter_username"]])
 
-		main.start(request.form["github_username"], request.form["twitter_username"], request.form["depth"], request.form["iterations"])
+		main.start(request.form["github_username"], request.form["twitter_username"], int(request.form["depth"]), int(request.form["iterations"]))
 
 		return data
 
