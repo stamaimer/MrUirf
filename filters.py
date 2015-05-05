@@ -27,6 +27,8 @@ def leven(gnodes, tnodes, pairs):
 
 def sondx(gnodes, tnodes, pairs):
 
+	similaritys = []
+
 	for pair in pairs:
 
 		str1 = gnodes[pair[1]]
@@ -35,7 +37,9 @@ def sondx(gnodes, tnodes, pairs):
 
 		similarity = soundex.Soundex().compare(str1, str2)
 
-		print "The similarity between %s and %s is %d" % (str1, str2, similarity)
+		similaritys.append(similarity)
+
+	return similaritys
 
 def start(matrix, gnodes, tnodes):
 
@@ -53,5 +57,15 @@ def start(matrix, gnodes, tnodes):
 
 	pairs = topns(matrix, matrix.shape[0] * matrix.shape[1])
 
-	sondx(list(gnodes), list(tnodes), pairs)
+	similaritys = sondx(list(gnodes), list(tnodes), pairs)
+
+	results = []
+
+	for pair, similarity in zip(pairs, similaritys):
+
+		results.append([gnodes[pair[1]], tnodes[pair[0]], matrix[pair[0]][pair[1]], similarity])
+
+		print results[-1]
+
+	return results
 
