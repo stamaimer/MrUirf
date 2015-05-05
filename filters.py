@@ -5,8 +5,6 @@ import soundex
 
 def topns(matrix, n):
 
-	matrix = numpy.array(matrix)
-
 	flatted = matrix.flatten()
 
 	idx_1d = numpy.argsort(flatted)
@@ -58,6 +56,8 @@ def start(matrix, gnodes, tnodes):
 	gnodes = list(gnodes)
 
 	tnodes = list(tnodes)
+	
+	matrix = numpy.array(matrix)
 
 	pairs = topns(matrix, matrix.shape[0] * matrix.shape[1])
 
