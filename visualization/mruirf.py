@@ -26,7 +26,7 @@ def uir():
 def uif_index():
     return render_template("uif/index.html")
 
-@app.route('/uif/extraction')
-def uif_extraction():
-    return render_template("uif/extraction.html")
-
+@app.route('/uif/extraction/<username>')
+def uif_extraction(username = None):
+    username = username
+    return render_template("uif/extraction.html", username=username)

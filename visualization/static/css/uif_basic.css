@@ -1,0 +1,27 @@
+p{
+    color:#23527c;
+    font-size:19px
+}
+
+h1, h2, h3, h4, h5, h6{
+    color:#23527c
+}
+
+.layout-header{
+    background:-webkit-linear-gradient(top, #FF8C00, #FF6347)
+}
+
+.layout-footer span{
+    height:200px;
+}
+
+.sidebar{
+    position:fixed;
+    height:100%;
+}
+
+.background{
+    background-color:#337ab7;
+    opacity:.20;
+    position:fixed;
+}
