@@ -61,10 +61,10 @@ $("button").click(function(events){
 
 		function(data, status){
 
-      $(".block").empty();
+      d3.selectAll("svg").remove();
 
-      github = d3.select("#github").append("svg").attr("width", width).attr("height", height);
-      twitter = d3.select("#twitter").append("svg").attr("width", width).attr("height", height);
+      var github = d3.select("#github").append("svg").attr("width", width).attr("height", height);
+      var twitter = d3.select("#twitter").append("svg").attr("width", width).attr("height", height);
 
 			d3.json("/static/data/github.json", function(error, graph){draw(error, graph, github, github_ico)});
 			d3.json("/static/data/twitter.json", function(error, graph){draw(error, graph, twitter, twitter_ico)});
