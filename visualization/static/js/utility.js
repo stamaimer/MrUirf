@@ -61,7 +61,9 @@ $("button").click(function(events){
 
 		function(data, status){
 
-			console.log(status)
+			console.log(status);
+
+      $("svg").empty();
 
 			d3.json("/static/data/github.json", function(error, graph){draw(error, graph, github, github_ico)});
 			d3.json("/static/data/twitter.json", function(error, graph){draw(error, graph, twitter, twitter_ico)});
