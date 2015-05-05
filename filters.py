@@ -13,9 +13,9 @@ def topns(matrix, n):
 
 	idx_2d = list(reversed(idx_2d))
 
-	for index in idx_2d:
+	# for index in idx_2d:
 
-		print index[0], index[1], matrix[index[0]][index[1]]
+	# 	print index[0], index[1], matrix[index[0]][index[1]]
 
 	return idx_2d
 
@@ -43,7 +43,7 @@ def start(matrix, gnodes, tnodes):
 
 	numpy.set_printoptions(threshold="nan")
 
-	print matrix
+	# print matrix
 
 	# for node in gnodes:
 	
@@ -56,7 +56,7 @@ def start(matrix, gnodes, tnodes):
 	gnodes = list(gnodes)
 
 	tnodes = list(tnodes)
-	
+
 	matrix = numpy.array(matrix)
 
 	pairs = topns(matrix, matrix.shape[0] * matrix.shape[1])
@@ -69,7 +69,7 @@ def start(matrix, gnodes, tnodes):
 
 		results.append([gnodes[pair[1]], tnodes[pair[0]], matrix[pair[0]][pair[1]], similarity])
 
-		print results[-1]
+		# print results[-1]
 
 	return results
 
