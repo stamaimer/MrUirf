@@ -63,7 +63,10 @@ $("button").click(function(events){
 
       $("table").html(data)
 
-      $("svg").empty();
+      $(".block").empty();
+
+      github = d3.select("#github").append("svg").attr("width", width).attr("height", height);
+      twitter = d3.select("#twitter").append("svg").attr("width", width).attr("height", height);
 
 			d3.json("/static/data/github.json", function(error, graph){draw(error, graph, github, github_ico)});
 			d3.json("/static/data/twitter.json", function(error, graph){draw(error, graph, twitter, twitter_ico)});
