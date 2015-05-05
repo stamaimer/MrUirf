@@ -17,10 +17,16 @@ def index():
 @app.route('/uir', methods=['POST'])
 def uir():
 
-    main.start("stamaimer", "stamaimer")
+	error = ""
 
+	if request.method == "POST":
 
-# --------------------------------------------------
+		results = main.start(request.form["github_username"],   
+							 request.form["twitter_username"], 
+							 int(request.form["depth"]),        
+							 int(request.form["iterations"]))
+
+		return render_template("results.html", results=results)
 
 @app.route('/uif')
 def uif_index():

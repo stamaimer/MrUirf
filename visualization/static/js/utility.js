@@ -53,3 +53,22 @@ function draw(error, graph, svg, ico)
 d3.json("/static/data/github.json", function(error, graph){draw(error, graph, github, github_ico)});
 d3.json("/static/data/twitter.json", function(error, graph){draw(error, graph, twitter, twitter_ico)});
 
+$("button").click(function(events){
+
+	events.preventDefault();
+
+	$.post("/uir", $("form").serialize(), 
+
+		function(data, status){
+
+      d3.selectAll("svg").remove();
+
+      var github = d3.select("#github").append("svg").attr("width", width).attr("height", height);
+      var twitter = d3.select("#twitter").append("svg").attr("width", width).attr("height", height);
+
+			d3.json("/static/data/github.json", function(error, graph){draw(error, graph, github, github_ico)});
+			d3.json("/static/data/twitter.json", function(error, graph){draw(error, graph, twitter, twitter_ico)});
+
+      $("table").html(data);
+		});
+});

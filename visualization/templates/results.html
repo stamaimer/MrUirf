@@ -1,0 +1,16 @@
+<caption>Results:</caption>
+<tr>
+	<th style="text-align:center">GitHub Username</th>
+	<th style="text-align:center">Twitter Username</th>
+	<th style="text-align:center">Network Structure Similarity</th>
+	<th style="text-align:center">Username Similarity</th>
+</tr>
+{% for result in results %}
+
+	<tr>
+		<td>{{ result[0] }}</td>
+		<td>{{ result[1] }}</td>
+		<td>{{ result[2] }}</td>
+		<td>{{ result[3] }}</td>
+	</tr>
+{% endfor %}

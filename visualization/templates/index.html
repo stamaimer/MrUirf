@@ -15,22 +15,30 @@
 	<body>
 		<div class="header">
 			<div class="container">
-				<h2 style="color:white">User Identity Resolution and User Information Fusion across Multi-Social Network</h2>
+				<h3 style="color:white">User Identity Resolution and User Information Fusion across Multi-Social Network</h3>
 			</div>
 		</div>
 		<div class="body">
 			<div class="panel panel-default">
   				<div class="panel-body">
-    				<form class="form-inline" method="POST", action="/uir">
+    				<form class="form-inline">
 						<div class="form-group">
-							<label>GitHub Username</label>
-							<input type="text" class="form-control" id="gusername" placeholder="Jane Doe" style="margin: 0 8px">
+							<label>GitHub</label>
+							<input type="text" class="form-control" name="github_username" placeholder="Jane Doe" style="margin: 0 8px">
 						</div>
 						<div class="form-group">
-							<label>Twitter Username</label>
-							<input type="text" class="form-control" id="tusername" placeholder="Jane Doe" style="margin: 0 8px">
+							<label>Twitter</label>
+							<input type="text" class="form-control" name="twitter_username" placeholder="Jane Doe" style="margin: 0 8px">
 						</div>
-						<button type="submit" class="pure-button pure-button-primary">Begin</button>
+						<div class="form-group">
+							<label>Depth</label>
+							<input type="text" class="form-control" name="depth" value="2" style="margin: 0 8px">
+						</div>
+						<div class="form-group">
+							<label>Iterations</label>
+							<input type="text" class="form-control" name="iterations" value="100" style="margin: 0 8px">
+						</div>
+						<button class="pure-button pure-button-primary">Begin</button>
 					</form>
   				</div>
 			</div>

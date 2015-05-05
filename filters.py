@@ -5,19 +5,13 @@ import soundex
 
 def topns(matrix, n):
 
-	matrix = numpy.array(matrix)
-
 	flatted = matrix.flatten()
 
-	idx_1d = numpy.argpartition(flatted, -n)[-n:]
+	idx_1d = numpy.argsort(flatted)
 
 	idx_2d = numpy.vstack(numpy.unravel_index(idx_1d, matrix.shape)).transpose()
 
-	# idx_2d = list(reversed(idx_2d))
-
-	for index in idx_2d:
-
-		print index[0], index[1], matrix[index[0]][index[1]]
+	idx_2d = list(reversed(idx_2d))
 
 	return idx_2d
 
@@ -27,6 +21,8 @@ def leven(gnodes, tnodes, pairs):
 
 def sondx(gnodes, tnodes, pairs):
 
+	similaritys = []
+
 	for pair in pairs:
 
 		str1 = gnodes[pair[1]]
@@ -35,23 +31,29 @@ def sondx(gnodes, tnodes, pairs):
 
 		similarity = soundex.Soundex().compare(str1, str2)
 
-		print "The similarity between %s and %s is %d" % (str1, str2, similarity)
+		similaritys.append(similarity)
+
+	return similaritys
 
 def start(matrix, gnodes, tnodes):
 
 	numpy.set_printoptions(threshold="nan")
 
-	print matrix
+	gnodes = list(gnodes)
 
-	# for node in gnodes:
-	
-	# 	print node
+	tnodes = list(tnodes)
 
-	# for node in tnodes:
-	
-	# 	print node
+	matrix = numpy.array(matrix)
 
-	pairs = topns(matrix, matrix.shape[0] if matrix.shape[0] <= matrix.shape[1] else matrix.shape[1])
+	pairs = topns(matrix, matrix.shape[0] * matrix.shape[1])
 
-	sondx(list(gnodes), list(tnodes), pairs)
+	similaritys = sondx(gnodes, tnodes, pairs)
+
+	results = []
+
+	for pair, similarity in zip(pairs, similaritys):
+
+		results.append([gnodes[pair[1]], tnodes[pair[0]], matrix[pair[0]][pair[1]], similarity])
+
+	return results
 
