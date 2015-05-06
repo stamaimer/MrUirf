@@ -1,13 +1,50 @@
-<!DOCTYPE html>
-<title>User Information Fusion</title>
+<title>{% block title %}{% endblock %}</title>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.min.css')  }}">
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/uif_basic.css')  }}">
-<div class="layout-header">
-    <h1>User Information Fusion</h1>
-</div>
-<div class="page">
-    {% block body %}{% endblock %}
-</div>
-<div class="layout-footer">
-    <span>We are the king!</span>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="ontainer">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/uif">User Information Fusion</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 sidebar background"></div>
+        <div class="col-md-3 sidebar"></br>
+        <ul class="nav nav-pills nav-stacked" style="margin-top:50px">
+            <li class="active"><a href="#">
+                    <span class="glyphicon glyphicon-star"></span> 
+                    Home
+            </a></li>
+            <li><a href="/text">
+                    <span class="glyphicon glyphicon-align-justify"></span> 
+                    Text
+            </a></li>
+            <li><a href="#">
+                    <span class="glyphicon glyphicon-align-left"></span> 
+                    Token
+            </a></li>
+            <li><a href="#">
+                    <span class="glyphicon glyphicon-list"></span> 
+                    POS
+            </a></li>
+            <li><a href="">
+                    <span class="glyphicon glyphicon-list-alt"></span> 
+                    Extractor
+            </a></li>
+            <li><a href="">
+                    <span class="glyphicon glyphicon-education"></span> 
+                    Complement
+            </a></li>
+        </ul>
+        </div>
+
+        <div class="col-md-3"></div>
+        <div class="col-md-9" style="margin-top:30px">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
 </div>

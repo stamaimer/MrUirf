@@ -1,92 +1,55 @@
-<title>User Information Fusion</title>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.min.css')  }}">
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/uif_basic.css')  }}">
+{% extends "uif/layout.html" %}
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/uif">MrUirf</a>
-        </div>
-    </div>
-</nav>
+{% block title %}UIF | Home{% endblock %}
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-3 sidebar background"></div>
-        <div class="col-md-3 sidebar"></br>
-        <ul class="nav nav-pills nav-stacked" style="margin-top:50px">
-            <li class="active"><a href="#">
-                    <span class="glyphicon glyphicon-star"></span> 
-                    Home
-            </a></li>
-            <li><a href="/text">
-                    <span class="glyphicon glyphicon-align-justify"></span> 
-                    Text
-            </a></li>
-            <li><a href="#">
-                    <span class="glyphicon glyphicon-align-left"></span> 
-                    Token
-            </a></li>
-            <li><a href="#">
-                    <span class="glyphicon glyphicon-list"></span> 
-                    POS
-            </a></li>
-            <li><a href="">
-                    <span class="glyphicon glyphicon-list-alt"></span> 
-                    extractor
-            </a></li>
-            <li><a href="">
-                    <span class="glyphicon glyphicon-education"></span> 
-                    complement
-            </a></li>
-        </ul>
-        </div>
+{% block body %}
+<div class="page-header">
+    <h1>User Infomation Fusion</h1>
+</div>
 
-        <div class="col-md-3"></div>
-        <div class="col-md-9" style="margin-top:30px">
-            <div class="page-header"><h1>User Infomation Fusion</h1></div>
-            <div class="row"><div class="col-md-9">
-            <h3>Introduction</h3>
-            <p>Uif system aims to fuse user's infomation, which scattered in 
-                several social media. In other words, to complement single user's 
-                different information from multi social media, resulting complete 
-                user information.</p>
-            <h3>Data Source</h3>
-            <p>In this period, we determined to use Twitter and Facebook as 
-                sample social media, to fusing information of users who use these 
-                two SNS mutually. </p>
-            <h3>Process</h3>
-            <p>text -- tokenization -- pos tagging -- entity extraction --
-                relevance word extraction -- complementing</p>
-            <a href="/token" class="btn btn-default btn-md">
-                <span class="glyphicon glyphicon-play"></span> 
-                Go Start !
-            </a>
-            <h3>Result</h3>
-            <p>The information will be presented as entities 
-                the users mentioned and the relevance words of those entities.</p>
-            <div class="well">
-                <p>
-                    <span class="glyphicon glyphicon-file"></span> 
-                    peer.json</br>
-                    {"username":username, </br>
-                    &nbsp;"texts":[{</br>
-                    &emsp;&emsp;&emsp;&emsp; "content":text1,</br>
-                    &emsp;&emsp;&emsp;&emsp; "entity":</br>
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;[{"word":entity1, 
-                    "relevance":[word1,word2]}, </br>
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{"word":entity2,
-                    "relevance":[word1]}]</br>
-                    &emsp;&emsp;&emsp;&emsp;}, {</br>
-                    &emsp;&emsp;&emsp;&emsp;"content":text2, </br>
-                    &emsp;&emsp;&emsp;&emsp; "entity":["word":entity,
-                    "relevance":[]]</br>
-                    &emsp;&emsp;&emsp;&emsp;}, </br>
-                    &emsp;&emsp;&emsp;&emsp;...]</br>
-                    }
-                </p>
-            </div>
-        </div></div>
+<div class="row">
+    <div class="col-md-9">
+        <h3>Introduction</h3>
+        <p>Uif system aims to fuse user's infomation, which scattered in 
+            several social media. In other words, to complement single user's 
+            different information from multi social media, resulting complete 
+            user information.</p></br>
+        <h3>Data Source</h3>
+        <p>In this period, we determined to use Twitter and Facebook as 
+            sample social media, to fusing information of users who use these 
+            two SNS mutually. </p></br>
+        <h3>Process</h3>
+        <p><ol> <li>text</li>
+                <li>tokenization</li>
+                <li>pos tagging</li>
+                <li>entity extraction</li>
+                <li>relevance word extraction</li>
+                <li>complementing</li>
+        </ol></p></br>
+        <h3>Result</h3>
+        <p>The information will be presented as entities 
+            the users mentioned and the relevance words of those entities.</p>
+        <div class="well">
+            <p>
+                <span class="glyphicon glyphicon-file"></span> 
+                peer.json</br>
+                {"username":username, </br>
+                &nbsp;"texts":[{</br>
+                &emsp;&emsp;&emsp;&emsp; "content":text1,</br>
+                &emsp;&emsp;&emsp;&emsp; "entity":</br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;[{"word":entity1, 
+                "relevance":[word1,word2]}, </br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; {"word":entity2,
+                "relevance":[word1]}]</br>
+                &emsp;&emsp;&emsp;&emsp;}, {</br>
+                &emsp;&emsp;&emsp;&emsp; "content":text2, </br>
+                &emsp;&emsp;&emsp;&emsp; "entity":["word":entity,
+                "relevance":[]]</br>
+                &emsp;&emsp;&emsp;&emsp;}, </br>
+                &emsp;&emsp;&emsp;&emsp;...]</br>
+                }
+            </p>
         </div>
     </div>
 </div>
+{% endblock %}

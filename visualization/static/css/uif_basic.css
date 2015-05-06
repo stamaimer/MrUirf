@@ -1,10 +1,11 @@
-p{
-    color:#23527c;
-    font-size:19px
-}
 
 h1, h2, h3, h4, h5, h6{
-    color:#23527c
+    color:#23527c;
+}
+
+p, ol li{
+    color:#23527c;
+    font-size:16px;
 }
 
 .layout-header{
