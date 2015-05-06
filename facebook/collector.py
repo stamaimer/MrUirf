@@ -1,18 +1,35 @@
 # -*- coding: utf-8 -*-
 
+'''
+    MEMO
+    2015-05-06
+    Facebook is really a mean guy, grasping all of its data and never sharing.
+So it makes status auto collection much harder, and finally we have to use web
+auto test tool selenium to collect status. This way we could detour a few trival
+things, such as login and collecting status without authorizing by every user.
+However, this method has a huge disadvantage: cost great deal of time, because
+using selenium to collect data is the same as people visiting website, the only
+difference is that program can execute(ex. click) quicker than human beings.
+That means we will waste lots of time to wait webpage loading.
+    So unlike twitter, we could not collect huge data from facebook.
+'''
+
 import re
 import json
 from datetime import date, datetime, timedelta
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
-start_url = "http://m.facebook.com"
-user_email= "wendyfrank@126.com"
-user_pass = "wendyfrank"
+HOST = "http://m.facebook.com"
 
 def login(driver):
 
-    driver.get(start_url)
+    with file('facebook.account', 'r') as f:
+        account_data = json.load(f)
+    user_email = account_data['email']
+    user_pass  = account_data['pass']
+
+    driver.get(HOST)
     driver.find_element_by_name('email').send_keys(user_email)
     driver.find_element_by_name('pass').send_keys(user_pass)
     driver.find_element_by_name('login').click()
@@ -30,8 +47,8 @@ def get_expand_button(driver):
     return a_list
 
 def exec_year(driver, year_page_link):
-    status_list     =[]
-    content_xpath   ='/html/body/div/div/div[2]/div/div/div/div[1]/div[2]/div/div'
+    status_list   =[]
+    content_xpath ='/html/body/div/div/div[2]/div/div/div/div[2]/div[2]/div/div'
 
     print "crawl status in %s." % year_page_link['year']
     driver.get(year_page_link["link"])
@@ -48,7 +65,9 @@ def exec_year(driver, year_page_link):
                 time    = timer(raw_time)
                 t_filter= re.compile('<[^>]+>')
                 status  = t_filter.sub("", status)
-                status_list.append({'content':status, 'time':time})
+                print status
+                status_list.append({'content':status,'time':time,'flag':'00000'})
+                # the flag means refer to twitter/collector_by_web.py explanation
             except:
                 pass
 
@@ -61,15 +80,22 @@ def exec_year(driver, year_page_link):
 
     return status_list
 
-def scan_status(peel):
+def scan_name_and_status(peer):
+    username = peer['username']
+    link     = peer['link']
     status      = []
     year_links  = []
-    print "  ".join([peel['name'], "-"*30])
+    print "  ".join([username, "-"*30])
 
-    # visit peel's timeline
+    # visit peer's homepage
     driver = webdriver.Firefox()
     login(driver)
-    driver.get(peel['link'])
+    driver.get(link)
+
+    # get name
+    name = driver.find_element_by_xpath('/html/body/div/div/div[2]/div/div/div[1]/div[2]/div/div[2]/span[1]/strong').get_attribute('innerHTML')
+
+    # visit peer's timeline
     driver.find_element_by_xpath('/html/body/div/div/div[2]/div/div/div[1]/div[4]/a[1]').click()
 
     # get the year page links. 'year 2015', 'year 2014', ...
@@ -79,13 +105,13 @@ def scan_status(peel):
         if inner_d != '' and int(inner_d) in range(2005, datetime.now().year+1):
             year_links.append({"year":inner_d, "link":a.get_attribute('href')})
 
-    # start peel executing
+    # start peer executing
     for year_page_link in year_links:
         status += exec_year(driver, year_page_link)
 
     driver.close()
     print "finished."
-    return status
+    return name, status
 
 def timer(raw_time):
 
@@ -140,16 +166,29 @@ def timer(raw_time):
     else:
         return raw_time
 
-def default_peel():
-    return [{'name':'Mark Hatlestad', 'link':
-             'https://m.facebook.com/mark.hatlestad?fref=fr_tab'}]
+def get_peer():
+
+    with file('facebook.account', 'r+') as f:
+        account_data = json.load(f)
+    link = account_data['default_peer_link']
+    username = re.split(r'facebook.com/', link)[1].split('?')[0]
+    link = "%s/%s" % (HOST, username)
+    return [{'link':link, 'username':username}]
 
 if __name__ == '__main__':
 
-    peel = default_peel()
+    peer = get_peer()
     f_status = []
-    for p in peel:
-        f_status.append({p['name'] :scan_status(p)})
+    for p in peer:
+        # p['username'] get
+        # p['link'] get
+        now = datetime.now()
+        now_date   = date(now.year, now.month, now.day)
+        p['time']  = str(now_date)
+        name,status= scan_name_and_status(p)
+        p['name']  = name
+        p['texts'] = status
+        f_status.append(p)
 
     f = file('status.json', 'w+')
     json.dump(f_status, f)
