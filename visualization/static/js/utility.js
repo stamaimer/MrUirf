@@ -57,11 +57,7 @@ $("button").click(function(events){
 
 	events.preventDefault();
 
-  console.log($(".block").children())
-
   d3.selectAll("svg").remove();
-
-  console.log($(".block").children())
 
 	Pace.track(function(){
 
@@ -72,12 +68,8 @@ $("button").click(function(events){
         var github = d3.select("#github").append("svg").attr("width", width).attr("height", height);
         var twitter = d3.select("#twitter").append("svg").attr("width", width).attr("height", height);
 
-        console.log($(".block").children())
-
-        d3.json("/static/data/" + $("#github_username").text() + "_github.json", function(error, graph){draw(error, graph, github, github_ico)});
-        d3.json("/static/data/" + $("#twitter_username").text() + "_twitter.json", function(error, graph){draw(error, graph, twitter, twitter_ico)});
-
-        console.log($(".block").children())
+        d3.json("/static/data/" + $("#github_username").val() + "_github.json", function(error, graph){draw(error, graph, github, github_ico)});
+        d3.json("/static/data/" + $("#twitter_username").val() + "_ttwitter.json", function(error, graph){draw(error, graph, twitter, twitter_ico)});
 
         $("table").html(data);
       });
