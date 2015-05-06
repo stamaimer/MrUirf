@@ -72,3 +72,5 @@ $("button").click(function(events){
       $("table").html(data);
 		});
 });
+
+$(document).ajaxStart(function(){Pace.restart();});
