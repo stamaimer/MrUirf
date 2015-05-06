@@ -167,7 +167,7 @@ def start(login, depth=2):
 
     # with open("/var/www/html/msif/" + login + "_github.json", 'w') as outfile:
     # with open("/var/www/html/msif/github.json", 'w') as outfile:
-    with open("./static/data/github.json", 'w') as outfile:
+    with open("./static/data/" + login + "_github.json", 'w') as outfile:
 
         json.dump(data, outfile)
 

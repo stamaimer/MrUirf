@@ -322,7 +322,7 @@ def start(login, depth=2):
 
             # with open("/var/www/html/msif/" + login + "_twitter.json", 'w') as outfile:
             # with open("/var/www/html/msif/twitter.json", 'w') as outfile:
-            with open("./static/data/twitter.json", 'w') as outfile:
+            with open("./static/data/" + login + "_twitter.json", 'w') as outfile:
                 
                 json.dump(data, outfile)
 
