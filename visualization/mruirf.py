@@ -21,8 +21,13 @@ def uir():
 
 	if request.method == "POST":
 
-		os.remove("./static/data/gihub.json")
-		os.remove("./static/data/twitter.json")
+		if os.path.isfile("./static/data/gihub.json"):
+
+			os.remove("./static/data/gihub.json")
+
+		if os.path.isfile("./static/data/twitter.json"):
+
+			os.remove("./static/data/twitter.json")
 
 		results = main.start(request.form["github_username"],   
 							 request.form["twitter_username"], 
