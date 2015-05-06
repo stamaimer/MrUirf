@@ -57,20 +57,22 @@ $("button").click(function(events){
 
 	events.preventDefault();
 
-	$.post("/uir", $("form").serialize(), 
+	Pace.track(function(){
+    $.post("/uir", $("form").serialize(), 
 
-		function(data, status){
+      function(data, status){
 
-      d3.selectAll("svg").remove();
+        d3.selectAll("svg").remove();
 
-      var github = d3.select("#github").append("svg").attr("width", width).attr("height", height);
-      var twitter = d3.select("#twitter").append("svg").attr("width", width).attr("height", height);
+        var github = d3.select("#github").append("svg").attr("width", width).attr("height", height);
+        var twitter = d3.select("#twitter").append("svg").attr("width", width).attr("height", height);
 
-			d3.json("/static/data/github.json", function(error, graph){draw(error, graph, github, github_ico)});
-			d3.json("/static/data/twitter.json", function(error, graph){draw(error, graph, twitter, twitter_ico)});
+        d3.json("/static/data/github.json", function(error, graph){draw(error, graph, github, github_ico)});
+        d3.json("/static/data/twitter.json", function(error, graph){draw(error, graph, twitter, twitter_ico)});
 
-      $("table").html(data);
-		});
+        $("table").html(data);
+      });
+  });
 });
 
-$(document).ajaxStart(function(){Pace.restart();});
+//$(document).ajaxStart(function(){Pace.restart();});
