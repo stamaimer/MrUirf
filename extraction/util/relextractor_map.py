@@ -272,7 +272,7 @@ def manual_mark(db, pattern_set):
                         print "SUCC: Text done."
                         break
                 # marking ---------------------------------------------------
-                print "STAT: %s" + ('-'*60)
+                print "STAT: %s" % ('-'*60)
 
             twsent.update({'pattern':pattern}, {'$set':{'flag':'1'}})
             print "SUCC: Pattern done."
@@ -350,21 +350,27 @@ if __name__ == "__main__":
     client = MongoClient('mongodb://localhost:27017/')
     twdb   = client.msif
 
+    input = raw_input("What mode?(mark/extr): ")
     # pos_sentence_collection(twdb, {'time':'2015-04-23'})
     # evaluate_pattern_len(twdb, 7)
     # evaluate_peers_limit(twdb, 10, 7)
 
-    # marker
-    patterns = filter_pattern(twdb, 10, 7)
-    manual_mark(twdb, patterns)
+    if input == "mark":
+        # marker
+        patterns = filter_pattern(twdb, 10, 7)
+        manual_mark(twdb, patterns)
 
-    # relevance word extraction
-    # peer = twdb.twitter_tweets.find_one({'username':'@CFinchMOISD'})
-    # texts= peer['texts']
-    # indice=[1113, 1280, 1356]
-    # texts= [text for i, text in enumerate(texts) if i in indice]
-    # for text in texts:
-    #     text_done = text_relevance_pos_pattern(twdb.twitter_sentences, text)
+    elif input == "extr":
+        # relevance word extraction
+        peer = twdb.twitter_tweets.find_one({'username':'@CFinchMOISD'})
+        texts= peer['texts']
+        indice=[1113, 1280, 1356]
+        texts= [text for i, text in enumerate(texts) if i in indice]
+        for text in texts:
+            text_done = text_relevance_pos_pattern(twdb.twitter_sentences, text)
+            entities = text_done['entity']
+            for entity in entities:
+                print entity
 
     ''' to fix cursor timeout
     twsents= twdb.twitter_sentences

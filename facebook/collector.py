@@ -66,7 +66,7 @@ def scan_status(peel):
     year_links  = []
     print "  ".join([peel['name'], "-"*30])
 
-    # visit peel's timeline
+    # visit peer's timeline
     driver = webdriver.Firefox()
     login(driver)
     driver.get(peel['link'])
@@ -140,15 +140,15 @@ def timer(raw_time):
     else:
         return raw_time
 
-def default_peel():
+def default_peer():
     return [{'name':'Mark Hatlestad', 'link':
              'https://m.facebook.com/mark.hatlestad?fref=fr_tab'}]
 
 if __name__ == '__main__':
 
-    peel = default_peel()
+    peer = default_peer()
     f_status = []
-    for p in peel:
+    for p in peer:
         f_status.append({p['name'] :scan_status(p)})
 
     f = file('status.json', 'w+')

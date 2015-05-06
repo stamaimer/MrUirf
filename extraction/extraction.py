@@ -22,7 +22,6 @@ def preprocess(coll, username):
 
     peer      = coll.find_one({'username': username})
     peer_text = peer['texts']
-    peer_id   = peer['_id']
     username  = peer['username']
     entities  = []
 
@@ -93,7 +92,6 @@ if __name__ == "__main__":
         print "STAT: %s peer under executing." % str(i+1)
         name     = peer["name"].encode('utf8')
         username = peer["username"]
-        peer_id  = peer["_id"]
         print name, '-'*50
 
         try:

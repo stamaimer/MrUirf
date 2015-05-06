@@ -32,7 +32,12 @@ def uir():
 def uif_index():
     return render_template("uif/index.html")
 
-@app.route('/uif/extraction/<username>')
-def uif_extraction(username = None):
-    username = username
-    return render_template("uif/extraction.html", username=username)
+@app.route('/uif/extractor', methods=['GET', 'POST'])
+def uif_extraction():
+    data = {}
+    if request.method == 'GET': 
+        data['method'] = "GET"
+        return render_template("uif/extractor.html", data=data)
+    elif request.method == 'POST':
+        data['method'] = 'POST'
+        return render_template('uif/extractor.html', data=data)

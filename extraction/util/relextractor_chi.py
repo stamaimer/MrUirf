@@ -49,7 +49,8 @@ def peer_relevance_chi_square(coll, peer_username):
     for index, text in enumerate(texts):
         tasks.append({'index':index, 'text':text})
 
-    process_count = cpu_count() * 4
+    # process_count = cpu_count() * 4
+    process_count = 1
 
     while True:
         try:    [buffer.put(tasks.pop(0)) for i in xrange(256)]
@@ -164,4 +165,5 @@ if __name__ == '__main__':
 
     client = MongoClient('mongodb://localhost:27017/')
     twcoll = client.msif.twitter_tweets
-    peer_relevance_chi_square(twcoll, '@CFinchMOISD')
+    # peer_relevance_chi_square(twcoll, '@CFinchMOISD')
+    peer_relevance_chi_square(twcoll, '@EdzosBurgerShop')

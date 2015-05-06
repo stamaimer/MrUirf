@@ -26,3 +26,7 @@ p, ol li{
     opacity:.20;
     position:fixed;
 }
+
+.input-long{
+    width:250px
+}
