@@ -8,12 +8,20 @@ import filters
 import argparse
 
 def start(githubu, twiteru, depth=2, iterations=100):
+	
+	print "crawl the github social graph of %s" % githubu
 
 	matrix_g, nodes_g = github.start(githubu, depth)
 
+	print "crawl the twiter social graph of %s" % twiteru
+
 	matrix_t, nodes_t = twiter.start(twiteru, depth)
 
+	print "calculate the similarity matrix between github social graph and twiter social graph"
+
 	similarity_matrix = cal_matrix.cal_similarity_matrix(matrix_g, matrix_t, iterations)
+
+	print "make decision"
 
 	return filters.start(similarity_matrix, nodes_g, nodes_t)
 	
