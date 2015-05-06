@@ -57,22 +57,29 @@ $("button").click(function(events){
 
 	events.preventDefault();
 
+  console.log($(".block").children())
+
+  d3.selectAll("svg").remove();
+
+  console.log($(".block").children())
+
 	Pace.track(function(){
+
     $.post("/uir", $("form").serialize(), 
 
       function(data, status){
 
-        d3.selectAll("svg").remove();
-
         var github = d3.select("#github").append("svg").attr("width", width).attr("height", height);
         var twitter = d3.select("#twitter").append("svg").attr("width", width).attr("height", height);
 
+        console.log($(".block").children())
+
         d3.json("/static/data/github.json", function(error, graph){draw(error, graph, github, github_ico)});
         d3.json("/static/data/twitter.json", function(error, graph){draw(error, graph, twitter, twitter_ico)});
+
+        console.log($(".block").children())
 
         $("table").html(data);
       });
   });
 });
-
-//$(document).ajaxStart(function(){Pace.restart();});
