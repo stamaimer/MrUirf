@@ -4,12 +4,17 @@ body{
 }
 
 .header{
+	text-align: center;
 	background-color: #428BCA;
 }
 
 form{
 	display: flex;
 	justify-content: center;
+}
+
+label{
+	font-family: Raleway;
 }
 
 .visualization{
