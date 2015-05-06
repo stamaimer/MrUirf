@@ -8,13 +8,17 @@ body{
 	background-color: #428BCA;
 }
 
-form{
-	display: flex;
-	justify-content: center;
+.panel-body{
+	padding: 10px;
 }
 
 label{
 	font-family: Raleway;
+}
+
+form{
+	display: flex;
+	justify-content: center;
 }
 
 .visualization{
