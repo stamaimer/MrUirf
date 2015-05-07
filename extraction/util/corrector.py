@@ -29,7 +29,7 @@ def twitter_time_corrector():
 
             if text_time > peer_time:
                 text_time = date(year-1, month, day)
-                text['time'] = str(text_time)
+            text['time'] = str(text_time)
 
         tweets.update({'username':peer['username']}, {'$set':{'texts':texts}})
 
@@ -83,5 +83,5 @@ def pattern_relevance_index_corrector():
 
 if __name__ == "__main__":
 
-    pattern_relevance_index_corrector()
+    twitter_time_corrector()
     pass
