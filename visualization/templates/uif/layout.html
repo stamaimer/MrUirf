@@ -1,6 +1,9 @@
 <title>{% block title %}{% endblock %}</title>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.min.css')  }}">
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/uif_basic.css')  }}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script
+    src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="ontainer">
@@ -15,19 +18,19 @@
         <div class="col-md-3 sidebar background"></div>
         <div class="col-md-3 sidebar"></br>
         <ul class="nav nav-pills nav-stacked" style="margin-top:50px">
-            <li class="active"><a href="#">
+            <li class="active"><a href="/uif">
                     <span class="glyphicon glyphicon-star"></span> 
                     Home
             </a></li>
-            <li><a href="/text">
+            <li><a href="/uif/text">
                     <span class="glyphicon glyphicon-align-justify"></span> 
                     Text
             </a></li>
-            <li><a href="#">
+            <li><a href="/uif/token">
                     <span class="glyphicon glyphicon-align-left"></span> 
                     Token
             </a></li>
-            <li><a href="#">
+            <li><a href="/uif/pos">
                     <span class="glyphicon glyphicon-list"></span> 
                     POS
             </a></li>
@@ -35,7 +38,7 @@
                     <span class="glyphicon glyphicon-list-alt"></span> 
                     Extractor
             </a></li>
-            <li><a href="">
+            <li><a href="/uif/complement">
                     <span class="glyphicon glyphicon-education"></span> 
                     Complement
             </a></li>

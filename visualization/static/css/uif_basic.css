@@ -27,6 +27,9 @@ p, ol li{
     position:fixed;
 }
 
-.input-long{
-    width:250px
-}
+.input-long{width:250px}
+.input-mid {width:125px}
+.hide-btn  {display:none;visibility: hidden;}
+.page-block{margin: -20px 0 20px;}
+.border-bottom-block{border-bottom: 1px solid #eee}
+.tw-db-select-group{}

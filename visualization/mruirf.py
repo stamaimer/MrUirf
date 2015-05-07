@@ -3,7 +3,7 @@ import sys
 
 sys.path.append(os.getcwd()+'/../')
 
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, session
 
 from MrUirf import main
 
@@ -31,6 +31,19 @@ def uir():
 @app.route('/uif')
 def uif_index():
     return render_template("uif/index.html")
+
+@app.route('/uif/text', methods=['GET', 'POST'])
+def uif_text():
+    data = {}
+    if request.method == 'GET': 
+        data['method'] = "GET"
+        return render_template("uif/text.html", data=data)
+    elif request.method == 'POST':
+        data['method'] = 'POST'
+        data['page_count'] = request.form['page_count']
+        data['source'] = request.form['source']
+        return render_template('uif/text.html', data=data)
+
 
 @app.route('/uif/extractor', methods=['GET', 'POST'])
 def uif_extraction():
