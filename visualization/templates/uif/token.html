@@ -16,7 +16,7 @@
     </div>
     <div class="col-md-4">
         <h3></h3>
-        <form role="form" method="POST" action="/uif/text" class="form"
+        <form role="form" method="POST" action="/uif/token" class="form"
             style="float:right">
             <div class="form-group">
                 <select class="form-control" style="width:250px" 
@@ -39,6 +39,7 @@
         </form>
     </div>
 </div>
+{{ session  }}
 {% if session.method == "GET" %}
 <div class="row page-block">
     <h3></h3>
@@ -49,7 +50,7 @@
 {% endif %}
 {% if session.method == "POST" %}
 <div class="row page-block">
-    <div class="col-md-8"><h3>Raw Texts</h3></div>
+    <div class="col-md-8"><h3>Splited Tokens</h3></div>
     <div class="col-md-4">
         <h3></h3>
         <form role="form" method="POST" action="/uif/text" class="form"
@@ -73,20 +74,23 @@
         <thead>
             <tr>
                 <th width>
-                    {% if session['source'] == 'twitter'%}Tweets
-                    {% elif session['source'] == 'facebook' %}Status
+                    {% if session['source'] == 'twitter'%}Tweet Tokens
+                    {% elif session['source'] == 'facebook' %}Status Tokens
                     {% endif %}
                 </th>
-                <th width=150>Post time</th>
-                <th width=50>Flag</th>
             </tr>
         </thead>
         <tbody id="data_screen">
         {% for text in data['texts'] %}
-            <tr>
-                <td>{{ text['content'] }}</td>
-                <td>{{ text['time'] }}</td>
-                <td>{{ text['flag'] }}</td>
+            <tr class="text-tokens">
+                <td>
+                    <textarea>{{text['content']}}</textarea>
+                    {% for word in text['token_lower'] %}
+                    {% if word == '.' or word == ',' %}{{word}}
+                    {% else %}<font class="blue-mark">{{ word }}</font>
+                    {% endif %}
+                    {% endfor %}
+                </td>
             </tr>
         {% endfor %}
         </tbody>
@@ -98,13 +102,23 @@
     </div>
 </div>
 <script>
+    alert('b')
     var $SCRIPT_ROOT = "{{ session['host'] }}"
     function refresh_table(data){
         $("#data_screen").empty()
         inner = ""
         for (i=0; i < data.length; i++){
-            inner += "<tr><td>"+data[i].content+"</td><td>"+data[i].time
-            inner += "</td><td>"+data[i].flag+"</td></tr>"
+            token_lower = data[i].token_lower
+            alert(token_lower)
+            inner += "<tr><td>"
+            for (j=0; j < token_lower.length; j++){
+                token = token_lower[j]
+                if (token == '.' || token == ',')
+                    inner += token
+                else
+                    inner+="<font class='blue-mark'>"+token+"</font>"
+            }
+            inner += "</td></tr>"
         }
         $("#data_screen").html(inner)
     }
@@ -114,11 +128,19 @@
         $("#fb-btn").click(function(){$("#text-source").val("facebook")})
         $("#tw-btn").click(function(){$("#text-source").val("twitter")})
 
-        $("#next").click(function(){$.getJSON($SCRIPT_ROOT+"uif/text/change_page"
-                    ,{'page':"next"},function(data){refresh_table(data.texts)})})
-        $("#prev").click(function(){$.getJSON($SCRIPT_ROOT+"uif/text/change_page"
+        alert('a')
+        $("#next").click(function(){
+            alert('a')
+        //    $.getJSON($SCRIPT_ROOT+"uif/token/change_page"
+        //            ,{'page':"next"},function(data){refresh_table(data.texts)})
+        })
+        $("#prev").click(function(){$.getJSON($SCRIPT_ROOT+"uif/token/change_page"
                     ,{'page':"prev"},function(data){refresh_table(data.texts)})})
 
+    })
+    $('.text-tokens').hover(function(){
+        raw_text = $(this).find('textarea').val()
+        $(this).popover({title: "Raw Text", content: raw_text, placement: "top"})
     })
 </script>
 {% endif %}

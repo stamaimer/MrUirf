@@ -26,3 +26,7 @@ $('button[type="submit"]').focus(function(){
 $('select[name="user_id"]').click(function(){
     $("button[type='submit']").removeAttr('disabled')
 })
+//active tooltip
+$('[data-toggle="tooltip"]').tooltip();
+//active popover
+$('[data-toggle="popover"]').popover();

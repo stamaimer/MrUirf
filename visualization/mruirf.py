@@ -42,7 +42,7 @@ def uif_text():
     return render_template('uif/text.html', data=data)
 
 @app.route('/uif/text/change_page')
-def text_change_page():
+def uif_text_change_page():
     data = {}
     data = get_texts_page(data)
     return jsonify(texts=data['texts'])
@@ -52,6 +52,12 @@ def uif_token():
     data = {}
     data = get_texts(data)
     return render_template('uif/token.html', data=data)
+
+@app.route('/uif/token/change_page')
+def uif_token_change_page():
+    data = {}
+    data = get_texts_page(data)
+    return jsonify(texts=data['texts'])
 
 @app.route('/uif/extractor', methods=['GET', 'POST'])
 def uif_extraction():

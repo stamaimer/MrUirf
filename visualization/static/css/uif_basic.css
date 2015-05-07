@@ -32,4 +32,6 @@ p, ol li{
 .hide-btn  {display:none;visibility: hidden;}
 .page-block{margin: -20px 0 20px;}
 .border-bottom-block{border-bottom: 1px solid #eee}
-.tw-db-select-group{}
+tr.text-tokens td textarea{display:none; visibility: hidden;}
+.popover{width:500px}
+.blue-mark{padding:2px 4px;font-size:90%;background-color:#D3E9F8;border-radius:4px;margin:1px}
