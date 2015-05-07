@@ -33,5 +33,5 @@ p, ol li{
 .page-block{margin: -20px 0 20px;}
 .border-bottom-block{border-bottom: 1px solid #eee}
 tr.text-tokens td textarea{display:none; visibility: hidden;}
-.popover{width:500px}
-.blue-mark{padding:2px 4px;font-size:90%;background-color:#D3E9F8;border-radius:4px;margin:1px}
+.popover{min-width:800px}
+.blue-mark{padding:2px 4px;font-size:90%;background-color:#D3E9F8;border-radius:4px}

@@ -39,7 +39,6 @@
         </form>
     </div>
 </div>
-{{ session  }}
 {% if session.method == "GET" %}
 <div class="row page-block">
     <h3></h3>
@@ -53,7 +52,7 @@
     <div class="col-md-8"><h3>Splited Tokens</h3></div>
     <div class="col-md-4">
         <h3></h3>
-        <form role="form" method="POST" action="/uif/text" class="form"
+        <form role="form" method="POST" action="/uif/token" class="form"
             style="float:right">
             <div class="form-group">
             <input type="text" value="" name="source" class="hide-btn" 
@@ -73,7 +72,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th width>
+                <th>
                     {% if session['source'] == 'twitter'%}Tweet Tokens
                     {% elif session['source'] == 'facebook' %}Status Tokens
                     {% endif %}
@@ -102,25 +101,27 @@
     </div>
 </div>
 <script>
-    alert('b')
     var $SCRIPT_ROOT = "{{ session['host'] }}"
     function refresh_table(data){
         $("#data_screen").empty()
         inner = ""
         for (i=0; i < data.length; i++){
             token_lower = data[i].token_lower
-            alert(token_lower)
-            inner += "<tr><td>"
+            content     = data[i].content
+            inner += "<tr class='text-tokens'><td>"
+            inner += "<textarea>"+content+"</textarea>"
             for (j=0; j < token_lower.length; j++){
                 token = token_lower[j]
-                if (token == '.' || token == ',')
-                    inner += token
-                else
-                    inner+="<font class='blue-mark'>"+token+"</font>"
+                if(token=="," || token == '.') inner += " "+token+" "
+                else inner += " <font class='blue-mark'>"+token+"</font> "
             }
             inner += "</td></tr>"
         }
         $("#data_screen").html(inner)
+        $('.text-tokens').hover(function(){
+            raw_text = $(this).find('textarea').val()
+            $(this).popover({title:"Raw Text",content:raw_text,placement:"top"})
+        })
     }
     $(document).ready(function(){
         i = {{session.user_id}}
@@ -128,19 +129,17 @@
         $("#fb-btn").click(function(){$("#text-source").val("facebook")})
         $("#tw-btn").click(function(){$("#text-source").val("twitter")})
 
-        alert('a')
         $("#next").click(function(){
-            alert('a')
-        //    $.getJSON($SCRIPT_ROOT+"uif/token/change_page"
-        //            ,{'page':"next"},function(data){refresh_table(data.texts)})
-        })
-        $("#prev").click(function(){$.getJSON($SCRIPT_ROOT+"uif/token/change_page"
+                    $.getJSON($SCRIPT_ROOT+"uif/token/change_page"
+                    ,{'page':"next"},function(data){refresh_table(data.texts)})})
+        $("#prev").click(function(){
+                    $.getJSON($SCRIPT_ROOT+"uif/token/change_page"
                     ,{'page':"prev"},function(data){refresh_table(data.texts)})})
-
-    })
-    $('.text-tokens').hover(function(){
-        raw_text = $(this).find('textarea').val()
-        $(this).popover({title: "Raw Text", content: raw_text, placement: "top"})
+        $('.text-tokens').hover(function(){
+            raw_text = $(this).find('textarea').val()
+            $(this).popover({title:"Raw Text",content:raw_text,placement:"top"})
+            $(".popover").css('width', '500px')
+        })
     })
 </script>
 {% endif %}
