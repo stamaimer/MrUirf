@@ -38,6 +38,32 @@ def uif_index():
 @app.route('/uif/text', methods=['GET', 'POST'])
 def uif_text():
     data = {}
+    data = get_texts(data)
+    return render_template('uif/text.html', data=data)
+
+@app.route('/uif/text/change_page')
+def text_change_page():
+    data = {}
+    data = get_texts_page(data)
+    return jsonify(texts=data['texts'])
+
+@app.route('/uif/token', methods=['GET', 'POST'])
+def uif_token():
+    data = {}
+    data = get_texts(data)
+    return render_template('uif/token.html', data=data)
+
+@app.route('/uif/extractor', methods=['GET', 'POST'])
+def uif_extraction():
+    data = {}
+    if request.method == 'GET': 
+        data['method'] = "GET"
+        return render_template("uif/extractor.html", data=data)
+    elif request.method == 'POST':
+        data['method'] = 'POST'
+        return render_template('uif/extractor.html', data=data)
+
+def get_texts(data):
     session['host'] = request.url_root
     if request.method == 'GET':
         session['method'] = "GET"
@@ -63,13 +89,11 @@ def uif_text():
             fb_username = account_data[session['user_id']]['fb_username']
             fb_page_no  = session['fb_page_no']
             data['texts']=collector.fetch_status(fb_username, fb_page_no)
-        return render_template('uif/text.html', data=data)
+    return data
 
-@app.route('/uif/text/change_page')
-def text_change_page():
+def get_texts_page(data):
     with file('tw_fb.account', 'r') as f:
         account_data = json.load(f)
-    data={}
     source = session['source']
     turn_pg= request.args.get('page', 0, type=str)
     if source == "twitter":
@@ -84,15 +108,5 @@ def text_change_page():
         if turn_pg == "prev":session['fb_page_no']=int(session['fb_page_no'])-1
         fb_page_no = session['fb_page_no']
         data['texts']=collector.fetch_status(fb_username, fb_page_no)
+    return data
 
-    return jsonify(texts=data['texts'])
-
-@app.route('/uif/extractor', methods=['GET', 'POST'])
-def uif_extraction():
-    data = {}
-    if request.method == 'GET': 
-        data['method'] = "GET"
-        return render_template("uif/extractor.html", data=data)
-    elif request.method == 'POST':
-        data['method'] = 'POST'
-        return render_template('uif/extractor.html', data=data)
