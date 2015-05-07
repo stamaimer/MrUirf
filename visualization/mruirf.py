@@ -8,6 +8,7 @@ from flask            import Flask, request, render_template, session, jsonify
 from MrUirf           import main
 from MrUirf.twitter   import collector_by_web
 from MrUirf.facebook  import collector
+from MrUirf.extraction.util import relextractor_map
 
 app = Flask(__name__)
 app.secret_key = "really_secret_key"
@@ -37,6 +38,7 @@ def uif_index():
 
 @app.route('/uif/text', methods=['GET', 'POST'])
 def uif_text():
+    if request.method == 'GET':session['method']='GET'
     data = {}
     data = get_texts(data)
     return render_template('uif/text.html', data=data)
@@ -49,6 +51,7 @@ def uif_text_change_page():
 
 @app.route('/uif/token', methods=['GET', 'POST'])
 def uif_token():
+    if request.method == 'GET':session['method']='GET'
     data = {}
     data = get_texts(data)
     return render_template('uif/token.html', data=data)
@@ -59,10 +62,36 @@ def uif_token_change_page():
     data = get_texts_page(data)
     return jsonify(texts=data['texts'])
 
+@app.route('/uif/pos', methods=['GET', 'POST'])
+def uif_pos():
+    if request.method == 'GET':session['method']='GET'
+    data = {}
+    if request.method == "POST":
+        data = get_texts(data)
+        texts= data['texts']
+        for text in texts:
+            pos = text['pos']
+            pos = [(p[0], relextractor_map.convert_pos(p[1])) for p in pos]
+            text['pos'] = pos
+        data['texts'] = texts
+    return render_template('uif/pos.html', data=data)
+
+@app.route('/uif/pos/change_page')
+def uif_pos_change_page():
+    data = {}
+    data = get_texts_page(data)
+    texts= data['texts']
+    for text in texts:
+        pos = text['pos']
+        pos = [(p[0], relextractor_map.convert_pos(p[1])) for p in pos]
+        text['pos'] = pos
+    data['texts'] = texts
+    return jsonify(texts=data['texts'])
+
 @app.route('/uif/extractor', methods=['GET', 'POST'])
 def uif_extraction():
     data = {}
-    if request.method == 'GET': 
+    if request.method == 'GET':
         data['method'] = "GET"
         return render_template("uif/extractor.html", data=data)
     elif request.method == 'POST':
@@ -72,9 +101,9 @@ def uif_extraction():
 def get_texts(data):
     session['host'] = request.url_root
     if request.method == 'GET':
-        session['method'] = "GET"
+        session['method'] = 'GET'
         return render_template("uif/text.html", data=data)
-    elif request.method == 'POST':
+    if request.method == 'POST':
         session['method'] = 'POST'
         try:session['user_id'] = request.form['user_id']
         except:pass

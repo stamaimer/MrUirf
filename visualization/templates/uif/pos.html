@@ -1,10 +1,10 @@
 {% extends "uif/layout.html" %}
 
-{% block title%}UIF | Token{% endblock %}
+{% block title%}UIF | POS{% endblock %}
 
 {% block body %}
 <div class="page-header">
-    <h1>Token</h1>
+    <h1>POS</h1> 
 </div>
 
 <div class="row page-block border-bottom-block">
@@ -16,7 +16,7 @@
     </div>
     <div class="col-md-4">
         <h3></h3>
-        <form role="form" method="POST" action="/uif/token" class="form"
+        <form role="form" method="POST" action="/uif/pos" class="form"
             style="float:right">
             <div class="form-group">
                 <select class="form-control" style="width:250px" 
@@ -49,10 +49,10 @@
 {% endif %}
 {% if session.method == "POST" %}
 <div class="row page-block">
-    <div class="col-md-8"><h3>Splited Tokens</h3></div>
+    <div class="col-md-8"><h3>POS Tags</h3></div>
     <div class="col-md-4">
         <h3></h3>
-        <form role="form" method="POST" action="/uif/token" class="form"
+        <form role="form" method="POST" action="/uif/pos" class="form"
             style="float:right">
             <div class="form-group">
             <input type="text" value="" name="source" class="hide-btn" 
@@ -73,8 +73,8 @@
         <thead>
             <tr>
                 <th>
-                    {% if session['source'] == 'twitter'%}Tweet Tokens
-                    {% elif session['source'] == 'facebook' %}Status Tokens
+                    {% if session['source'] == 'twitter'%}Tweet Tags
+                    {% elif session['source'] == 'facebook' %}Status Tags
                     {% endif %}
                 </th>
             </tr>
@@ -84,9 +84,23 @@
             <tr class="text-tokens">
                 <td>
                     <textarea>{{text['content']}}</textarea>
-                    {% for word in text['token_lower'] %}
-                    {% if word == '.' or word == ',' %}{{word}}
-                    {% else %}<font class="blue-mark">{{ word }}</font>
+                    {% for  p in text['pos'] %}
+                    {% if   p[1]=='RB'%}
+                    <font class="yellow-mark" data-toggle="tooltip" 
+                        title="{{p[1]}}"> {{p[0]}}</font>
+                    {% elif p[1]=='JJ'%}
+                    <font class="red-mark" data-toggle="tooltip" 
+                        title="{{p[1]}}"> {{p[0]}}</font>
+                    {% elif p[1]=='PR'%}
+                    <font class="green-mark" data-toggle="tooltip" 
+                        title="{{p[1]}}"> {{p[0]}}</font>
+                    {% elif p[1]=='VB'%}
+                    <font class="purple-mark" data-toggle="tooltip" 
+                        title="{{p[1]}}"> {{p[0]}}</font>
+                    {% elif p[1]=='NN'%}
+                    <font class="blue-mark" data-toggle="tooltip" 
+                        title="{{p[1]}}"> {{p[0]}}</font>
+                    {% else %}{{p[0]}}
                     {% endif %}
                     {% endfor %}
                 </td>
@@ -100,20 +114,53 @@
     </ul>
     </div>
 </div>
+<div class="page-block row">
+    <div class="panel panel-primary" style="margin-top:-10px">
+        <div class="panel-heading">
+            <span class="glyphicon glyphicon-certificate"></span> Tip
+        </div>
+        <div class="panel-body"><p>
+            <font class="yellow-mark">Yellow</font> for 'RB' means adverbs;
+            <font class="red-mark"   >Red</font>    for 'JJ' means adjective;
+            <font class="green-mark" >Green</font>  for 'PR' means pronoun;
+            <font class="purple-mark">Purple</font> for 'VB' means verb;
+            <font class="blue-mark"  >Blue</font>   for 'NN' means noun.
+            </p></div>
+    </div>
+</div>
 <script>
     var $SCRIPT_ROOT = "{{ session['host'] }}"
     function refresh_table(data){
         $("#data_screen").empty()
         inner = ""
         for (i=0; i < data.length; i++){
-            token_lower = data[i].token_lower
-            content     = data[i].content
+            pos     = data[i].pos
+            content = data[i].content
             inner += "<tr class='text-tokens'><td>"
             inner += "<textarea>"+content+"</textarea>"
-            for (j=0; j < token_lower.length; j++){
-                token = token_lower[j]
-                if(token=="," || token == '.') inner += " "+token+" "
-                else inner += " <font class='blue-mark'>"+token+"</font> "
+            for (j=0; j<pos.length; j++){
+                tag = pos[j]
+                if (tag[1]=='RB'){
+                    inner += " <font class='yellow-mark' data-toggle='tooltip'"
+                    inner += "title='"+tag[1]+"'>"+tag[0]+"</font> "
+                    }
+                if (tag[1]=='JJ'){
+                    inner += " <font class='red-mark' data-toggle='tooltip'"
+                    inner += "title='"+tag[1]+"'>"+tag[0]+"</font> "
+                    }
+                if (tag[1]=='PR'){
+                    inner += " <font class='green-mark' data-toggle='tooltip'"
+                    inner += "title='"+tag[1]+"'>"+tag[0]+"</font> "
+                    }
+                if (tag[1]=='VB'){
+                    inner += " <font class='purple-mark' data-toggle='tooltip'"
+                    inner += "title='"+tag[1]+"'>"+tag[0]+"</font> "
+                    }
+                if (tag[1]=='NN'){
+                    inner += " <font class='blue-mark' data-toggle='tooltip'"
+                    inner += "title='"+tag[1]+"'>"+tag[0]+"</font> "
+                    }
+                else inner += " "+tag[0]+" "
             }
             inner += "</td></tr>"
         }
@@ -129,16 +176,13 @@
         $("#fb-btn").click(function(){$("#text-source").val("facebook")})
         $("#tw-btn").click(function(){$("#text-source").val("twitter")})
 
-        $("#next").click(function(){
-                    $.getJSON($SCRIPT_ROOT+"uif/token/change_page"
+        $("#next").click(function(){$.getJSON($SCRIPT_ROOT+"uif/pos/change_page"
                     ,{'page':"next"},function(data){refresh_table(data.texts)})})
-        $("#prev").click(function(){
-                    $.getJSON($SCRIPT_ROOT+"uif/token/change_page"
+        $("#prev").click(function(){$.getJSON($SCRIPT_ROOT+"uif/pos/change_page"
                     ,{'page':"prev"},function(data){refresh_table(data.texts)})})
         $('.text-tokens').hover(function(){
             raw_text = $(this).find('textarea').val()
             $(this).popover({title:"Raw Text",content:raw_text,placement:"top"})
-            $(".popover").css('width', '500px')
         })
     })
 </script>

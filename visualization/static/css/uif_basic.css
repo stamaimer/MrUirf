@@ -35,3 +35,8 @@ p, ol li{
 tr.text-tokens td textarea{display:none; visibility: hidden;}
 .popover{min-width:800px}
 .blue-mark{padding:2px 4px;font-size:90%;background-color:#D3E9F8;border-radius:4px}
+.red-mark{padding:2px 4px;font-size:90%;background-color:#FFCACA;border-radius:4px}
+.yellow-mark{padding:2px 4px;font-size:90%;background-color:#FFFFAD;border-radius:4px}
+.green-mark{padding:2px 4px;font-size:90%;background-color:#CAFFCA;border-radius:4px}
+.purple-mark{padding:2px 4px;font-size:90%;background-color:#E3D1F6;border-radius:4px}
+.grey-mark{padding:2px 4px;font-size:90%;background-color:#D9D9D9;border-radius:4px}
