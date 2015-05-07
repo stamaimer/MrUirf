@@ -4,9 +4,10 @@ import json
 
 sys.path.append(os.getcwd()+'/../')
 
-from flask            import Flask, request, render_template, session
+from flask            import Flask, request, render_template, session, jsonify
 from MrUirf           import main
 from MrUirf.twitter   import collector_by_web
+from MrUirf.facebook  import collector
 
 app = Flask(__name__)
 app.secret_key = "really_secret_key"
@@ -37,6 +38,7 @@ def uif_index():
 @app.route('/uif/text', methods=['GET', 'POST'])
 def uif_text():
     data = {}
+    session['host'] = request.url_root
     if request.method == 'GET':
         session['method'] = "GET"
         return render_template("uif/text.html", data=data)
@@ -57,8 +59,33 @@ def uif_text():
             tw_username = account_data[session['user_id']]['tw_username']
             tw_page_no  = session['tw_page_no']
             data['texts']=collector_by_web.fetch_tweets(tw_username, tw_page_no)
+        elif session['source'] == "facebook":
+            fb_username = account_data[session['user_id']]['fb_username']
+            fb_page_no  = session['fb_page_no']
+            data['texts']=collector.fetch_status(fb_username, fb_page_no)
         return render_template('uif/text.html', data=data)
 
+@app.route('/uif/text/change_page')
+def text_change_page():
+    with file('tw_fb.account', 'r') as f:
+        account_data = json.load(f)
+    data={}
+    source = session['source']
+    turn_pg= request.args.get('page', 0, type=str)
+    if source == "twitter":
+        tw_username  = account_data[session['user_id']]['tw_username']
+        if turn_pg == "next":session['tw_page_no']=int(session['tw_page_no'])+1
+        if turn_pg == "prev":session['tw_page_no']=int(session['tw_page_no'])-1
+        tw_page_no = session['tw_page_no']
+        data['texts']=collector_by_web.fetch_tweets(tw_username, tw_page_no)
+    elif source == "facebook":
+        fb_username  = account_data[session['user_id']]['fb_username']
+        if turn_pg == "next":session['fb_page_no']=int(session['fb_page_no'])+1
+        if turn_pg == "prev":session['fb_page_no']=int(session['fb_page_no'])-1
+        fb_page_no = session['fb_page_no']
+        data['texts']=collector.fetch_status(fb_username, fb_page_no)
+
+    return jsonify(texts=data['texts'])
 
 @app.route('/uif/extractor', methods=['GET', 'POST'])
 def uif_extraction():

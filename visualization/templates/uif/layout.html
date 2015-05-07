@@ -2,13 +2,17 @@
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.min.css')  }}">
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/uif_basic.css')  }}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script
-    src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="ontainer">
+    <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="/uif">User Information Fusion</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li id="error-screen"><a></a></li>
+            </ul>
         </div>
     </div>
 </nav>
@@ -51,3 +55,4 @@
         </div>
     </div>
 </div>
+<script src="{{url_for('static', filename='js/uif_basic.js')}}"></script>

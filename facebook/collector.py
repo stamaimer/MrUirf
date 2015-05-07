@@ -16,6 +16,7 @@ That means we will waste lots of time to wait webpage loading.
 
 import re
 import json
+from pymongo  import MongoClient
 from datetime import date, datetime, timedelta
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -165,6 +166,14 @@ def timer(raw_time):
         return str(push_time)
     else:
         return raw_time
+
+def fetch_status(username, page_no):
+    client = MongoClient('mongodb://localhost:27017/')
+    status = client.msif.facebook_status
+    peer   = status.find_one({'username':username})
+    page_no= int(page_no)
+    texts  = peer['texts'][(page_no-1)*20:page_no*20]
+    return texts
 
 def get_peer():
 

@@ -256,7 +256,7 @@ def fetch_tweets(username, page_no):
     tweets = client.msif.twitter_tweets
     peer   = tweets.find_one({'username':username})
     page_no= int(page_no)
-    texts  = peer['texts'][(page_no-1)*5:page_no*5]
+    texts  = peer['texts'][(page_no-1)*20:page_no*20]
     return texts
 
 def get_default_peers():
