@@ -19,7 +19,7 @@
         <form role="form" method="POST" action="/uif/text" class="form">
             <div class="form-group">
                 <select class="form-control" style="width:250px" 
-                    name="username_id">
+                    name="user_id">
                     <option value="0">Please Select User</option>
                     <option value="1">User 1.</option>
                     <option value="2">User 2.</option>
@@ -27,7 +27,8 @@
                 </select>
             </div>
             <div class="form-group form-group-st">
-                <input type="text" value="1" name="page_count" class="hide-btn"/>
+                <input type="text" value="1" name="tw_page_no" class="hide-btn"/>
+                <input type="text" value="1" name="fb_page_no" class="hide-btn"/>
                 <input type="text" value="twitter" name="source" class="hide-btn"/>
                 <button type="submit" class="btn btn-primary input-long">
                     <span class="glyphicon glyphicon-ok"></span>
@@ -38,38 +39,56 @@
     </div>
 </div>
 
-{% if data.method == "POST" %}
-{{ data.source  }}
-{{ data.page_count  }}
+{% if session.method == "POST" %}
+{{ session }}
 <div class="row page-block">
     <div class="col-md-8"><h3>Raw Texts</h3></div>
     <div class="col-md-3">
         <h3></h3>
         <form role="form" method="POST" action="/uif/text" class="form">
             <div class="form-group">
+            <input type="text" value="" name="source" class="hide-btn" 
+                id="text-source"/>
             <div class="btn-group" style="width:250px">
-                <button type="submit" class="btn btn-primary input-mid">
-                    Twitter
-                </button>
-                <button type="submit" class="btn btn-primary input-mid">
-                    Facebook
-                </button>
+                <button type="submit" class="btn btn-primary input-mid"
+                    id="tw-btn">Twitter</button>
+                <button type="submit" class="btn btn-primary input-mid"
+                    id="fb-btn">Facebook</button>
             </div>
             </div>
         </form>
     </div>
 </div>
 <div class="page-block row">
-    <table class="table table-striped">
+    <div class="col-md-12 well" style="width:850px">
+    <table class="table table-striped" style="width:600px">
         <thead>
             <tr>
-                <th>Content</th>
-                <th>Post time</th>
-                <th>Flag</th>
+                <th width=350>Content</th>
+                <th width=150>Post time</th>
+                <th width=50>Flag</th>
             </tr>
         </thead>
+        <tbody>
+        {% for text in data['texts'] %}
+            <tr>
+                <td>{{ text['content'] }}</td>
+                <td>{{ text['time'] }}</td>
+                <td>{{ text['flag'] }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
     </table>
+    </div>
 </div>
+<script>
+    $(document).ready(function(){
+        i = {{session.user_id}}
+        $("select[name='user_id'] option[value='"+i+"']").attr('selected', 'selected')
+        $("#fb-btn").click(function(){$("#text-source").val("facebook")})
+        $("#tw-btn").click(function(){$("#text-source").val("twitter")})
+    })
+</script>
 {% endif %}
 
 {% endblock %}
