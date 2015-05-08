@@ -251,12 +251,12 @@ def store(client, tweets_json):
     tweets.insert(tweets_json)
     print "SUCC: Stored."
 
-def fetch_tweets(username, page_no):
+def fetch_tweets(username, page_no, page_size = 20):
     client = MongoClient('mongodb://localhost:27017/')
     tweets = client.msif.twitter_tweets
     peer   = tweets.find_one({'username':username})
     page_no= int(page_no)
-    texts  = peer['texts'][(page_no-1)*20:page_no*20]
+    texts  = peer['texts'][(page_no-1)*page_size:page_no*page_size]
     return texts
 
 def get_default_peers():
