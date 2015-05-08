@@ -38,9 +38,9 @@ from multiprocessing import Process, Queue, Manager, cpu_count
 from pymongo         import MongoClient
 from stopwords       import stopwords_mysql, stopwords_nltk, punctuation
 
-def peer_relevance_chi_square(coll, peer_username):
+def peer_relevance_chi_square(text_coll, peer_username, corpus_coll):
 
-    peer    = coll.find_one({'username':peer_username})
+    peer    = text_coll.find_one({'username':peer_username})
     username= peer['username']
     texts   = peer['texts']
     tasks   = []
@@ -49,37 +49,38 @@ def peer_relevance_chi_square(coll, peer_username):
     for index, text in enumerate(texts):
         tasks.append({'index':index, 'text':text})
 
-    # process_count = cpu_count() * 4
-    process_count = 1
+    process_count = cpu_count() * 4
+    #process_count = 1
 
     while True:
-        try:    [buffer.put(tasks.pop(0)) for i in xrange(256)]
+        try:    [buffer.put(tasks.pop(0)) for i in xrange(320)]
         except: pass
 
         processes = [None for i in xrange(process_count)]
         for i in xrange(len(processes)):
-            processes[i]=Process(target = text_agent,args=(coll, buffer, result))
+            processes[i]=Process(target=text_agent,
+                                 args=(corpus_coll, buffer, result))
             processes[i].start()
         for i in xrange(len(processes)):
             processes[i].join()
 
         for item in result: texts[item['index']] = item['text']
-        coll.update({'username':username}, {'$set':{'texts':texts}})
+        text_coll.update({'username':username}, {'$set':{'texts':texts}})
 
         if len(tasks) == 0: break
 
-def text_agent(coll, buffer, result):
+def text_agent(corpus_coll, buffer, result):
 
     while True:
         try:    task = buffer.get_nowait()
         except: break
         task_index = task['index']
         task_text  = task['text']
-        text_done  = text_relevance_chi_square(coll, task_text)
+        text_done  = text_relevance_chi_square(corpus_coll, task_text)
         task['text']=text_done
         result.append(task)
 
-def text_relevance_chi_square(coll, text):
+def text_relevance_chi_square(corpus_coll, text):
 
     # check flag: flag[3] means relevance flag for chi square
     flag     = text['flag']
@@ -118,7 +119,7 @@ def text_relevance_chi_square(coll, text):
             n01 = 0.0   # token not hit |   type hit
             n00 = 0.0   # token not hit |   type not hit
 
-            corpus      = coll.find({'time':'2015-04-23'})
+            corpus      = corpus_coll.find({'time':'2015-04-23'})
             for corpus_peer in corpus:
                 corpus_texts = corpus_peer['texts']
 
@@ -164,6 +165,8 @@ def text_relevance_chi_square(coll, text):
 if __name__ == '__main__':
 
     client = MongoClient('mongodb://localhost:27017/')
-    twcoll = client.msif.twitter_tweets
+    text_coll  = client.msif.facebook_status
+    corpus_coll= client.msif.twitter_tweets
     # peer_relevance_chi_square(twcoll, '@CFinchMOISD')
-    peer_relevance_chi_square(twcoll, '@EdzosBurgerShop')
+    peer_relevance_chi_square(text_coll, '@jim7962', corpus_coll)
+    
