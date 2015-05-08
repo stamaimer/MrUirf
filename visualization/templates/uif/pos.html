@@ -165,6 +165,7 @@
             inner += "</td></tr>"
         }
         $("#data_screen").html(inner)
+        $('[data-toggle="tooltip"]').tooltip();
         $('.text-tokens').hover(function(){
             raw_text = $(this).find('textarea').val()
             $(this).popover({title:"Raw Text",content:raw_text,placement:"top"})
