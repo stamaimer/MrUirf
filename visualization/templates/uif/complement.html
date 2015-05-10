@@ -1,0 +1,126 @@
+{% extends "uif/layout.html" %}
+
+{% block title%}UIF | Text{% endblock %}
+
+{% block body %}
+<div class="page-header">
+    <h1>Text</h1> 
+</div>
+
+<div class="row page-block border-bottom-block">
+    <div class="col-md-8">
+        <h3>Select Sample User</h3>
+        <p>To protect users' rights, we only provide few number of sample
+            users and never leak the username or other info rather than tweets 
+            and status of each peer.</p>
+    </div>
+    <div class="col-md-4">
+        <h3></h3>
+        <form role="form" method="POST" action="/uif/text" class="form"
+            style="float:right">
+            <div class="form-group">
+                <select class="form-control" style="width:250px" 
+                    name="user_id">
+                    <option value="0">Please Select User</option>
+                    <option value="1">User 1.</option>
+                    <option value="2">User 2.</option>
+                    <option value="3">User 3.</option>
+                </select>
+            </div>
+            <div class="form-group form-group-st">
+                <input type="text" value="1" name="tw_page_no" class="hide-btn"/>
+                <input type="text" value="1" name="fb_page_no" class="hide-btn"/>
+                <input type="text" value="twitter" name="source" class="hide-btn"/>
+                <button type="submit" class="btn btn-primary input-long">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% if session.method == "GET" %}
+<div class="row page-block">
+    <h3></h3>
+    <div class="well">
+        <p>None Data. Please select user first.</p>
+    </div>
+</div>
+{% endif %}
+{% if session.method == "POST" %}
+<div class="row page-block">
+    <div class="col-md-8"><h3>Raw Texts</h3></div>
+    <div class="col-md-4">
+        <h3></h3>
+        <form role="form" method="POST" action="/uif/text" class="form"
+            style="float:right">
+            <div class="form-group">
+            <input type="text" value="" name="source" class="hide-btn" 
+                id="text-source"/>
+            <div class="btn-group" style="width:250px">
+                <button type="submit" class="btn btn-primary input-mid"
+                    id="tw-btn">Twitter</button>
+                <button type="submit" class="btn btn-primary input-mid"
+                    id="fb-btn">Facebook</button>
+            </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="page-block row">
+    <div class="col-md-12 well" style="margin-top:-10px">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th width>
+                    {% if session['source'] == 'twitter'%}Tweets
+                    {% elif session['source'] == 'facebook' %}Status
+                    {% endif %}
+                </th>
+                <th width=150>Post time</th>
+                <th width=50>Flag</th>
+            </tr>
+        </thead>
+        <tbody id="data_screen">
+        {% for text in data['texts'] %}
+            <tr>
+                <td>{{ text['content'] }}</td>
+                <td>{{ text['time'] }}</td>
+                <td>{{ text['flag'] }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <ul class="pager" style="margin:10 0 0 0 ">
+        <li class="previous"><a id="prev">Previous</a></li>
+        <li class="next"><a id="next">Next</a></li>
+    </ul>
+    </div>
+</div>
+<script>
+    var $SCRIPT_ROOT = "{{ session['host'] }}"
+    function refresh_table(data){
+        $("#data_screen").empty()
+        inner = ""
+        for (i=0; i < data.length; i++){
+            inner += "<tr><td>"+data[i].content+"</td><td>"+data[i].time
+            inner += "</td><td>"+data[i].flag+"</td></tr>"
+        }
+        $("#data_screen").html(inner)
+    }
+    $(document).ready(function(){
+        i = {{session.user_id}}
+        $("select[name='user_id'] option[value='"+i+"']").attr('selected', 'selected')
+        $("#fb-btn").click(function(){$("#text-source").val("facebook")})
+        $("#tw-btn").click(function(){$("#text-source").val("twitter")})
+
+        $("#next").click(function(){$.getJSON($SCRIPT_ROOT+"uif/text/change_page"
+                    ,{'page':"next"},function(data){refresh_table(data.texts)})})
+        $("#prev").click(function(){$.getJSON($SCRIPT_ROOT+"uif/text/change_page"
+                    ,{'page':"prev"},function(data){refresh_table(data.texts)})})
+
+    })
+</script>
+{% endif %}
+
+{% endblock %}
