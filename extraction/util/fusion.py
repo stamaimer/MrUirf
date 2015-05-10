@@ -89,6 +89,40 @@ def fusion(user_id, tw_coll, tw_username, fb_coll, fb_username, id_coll):
 
     id_coll.insert(individual)
 
+def get_entities(user_id, id_coll, mode):
+    # param mode is aimed to point out what kind of texts should be fetched.
+    # 0 means match entities
+    # 1 means entities only in twitter
+    # 2 means entities only in facebook
+    individual = id_coll.find_one({'user_id':user_id})
+    entities   = individual['entities']
+
+    for entity in entities:
+        entity_source = []
+        for source in entity['sources']:
+            if source['sns'] not in entity_source:
+                entity_source.append(source['sns'])
+        entity['source_count'] = entity_source
+
+    result = []
+    if mode == '0':
+        for entity in entities:
+            source_count = entity['source_count']
+            if len(source_count) == 2:
+                result.append(entity)
+    if mode == '1':
+        for entity in entities:
+            source_count = entity['source_count']
+            if len(source_count) == 1 and source_count[0] == 'twitter':
+                result.append(entity)
+    if mode == '2':
+        for entity in entities:
+            source_count = entity['source_count']
+            if len(source_count) == 1 and source_count[0] == 'facebook':
+                result.append(entity)
+
+    return result
+
 if __name__ == "__main__":
 
     client = MongoClient("mongodb://localhost:27017/")
@@ -101,3 +135,5 @@ if __name__ == "__main__":
     fb_username= "@jim7962"
 
     # fusion(user_id, tweets, tw_username, status, fb_username, individual)
+    entities = get_entities(user_id, individual, '2')
+    print len(entities)
