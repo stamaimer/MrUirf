@@ -90,13 +90,39 @@ def uif_pos_change_page():
 
 @app.route('/uif/extractor', methods=['GET', 'POST'])
 def uif_extraction():
+    if request.method == 'GET': session['method']='GET'
     data = {}
-    if request.method == 'GET':
-        data['method'] = "GET"
-        return render_template("uif/extractor.html", data=data)
-    elif request.method == 'POST':
-        data['method'] = 'POST'
-        return render_template('uif/extractor.html', data=data)
+    data = get_texts(data)
+    data = extractor_preprocess(data)
+    return render_template('uif/extractor.html', data=data)
+
+@app.route('/uif/extractor/change_page')
+def uif_extraction_change_page():
+    data = {}
+    data = get_texts_page(data)
+    data = extractor_preprocess(data)
+    return jsonify(texts=data['texts'])
+
+def extractor_preprocess(data):
+    if session['method'] == 'GET': return data
+    texts= data['texts']
+    for text in texts:
+        tokens = text['tokens']
+        entity_relevance = {}
+        for entity in text['entity']:
+            word = entity['word']
+            rele = entity['relevance']
+            rele_indice = []
+            for key in rele:
+                for rele_word in rele[key]:
+                    rele_indice.append(str(tokens.index(rele_word)))
+            try:entity_relevance[tokens.index(word)]=" ".join(rele_indice)
+            except:pass
+        text['entity_relevance'] = entity_relevance
+        text['tokens'] = [(i, w) for i, w in enumerate(tokens)]
+    data['texts'] = texts
+    return data
+
 
 def get_texts(data):
     session['host'] = request.url_root

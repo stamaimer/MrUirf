@@ -7,27 +7,28 @@
     <h1>Extractor</h1>
 </div>
 
-<div class="row page-block">
+<div class="row page-block border-bottom-block">
     <div class="col-md-8">
         <h3>Select Sample User</h3>
-        <p>To protect rights of users, we only provide few number of sample
+        <p>To protect users' rights, we only provide few number of sample
             users and never leak the username or other info rather than tweets 
             and status of each peer.</p>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <h3></h3>
-        <form role="form" method="POST" action="/uif/extractor"
-            class="form">
+        <form role="form" method="POST" action="/uif/extractor" class="form"
+            style="float:right">
             <div class="form-group">
                 <select class="form-control" style="width:250px" 
-                    name="username_id">
+                    name="user_id">
                     <option value="0">Please Select User</option>
                     <option value="1">User 1.</option>
-                    <option value="2">User 2.</option>
-                    <option value="3">User 3.</option>
                 </select>
             </div>
             <div class="form-group form-group-st">
+                <input type="text" value="1" name="tw_page_no" class="hide-btn"/>
+                <input type="text" value="1" name="fb_page_no" class="hide-btn"/>
+                <input type="text" value="twitter" name="source" class="hide-btn"/>
                 <button type="submit" class="btn btn-primary input-long">
                     <span class="glyphicon glyphicon-ok"></span>
                     Submit
@@ -36,9 +37,155 @@
         </form>
     </div>
 </div>
+{% if session.method == "GET" %}
+<div class="row page-block">
+    <h3></h3>
+    <div class="well">
+        <p>None Data. Please select user first.</p>
+    </div>
+</div>
+{% endif %}
+{% if session.method == "POST" %}
+<div class="row page-block">
+    <div class="col-md-8"><h3>Entities & Relevance Words</h3></div>
+    <div class="col-md-4">
+        <h3></h3>
+        <form role="form" method="POST" action="/uif/extractor" class="form"
+            style="float:right">
+            <div class="form-group">
+            <input type="text" value="" name="source" class="hide-btn" 
+                id="text-source"/>
+            <div class="btn-group" style="width:250px">
+                <button type="submit" class="btn btn-primary input-mid"
+                    id="tw-btn">Twitter</button>
+                <button type="submit" class="btn btn-primary input-mid"
+                    id="fb-btn">Facebook</button>
+            </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="page-block row">
+    <div class="col-md-12 well" style="margin-top:-10px">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    {% if session['source'] == 'twitter'%}Tweet Entities
+                    {% elif session['source'] == 'facebook' %}Status Entities
+                    {% endif %}
+                </th>
+            </tr>
+        </thead>
+        <tbody id="data_screen">
+        {% for text in data['texts'] %}
+            <tr class="text-tokens">
+                <td>
+                    <textarea>{{text['content']}}</textarea>
+                    {% for token in text['tokens'] %}
+                    {% if token[0] in text['entity_relevance']%}
+                    <font class="blue-mark entity" t-class="blue-mark entity"
+                        rele="{{text['entity_relevance'][token[0]]}}"
+                        token-id={{token[0]}}>{{token[1]}}</font>
+                    {% else %}
+                    <font class="grey-mark" t-class="grey-mark" 
+                        token-id={{token[0]}}>{{token[1]}}</font>
+                    {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <ul class="pager" style="margin:10 0 0 0 ">
+        <li class="previous"><a id="prev">Previous</a></li>
+        <li class="next"><a id="next">Next</a></li>
+    </ul>
+    </div>
+</div>
+<script>
+    var $SCRIPT_ROOT = "{{ session['host'] }}"
+    function refresh_table(data){
+        $("#data_screen").empty()
+        inner = ""
+        for (i=0; i < data.length; i++){
+            content     = data[i].content
+            tokens      = data[i].tokens
+            entity_rele = data[i].entity_relevance
+            inner += "<tr class='text-tokens'><td>"
+            inner += "<textarea>"+content+"</textarea>"
+            for (j=0; j < tokens.length; j++){
+                token = tokens[j]
+                if(token[0] in entity_rele){
+                    inner += " <font class='blue-mark entity' "
+                    inner += "t-class='blue-mark entity' "
+                    inner += "rele='"+entity_rele[token[0]]+"' "
+                    inner += "token-id='"+token[0]+"'>"+token[1]+ "</font> "
+                }
+                else {
+                    inner += " <font class='grey-mark' t-class='grey-mark' "
+                    inner += "token-id="+token[0]+">"+token[1]+ "</font> "
+                }
+            }
+            inner += "</td></tr>"
+        }
+        $("#data_screen").html(inner)
+        $('.text-tokens').hover(function(){
+            raw_text = $(this).find('textarea').val()
+            $(this).popover({title:"Raw Text",content:raw_text,placement:"top"})
+        })
+        $('.entity').hover(function(){
+            rele = $(this).attr('rele')
+            rele = rele.split(" ")
+            for(i=0; i<rele.length; i++){
+                font =$(this).parent().find('font[token-id="'+rele[i]+'"]')
+                font.attr('class', 'red-mark')}
+        })
+        $('.entity').mouseout(function(){
+            rele = $(this).attr('rele')
+            rele = rele.split(" ")
+            for(i=0; i<rele.length; i++){
+                font =$(this).parent().find('font[token-id="'+rele[i]+'"]')
+                t_class=font.attr('t-class')
+                font.attr('class', t_class)
+            }
+        })
+    }
+    $(document).ready(function(){
+        i = {{session.user_id}}
+        $("select[name='user_id'] option[value='"+i+"']").attr('selected', 'selected')
+        $("#fb-btn").click(function(){$("#text-source").val("facebook")})
+        $("#tw-btn").click(function(){$("#text-source").val("twitter")})
 
-{% if data.method == "POST" %}
-    <p>POST, POST, I LIKE POST!</p>
+        $("#next").click(function(){
+            $.getJSON($SCRIPT_ROOT+"uif/extractor/change_page",
+                {'page':"next"},function(data){refresh_table(data.texts)})})
+        $("#prev").click(function(){
+            $.getJSON($SCRIPT_ROOT+"uif/extractor/change_page",
+                {'page':"prev"},function(data){refresh_table(data.texts)})})
+        $('.text-tokens').hover(function(){
+            raw_text = $(this).find('textarea').val()
+            $(this).popover({title:"Raw Text",content:raw_text,placement:"top"})
+            $(".popover").css('width', '500px')
+        })
+        $('.entity').hover(function(){
+            rele = $(this).attr('rele')
+            rele = rele.split(" ")
+            for(i=0; i<rele.length; i++){
+                font =$(this).parent().find('font[token-id="'+rele[i]+'"]')
+                font.attr('class', 'red-mark')}
+        })
+        $('.entity').mouseout(function(){
+            rele = $(this).attr('rele')
+            rele = rele.split(" ")
+            for(i=0; i<rele.length; i++){
+                font =$(this).parent().find('font[token-id="'+rele[i]+'"]')
+                t_class=font.attr('t-class')
+                font.attr('class', t_class)
+            }
+        })
+    })
+</script>
 {% endif %}
 
 {% endblock %}
