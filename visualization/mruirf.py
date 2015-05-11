@@ -9,6 +9,7 @@ from MrUirf           import main
 from MrUirf.twitter   import collector_by_web
 from MrUirf.facebook  import collector
 from MrUirf.extraction.util import relextractor_map
+from MrUirf.extraction.util import fusion
 
 app = Flask(__name__)
 app.secret_key = "really_secret_key"
@@ -103,6 +104,22 @@ def uif_extraction_change_page():
     data = extractor_preprocess(data)
     return jsonify(texts=data['texts'])
 
+@app.route('/uif/complement', methods=['GET', 'POST'])
+def uif_complement():
+    data = {}
+    if request.method == 'GET': session['method']='GET'
+    elif request.method=='POST':
+        session['method']='POST'
+        data = get_entities(data)
+    return render_template('uif/complement.html', data=data)
+
+@app.route('/uif/complement/get_raw')
+def uif_complement_raw_text():
+    data = {}
+    data = get_raw_text(data)
+    print data
+    return jsonify(text=data['text'])
+
 def extractor_preprocess(data):
     if session['method'] == 'GET': return data
     texts= data['texts']
@@ -123,6 +140,29 @@ def extractor_preprocess(data):
     data['texts'] = texts
     return data
 
+def get_entities(data):
+    session['host'] = request.url_root
+    if request.method == 'GET':
+        session['method'] = 'GET'
+    if request.method == 'POST':
+        session['method'] = 'POST'
+        try:
+            session['user_id'] = request.form['user_id']
+            session['mc_page_no'] = request.form['mc_page_no']
+            session['tw_page_no'] = request.form['tw_page_no']
+            session['fb_page_no'] = request.form['fb_page_no']
+        except:pass
+        session['mode'] = request.form['mode']
+
+        user_id = session['user_id']
+        mode    = session['mode']
+        print "##########", mode
+        if   mode=='0': page_no = session['mc_page_no']
+        elif mode=='1': page_no = session['tw_page_no']
+        elif mode=='2': page_no = session['fb_page_no']
+        entities = fusion.get_entities(user_id, mode, page_no)
+        data['entities'] = entities
+    return data
 
 def get_texts(data):
     session['host'] = request.url_root
@@ -171,3 +211,20 @@ def get_texts_page(data):
         data['texts']=collector.fetch_status(fb_username, fb_page_no)
     return data
 
+def get_raw_text(data):
+    with file('tw_fb.account', 'r') as f:
+        account_data = json.load(f)
+    user_id= session['user_id']
+    source = request.args.get('source', 0, type=str)
+    source = source.replace("'", '"')
+    source = source.replace('u"','"')
+    source = json.loads(source)
+    if source['sns'] == 'twitter':
+        tw_username = account_data[user_id]['tw_username']
+        index = source['index']
+        data['text'] = collector_by_web.fetch_raw_tweet(tw_username, index)
+    elif source['sns']=='facebook':
+        fb_username = account_data[user_id]['fb_username']
+        index = source['index']
+        data['text'] = collector.fetch_raw_status(fb_username, index)
+    return data

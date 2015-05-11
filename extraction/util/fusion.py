@@ -22,7 +22,7 @@ def fusion(user_id, tw_coll, tw_username, fb_coll, fb_username, id_coll):
         source_sns = media['source_sns']
         texts      = media['texts']
         for index, text in enumerate(texts):
-            source_index= index
+            source_index= str(index)
             source_time = text['time']
             entities    = text['entity']
 
@@ -89,11 +89,8 @@ def fusion(user_id, tw_coll, tw_username, fb_coll, fb_username, id_coll):
 
     id_coll.insert(individual)
 
-def get_entities(user_id, id_coll, mode):
-    # param mode is aimed to point out what kind of texts should be fetched.
-    # 0 means match entities
-    # 1 means entities only in twitter
-    # 2 means entities only in facebook
+def divide_entity_source(user_id, id_coll):
+
     individual = id_coll.find_one({'user_id':user_id})
     entities   = individual['entities']
 
@@ -103,25 +100,65 @@ def get_entities(user_id, id_coll, mode):
             if source['sns'] not in entity_source:
                 entity_source.append(source['sns'])
         entity['source_count'] = entity_source
+        if not len(entity['word'].split()) == 1: entity['source_count']=[]
 
     result = []
-    if mode == '0':
-        for entity in entities:
-            source_count = entity['source_count']
-            if len(source_count) == 2:
-                result.append(entity)
-    if mode == '1':
-        for entity in entities:
-            source_count = entity['source_count']
-            if len(source_count) == 1 and source_count[0] == 'twitter':
-                result.append(entity)
-    if mode == '2':
-        for entity in entities:
-            source_count = entity['source_count']
-            if len(source_count) == 1 and source_count[0] == 'facebook':
-                result.append(entity)
+    for entity in entities:
+        source_count = entity['source_count']
+        if len(source_count) == 2:
+            result.append(entity)
+    id_coll.update_one({'user_id':user_id}, {'$set':{'match_entities':result}})
 
-    return result
+    result = []
+    for entity in entities:
+        source_count = entity['source_count']
+        if len(source_count) == 1 and source_count[0] == 'twitter':
+            result.append(entity)
+    id_coll.update_one({'user_id':user_id},{'$set':{'twitter_entities':result}})
+
+    result = []
+    for entity in entities:
+        source_count = entity['source_count']
+        if len(source_count) == 1 and source_count[0] == 'facebook':
+            result.append(entity)
+    id_coll.update_one({'user_id':user_id},{'$set':{'facebook_entities':result}})
+
+def dividi_rele_source_mode(user_id, id_coll):
+
+    individual = id_coll.find_one({'user_id':user_id})
+    entities = individual['entities']
+
+    for entity in entities:
+        relevance_s = entity['relevance_s']
+        for index, rele in enumerate(relevance_s):
+            relevance_mode = []
+            rele_sources = rele['sources']
+            for source in rele_sources:
+                if source['sns'] not in relevance_mode:
+                    relevance_mode.append(source['sns'])
+            relevance_s[index]['mode'] = relevance_mode
+        entity['relevance_s'] = relevance_s
+
+    id_coll.update_one({'user_id':user_id},{'$set':{'entities':entities}})
+
+
+def get_entities(user_id, mode, page_no):
+
+    client = MongoClient('mongodb://localhost:27017/')
+    id_coll= client.msif.individual
+
+    # param mode is aimed to point out what kind of texts should be fetched.
+    # 0 means match entities
+    # 1 means entities only in twitter
+    # 2 means entities only in facebook
+    individual = id_coll.find_one({'user_id':int(user_id)})
+    result = []
+    if mode == '0': result = individual['match_entities']
+    if mode == '1': result = individual['twitter_entities']
+    if mode == '2': result = individual['facebook_entities']
+
+    page_no = int(page_no)
+    return result[(page_no-1)*5:page_no*5]
 
 if __name__ == "__main__":
 
@@ -135,5 +172,7 @@ if __name__ == "__main__":
     fb_username= "@jim7962"
 
     # fusion(user_id, tweets, tw_username, status, fb_username, individual)
-    entities = get_entities(user_id, individual, '2')
-    print len(entities)
+    # entities = get_entities(user_id, individual, '2')
+    # print len(entities)
+    # dividi_rele_source_mode(user_id, individual)
+    # divide_entity_source(user_id, individual)

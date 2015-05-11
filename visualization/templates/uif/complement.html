@@ -1,10 +1,10 @@
 {% extends "uif/layout.html" %}
 
-{% block title%}UIF | Text{% endblock %}
+{% block title%}UIF | Complement{% endblock %}
 
 {% block body %}
 <div class="page-header">
-    <h1>Text</h1> 
+    <h1>Complement</h1> 
 </div>
 
 <div class="row page-block border-bottom-block">
@@ -16,7 +16,7 @@
     </div>
     <div class="col-md-4">
         <h3></h3>
-        <form role="form" method="POST" action="/uif/text" class="form"
+        <form role="form" method="POST" action="/uif/complement" class="form"
             style="float:right">
             <div class="form-group">
                 <select class="form-control" style="width:250px" 
@@ -30,7 +30,8 @@
             <div class="form-group form-group-st">
                 <input type="text" value="1" name="tw_page_no" class="hide-btn"/>
                 <input type="text" value="1" name="fb_page_no" class="hide-btn"/>
-                <input type="text" value="twitter" name="source" class="hide-btn"/>
+                <input type="text" value="1" name="mc_page_no" class="hide-btn"/>
+                <input type="text" value="0" name="mode" class="hide-btn"/>
                 <button type="submit" class="btn btn-primary input-long">
                     <span class="glyphicon glyphicon-ok"></span>
                     Submit
@@ -49,18 +50,20 @@
 {% endif %}
 {% if session.method == "POST" %}
 <div class="row page-block">
-    <div class="col-md-8"><h3>Raw Texts</h3></div>
+    <div class="col-md-8"><h3>Information</h3></div>
     <div class="col-md-4">
         <h3></h3>
-        <form role="form" method="POST" action="/uif/text" class="form"
+        <form role="form" method="POST" action="/uif/complement" class="form"
             style="float:right">
             <div class="form-group">
-            <input type="text" value="" name="source" class="hide-btn" 
-                id="text-source"/>
+            <input type="text" value="" name="mode" class="hide-btn" 
+                id="text-mode"/>
             <div class="btn-group" style="width:250px">
-                <button type="submit" class="btn btn-primary input-mid"
+                <button type="submit" class="btn btn-primary" style="width:83px"
+                    id="mc-btn">Match</button>
+                <button type="submit" class="btn btn-primary" style="width:84px"
                     id="tw-btn">Twitter</button>
-                <button type="submit" class="btn btn-primary input-mid"
+                <button type="submit" class="btn btn-primary" style="width:83px"
                     id="fb-btn">Facebook</button>
             </div>
             </div>
@@ -69,24 +72,44 @@
 </div>
 <div class="page-block row">
     <div class="col-md-12 well" style="margin-top:-10px">
-    <table class="table table-striped">
+    <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th width>
-                    {% if session['source'] == 'twitter'%}Tweets
-                    {% elif session['source'] == 'facebook' %}Status
+                <th width="15%">
+                    {% if   session['mode'] == '0'%} Match Entities
+                    {% elif session['mode'] == '1'%} Twitter Entities
+                    {% elif session['mode'] == '2'%} Facebook Entities
                     {% endif %}
                 </th>
-                <th width=150>Post time</th>
-                <th width=50>Flag</th>
+                <th width="20%"> Sources </th>
+                <th> Relevance Words</th>
             </tr>
         </thead>
-        <tbody id="data_screen">
-        {% for text in data['texts'] %}
+        <tbody id="data_screen" valign="middle">
+        {% for entity in data['entities'] %}
             <tr>
-                <td>{{ text['content'] }}</td>
-                <td>{{ text['time'] }}</td>
-                <td>{{ text['flag'] }}</td>
+                <th>{{ entity['word'] }}</th>
+                <td>
+                    {{entity['entity_count']}}
+                    <font class="blue-mark source" data-toggle="modal"
+                        data-target="#SourceModal" data="aa">twitter</font>
+                    <font class="red-mark source" data-toggle="modal"
+                        data-target="#SourceModal" data="bb">facebook</font>
+                </td>
+                <td>
+                    {% for rele in entity['relevance_s'] %}
+                    {% if rele['mode']|length == 2%}
+                    <font class="green-mark rele" data="{{rele['sources'][0]}}">
+                        {{rele['word']}}</font>
+                    {% elif rele['mode'] == ['twitter'] %}
+                    <font class="blue-mark rele" data="{{rele['sources'][0]}}">
+                        {{rele['word']}}</font>
+                    {% elif rele['mode'] == ['facebook'] %}
+                    <font class="red-mark rele" data="{{rele['sources'][0]}}">
+                        {{rele['word']}}</font>
+                    {% endif %}
+                    {% endfor %}
+                </td>
             </tr>
         {% endfor %}
         </tbody>
@@ -95,6 +118,25 @@
         <li class="previous"><a id="prev">Previous</a></li>
         <li class="next"><a id="next">Next</a></li>
     </ul>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="SourceModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                    data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Sources</h4>
+            </div>
+            <div class="modal-body" id="source-modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" 
+                    data-dismiss="modal">Close</button>
+            </div>
+        </div> 
     </div>
 </div>
 <script>
@@ -111,14 +153,29 @@
     $(document).ready(function(){
         i = {{session.user_id}}
         $("select[name='user_id'] option[value='"+i+"']").attr('selected', 'selected')
-        $("#fb-btn").click(function(){$("#text-source").val("facebook")})
-        $("#tw-btn").click(function(){$("#text-source").val("twitter")})
+        $("#mc-btn").click(function(){$("#text-mode").val("0")})
+        $("#tw-btn").click(function(){$("#text-mode").val("1")})
+        $("#fb-btn").click(function(){$("#text-mode").val("2")})
 
-        $("#next").click(function(){$.getJSON($SCRIPT_ROOT+"uif/text/change_page"
-                    ,{'page':"next"},function(data){refresh_table(data.texts)})})
-        $("#prev").click(function(){$.getJSON($SCRIPT_ROOT+"uif/text/change_page"
-                    ,{'page':"prev"},function(data){refresh_table(data.texts)})})
-
+        $("#next").click(function(){
+            $.getJSON($SCRIPT_ROOT+"uif/complement/change_page",
+            {'page':"next"},function(data){refresh_table(data.texts)})})
+        $("#prev").click(function(){
+            $.getJSON($SCRIPT_ROOT+"uif/complement/change_page",
+            {'page':"prev"},function(data){refresh_table(data.texts)})})
+        $('.source').click(function(){
+            $('#source-modal-body').empty()
+            inner = ""
+            inner = $(this).attr('data')
+            $('#source-modal-body').html(inner)
+        })
+        $('.rele').click(function(){
+            source = $(this).attr('data')
+            $.getJSON($SCRIPT_ROOT+"uif/complement/get_raw",
+            {'source':source},function(data){
+                alert(data.text)
+            })
+        })
     })
 </script>
 {% endif %}

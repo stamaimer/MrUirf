@@ -167,13 +167,20 @@ def timer(raw_time):
     else:
         return raw_time
 
-def fetch_status(username, page_no):
+def fetch_status(username, page_no, page_size = 20):
     client = MongoClient('mongodb://localhost:27017/')
     status = client.msif.facebook_status
     peer   = status.find_one({'username':username})
     page_no= int(page_no)
-    texts  = peer['texts'][(page_no-1)*20:page_no*20]
+    texts  = peer['texts'][(page_no-1)*page_size:page_no*page_size]
     return texts
+
+def fetch_raw_status(username, index):
+    client = MongoClient('mongodb://localhost:27017/')
+    status = client.msif.facebook_status
+    peer   = status.find_one({'username':username})
+    texts  = peer['texts']
+    return texts[int(index)]
 
 def get_peer():
 

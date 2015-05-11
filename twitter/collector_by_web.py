@@ -259,6 +259,13 @@ def fetch_tweets(username, page_no, page_size = 20):
     texts  = peer['texts'][(page_no-1)*page_size:page_no*page_size]
     return texts
 
+def fetch_raw_tweet(username, index):
+    client = MongoClient('mongodb://localhost:27017/')
+    tweets = client.msif.twitter_tweets
+    peer   = tweets.find_one({'username':username})
+    texts  = peer['texts']
+    return texts[int(index)]
+
 def get_default_peers():
 
     # the following peers have too many tweets and do not contain many important

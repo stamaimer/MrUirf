@@ -49,8 +49,8 @@ def peer_relevance_chi_square(text_coll, peer_username, corpus_coll):
     for index, text in enumerate(texts):
         tasks.append({'index':index, 'text':text})
 
-    process_count = cpu_count() * 4
-    #process_count = 1
+    #process_count = cpu_count() * 4
+    process_count = 1
 
     while True:
         try:    [buffer.put(tasks.pop(0)) for i in xrange(320)]
@@ -168,5 +168,5 @@ if __name__ == '__main__':
     text_coll  = client.msif.facebook_status
     corpus_coll= client.msif.twitter_tweets
     # peer_relevance_chi_square(twcoll, '@CFinchMOISD')
-    peer_relevance_chi_square(text_coll, '@jim7962', corpus_coll)
+    peer_relevance_chi_square(text_coll, '@donovanscience', corpus_coll)
     
