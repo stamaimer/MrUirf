@@ -189,7 +189,7 @@ def get_peer():
     link = account_data['default_peer_link']
     username = re.split(r'facebook.com/', link)[1].split('?')[0]
     link = "%s/%s" % (HOST, username)
-    return [{'link':link, 'username':username}]
+    return [{'link':link, 'username':'@'+username}]
 
 if __name__ == '__main__':
 
