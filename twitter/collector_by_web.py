@@ -33,7 +33,7 @@ from datetime   import date, datetime, timedelta
 from lxml       import html
 from lxml       import cssselect
 
-HOST    = "https://mobile.twitter.com"
+HOST    = "http://mobile.twitter.com"
 
 # tweets json format:
 # {
@@ -280,9 +280,10 @@ def get_default_peers():
     #{'name':'Jenna Lucas',  'link':'/JennaLucas81', 'username':'@JennaLucas81'},
     #{'name':'Adam Lofting', 'link':'/adamlofting',  'username':'@adamlofting'},
     #{'name':'Ginger Kadlec','link':'/GingerKadlec', 'username':'@GingerKadlec'},
+    #{'name':'David Chan',   'link':'/chanatown',    'username':'@chanatown'}
 
     peers   = [
-    {'name':'David Chan', 'link':'/chanatown', 'username':'@chanatown'}
+    {'name':'Amy Shearn', 'link':'/amyshearn', 'username':'@amyshearn'}
     ]
 
     return peers
@@ -307,10 +308,11 @@ if __name__ == '__main__':
                 store(client, get_tweets(peer))
 
             # get followers
-            if len(peers) < 3000:
-                followers = get_followers(peer, True)
-                for follower in followers:
-                    peers.append(follower)
+            # corpus is built up, do not need get followers any more
+            # if len(peers) < 3000:
+            #     followers = get_followers(peer, True)
+            #     for follower in followers:
+            #         peers.append(follower)
 
             print
             print

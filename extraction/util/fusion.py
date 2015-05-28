@@ -88,6 +88,8 @@ def fusion(user_id, tw_coll, tw_username, fb_coll, fb_username, id_coll):
                     individual['entities'].append(entity_item)
 
     id_coll.insert(individual)
+    dividi_rele_source_mode(user_id, id_coll)
+    divide_entity_source(user_id, id_coll)
 
 def divide_entity_source(user_id, id_coll):
 
@@ -141,7 +143,6 @@ def dividi_rele_source_mode(user_id, id_coll):
 
     id_coll.update_one({'user_id':user_id},{'$set':{'entities':entities}})
 
-
 def get_entities(user_id, mode, page_no):
 
     client = MongoClient('mongodb://localhost:27017/')
@@ -167,12 +168,12 @@ if __name__ == "__main__":
     status = client.msif.facebook_status
     individual = client.msif.individual
 
-    user_id = 1
-    tw_username= "@CFinchMOISD"
-    fb_username= "@jim7962"
+    user_id = 3
+    tw_username= "@amyshearn"
+    fb_username= "@amy.shearn"
 
-    # fusion(user_id, tweets, tw_username, status, fb_username, individual)
-    # entities = get_entities(user_id, individual, '2')
-    # print len(entities)
-    # dividi_rele_source_mode(user_id, individual)
-    # divide_entity_source(user_id, individual)
+    fusion(user_id, tweets, tw_username, status, fb_username, individual)
+
+    #entities = get_entities(user_id, '0', '1')
+    #print entities[0]
+    #print len(entities)

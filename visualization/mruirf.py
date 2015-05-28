@@ -113,12 +113,11 @@ def uif_complement():
         data = get_entities(data)
     return render_template('uif/complement.html', data=data)
 
-@app.route('/uif/complement/get_raw')
-def uif_complement_raw_text():
+@app.route('/uif/complement/change_page')
+def uif_complement_change_page():
     data = {}
-    data = get_raw_text(data)
-    print data
-    return jsonify(text=data['text'])
+    data = get_entities_page(data)
+    return jsonify(entities=data['entities'])
 
 def extractor_preprocess(data):
     if session['method'] == 'GET': return data
@@ -156,12 +155,27 @@ def get_entities(data):
 
         user_id = session['user_id']
         mode    = session['mode']
-        print "##########", mode
         if   mode=='0': page_no = session['mc_page_no']
         elif mode=='1': page_no = session['tw_page_no']
         elif mode=='2': page_no = session['fb_page_no']
         entities = fusion.get_entities(user_id, mode, page_no)
         data['entities'] = entities
+    return data
+
+def get_entities_page(data):
+    turn_pg = request.args.get('page', 0, type=str)
+    user_id = session['user_id']
+    mode    = session['mode']
+    if   mode=='0': page_no = session['mc_page_no']
+    elif mode=='1': page_no = session['tw_page_no']
+    elif mode=='2': page_no = session['fb_page_no']
+    if turn_pg == "next": page_no = int(page_no)+1
+    if turn_pg == "prev": page_no = int(page_no)-1
+    if   mode=='0': session['mc_page_no'] = page_no
+    elif mode=='1': session['tw_page_no'] = page_no
+    elif mode=='2': session['fb_page_no'] = page_no
+    entities = fusion.get_entities(user_id, mode, page_no)
+    data['entities'] = entities
     return data
 
 def get_texts(data):

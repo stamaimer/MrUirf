@@ -90,23 +90,21 @@
             <tr>
                 <th>{{ entity['word'] }}</th>
                 <td>
-                    {{entity['entity_count']}}
-                    <font class="blue-mark source" data-toggle="modal"
-                        data-target="#SourceModal" data="aa">twitter</font>
-                    <font class="red-mark source" data-toggle="modal"
-                        data-target="#SourceModal" data="bb">facebook</font>
+                    {% if session['mode'] == '0' or session['mode'] == '1' %}
+                    <font class="blue-mark">twitter</font>
+                    {% endif %}
+                    {% if session['mode'] == '0' or session['mode'] == '2' %}
+                    <font class="red-mark">facebook</font>
+                    {% endif %}
                 </td>
                 <td>
                     {% for rele in entity['relevance_s'] %}
                     {% if rele['mode']|length == 2%}
-                    <font class="green-mark rele" data="{{rele['sources'][0]}}">
-                        {{rele['word']}}</font>
+                    <font class="green-mark">{{rele['word']}}</font>
                     {% elif rele['mode'] == ['twitter'] %}
-                    <font class="blue-mark rele" data="{{rele['sources'][0]}}">
-                        {{rele['word']}}</font>
+                    <font class="blue-mark">{{rele['word']}}</font>
                     {% elif rele['mode'] == ['facebook'] %}
-                    <font class="red-mark rele" data="{{rele['sources'][0]}}">
-                        {{rele['word']}}</font>
+                    <font class="red-mark">{{rele['word']}}</font>
                     {% endif %}
                     {% endfor %}
                 </td>
@@ -120,33 +118,32 @@
     </ul>
     </div>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="SourceModal" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close"
-                    data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Sources</h4>
-            </div>
-            <div class="modal-body" id="source-modal-body">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" 
-                    data-dismiss="modal">Close</button>
-            </div>
-        </div> 
-    </div>
-</div>
 <script>
     var $SCRIPT_ROOT = "{{ session['host'] }}"
     function refresh_table(data){
         $("#data_screen").empty()
         inner = ""
         for (i=0; i < data.length; i++){
-            inner += "<tr><td>"+data[i].content+"</td><td>"+data[i].time
-            inner += "</td><td>"+data[i].flag+"</td></tr>"
+            inner += "<tr><th>"+data[i].word+"</th>"
+            if(data[i].source_count.length == 2){
+                inner += "<td> <font class='blue-mark'>twitter</font>"
+                inner += " <font class='red-mark'>facebook</font></td>"
+            }
+            else if(data[i].source_count == "twitter"){
+                inner += "<td><font class='blue-mark'>twitter</font></td>"}
+            else if(data[i].source_count == "facebook"){
+                inner += "<td><font class='red-mark'>facebook</font></td>"}
+            inner += "<td>"
+            for(j=0; j<data[i]['relevance_s'].length; j++){
+                rele = data[i]['relevance_s'][j]
+                if(rele['mode'].length == 2)
+                    inner+=" <font class='green-mark'>"+rele['word']+"</font>"
+                else if(rele['mode'] == 'twitter')
+                    inner+=" <font class='blue-mark'>"+rele['word']+"</font>"
+                else if(rele['mode'] == 'facebook')
+                    inner+=" <font class='red-mark'>"+rele['word']+"</font>"
+            }
+            inner += "</td></tr>"
         }
         $("#data_screen").html(inner)
     }
@@ -159,23 +156,10 @@
 
         $("#next").click(function(){
             $.getJSON($SCRIPT_ROOT+"uif/complement/change_page",
-            {'page':"next"},function(data){refresh_table(data.texts)})})
+            {'page':"next"},function(data){refresh_table(data.entities)})})
         $("#prev").click(function(){
             $.getJSON($SCRIPT_ROOT+"uif/complement/change_page",
-            {'page':"prev"},function(data){refresh_table(data.texts)})})
-        $('.source').click(function(){
-            $('#source-modal-body').empty()
-            inner = ""
-            inner = $(this).attr('data')
-            $('#source-modal-body').html(inner)
-        })
-        $('.rele').click(function(){
-            source = $(this).attr('data')
-            $.getJSON($SCRIPT_ROOT+"uif/complement/get_raw",
-            {'source':source},function(data){
-                alert(data.text)
-            })
-        })
+            {'page':"prev"},function(data){refresh_table(data.entities)})})
     })
 </script>
 {% endif %}

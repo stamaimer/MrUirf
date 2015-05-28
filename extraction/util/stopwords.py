@@ -10,7 +10,7 @@ def stopwords_nltk():
 def stopwords_mysql():
 
     stopwords = ["a's",     'able',     'about',    'above',    'according', 
-                 'accordingly',         'across',   'actually', 'after', 
+                 'accordingly','a',     'across',   'actually', 'after', 
                  'afterwards',          'again',    'against',  "ain't", 
                  'all',     'allow',    'allows',   'almost',   'alone', 
                  'along',   'already',  'also',     'although', 'always', 
@@ -53,7 +53,7 @@ def stopwords_mysql():
                  'here',    "here's",   'hereafter','hereby',   'herein', 
                  'hereupon','hers',     'herself',  'hi',       'him', 
                  'himself', 'his',      'hither',   'hopefully','how', 
-                 'howbeit', 'however',  "i'd",      "i'll",     "i'm", 
+                 'howbeit', 'however',  "i'd",      "i'll",     "i'm","i", 
                  "i've",    'ie',       'if',       'ignored',  'immediate', 
                  'in',      'inasmuch', 'inc',      'indeed',   'indicate', 
                  'indicated','i'        'indicates','inner',    'insofar', 
@@ -134,7 +134,7 @@ def punctuation():
     puncs = ['!', '"', '#', '$', '%', '&', '\'','(', ')', '*', '+',
              ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', 
              '[', '\\',']', '^', '_', '`', '{', '|', '}', '~', '...', 
-             '…']
+             '…', "“", "”", '‘', '’', '', '.…', '.....',  '«']
 
     return puncs
 

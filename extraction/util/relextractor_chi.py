@@ -49,8 +49,8 @@ def peer_relevance_chi_square(text_coll, peer_username, corpus_coll):
     for index, text in enumerate(texts):
         tasks.append({'index':index, 'text':text})
 
-    #process_count = cpu_count() * 4
-    process_count = 1
+    process_count = cpu_count() * 4
+    #process_count = 1
 
     while True:
         try:    [buffer.put(tasks.pop(0)) for i in xrange(320)]
@@ -92,7 +92,7 @@ def text_relevance_chi_square(corpus_coll, text):
     entities = text['entity']
 
     print "STAT: %s" % ('-'*60)
-    print "STAT: Tweet: %s" % " ".join(content.encode('utf8').split('\n'))
+    print "STAT: Text: %s" % " ".join(content.encode('utf8').split('\n'))
 
     for entity in entities:
 
@@ -113,7 +113,7 @@ def text_relevance_chi_square(corpus_coll, text):
         exile_words = exile_words + exile_puncs
 
         # calculate the relevance scores of every word and the entity
-        for token in [t for t in tokens if t.lower().encode('utf8') not in exile_words]:
+        for token in [t for t in tokens if t.lower().encode('utf8') not in exile_words]:    
             n11 = 0.0   # token hit     |   type hit
             n10 = 0.0   # token hit     |   type not hit
             n01 = 0.0   # token not hit |   type hit
@@ -165,8 +165,8 @@ def text_relevance_chi_square(corpus_coll, text):
 if __name__ == '__main__':
 
     client = MongoClient('mongodb://localhost:27017/')
-    text_coll  = client.msif.facebook_status
+    text_coll  = client.msif.twitter_tweets
     corpus_coll= client.msif.twitter_tweets
     # peer_relevance_chi_square(twcoll, '@CFinchMOISD')
-    peer_relevance_chi_square(text_coll, '@donovanscience', corpus_coll)
+    peer_relevance_chi_square(text_coll, '@amyshearn', corpus_coll)
     

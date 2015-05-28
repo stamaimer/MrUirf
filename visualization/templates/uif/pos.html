@@ -144,23 +144,23 @@
                     inner += " <font class='yellow-mark' data-toggle='tooltip'"
                     inner += "title='"+tag[1]+"'>"+tag[0]+"</font> "
                     }
-                if (tag[1]=='JJ'){
+                else if (tag[1]=='JJ'){
                     inner += " <font class='red-mark' data-toggle='tooltip'"
                     inner += "title='"+tag[1]+"'>"+tag[0]+"</font> "
                     }
-                if (tag[1]=='PR'){
+                else if (tag[1]=='PR'){
                     inner += " <font class='green-mark' data-toggle='tooltip'"
                     inner += "title='"+tag[1]+"'>"+tag[0]+"</font> "
                     }
-                if (tag[1]=='VB'){
+                else if (tag[1]=='VB'){
                     inner += " <font class='purple-mark' data-toggle='tooltip'"
                     inner += "title='"+tag[1]+"'>"+tag[0]+"</font> "
                     }
-                if (tag[1]=='NN'){
+                else if (tag[1]=='NN'){
                     inner += " <font class='blue-mark' data-toggle='tooltip'"
                     inner += "title='"+tag[1]+"'>"+tag[0]+"</font> "
                     }
-                else inner += " "+tag[0]+" "
+                else{inner += " "+tag[0]+" "}
             }
             inner += "</td></tr>"
         }
