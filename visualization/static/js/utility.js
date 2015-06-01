@@ -9,6 +9,8 @@ var twitter = d3.select("#twitter").append("svg").attr("width", width).attr("hei
 
 function draw(error, graph, svg, ico) 
 {
+    console.log(graph.nodes)
+
   var force = d3.layout.force()
     .charge(-100)
     .gravity(.05)
