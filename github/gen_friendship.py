@@ -135,14 +135,14 @@ def start(login, depth=2):
     nodes.append({"name":login, "group":0})
 
     for node in nodes:
-
+        print nodes
         name = node["name"]; group = node["group"]
 
         followers = get_followers(name)
         following = get_following(name)
 
         intersection = set(following).intersection(followers)
-
+        print intersection
         for user in intersection:
 
             if user not in [ele["name"] for ele in nodes]:
@@ -164,10 +164,11 @@ def start(login, depth=2):
     print "generate graph ..."
 
     data = {"nodes":nodes, "links":links}
-
+    print data
     # with open("/var/www/html/msif/" + login + "_github.json", 'w') as outfile:
     # with open("/var/www/html/msif/github.json", 'w') as outfile:
     with open("./static/data/" + login + "_github.json", 'w') as outfile:
+    # with open("./" + login + "_github.json", 'w') as outfile:
 
         json.dump(data, outfile)
 
