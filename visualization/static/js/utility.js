@@ -69,7 +69,7 @@ $("button").click(function(events){
         var twitter = d3.select("#twitter").append("svg").attr("width", width).attr("height", height);
 
         d3.json("/static/data/" + $("#github_username").val() + "_github.json", function(error, graph){draw(error, graph, github, github_ico)});
-        d3.json("/static/data/" + $("#twitter_username").val() + "_ttwitter.json", function(error, graph){draw(error, graph, twitter, twitter_ico)});
+        d3.json("/static/data/" + $("#twitter_username").val() + "_twitter.json", function(error, graph){draw(error, graph, twitter, twitter_ico)});
 
         $("table").html(data);
       });
