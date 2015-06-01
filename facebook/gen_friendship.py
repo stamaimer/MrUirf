@@ -123,7 +123,7 @@ def get_friends(handle, node):
 
 def start(name, link, depth):
 
-    handle = login("stamaimer@gmail.com", "bl4u-awsf")
+    handle = login("stamaimer@gmail.com", "")
 
     nodes.append({"name":name, "link":link, "group":0})
 

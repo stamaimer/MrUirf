@@ -62,7 +62,7 @@ def retrieve(url):
 
             print "request : %s" % url
 
-            response = requests.get(url, params = {"client_id" : CLIENT_ID, "client_secret" : CLIENT_SECRET}, headers = headers)
+            response = requests.get(url, params = {"per_page" : 100, "client_id" : CLIENT_ID, "client_secret" : CLIENT_SECRET}, headers = headers)
 
             if 200 == response.status_code:
 

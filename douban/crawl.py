@@ -24,7 +24,7 @@ session = requests.Session()
 
 form_email = 'stamaimer@gmail.com'
 
-form_password = 'bl4u-awsd'
+form_password = ''
 
 
 
