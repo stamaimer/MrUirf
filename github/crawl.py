@@ -8,13 +8,13 @@ import time
 
 
 
-client_id = '1c6409e7a4219e6dea66'
+client_id = ''
 
-client_secret = '44636a9d327c1e47aba28a9b50a22b39ac4caeb4'
+client_secret = ''
 
 root_endpoint = 'https://api.github.com'
 
-headers = {'Accept' : 'application/vnd.github.v3+json', 'User-Agent' : 'stamaimer'}
+headers = {'Accept' : 'application/vnd.github.v3+json', 'User-Agent' : ''}
 
 
 

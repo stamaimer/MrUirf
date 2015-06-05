@@ -9,8 +9,8 @@ session = requests.session()
 session.get(login_url)
 
 payload = {
-    "form_email":"stamaimer@gmail.com",
-    "form_password":"bl4u-awsd"
+    "form_email":"",
+    "form_password":""
 }
 
 response = session.post(do_login_url, payload)

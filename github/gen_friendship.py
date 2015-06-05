@@ -15,15 +15,15 @@ links = []
 
 sleep_count = 0
 
-CLIENT_ID = "1c6409e7a4219e6dea66"
-CLIENT_SECRET = "44636a9d327c1e47aba28a9b50a22b39ac4caeb4"
+CLIENT_ID = ""
+CLIENT_SECRET = ""
 
 ROOT_ENDPOINT = "https://api.github.com"
 USER_ENDPOINT = ROOT_ENDPOINT + "/users/%s"
 FOLLOWERS_ENDPOINT = USER_ENDPOINT + "/followers"
 FOLLOWING_ENDPOINT = USER_ENDPOINT + "/following"
 
-headers = {"Accept" : "application/vnd.github.v3+json", "User-Agent" : "stamaimer"}
+headers = {"Accept" : "application/vnd.github.v3+json", "User-Agent" : ""}
 
 ratelimit_remaining = "5000"
 ratelimit_reset = time.time()

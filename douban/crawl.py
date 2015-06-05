@@ -22,7 +22,7 @@ session = requests.Session()
 
 
 
-form_email = 'stamaimer@gmail.com'
+form_email = ''
 
 form_password = ''
 
